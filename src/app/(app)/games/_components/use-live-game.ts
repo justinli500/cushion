@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import type { Candle, Game } from "@/domains/markets/types";
+import type { Candle, Game, PlayerProp } from "@/domains/markets/types";
 import { winChance } from "@/domains/scores/chance";
 import { matchScore } from "@/domains/scores/match";
 import { addLivePoint, mergeHistory, sinceFor, type OddsPoint } from "@/domains/scores/series";
 import { isLeague, type Play, type Score } from "@/domains/scores/types";
 import { usePoll } from "@/lib/use-poll";
 import type { GameFeed } from "./feed";
+import type { GameView } from "./view";
 
 const MARKET_MS = 4_000;
 const BOARD_MS = 10_000;
@@ -25,8 +26,8 @@ function useCandles(symbol: string | undefined): Candle[] {
 }
 
 /** Polls a real game: its market every 4 seconds, ESPN for the score, and Gemini's traded history for the chart. */
-export function useLiveGame(gameId: string): GameFeed {
-  const market = usePoll<{ game: Game | null }>(`/api/markets/games/${encodeURIComponent(gameId)}`, MARKET_MS);
+export function useLiveGame(gameId: string): GameView {
+  const market = usePoll<{ game: Game | null; props: PlayerProp[] }>(`/api/markets/games/${encodeURIComponent(gameId)}`, MARKET_MS);
   const game = market.data?.game ?? null;
 
   const league = game && isLeague(game.league) ? game.league : null;
@@ -86,5 +87,8 @@ export function useLiveGame(gameId: string): GameFeed {
     playsUnavailable: matched != null && summary.data == null && summary.error != null,
     points,
     replay: null,
+    at: live.polledAt,
+    recording: null,
+    props: market.data?.props ?? [],
   };
 }

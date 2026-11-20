@@ -129,5 +129,5 @@ export function GameVideo({ youtubeId, startSeconds, onTime, onUnavailable, jump
     }
   }, [jump, youtubeId]);
 
-  return <div ref={holder} className="aspect-video w-full overflow-hidden rounded-xl bg-foreground [&_iframe]:h-full [&_iframe]:w-full" />;
+  return <div ref={holder} className="aspect-video w-full overflow-hidden bg-[#0A1220] [&_iframe]:h-full [&_iframe]:w-full" />;
 }

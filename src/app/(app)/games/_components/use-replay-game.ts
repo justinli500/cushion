@@ -5,7 +5,7 @@ import { record, useAccount } from "@/domains/account/store";
 import { settleLegs } from "@/domains/cushion/price";
 import { cleaned, frameAt, moments, replayBooks, replayResolutions, replaySchema, replaySpan, type Replay } from "@/domains/replay/replay";
 import { usePoll } from "@/lib/use-poll";
-import type { GameFeed } from "./feed";
+import type { GameView } from "./view";
 
 export const REPLAY_ID = "nfl-ind-hou-2026-11-19";
 export const REPLAY_SPEEDS = [30, 60, 240];
@@ -16,7 +16,7 @@ const TICK_MS = 200;
  * When the game has a broadcast, the video's position is the clock, so pausing or scrubbing the video
  * moves everything with it. Without one, the game runs on its own clock.
  */
-export function useReplayGame(): GameFeed {
+export function useReplayGame(): GameView {
   const file = usePoll<unknown>(`/replays/${REPLAY_ID}.json`);
   const replay: Replay | null = useMemo(() => {
     const parsed = replaySchema.safeParse(file.data);
@@ -74,6 +74,9 @@ export function useReplayGame(): GameFeed {
       playsUnavailable: false,
       points: [],
       replay: null,
+      at: null,
+      recording: null,
+      props: [],
     };
   }
 
@@ -87,6 +90,9 @@ export function useReplayGame(): GameFeed {
     plays: frame.plays,
     playsUnavailable: false,
     points: frame.points,
+    at: span.start + elapsed,
+    recording: replay,
+    props: [],
     replay: {
       id: replay.id,
       playedAt: frame.game.startTime,
