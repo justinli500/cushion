@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist_Mono, Inter, Space_Grotesk } from "next/font/google";
 import type { ReactNode } from "react";
 import { SettlementWatcher } from "@/components/settlement-watcher";
+import { WarmCache } from "@/components/warm-cache";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="min-h-full" suppressHydrationWarning>
         {children}
         <SettlementWatcher />
+        <WarmCache />
         <Toaster position="bottom-right" />
       </body>
     </html>

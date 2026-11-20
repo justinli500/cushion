@@ -23,6 +23,16 @@ export const cleanSymbol = (raw: string) => {
 /** The symbol the S&P 500's daily history is fetched under. */
 export const INDEX = "SPX";
 
+/** Shown until the person adds a holding of their own, so the chart is there to try straight away. */
+export const EXAMPLE_HOLDINGS: Holding[] = [
+  { symbol: "BTC", value: 2000 },
+  { symbol: "ETH", value: 1000 },
+  { symbol: "NVDA", value: 1500 },
+];
+
+/** Where the portfolio page reads daily price history from: every market it can match a holding to, the index, and the holdings themselves. */
+export const historyUrl = (holdings: Holding[], factors: string[]): string => `/api/prices?symbols=${[...new Set([...factors, INDEX, ...holdings.map((h) => h.symbol)])].join(",")}`;
+
 /** A holding is only called a match when the factor explains at least this share of its daily moves. */
 export const MIN_R2 = 0.15;
 const MIN_DAYS = 40;
