@@ -196,6 +196,7 @@ function Copula({ pours, cue, auto, lead }: { pours: number; cue: number; auto: 
   const halos = useRef<THREE.InstancedMesh>(null);
   const dummy = useMemo(() => new THREE.Object3D(), []);
   const scratch = useMemo(() => new THREE.Color(), []);
+  const camera = useThree((state) => state.camera);
 
   useEffect(() => {
     if (pours > 0 && sim.current) spawn(sim.current.drops, 26);
@@ -211,17 +212,23 @@ function Copula({ pours, cue, auto, lead }: { pours: number; cue: number; auto: 
       const kept = drops.filter((d) => d.active && d.keep && !d.fading).sort((a, b) => a.born - b.born);
       if (kept.length >= lead.keep) kept[0].fading = true;
     }
+    // The drop drifts toward the right of the screen as it falls, the way the line was heading.
+    // That direction is fixed to the page, so as the sheet turns it lands somewhere new each time.
+    const right = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 0).setY(0).normalize();
+    const drift = Math.abs(lead.vy) * lead.slant;
     spawnAt(drops, {
       // A hair off the very middle, which is a saddle: a drop there would balance instead of rolling off.
       x: (Math.random() - 0.5) * 0.12,
       z: (Math.random() - 0.5) * 0.12,
       y: lead.y,
       vy: lead.vy,
+      vx: right.x * drift,
+      vz: right.z * drift,
       size: lead.size,
       keep,
       born: sim.current.clock,
     });
-  }, [cue, lead.y, lead.vy, lead.size, lead.keep]);
+  }, [cue, lead.y, lead.vy, lead.size, lead.keep, lead.slant, camera]);
 
   useFrame((_, rawDelta) => {
     const dt = Math.min(rawDelta, 1 / 30);
@@ -375,6 +382,8 @@ interface Lead {
   size: number;
   /** How many of these drops stay on the sheet at once. 0 lets each fade after it bounces. */
   keep: number;
+  /** Sideways drift toward the right of the screen, as a share of its falling speed. */
+  slant: number;
 }
 
 export interface CopulaView {
@@ -406,7 +415,7 @@ function Recenter({ center }: { center: number }) {
   return null;
 }
 
-const DEFAULT_LEAD: Lead = { y: 3.2, vy: -2, size: 1, keep: 0 };
+const DEFAULT_LEAD: Lead = { y: 3.2, vy: -2, size: 1, keep: 0, slant: 0 };
 
 export function CopulaScene({ pours, cue = 0, view = {} }: { pours: number; cue?: number; view?: CopulaView }) {
   const { camera = [4.6, 3.4, 4.8], zoom = true, transparent = false, center = 0.5, auto = true, lead = DEFAULT_LEAD } = view;
