@@ -4,6 +4,7 @@ import {
   type Bucket,
   type BucketMarket,
   type Contract,
+  type EventMarket,
   type Game,
   type Ladder,
   type PlayerProp,
@@ -27,6 +28,21 @@ export function toContract(raw: RawContract): Contract {
       last: raw.prices?.lastTradePrice ?? null,
     },
     open: raw.status === "active" && (raw.marketState == null || raw.marketState === "open"),
+  };
+}
+
+/** Any event with at least one open contract, as a list of yes/no outcomes. Used for news-event markets. */
+export function toEventMarket(event: RawEvent): EventMarket | null {
+  const outcomes = event.contracts.map((raw) => ({ label: raw.label, contract: toContract(raw) })).filter((o) => o.contract.open);
+  if (outcomes.length === 0 || !event.expiryDate || !event.category) return null;
+  return {
+    kind: "event",
+    eventTicker: event.ticker,
+    title: event.title,
+    category: event.category,
+    expiry: event.expiryDate,
+    volume: event.volume ?? 0,
+    outcomes,
   };
 }
 

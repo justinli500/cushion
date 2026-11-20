@@ -110,6 +110,21 @@ export interface PlayerProp {
   lines: PropLine[];
 }
 
+/**
+ * A market about something in the news: a Fed decision, how low the S&P gets, who wins an award.
+ * Each outcome is its own yes/no contract.
+ */
+export interface EventMarket {
+  kind: "event";
+  eventTicker: string;
+  title: string;
+  /** Gemini's category, e.g. "Economics", "Politics", "Culture". */
+  category: string;
+  expiry: string;
+  volume: number;
+  outcomes: { label: string; contract: Contract }[];
+}
+
 export interface Level {
   price: number;
   size: number;

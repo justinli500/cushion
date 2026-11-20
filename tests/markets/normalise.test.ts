@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { trustedImage, toBucketMarket, toContract, toGame, toLadder, toPlayerProps } from "@/domains/markets/normalise";
+import { trustedImage, toBucketMarket, toContract, toEventMarket, toGame, toLadder, toPlayerProps } from "@/domains/markets/normalise";
 import { bookResponseSchema, eventsResponseSchema } from "@/domains/markets/schemas";
 
 // Real Gemini responses, captured by scripts/capture-fixtures.mjs.
@@ -75,5 +75,27 @@ describe("normalising Gemini events", () => {
     expect(trustedImage("https://a.espncdn.com/i/teamlogos/nfl/500/hou.png")).toBe("https://a.espncdn.com/i/teamlogos/nfl/500/hou.png");
     expect(trustedImage("https://a.espncdn.com.evil.example/x.png")).toBeNull();
     expect(trustedImage(undefined)).toBeNull();
+  });
+
+  it("turns a news event into its open yes/no outcomes", () => {
+    const [event] = eventsResponseSchema.parse({
+      data: [
+        {
+          ticker: "FED261211",
+          title: "Fed decision in December?",
+          category: "Economics",
+          expiryDate: "2026-12-11T19:00:00.000Z",
+          volume: "14638",
+          contracts: [
+            { label: "Hike 25bps", ticker: "HIKE25", instrumentSymbol: "GEMI-FED261211-HIKE25", status: "active", prices: { bestBid: "0.89", bestAsk: "0.93" } },
+            { label: "Cut 25bps", ticker: "CUT25", instrumentSymbol: "GEMI-FED261211-CUT25", status: "settled", prices: {} },
+          ],
+        },
+      ],
+    }).data;
+    const market = toEventMarket(event)!;
+    expect(market).toMatchObject({ kind: "event", title: "Fed decision in December?", category: "Economics", volume: 14638 });
+    expect(market.outcomes.map((o) => [o.label, o.contract.quote.bid, o.contract.quote.ask])).toEqual([["Hike 25bps", 0.89, 0.93]]);
+    expect(toEventMarket({ ...event, contracts: [] })).toBeNull();
   });
 });

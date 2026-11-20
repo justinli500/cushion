@@ -23,7 +23,13 @@ export const profileSchema = z.object({
     })
     .default({ gasGallonsPerMonth: null, heatingBillPerMonth: null, mode: "spike", autopilot: false, lastRun: null }),
   /** Fantasy: player names exactly as Gemini lists them, e.g. "Jonathan Taylor". */
-  fantasy: z.object({ players: z.array(z.string()).default([]) }).default({ players: [] }),
+  fantasy: z
+    .object({
+      players: z.array(z.string()).default([]),
+      /** Dollars riding on this week's matchup. */
+      stake: z.number().default(50),
+    })
+    .default({ players: [], stake: 50 }),
   /** Small business: `type` is a preset id from domains/exposure/business. */
   business: z
     .object({ type: z.string().nullable().default(null), city: z.string().nullable().default(null) })

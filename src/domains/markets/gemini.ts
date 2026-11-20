@@ -1,7 +1,7 @@
 import { cached } from "@/lib/ttl-cache";
 import { bookResponseSchema, candlesResponseSchema, eventsResponseSchema, type RawEvent } from "./schemas";
-import { toBucketMarket, toGame, toLadder, toPlayerProps } from "./normalise";
-import type { Book, BucketMarket, Candle, Game, Ladder, PlayerProp } from "./types";
+import { toBucketMarket, toEventMarket, toGame, toLadder, toPlayerProps } from "./normalise";
+import type { Book, BucketMarket, Candle, EventMarket, Game, Ladder, PlayerProp } from "./types";
 
 const BASE = "https://api.gemini.com";
 // Prediction symbols look like GEMI-NFL-2611200115-IND-HOU-M-HOU and are case-sensitive upstream.
@@ -31,6 +31,19 @@ export async function getLadders(): Promise<Ladder[]> {
     fetchEvents({ status: "active", category: "Commodities" }, 20_000),
   ]);
   return [...crypto, ...commodities].map(toLadder).filter((l): l is Ladder => l !== null);
+}
+
+/** The categories of news-event markets. The unfiltered event list is capped and nearly all sports, so each is asked for by name. */
+export const NEWS_CATEGORIES = ["Economics", "Politics", "Business", "Tech", "Culture"] as const;
+
+/** Markets about things in the news, most traded first. A category Gemini fails to answer for is left out. */
+export async function getEventMarkets(): Promise<EventMarket[]> {
+  const settled = await Promise.allSettled(NEWS_CATEGORIES.map((category) => fetchEvents({ status: "active", category }, 60_000)));
+  return settled
+    .flatMap((result) => (result.status === "fulfilled" ? result.value : []))
+    .map(toEventMarket)
+    .filter((m): m is EventMarket => m !== null)
+    .sort((a, b) => b.volume - a.volume);
 }
 
 export async function getWeather(): Promise<BucketMarket[]> {

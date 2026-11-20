@@ -119,7 +119,8 @@ function side(team: Replay["home"], homeAway: "home" | "away", at: number): Team
     abbr: team.abbr,
     name: team.name,
     side: homeAway,
-    contract: { symbol: team.symbol, label: team.name, quote, open: true, image: trustedImage(team.logo) },
+    // Gemini labels a team's contract with its city, and the saved game follows suit.
+    contract: { symbol: team.symbol, label: team.name.split(" ").slice(0, -1).join(" ") || team.name, quote, open: true, image: trustedImage(team.logo) },
   };
 }
 

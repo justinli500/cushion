@@ -35,7 +35,7 @@ export default function FantasyPage() {
     return () => clearInterval(timer);
   }, []);
 
-  const setLineup = (players: string[]) => updateProfile("fantasy", { players });
+  const setLineup = (players: string[]) => updateProfile("fantasy", { ...fantasy, players });
   const remove = (name: string) => {
     setLineup(names.filter((n) => n !== name));
     if (selection?.player === name) setSelection(null);

@@ -5,58 +5,88 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * One dark theme. The surfaces, type and shapes follow Totalis: a warm charcoal page, flat
- * borderless cards a step lighter, soft off-white type, and a lavender accent for whatever is
- * selected. The one loud color is the indigo of the main action. The app is always dark, so :root
- * and .dark carry the same values.
+ * Tokens from the design handoff. A light ground with white cards, ink type, one blue accent and
+ * one orange for risk. Blue means covered or gained, orange means risk or lost, and neither is
+ * ever the only signal: the words beside them say the same thing.
  */
-:root,
-.dark {
-  --background: #1a1a1a;
-  --foreground: #f2f0f0;
-  --card: #272727;
-  --card-foreground: #f2f0f0;
-  --popover: #302f2f;
-  --popover-foreground: #f2f0f0;
-  --primary: #aea4ff;
-  --primary-foreground: #1a1a1a;
-  --secondary: #302f2f;
-  --secondary-foreground: #f2f0f0;
-  --muted: #302f2f;
-  --muted-foreground: #a09f9f;
-  --accent: #343434;
-  --accent-foreground: #f2f0f0;
-  --destructive: #ff9d8f;
-  --border: #343434;
-  --input: #3b3a3a;
-  --ring: #aea4ff;
-  /* The main action on a screen: adding a cushion. */
-  --cta: #4636f5;
+:root {
+  --background: #f3f5f9;
+  --foreground: #0f1b2d;
+  --card: #ffffff;
+  --card-foreground: #0f1b2d;
+  --popover: #ffffff;
+  --popover-foreground: #0f1b2d;
+  --primary: #2447f9;
+  --primary-foreground: #ffffff;
+  --secondary: #eef1f6;
+  --secondary-foreground: #0f1b2d;
+  /* Inner tiles on a white card are the ground color. */
+  --muted: #f3f5f9;
+  /* Captions. Body copy is a step darker, as --body. */
+  --muted-foreground: #4a5568;
+  --accent: #e3e8f4;
+  --accent-foreground: #26324a;
+  --destructive: #b45309;
+  --border: #c5cedd;
+  --input: #c5cedd;
+  --ring: #2447f9;
+  --radius: 0.875rem;
+
+  --body: #3a475c;
+  /* Blue that is safe as text on a light surface, and on the dark panel. */
+  --covered: #1d3fe0;
+  --covered-on-dark: #7d95ff;
+  --risk: #b45309;
+  --risk-fill: #f59e0b;
+  --track: #dce2ee;
+  --yes: #e3e8ff;
+  --yes-foreground: #1730b8;
+  --no: #ffefd9;
+  --no-foreground: #8a3d06;
+  /* The dark panel that carries a cushion's summary. */
+  --panel: #0f1b2d;
+  --panel-tile: #18263d;
+  --panel-track: #2a3a56;
+  --panel-foreground: #c9d3e3;
+
+  --cta: #2447f9;
   --cta-foreground: #ffffff;
-  /* Money paid back to you, and anything that went your way. */
-  --positive: #a0e8ba;
-  /* Estimates, simulations and thin markets: things to read with care. */
-  --warning: #f9ce73;
-  --chart-1: #8b7ff0;
-  --chart-2: #b98c2a;
-  --chart-3: #a0e8ba;
-  --chart-4: #a09f9f;
-  --chart-5: #f2f0f0;
-  --radius: 0.75rem;
-  --sidebar: #1a1a1a;
-  --sidebar-foreground: #f2f0f0;
-  --sidebar-primary: #aea4ff;
-  --sidebar-primary-foreground: #1a1a1a;
-  --sidebar-accent: #272727;
-  --sidebar-accent-foreground: #f2f0f0;
-  --sidebar-border: #343434;
-  --sidebar-ring: #aea4ff;
+  --positive: #1d3fe0;
+  --warning: #b45309;
+  --chart-1: #2447f9;
+  --chart-2: #f59e0b;
+  --chart-3: #0f1b2d;
+  --chart-4: #5b6b88;
+  --chart-5: #9db0ff;
+  --sidebar: #f3f5f9;
+  --sidebar-foreground: #0f1b2d;
+  --sidebar-primary: #2447f9;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #eef1f6;
+  --sidebar-accent-foreground: #0f1b2d;
+  --sidebar-border: #c5cedd;
+  --sidebar-ring: #2447f9;
 }
 
 @theme inline {
   --font-sans: var(--font-app);
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-app);
+  --font-heading: var(--font-display);
+  --font-display: var(--font-display);
+  --color-body: var(--body);
+  --color-covered: var(--covered);
+  --color-covered-on-dark: var(--covered-on-dark);
+  --color-risk: var(--risk);
+  --color-risk-fill: var(--risk-fill);
+  --color-track: var(--track);
+  --color-yes: var(--yes);
+  --color-yes-foreground: var(--yes-foreground);
+  --color-no: var(--no);
+  --color-no-foreground: var(--no-foreground);
+  --color-panel: var(--panel);
+  --color-panel-tile: var(--panel-tile);
+  --color-panel-track: var(--panel-track);
+  --color-panel-foreground: var(--panel-foreground);
   --color-cta: var(--cta);
   --color-cta-foreground: var(--cta-foreground);
   --color-positive: var(--positive);
@@ -107,8 +137,14 @@
   }
   body {
     @apply bg-background font-sans text-foreground;
-    color-scheme: dark;
+    line-height: 1.5;
   }
+}
+
+/* Headings and big numbers: Space Grotesk, tightened. */
+.display {
+  font-family: var(--font-display), var(--font-app), sans-serif;
+  letter-spacing: -0.02em;
 }
 
 /* Money and odds line up in columns and do not jitter as they update. */
