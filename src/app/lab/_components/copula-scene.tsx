@@ -34,6 +34,8 @@ interface Drop {
   bounces: number;
   life: number;
   squash: number;
+  /** 1 for an ordinary drop. A bigger drop is heavier and presses the sheet harder and wider. */
+  size: number;
 }
 
 interface Sim {
@@ -44,7 +46,7 @@ interface Sim {
 
 const newSim = (): Sim => ({
   membrane: new Membrane(N),
-  drops: Array.from({ length: MAX_DROPS }, () => ({ active: false, x: 0, z: 0, y: 0, vy: 0, bounces: 0, life: 0, squash: 0 })),
+  drops: Array.from({ length: MAX_DROPS }, () => ({ active: false, x: 0, z: 0, y: 0, vy: 0, bounces: 0, life: 0, squash: 0, size: 1 })),
   untilBurst: 0.8,
 });
 
@@ -66,15 +68,16 @@ function spawn(drops: Drop[], count: number) {
       bounces: 0,
       life: 1,
       squash: 0,
+      size: 1,
     });
     spawned++;
   }
 }
 
 /** Wakes one idle drop at a chosen point, already moving. */
-function spawnAt(drops: Drop[], x: number, z: number, y: number, vy: number) {
+function spawnAt(drops: Drop[], x: number, z: number, y: number, vy: number, size = 1) {
   const drop = drops.find((d) => !d.active);
-  if (drop) Object.assign(drop, { active: true, x, z, y, vy, bounces: 0, life: 1, squash: 0 });
+  if (drop) Object.assign(drop, { active: true, x, z, y, vy, bounces: 0, life: 1, squash: 0, size });
 }
 
 function buildSurface() {
@@ -128,17 +131,11 @@ function Copula({ pours, cue, auto, lead }: { pours: number; cue: number; auto: 
     if (pours > 0 && sim.current) spawn(sim.current.drops, 26);
   }, [pours]);
 
-  // A cue drops one lead drop straight down the middle of the view, where the page's line ends,
-  // and a stream of drops just behind it.
+  // A cue drops one heavy drop straight down the middle of the view, where the page's line ends.
   useEffect(() => {
     if (cue === 0 || !sim.current) return;
-    const { drops } = sim.current;
-    spawnAt(drops, 0, 0, lead.y, lead.vy);
-    // The rest follow in a stream from the same point, stacked above so they arrive one after another.
-    for (let i = 1; i <= 10; i++) {
-      spawnAt(drops, (Math.random() - 0.5) * 0.7, (Math.random() - 0.5) * 0.7, lead.y + 0.5 + i * 0.32, lead.vy);
-    }
-  }, [cue, lead.y, lead.vy]);
+    spawnAt(sim.current.drops, 0, 0, lead.y, lead.vy, lead.size);
+  }, [cue, lead.y, lead.vy, lead.size]);
 
   useFrame((_, rawDelta) => {
     const dt = Math.min(rawDelta, 1 / 30);
@@ -164,9 +161,11 @@ function Copula({ pours, cue, auto, lead }: { pours: number; cue: number; auto: 
       const i = Math.min(N - 1, Math.max(0, Math.round(gx)));
       const j = Math.min(N - 1, Math.max(0, Math.round(gz)));
       const floor = surface.base[j * N + i] + membrane.sample(gx, gz);
-      if (drop.y - DROP_RADIUS < floor && drop.vy < 0) {
-        membrane.strike(gx, gz, Math.abs(drop.vy) * 0.22, 1.6);
-        drop.y = floor + DROP_RADIUS;
+      const radius = DROP_RADIUS * drop.size;
+      if (drop.y - radius < floor && drop.vy < 0) {
+        // Weight grows with volume, so a bigger drop dents the sheet much more, over a wider patch.
+        membrane.strike(gx, gz, Math.abs(drop.vy) * 0.22 * drop.size ** 3, 1.6 * drop.size);
+        drop.y = floor + radius;
         drop.vy = -drop.vy * 0.45;
         drop.squash = Math.min(0.6, Math.abs(drop.vy) * 0.25);
         drop.bounces++;
@@ -195,7 +194,7 @@ function Copula({ pours, cue, auto, lead }: { pours: number; cue: number; auto: 
     const haloMesh = halos.current;
     if (!coreMesh || !haloMesh) return;
     drops.forEach((drop, index) => {
-      const scale = drop.active ? Math.max(0, drop.life) : 0;
+      const scale = drop.active ? Math.max(0, drop.life) * drop.size : 0;
       dummy.position.set(drop.x, drop.y, drop.z);
       dummy.scale.set(scale * (1 + drop.squash), scale * (1 - drop.squash), scale * (1 + drop.squash));
       dummy.updateMatrix();
@@ -251,6 +250,8 @@ interface Lead {
   y: number;
   /** Its downward speed when it appears. */
   vy: number;
+  /** Its size against an ordinary drop. */
+  size: number;
 }
 
 export interface CopulaView {
@@ -282,7 +283,7 @@ function Recenter({ center }: { center: number }) {
   return null;
 }
 
-const DEFAULT_LEAD: Lead = { y: 3.2, vy: -2 };
+const DEFAULT_LEAD: Lead = { y: 3.2, vy: -2, size: 1 };
 
 export function CopulaScene({ pours, cue = 0, view = {} }: { pours: number; cue?: number; view?: CopulaView }) {
   const { camera = [4.6, 3.4, 4.8], zoom = true, transparent = false, center = 0.5, auto = true, lead = DEFAULT_LEAD } = view;

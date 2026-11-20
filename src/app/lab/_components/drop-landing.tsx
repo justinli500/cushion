@@ -25,7 +25,7 @@ const COPULA_VIEW: CopulaView = {
   center: LINE_END,
   auto: false,
   // Just under the top of the copula's canvas, where the line fades out, and already falling.
-  lead: { y: 2.15, vy: -5.5 },
+  lead: { y: 2.15, vy: -5.5, size: 1.5 },
 };
 
 // The dot's loop, in seconds: along the line to the Texans, a beat, down the plunge, then a rest
@@ -196,8 +196,8 @@ export function DropLanding() {
           <line x1="560" y1="444" x2="560" y2="520" stroke="#3A3850" />
           <line x1="720" y1="438" x2="720" y2="320" stroke="#3A3850" />
           <g ref={dot} style={{ opacity: 0 }}>
-            <circle r="16" fill="#FFB894" opacity="0.35" filter="url(#drop-glow)" />
-            <circle r="7" fill="#FFF4EE" />
+            <circle r="20" fill="#FFB894" opacity="0.35" filter="url(#drop-glow)" />
+            <circle r="10" fill="#FFF4EE" />
           </g>
         </svg>
 
