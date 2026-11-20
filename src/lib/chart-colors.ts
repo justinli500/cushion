@@ -1,10 +1,10 @@
 /**
- * Chart series colors: the handoff's blue for covered and its orange for risk. Checked with the
- * dataviz palette validator as a pair on the white card (light mode, surface #ffffff).
+ * Chart series colors, from the theme: violet and orange in light mode, the Drop's lavender and
+ * peach in dark mode. Each pair differs in lightness as well as hue, so it reads without color too.
  */
 export const CHART = {
   /** The protected outcome, or the first of two series. */
-  first: "#2447f9",
+  first: "var(--chart-first)",
   /** The unprotected outcome, or the second of two series. */
-  second: "#b45309",
+  second: "var(--chart-second)",
 } as const;

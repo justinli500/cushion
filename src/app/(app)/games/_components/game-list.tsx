@@ -32,7 +32,7 @@ function FeaturedGame() {
     <Link href="/games/live" className="press flex flex-wrap items-center justify-between gap-6 rounded-[28px] bg-panel p-7 text-white">
       <span className="flex min-w-0 flex-[1_1_420px] flex-col gap-2.5">
         <span className="flex flex-wrap items-center gap-2">
-          <span className="rounded-[10px] bg-primary px-2.5 py-1 text-[12px] font-semibold text-white">Live</span>
+          <span className="rounded-[10px] bg-primary px-2.5 py-1 text-[12px] font-semibold text-primary-foreground">Live</span>
           <span className="rounded-[10px] bg-panel-tile px-2.5 py-1 text-[12px] font-semibold text-panel-foreground">Simulated · played Nov 19</span>
         </span>
         <span className="display text-[28px] font-bold leading-[1.1] tracking-[-0.02em]">Colts at Texans, Thursday Night Football</span>

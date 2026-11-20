@@ -12,11 +12,8 @@ export function Mark({ size = 28, color = "var(--primary)", stitch = true }: { s
 
 export function Brand({ size = 28, href = "/" }: { size?: number; href?: string }) {
   return (
-    <Link href={href} className="flex min-h-11 items-center gap-2.5 text-foreground">
-      <Mark size={size} />
-      <span className="display font-bold" style={{ fontSize: size >= 32 ? 22 : 20 }}>
-        Cushion
-      </span>
+    <Link href={href} className="drop-soft flex min-h-11 items-center font-medium italic tracking-tight text-foreground" style={{ fontSize: size >= 32 ? 32 : 28 }}>
+      cushion
     </Link>
   );
 }
