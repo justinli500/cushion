@@ -2,6 +2,9 @@
 
 Track: Consumer Apps. Bounty: Gemini Prediction Markets. Chain award: Solana.
 
+- Live demo: https://cushion-ecru.vercel.app
+- Code: https://github.com/justinli500/cushion
+
 ## Short description
 
 Cushion turns prediction markets into everyday protection. Tell it what you have riding on tomorrow, and it prices a cushion that pays if things go wrong.

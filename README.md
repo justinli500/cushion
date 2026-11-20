@@ -2,6 +2,8 @@
 
 Protection for the things you already have riding on tomorrow, priced by prediction markets.
 
+**Live demo:** https://cushion-ecru.vercel.app
+
 Cushion is a web app built for the UBC 2026 hackathon (Consumer Apps track, Gemini Prediction Markets bounty). Most people meet prediction markets as a place to bet. Cushion turns them around: every position in the app protects something you already have at stake. If your Bitcoin drops, your team loses, oil jumps, your running back has a bad night, or a cold day empties your patio, the cushion pays.
 
 Fills are simulated with play money. Prices, order books, odds and settlements are live from Gemini.
