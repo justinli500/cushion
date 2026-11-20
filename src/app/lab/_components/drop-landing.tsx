@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { type CSSProperties, type ReactNode, useEffect, useRef, useState } from "react";
+import { ThemeToggle } from "@/components/theme-toggle";
 import type { CopulaView } from "./copula-scene";
 import { CopulaCanvas } from "./lab-loaders";
 
@@ -163,6 +164,7 @@ export function DropLanding({ overlay = true, children }: { overlay?: boolean; c
           >
             Open the app
           </Link>
+          <ThemeToggle className="text-[#F1EEF8] hover:bg-white/10" />
         </nav>
       </header>
 

@@ -67,10 +67,85 @@
   --sidebar-accent-foreground: #14122b;
   --sidebar-border: #cdc8e0;
   --sidebar-ring: #5b47e0;
+
+  --chart-first: #5b47e0;
+  --chart-second: #b45309;
+  --rise: #16a34a;
+  --fall: #dc2626;
+  --font-body: var(--font-app);
+}
+
+/*
+ * Dark mode is the Drop, everywhere: a night ground, cards a step lighter, soft off-white type,
+ * lavender for what is covered or gained and peach for risk, the same two colors as the line
+ * through the day. The <html> element carries .dark when it is on.
+ */
+.dark {
+  --background: #0a0b14;
+  --foreground: #f1eef8;
+  --card: #14141f;
+  --card-foreground: #f1eef8;
+  --popover: #1b1a28;
+  --popover-foreground: #f1eef8;
+  --primary: #c3b5ff;
+  --primary-foreground: #12101f;
+  --secondary: #1b1a28;
+  --secondary-foreground: #f1eef8;
+  /* Inner tiles on a card. */
+  --muted: #1c1b2a;
+  /* Captions. Body copy is a step lighter, as --body. */
+  --muted-foreground: #a29fb8;
+  --accent: #24223a;
+  --accent-foreground: #f1eef8;
+  --destructive: #ff9e7a;
+  --border: #2a2840;
+  --input: #34314d;
+  --ring: #c3b5ff;
+  --radius: 0.875rem;
+
+  --body: #cfcbe0;
+  --covered: #c3b5ff;
+  --covered-on-dark: #c3b5ff;
+  --risk: #ff9e7a;
+  --risk-fill: #ff9e7a;
+  --track: #2a2840;
+  --yes: #2a2450;
+  --yes-foreground: #ddd5ff;
+  --no: #3a2119;
+  --no-foreground: #ffc9a8;
+  /* The panel that carries a cushion's summary: the deepest surface, edged in lavender light. */
+  --panel: #0f0e1b;
+  --panel-tile: #1b1a2b;
+  --panel-track: #2e2b48;
+  --panel-foreground: #cfcbe0;
+
+  --cta: #c3b5ff;
+  --cta-foreground: #12101f;
+  --positive: #c3b5ff;
+  --warning: #ff9e7a;
+  --chart-1: #c3b5ff;
+  --chart-2: #ff9e7a;
+  --chart-3: #f1eef8;
+  --chart-4: #7e7a99;
+  --chart-5: #ffc9a8;
+  --sidebar: #0a0b14;
+  --sidebar-foreground: #f1eef8;
+  --sidebar-primary: #c3b5ff;
+  --sidebar-primary-foreground: #12101f;
+  --sidebar-accent: #1b1a28;
+  --sidebar-accent-foreground: #f1eef8;
+  --sidebar-border: #2a2840;
+  --sidebar-ring: #c3b5ff;
+
+  --chart-first: #c3b5ff;
+  --chart-second: #ff9e7a;
+  --rise: #c3b5ff;
+  --fall: #ff9e7a;
+  --font-body: var(--font-tight);
 }
 
 @theme inline {
-  --font-sans: var(--font-app);
+  --font-sans: var(--font-body);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-display);
   --font-display: var(--font-display);
@@ -136,9 +211,22 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    color-scheme: light;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
   body {
     @apply bg-background font-sans text-foreground;
     line-height: 1.5;
+  }
+  /* In the dark, the Drop's two glows: lavender high on the left, peach lower on the right. */
+  .dark body {
+    background-image:
+      radial-gradient(900px 600px at 12% -5%, rgb(150 130 255 / 0.1), transparent 70%),
+      radial-gradient(800px 600px at 85% 45%, rgb(255 140 110 / 0.06), transparent 70%);
+    background-attachment: fixed;
   }
 }
 
@@ -151,8 +239,9 @@
 }
 
 /*
- * The cushion panel is the Drop's night on a light page: a lavender rim, its two glows inside, and
- * a soft violet shadow under it. Full-width bands that share its color keep their plain edges.
+ * The cushion panel is the Drop's night: on a light page, a lavender rim, its two glows inside and
+ * a soft violet shadow under it; in the dark, the brightest-rimmed thing on the page. Full-width
+ * bands that share its color keep their plain edges.
  */
 .bg-panel:not(section) {
   background-image:
@@ -161,6 +250,12 @@
   box-shadow:
     inset 0 0 0 1px rgb(195 181 255 / 0.25),
     0 30px 70px -25px rgb(91 71 224 / 0.45);
+}
+.dark .bg-panel:not(section) {
+  background-image: none;
+  box-shadow:
+    inset 0 0 0 1px rgb(195 181 255 / 0.22),
+    0 30px 80px -20px rgb(124 100 255 / 0.28);
 }
 
 /* Money and odds line up in columns and do not jitter as they update. */

@@ -6,6 +6,7 @@ import { useAccount } from "@/domains/account/store";
 import { formatUsd } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { Brand } from "./brand";
+import { ThemeToggle } from "./theme-toggle";
 
 export const SECTIONS = [
   { href: "/today", label: "Today" },
@@ -54,6 +55,7 @@ export function AppNav() {
           {open > 0 ? <span className="rounded-full bg-primary px-1.5 text-[12px] text-primary-foreground">{open}</span> : null}
         </Link>
         <span className="ml-1 rounded-[10px] bg-accent px-2.5 py-1 text-[12px] font-semibold text-muted-foreground">Play money</span>
+        <ThemeToggle className="ml-1" />
       </nav>
     </header>
   );

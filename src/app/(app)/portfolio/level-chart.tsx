@@ -30,8 +30,9 @@ interface Props {
 
 // Where the cushion pays: green for a rise, red for a fall. Drawn as a light wash at the same strength as the
 // beige band, not as solid blocks, so the price line and the levels stay readable through it.
-const RISE = "#16A34A";
-const FALL = "#DC2626";
+// From the theme: green and red in light mode, lavender and peach in the dark.
+const RISE = "var(--rise)";
+const FALL = "var(--fall)";
 const WASH = 0.15;
 
 /** Two presses this close together count as a double-click. */

@@ -3,6 +3,7 @@ import { Fraunces, Geist_Mono, Inter, Inter_Tight, Space_Grotesk } from "next/fo
 import type { ReactNode } from "react";
 import { SettlementWatcher } from "@/components/settlement-watcher";
 import { WarmCache } from "@/components/warm-cache";
+import { THEME_SCRIPT } from "@/components/theme-toggle";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
@@ -22,6 +23,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} ${geistMono.variable} ${soft.variable} ${tight.variable} h-full antialiased`} suppressHydrationWarning>
+      <head>
+        {/* Sets light or dark before the first paint; see THEME_SCRIPT. */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body className="min-h-full" suppressHydrationWarning>
         {children}
         <SettlementWatcher />

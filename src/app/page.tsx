@@ -134,8 +134,8 @@ export default function LandingPage() {
                     </span>
                   </div>
                 </div>
-                <div className="flex flex-col gap-2 rounded-[18px] bg-primary p-4 text-white">
-                  <span className="text-[13px] text-yes">If the {story.team} lose</span>
+                <div className="flex flex-col gap-2 rounded-[18px] bg-primary p-4 text-primary-foreground">
+                  <span className="text-[13px] opacity-75">If the {story.team} lose</span>
                   <span className="display tabular text-[30px] font-bold">You get {whole(story.payout)}</span>
                 </div>
               </div>
@@ -188,7 +188,7 @@ export default function LandingPage() {
       </section>
 
       <footer className="mx-auto max-w-[1200px] px-8 pb-16">
-        <div className="flex flex-wrap items-center justify-between gap-6 rounded-[32px] bg-primary px-10 py-12 text-white">
+        <div className="flex flex-wrap items-center justify-between gap-6 rounded-[32px] bg-primary px-10 py-12 text-primary-foreground">
           <h2 className="display text-[clamp(26px,3vw,38px)] font-bold leading-[1.1]">What do you have riding on this week?</h2>
           <Link href="/today" className="press inline-flex min-h-[52px] items-center rounded-full bg-card px-7 text-[17px] font-semibold text-foreground">
             Price my cushion
