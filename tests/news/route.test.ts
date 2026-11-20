@@ -2,8 +2,17 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { POST } from "@/app/api/news/route";
 import { newsRequest } from "@/domains/news/schema";
 
-const post = (body: unknown) =>
-  POST(new Request("http://localhost/api/news", { method: "POST", body: typeof body === "string" ? body : JSON.stringify(body) }));
+let caller = 0;
+
+const post = (body: unknown, from?: string) =>
+  POST(
+    new Request("http://localhost/api/news", {
+      method: "POST",
+      // The route limits requests per client, so each test request comes from its own address.
+      headers: { "x-forwarded-for": from ?? `10.0.0.${++caller}` },
+      body: typeof body === "string" ? body : JSON.stringify(body),
+    }),
+  );
 
 const ok = { id: "btc", topic: "Bitcoin", facts: "Market gives an 18% chance BTC closes under $61,500 today" };
 
@@ -50,5 +59,15 @@ describe("POST /api/news without a key", () => {
         rain: { text: "Rain chance 40%.", source: "numbers" },
       },
     });
+  });
+});
+
+describe("POST /api/news rate limit", () => {
+  it("turns one client away after 12 requests in a minute and still serves another", async () => {
+    const statuses: number[] = [];
+    for (let i = 0; i < 13; i++) statuses.push((await post({ cards: [ok] }, "203.0.113.9")).status);
+    expect(statuses.slice(0, 12).every((status) => status === 200)).toBe(true);
+    expect(statuses[12]).toBe(429);
+    expect((await post({ cards: [ok] }, "203.0.113.10")).status).toBe(200);
   });
 });
