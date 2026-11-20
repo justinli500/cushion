@@ -22,13 +22,14 @@ function caption(read: HoldingRead | undefined, reading: boolean) {
 }
 
 /** "What you hold": the total, how it splits, one tile per holding, and a way to add another. */
-export function HoldingsCard({ holdings, reads, reading }: { holdings: Holding[]; reads: HoldingRead[]; reading: boolean }) {
+export function HoldingsCard({ holdings, reads, reading, example = false }: { holdings: Holding[]; reads: HoldingRead[]; reading: boolean; example?: boolean }) {
   const total = holdings.reduce((sum, h) => sum + h.value, 0);
 
   return (
     <Card className="min-w-0 flex-[1_1_300px]">
-      <CardTitle hint="Saved on this device">What you hold</CardTitle>
+      <CardTitle hint={example ? <Tag>Example</Tag> : "Saved on this device"}>{example ? "An example portfolio" : "What you hold"}</CardTitle>
       <div className="flex flex-col gap-4">
+        {example ? <p className="-mt-2 text-[14px] leading-relaxed text-body">Try the chart with these. Add what you hold below and it replaces them.</p> : null}
         {holdings.length === 0 ? (
           <p className="text-[15px] text-body">You have not added anything yet. Add what you hold and Cushion will work out what each holding is riding on.</p>
         ) : (
@@ -60,21 +61,26 @@ export function HoldingsCard({ holdings, reads, reading }: { holdings: Holding[]
                       </div>
                       {note ? <span className="text-[13px] leading-snug text-muted-foreground">{note}</span> : null}
                     </div>
-                    <button
-                      type="button"
-                      aria-label={`Remove ${h.symbol}`}
-                      onClick={() => saveHoldings(holdings.filter((other) => other.symbol !== h.symbol))}
-                      className="press -my-3 grid h-11 w-11 shrink-0 place-items-center rounded-full text-muted-foreground hover:bg-secondary hover:text-foreground"
-                    >
-                      &times;
-                    </button>
+                    {example ? (
+                      <span className="w-2" />
+                    ) : (
+                      <button
+                        type="button"
+                        aria-label={`Remove ${h.symbol}`}
+                        onClick={() => saveHoldings(holdings.filter((other) => other.symbol !== h.symbol))}
+                        className="press -my-3 grid h-11 w-11 shrink-0 place-items-center rounded-full text-muted-foreground hover:bg-secondary hover:text-foreground"
+                      >
+                        &times;
+                      </button>
+                    )}
                   </li>
                 );
               })}
             </ul>
           </>
         )}
-        <HoldingsEditor holdings={holdings} />
+        {/* The editor is given the person's own holdings, so the first one they add starts their portfolio in place of the example. */}
+        <HoldingsEditor holdings={example ? [] : holdings} />
       </div>
     </Card>
   );

@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Card, Chip, PageHeader, Skeleton } from "@/components/kit";
-import { exposures, indexExposure, INDEX, readHolding, type History } from "@/domains/exposure/portfolio";
+import { exposures, indexExposure, INDEX, readHolding, type History, type Holding } from "@/domains/exposure/portfolio";
 import { buildScenarios, MAX_LEGS, type Starts } from "@/domains/exposure/portfolio-scenarios";
 import { isUnderlyingId, UNDERLYINGS, type EventMarket, type Ladder, type UnderlyingId } from "@/domains/markets/types";
 import { useProfile } from "@/domains/profile/profile";
@@ -15,11 +15,19 @@ import { ScenarioCard } from "./scenario-card";
 
 const FACTORS = Object.keys(UNDERLYINGS) as UnderlyingId[];
 const NO_HISTORY: History = {};
+/** Shown until the person adds a holding of their own, so the chart is there to try straight away. */
+const EXAMPLE: Holding[] = [
+  { symbol: "BTC", value: 2000 },
+  { symbol: "ETH", value: 1000 },
+  { symbol: "NVDA", value: 1500 },
+];
 const day = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", timeZone: "America/New_York" });
 const sentence = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
 
 export default function PortfolioPage() {
-  const { holdings } = useProfile();
+  const own = useProfile().holdings;
+  const isExample = own.length === 0;
+  const holdings = isExample ? EXAMPLE : own;
 
   // A holding that is itself a listed coin or commodity needs no price history to be understood.
   const needsHistory = holdings.some((h) => !isUnderlyingId(h.symbol));
@@ -70,7 +78,7 @@ export default function PortfolioPage() {
     <>
       <PageHeader title="Cushion your portfolio" lead="Pick what worries you, then drag the line on its chart to where your cushion should start paying. Cushion prices it against a live market." />
       <div className="flex flex-wrap items-start gap-6">
-        <HoldingsCard holdings={holdings} reads={reads} reading={reading} />
+        <HoldingsCard holdings={holdings} reads={reads} reading={reading} example={isExample} />
 
         <section className="flex min-w-0 flex-[2_1_420px] flex-col gap-3">
           <h2 className="display mb-1 text-[20px] font-semibold tracking-[-0.01em]">What could go wrong</h2>
