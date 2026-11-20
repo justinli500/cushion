@@ -11,6 +11,8 @@ export interface Contract {
   label: string;
   quote: Quote;
   open: boolean;
+  /** Gemini's picture for this outcome, such as a team's logo. Only ever a URL on Gemini's own image host. */
+  image?: string | null;
 }
 
 export const UNDERLYINGS = {
@@ -87,6 +89,8 @@ export interface Game {
   /** True when the market has an outcome that is neither team, so "not a win" is not "a loss". */
   hasDraw: boolean;
   volume: number;
+  /** Gemini's picture for the game's sport. */
+  image?: string | null;
 }
 
 /** YES pays when the player's stat finishes above `line`, e.g. line 29.5 is "30+". */

@@ -27,7 +27,7 @@ async function espn() {
   const competition = summary.header.competitions[0];
   const side = (homeAway) => {
     const c = competition.competitors.find((x) => x.homeAway === homeAway);
-    return { abbr: c.team.abbreviation, name: c.team.displayName, score: Number(c.score) };
+    return { abbr: c.team.abbreviation, name: c.team.displayName, score: Number(c.score), logo: c.team.logos?.[0]?.href };
   };
   const winProb = new Map((summary.winprobability ?? []).map((w) => [w.playId, w.homeWinPercentage]));
   const plays = (summary.drives?.previous ?? [])
@@ -53,8 +53,15 @@ async function trades(symbol) {
   return raw.map((t) => ({ t: t.timestampms, price: Number(t.price), size: Number(t.amount) })).sort((a, b) => a.t - b.t);
 }
 
+/** Gemini's picture for the game's sport. */
+async function sportImage() {
+  const event = await getJson(`https://api.gemini.com/v1/prediction-markets/events/${GAME.geminiEvent}`).catch(() => null);
+  return event?.imageUrl ?? undefined;
+}
+
 async function capture() {
   const game = await espn();
+  const image = await sportImage();
   const [home, away] = await Promise.all(
     [game.home, game.away].map(async (team) => {
       const symbol = `GEMI-${GAME.geminiEvent}-${team.abbr}`;
@@ -68,6 +75,7 @@ async function capture() {
     capturedAt: new Date().toISOString(),
     final: game.state === "STATUS_FINAL",
     video: GAME.video,
+    image,
     home,
     away,
     plays: game.plays,

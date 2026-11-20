@@ -9,7 +9,8 @@ import { winChance } from "@/domains/scores/chance";
 import { buildLobby, type LobbyRow } from "@/domains/scores/lobby";
 import { teamLabel, teamNickname } from "@/domains/scores/names";
 import { isLeague, type Score } from "@/domains/scores/types";
-import { OutcomeBar, Monogram } from "@/components/outcome-bar";
+import { OutcomeBar } from "@/components/outcome-bar";
+import { TeamLogo } from "@/components/team-logo";
 import { formatVolume, formatWhen } from "@/lib/format";
 import { usePoll } from "@/lib/use-poll";
 
@@ -174,7 +175,7 @@ function GameCard({ row }: { row: LobbyRow }) {
       <Link href={`/games/${game.gameId}`} aria-label={`Open ${game.title}`} className="absolute inset-0 rounded-[18px]" />
       <div className="pointer-events-none mb-3 flex items-center justify-between gap-3">
         <span className="flex min-w-0 items-center gap-2.5">
-          <Monogram text={game.league} className="size-8 bg-secondary text-foreground" />
+          <TeamLogo src={game.image} fallback={game.league} className="size-8 rounded-lg" />
           <span className="truncate text-[15px] font-semibold">
             {teamNickname(game, sides[0])} at {teamNickname(game, sides[1])}
           </span>
@@ -195,18 +196,21 @@ function GameCard({ row }: { row: LobbyRow }) {
               chance={chance.p}
               rough={chance.uncertain}
               emphasis={isMine(t)}
-              trailing={scoreOf(t)}
-              leading={
-                <button
-                  type="button"
-                  aria-pressed={isMine(t)}
-                  aria-label={isMine(t) ? `Stop rooting for ${teamLabel(game, t)}` : `Root for ${teamLabel(game, t)}`}
-                  title={isMine(t) ? "Your team" : "Make this my team"}
-                  onClick={() => updateProfile("team", isMine(t) ? null : { league: game.league, abbr: t.abbr, name: t.name })}
-                  className="press pointer-events-auto relative z-10 grid size-8 place-items-center rounded-full text-muted-foreground/70 hover:text-foreground aria-pressed:text-primary"
-                >
-                  <Star filled={isMine(t)} />
-                </button>
+              leading={<TeamLogo src={t.contract.image} fallback={t.abbr} />}
+              trailing={
+                <span className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    aria-pressed={isMine(t)}
+                    aria-label={isMine(t) ? `Stop rooting for ${teamLabel(game, t)}` : `Root for ${teamLabel(game, t)}`}
+                    title={isMine(t) ? "Your team" : "Make this my team"}
+                    onClick={() => updateProfile("team", isMine(t) ? null : { league: game.league, abbr: t.abbr, name: t.name })}
+                    className="press pointer-events-auto relative z-10 grid size-8 place-items-center rounded-full text-muted-foreground/50 hover:text-foreground aria-pressed:text-primary"
+                  >
+                    <Star filled={isMine(t)} />
+                  </button>
+                  {scoreOf(t)}
+                </span>
               }
             />
           );

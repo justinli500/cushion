@@ -46,12 +46,3 @@ export function OutcomeBar({ label, chance, rough = false, emphasis = false, lea
     </div>
   );
 }
-
-/** A team or league as a small round monogram, in place of a logo. */
-export function Monogram({ text, className }: { text: string; className?: string }) {
-  return (
-    <span aria-hidden className={cn("grid size-7 place-items-center rounded-full bg-accent text-[10px] font-semibold tracking-tight text-muted-foreground", className)}>
-      {text.slice(0, 4)}
-    </span>
-  );
-}

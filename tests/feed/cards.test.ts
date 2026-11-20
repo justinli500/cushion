@@ -87,8 +87,8 @@ describe("games", () => {
     expect(neutral.headline).toBe("Indianapolis Colts at Houston Texans");
     expect(neutral.stat).toEqual({ value: "61%", label: "chance the Texans win" });
     expect(neutral.outcomes).toEqual([
-      { label: "Indianapolis Colts", chance: expect.closeTo(0.385), mine: false },
-      { label: "Houston Texans", chance: expect.closeTo(0.61), mine: false },
+      { label: "Indianapolis Colts", chance: expect.closeTo(0.385), mine: false, image: null, short: "IND" },
+      { label: "Houston Texans", chance: expect.closeTo(0.61), mine: false, image: null, short: "HOU" },
     ]);
     expect(neutral.footnote).toBe("$900 Vol.");
 

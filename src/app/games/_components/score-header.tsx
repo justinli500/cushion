@@ -3,7 +3,8 @@ import type { Game, TeamSide } from "@/domains/markets/types";
 import { winChance } from "@/domains/scores/chance";
 import { teamLabel } from "@/domains/scores/names";
 import type { Score } from "@/domains/scores/types";
-import { Monogram, OutcomeBar } from "@/components/outcome-bar";
+import { OutcomeBar } from "@/components/outcome-bar";
+import { TeamLogo } from "@/components/team-logo";
 import { formatVolume, formatWhen } from "@/lib/format";
 import type { GameFeed } from "./feed";
 
@@ -46,7 +47,7 @@ export function ScoreHeader({ feed }: { feed: GameFeed }) {
       <div className="mt-5 space-y-1.5">
         {[away, home].map((team) => {
           const chance = winChance(team.contract.quote);
-          return <OutcomeBar key={team.abbr} label={`${teamLabel(game, team)} to win`} chance={chance.p} rough={chance.uncertain} leading={<Monogram text={team.abbr} />} />;
+          return <OutcomeBar key={team.abbr} label={`${teamLabel(game, team)} to win`} chance={chance.p} rough={chance.uncertain} leading={<TeamLogo src={team.contract.image} fallback={team.abbr} />} />;
         })}
         {game.volume > 0 ? <p className="tabular pt-1.5 text-[13px] text-muted-foreground">{formatVolume(game.volume)}</p> : null}
       </div>
@@ -57,7 +58,10 @@ export function ScoreHeader({ feed }: { feed: GameFeed }) {
 function Side({ game, team, score, align }: { game: Game; team: TeamSide; score: number | null; align: "left" | "right" }) {
   return (
     <div className={align === "left" ? "text-left" : "text-right"}>
-      <p className="text-[15px] font-medium">{teamLabel(game, team)}</p>
+      <p className={`flex items-center gap-2.5 text-[15px] font-medium ${align === "right" ? "flex-row-reverse" : ""}`}>
+        <TeamLogo src={team.contract.image} fallback={team.abbr} className="size-9" />
+        {teamLabel(game, team)}
+      </p>
       {/* With no ESPN score the screen invents none: the bars below carry the market's read. */}
       {score != null ? <p className="tabular text-[64px] font-semibold leading-none tracking-tight">{score}</p> : null}
     </div>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { OutcomeBar } from "@/components/outcome-bar";
+import { TeamLogo } from "@/components/team-logo";
 import type { FeedCard } from "@/domains/feed/cards";
 import { HEADLINES_AS_OF } from "@/domains/feed/headlines";
 
@@ -14,7 +15,13 @@ export function FeedCardView({ card }: { card: FeedCard }) {
       {card.outcomes ? (
         <div className="mt-4 space-y-1.5">
           {card.outcomes.map((outcome) => (
-            <OutcomeBar key={outcome.label} label={outcome.label} chance={outcome.chance} emphasis={outcome.mine} />
+            <OutcomeBar
+              key={outcome.label}
+              label={outcome.label}
+              chance={outcome.chance}
+              emphasis={outcome.mine}
+              leading={<TeamLogo src={outcome.image} fallback={outcome.short} />}
+            />
           ))}
           {card.footnote ? <p className="tabular pt-1.5 text-[13px] text-muted-foreground">{card.footnote}</p> : null}
         </div>

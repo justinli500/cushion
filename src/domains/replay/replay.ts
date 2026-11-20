@@ -1,10 +1,18 @@
 import { z } from "zod";
+import { trustedImage } from "@/domains/markets/normalise";
 import type { Book, Candle, Game, TeamSide } from "@/domains/markets/types";
 import { mergeHistory, type OddsPoint } from "@/domains/scores/series";
 import type { Play, Score } from "@/domains/scores/types";
 
 const tradeSchema = z.object({ t: z.number(), price: z.number(), size: z.number() });
-const teamSchema = z.object({ abbr: z.string(), name: z.string(), score: z.number(), symbol: z.string(), trades: z.array(tradeSchema) });
+const teamSchema = z.object({
+  abbr: z.string(),
+  name: z.string(),
+  score: z.number(),
+  symbol: z.string(),
+  logo: z.string().optional(),
+  trades: z.array(tradeSchema),
+});
 
 /** A finished game as scripts/capture-replay.mjs saved it: ESPN's plays and Gemini's real trades. */
 export const replaySchema = z.object({
@@ -13,6 +21,8 @@ export const replaySchema = z.object({
   eventTicker: z.string(),
   capturedAt: z.string(),
   final: z.boolean(),
+  /** Gemini's picture for the game's sport. */
+  image: z.string().optional(),
   /** A broadcast of the game that was streamed live, so its timeline matches the plays and trades. */
   video: z.object({ youtubeId: z.string().regex(/^[\w-]{6,20}$/), startedAt: z.string(), by: z.string() }).optional(),
   home: teamSchema,
@@ -105,7 +115,12 @@ const clamp = (p: number) => Math.min(0.99, Math.max(0.01, Math.round(p * 100) /
 function side(team: Replay["home"], homeAway: "home" | "away", at: number): TeamSide {
   const last = priceAt(team.trades, at);
   const quote = last == null ? { bid: null, ask: null, last: null } : { bid: clamp(last - REPLAY_SPREAD), ask: clamp(last + REPLAY_SPREAD), last };
-  return { abbr: team.abbr, name: team.name, side: homeAway, contract: { symbol: team.symbol, label: team.name, quote, open: true } };
+  return {
+    abbr: team.abbr,
+    name: team.name,
+    side: homeAway,
+    contract: { symbol: team.symbol, label: team.name, quote, open: true, image: trustedImage(team.logo) },
+  };
 }
 
 export interface ReplayFrame {
@@ -145,6 +160,7 @@ export function frameAt(replay: Replay, at: number): ReplayFrame {
     teams: [side(replay.home, "home", at), side(replay.away, "away", at)],
     hasDraw: false,
     volume: 0,
+    image: trustedImage(replay.image),
   };
 
   const score: Score = {

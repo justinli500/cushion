@@ -15,6 +15,7 @@ export const rawContractSchema = z.object({
     .nullish(),
   resolutionSide: z.enum(["yes", "no"]).nullish(),
   settlementValue: numeric.nullish(),
+  imageUrl: z.string().nullish(),
 });
 
 export const rawEventSchema = z.object({
@@ -28,6 +29,7 @@ export const rawEventSchema = z.object({
   isLive: z.boolean().nullish(),
   gameId: z.string().nullish(),
   template: z.string().nullish(),
+  imageUrl: z.string().nullish(),
   volume: numeric.nullish(),
   participants: z
     .array(z.object({ name: z.string(), abbreviation: z.string(), side: z.string().nullish() }))

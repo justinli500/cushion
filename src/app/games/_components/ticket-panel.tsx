@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CushionTicket } from "@/components/cushion-ticket";
+import { TeamLogo } from "@/components/team-logo";
 import { Card, CardTitle, Skeleton, Tag, inputClass } from "@/components/kit";
 import { useAccount } from "@/domains/account/store";
 import { teamLossLegs } from "@/domains/cushion/legs";
@@ -65,7 +66,10 @@ export function TicketPanel({ feed }: { feed: GameFeed }) {
                   t.abbr === rooting ? "border-primary bg-primary/10 text-primary" : "border-border bg-card hover:border-foreground/30"
                 }`}
               >
-                {teamLabel(game, t)}
+                <span className="flex items-center gap-2">
+                  <TeamLogo src={t.contract.image} fallback={t.abbr} className="size-6" />
+                  <span className="min-w-0 truncate">{teamLabel(game, t)}</span>
+                </span>
               </button>
             ))}
           </div>

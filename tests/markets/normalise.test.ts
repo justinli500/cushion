@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { toBucketMarket, toGame, toLadder, toPlayerProps } from "@/domains/markets/normalise";
+import { trustedImage, toBucketMarket, toContract, toGame, toLadder, toPlayerProps } from "@/domains/markets/normalise";
 import { bookResponseSchema, eventsResponseSchema } from "@/domains/markets/schemas";
 
 // Real Gemini responses, captured by scripts/capture-fixtures.mjs.
@@ -63,5 +63,17 @@ describe("normalising Gemini events", () => {
   it("parses a live order book with numeric prices", () => {
     const book = bookResponseSchema.parse(fixture("book.json").book);
     expect([...book.bids, ...book.asks].every((l) => typeof l.price === "number" && l.amount > 0)).toBe(true);
+  });
+
+  it("passes on a picture only when it is on Gemini's or ESPN's image host", () => {
+    const raw = { label: "Houston", ticker: "HOU", instrumentSymbol: "GEMI-NFL-TEST-M-HOU", status: "active" };
+    const logo = "https://assets.gemini.com/predictions/images/Houston_Texans.avif";
+    expect(toContract({ ...raw, imageUrl: logo }).image).toBe(logo);
+    expect(toContract({ ...raw, imageUrl: "https://evil.example/track.png" }).image).toBeNull();
+    expect(toContract({ ...raw, imageUrl: "javascript:alert(1)" }).image).toBeNull();
+    expect(toContract(raw).image).toBeNull();
+    expect(trustedImage("https://a.espncdn.com/i/teamlogos/nfl/500/hou.png")).toBe("https://a.espncdn.com/i/teamlogos/nfl/500/hou.png");
+    expect(trustedImage("https://a.espncdn.com.evil.example/x.png")).toBeNull();
+    expect(trustedImage(undefined)).toBeNull();
   });
 });

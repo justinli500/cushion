@@ -81,7 +81,7 @@ There is no login, and fills are simulated in the browser, so a receipt is a pub
 | Real | Simulated or estimated |
 |---|---|
 | Quotes, order books, odds, settlements, price history (Gemini) | Fills: play money, booked at the real book's prices and sizes |
-| Live scores and play-by-play (ESPN's public feed) | Exchange fees are not modelled |
+| Live scores, play-by-play and team logos (ESPN's public feed; a team ESPN does not list by the same name keeps Gemini's own picture) | Exchange fees are not modelled |
 | Stock and commodity history (Yahoo Finance) | Which market a stock "moves with": a regression on daily returns, labelled as an estimate |
 | Receipts (Solana devnet transactions) | How gas and heating bills follow oil and natural gas: rough pass-through, labelled as an estimate |
 | | The "this week" line on each card: written by hand and dated, not live |

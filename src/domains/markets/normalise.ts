@@ -10,10 +10,17 @@ import {
   type TeamSide,
 } from "./types";
 
+const IMAGE_HOSTS = ["https://assets.gemini.com/", "https://a.espncdn.com/"];
+
+/** An image URL is only passed on to the page if it is on Gemini's or ESPN's own image host. */
+export const trustedImage = (url: string | null | undefined): string | null =>
+  url != null && IMAGE_HOSTS.some((host) => url.startsWith(host)) ? url : null;
+
 export function toContract(raw: RawContract): Contract {
   return {
     symbol: raw.instrumentSymbol,
     label: raw.label,
+    image: trustedImage(raw.imageUrl),
     quote: {
       bid: raw.prices?.bestBid ?? null,
       ask: raw.prices?.bestAsk ?? null,
@@ -89,6 +96,7 @@ export function toGame(event: RawEvent): Game | null {
     teams,
     hasDraw: event.contracts.length > teams.length,
     volume: event.volume ?? 0,
+    image: trustedImage(event.imageUrl),
   };
 }
 
