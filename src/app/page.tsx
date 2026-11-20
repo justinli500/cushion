@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { Brand, Disclaimer } from "@/components/brand";
+import { DropLanding } from "@/app/lab/_components/drop-landing";
+import { Disclaimer } from "@/components/brand";
 import { Chip, CushionMeter, QuotePair } from "@/components/kit";
 import { teamLossLegs } from "@/domains/cushion/legs";
 import { filledLegs, priceCushion } from "@/domains/cushion/price";
@@ -29,28 +30,14 @@ export default function LandingPage() {
   const story = useGameStory();
 
   return (
+    <DropLanding overlay={false}>
     <div className="bg-background text-foreground">
-      <header className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-4 px-8 py-5">
-        <Brand size={32} />
-        <nav className="flex flex-wrap items-center gap-7">
-          <a href="#how" className="text-[15px] font-medium text-foreground">
-            How it works
-          </a>
-          <a href="#live" className="text-[15px] font-medium text-foreground">
-            Live games
-          </a>
-          <Link href="/today" className="press inline-flex min-h-11 items-center rounded-full bg-foreground px-5 text-[15px] font-semibold text-background">
-            Open the app
-          </Link>
-        </nav>
-      </header>
-
-      <section className="mx-auto grid min-h-[620px] max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(min(460px,100%),1fr))] items-center gap-14 px-8 pb-24 pt-12">
+      <section className="mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(min(460px,100%),1fr))] items-center gap-14 px-8 py-24">
         <div className="flex flex-col gap-6">
           <div className="inline-flex items-center gap-2 self-start rounded-2xl bg-accent px-3.5 py-1.5 text-[13px] font-semibold text-accent-foreground">
             Built on Gemini prediction markets
           </div>
-          <h1 className="display text-balance text-[clamp(40px,5.2vw,68px)] font-bold leading-[1.02] tracking-[-0.03em]">Whatever you have riding on it, cushion it.</h1>
+          <h2 className="display text-balance text-[clamp(40px,5.2vw,68px)] font-bold leading-[1.02] tracking-[-0.03em]">Whatever you have riding on it, cushion it.</h2>
           <p className="max-w-[520px] text-pretty text-[19px] text-body">
             Say what you have at stake. Cushion finds the market that pays when it goes against you and prices the protection as one number.
           </p>
@@ -212,6 +199,7 @@ export default function LandingPage() {
         </div>
       </footer>
     </div>
+    </DropLanding>
   );
 }
 

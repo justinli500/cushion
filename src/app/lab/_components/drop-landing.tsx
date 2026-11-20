@@ -1,13 +1,10 @@
 "use client";
 
-import { Fraunces, Inter_Tight } from "next/font/google";
 import Link from "next/link";
 import { type CSSProperties, type ReactNode, useEffect, useRef, useState } from "react";
 import type { CopulaView } from "./copula-scene";
 import { CopulaCanvas } from "./lab-loaders";
 
-const soft = Fraunces({ subsets: ["latin"], axes: ["SOFT", "opsz"], style: ["normal", "italic"], variable: "--font-soft" });
-const tight = Inter_Tight({ subsets: ["latin"], variable: "--font-tight" });
 
 // The line through the person's day, in a 1280 x 1000 frame. It plunges where the Texans could lose
 // and runs off the bottom edge, straight down onto the copula below.
@@ -121,19 +118,23 @@ function Stake({ label, value, line, live, big }: { label: string; value: string
 
 function Also({ value, children }: { value: string; children: ReactNode }) {
   return (
-    <Link href="/" className="flex items-baseline gap-3.5 text-[#F1EEF8] no-underline">
+    <Link href="/today" className="flex items-baseline gap-3.5 text-[#F1EEF8] no-underline">
       <span className={`drop-soft text-[52px]`}>{value}</span>
       <span className="text-[17px] text-[#CFCBE0]">{children} →</span>
     </Link>
   );
 }
 
-export function DropLanding() {
+/**
+ * The Drop: a line through the person's day that falls onto the copula. As the lab page it covers the
+ * window; on the landing page it is the top of the page and `children` follow it.
+ */
+export function DropLanding({ overlay = true, children }: { overlay?: boolean; children?: ReactNode }) {
   const [cue, setCue] = useState(0);
   const { path: linePath, dot } = useTraveller(() => setCue((c) => c + 1));
   return (
     <div
-      className={`${soft.variable} ${tight.variable} fixed inset-0 z-40 overflow-y-auto bg-[#0A0B14] text-[#F1EEF8]`}
+      className={`${overlay ? "fixed inset-0 z-40 overflow-y-auto" : "relative overflow-hidden"} bg-[#0A0B14] text-[#F1EEF8]`}
       style={{ fontFamily: "var(--font-tight), system-ui, sans-serif" }}
     >
       <div
@@ -146,26 +147,23 @@ export function DropLanding() {
       />
 
       <header className="relative mx-auto flex max-w-[1216px] flex-wrap items-center justify-between gap-4 px-8 py-7">
-        <span className={`drop-soft text-[30px] font-medium italic tracking-tight`}>cushion</span>
-        <nav aria-label="Sections" className="flex flex-wrap gap-7 text-[15px] font-medium">
-          <Link href="/" className="border-b border-[#F1EEF8] pb-0.5">
-            Today
+        <Link href="/" className="drop-soft text-[30px] font-medium italic tracking-tight">
+          cushion
+        </Link>
+        <nav aria-label="Main" className="flex flex-wrap items-center gap-7 text-[15px] font-medium">
+          <a href="#how" className="text-[#A29FB8] hover:text-[#F1EEF8]">
+            How it works
+          </a>
+          <a href="#live" className="text-[#A29FB8] hover:text-[#F1EEF8]">
+            Live games
+          </a>
+          <Link
+            href="/today"
+            className="press inline-flex min-h-11 items-center rounded-full border border-[#3A3850] px-5 font-semibold text-[#F1EEF8] hover:border-[#C3B5FF]"
+          >
+            Open the app
           </Link>
-          {[
-            ["/games", "Games"],
-            ["/portfolio", "Portfolio"],
-            ["/bills", "Bills"],
-            ["/fantasy", "Fantasy"],
-            ["/business", "Business"],
-          ].map(([href, label]) => (
-            <Link key={href} href={href} className="text-[#A29FB8] hover:text-[#F1EEF8]">
-              {label}
-            </Link>
-          ))}
         </nav>
-        <span className="text-[15px] text-[#A29FB8]">
-          Play money <strong className="font-semibold text-[#F1EEF8]">$1,000</strong>
-        </span>
       </header>
 
       <section aria-label="Your day" className="relative mx-auto aspect-[1280/1000] w-full max-w-[1280px]">
@@ -245,7 +243,7 @@ export function DropLanding() {
             A cushion under the Texans game costs $15 right now. It pays $40 the moment they lose.
           </p>
           <Link
-            href="/games"
+            href="/games/live"
             className={`drop-cta mt-7 inline-flex min-h-14 items-center rounded-full bg-gradient-to-br from-[#FFC9A8] to-[#FF9E7A] px-8 text-[17px] font-semibold text-[#1A0E0A] shadow-[0_0_0_1px_rgba(255,255,255,0.2),0_14px_40px_rgba(255,158,122,0.35)]`}
           >
             Catch this one · $15
@@ -253,13 +251,15 @@ export function DropLanding() {
         </div>
       </section>
 
-      <section aria-label="Also today" className="relative mx-auto max-w-[1280px] px-[4%] pb-24 pt-16">
-        <p className="mb-5 text-[13px] tracking-[0.12em] text-[#A29FB8]">ALSO ON YOUR LINE TODAY</p>
-        <div className="flex flex-wrap gap-x-[72px] gap-y-12">
-          <Also value="41°">likeliest high in Chicago</Also>
-          <Also value="64%">your running back clears 60 yards</Also>
-        </div>
-      </section>
+      {children ?? (
+        <section aria-label="Also today" className="relative mx-auto max-w-[1280px] px-[4%] pb-24 pt-16">
+          <p className="mb-5 text-[13px] tracking-[0.12em] text-[#A29FB8]">ALSO ON YOUR LINE TODAY</p>
+          <div className="flex flex-wrap gap-x-[72px] gap-y-12">
+            <Also value="41°">likeliest high in Chicago</Also>
+            <Also value="64%">your running back clears 60 yards</Also>
+          </div>
+        </section>
+      )}
     </div>
   );
 }
