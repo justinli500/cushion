@@ -27,7 +27,8 @@ export default function FantasyPage() {
   const entries = data?.players;
   const stake = fantasy.stake;
 
-  // Null until the person has covered or uncovered someone: then the first player they can cover starts covered.
+  // Null until the person has covered or uncovered someone: until then every player they can cover starts covered,
+  // each on the stat his position is drafted for, so the whole lineup opens as one cushion.
   const [chosen, setChosen] = useState<string[] | null>(null);
   const [choices, setChoices] = useState<Record<string, Choice>>({});
   const [picked, setPicked] = useState<string | null>(null);
@@ -55,7 +56,7 @@ export default function FantasyPage() {
   const share = stakeShare(stake, cards.filter((c) => c.slot.status !== "over").length);
 
   const coverable = cards.filter((c) => c.selection).map((c) => c.slot.key);
-  const on = (chosen ?? coverable.slice(0, 1)).filter((key) => coverable.includes(key));
+  const on = (chosen ?? coverable).filter((key) => coverable.includes(key));
   const covered = cards.flatMap((c) => (c.slot.entry && c.selection && on.includes(c.slot.key) ? [{ entry: c.slot.entry, pick: c.selection }] : []));
 
   const shown = cards.find((c) => c.slot.key === picked) ?? cards.find((c) => c.selection) ?? cards[0];
