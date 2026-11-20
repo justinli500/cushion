@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { OutcomeBar } from "@/components/outcome-bar";
 import type { FeedCard } from "@/domains/feed/cards";
 import { HEADLINES_AS_OF } from "@/domains/feed/headlines";
 
@@ -10,7 +11,14 @@ export function FeedCardView({ card }: { card: FeedCard }) {
       <p className="text-[12px] font-medium uppercase tracking-[0.08em] text-muted-foreground/70">{card.eyebrow}</p>
       <h2 className="mt-1.5 text-[17px] font-semibold leading-snug tracking-tight">{card.headline}</h2>
 
-      {card.stat ? (
+      {card.outcomes ? (
+        <div className="mt-4 space-y-1.5">
+          {card.outcomes.map((outcome) => (
+            <OutcomeBar key={outcome.label} label={outcome.label} chance={outcome.chance} emphasis={outcome.mine} />
+          ))}
+          {card.footnote ? <p className="tabular pt-1.5 text-[13px] text-muted-foreground">{card.footnote}</p> : null}
+        </div>
+      ) : card.stat ? (
         <p className="mt-4 flex items-baseline gap-2.5">
           <span className="tabular text-[34px] font-semibold leading-none tracking-tight text-primary">{card.stat.value}</span>
           <span className="text-[13px] leading-snug text-muted-foreground">{card.stat.label}</span>

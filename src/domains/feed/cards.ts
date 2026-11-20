@@ -2,7 +2,7 @@ import { chanceAtOrAbove, chanceOf, impliedSpot, yesChance } from "@/domains/cus
 import type { Exposure } from "@/domains/exposure/portfolio";
 import { UNDERLYINGS, type BucketMarket, type Game, type Ladder, type PropLine, type UnderlyingId } from "@/domains/markets/types";
 import type { Profile } from "@/domains/profile/profile";
-import { formatChance, formatPrice, formatUsdWhole, formatWhen } from "@/lib/format";
+import { formatChance, formatPrice, formatUsdWhole, formatVolume, formatWhen } from "@/lib/format";
 import { HEADLINE_OIL, headlineForLeague, headlineForUnderlying } from "./headlines";
 
 /** One card on the Today feed: a thing in the person's life, the market's read on it, and a way in. */
@@ -17,6 +17,10 @@ export interface FeedCard {
   facts: string;
   /** What is going on this week for this subject, or null when there is nothing solid to say. */
   news: string | null;
+  /** When the card is about a contest: each side's chance, drawn as bars in place of the single stat. */
+  outcomes?: { label: string; chance: number | null; mine: boolean }[];
+  /** A small line under the bars, such as how much has traded. */
+  footnote?: string;
   href: string;
   action: string;
 }
@@ -105,6 +109,8 @@ export function gameCard(game: Game, team: Profile["team"]): FeedCard | null {
         ? `No one is quoting ${away.name} at ${home.name} right now. ${when}`
         : `The market gives the ${shortName(subject.name)} a ${formatChance(chance.p)} chance to beat the ${shortName(other.name)}. ${when}`,
     news: headlineForLeague(game.league),
+    outcomes: [away, home].map((t) => ({ label: t.name, chance: yesChance(t.contract.quote).p, mine: t === mine })),
+    footnote: formatVolume(game.volume),
     href: `/games/${game.gameId}`,
     action: mine ? "Cushion a loss" : "Open game",
   };

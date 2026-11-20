@@ -3,7 +3,8 @@ import type { Game, TeamSide } from "@/domains/markets/types";
 import { winChance } from "@/domains/scores/chance";
 import { teamLabel } from "@/domains/scores/names";
 import type { Score } from "@/domains/scores/types";
-import { formatChance, formatWhen } from "@/lib/format";
+import { Monogram, OutcomeBar } from "@/components/outcome-bar";
+import { formatVolume, formatWhen } from "@/lib/format";
 import type { GameFeed } from "./feed";
 
 /** What sits between the two teams: the clock, or where the game is in its day. */
@@ -41,33 +42,24 @@ export function ScoreHeader({ feed }: { feed: GameFeed }) {
         </div>
         <Side game={game} team={home} score={score ? score.home.score : null} align="right" />
       </div>
+
+      <div className="mt-5 space-y-1.5">
+        {[away, home].map((team) => {
+          const chance = winChance(team.contract.quote);
+          return <OutcomeBar key={team.abbr} label={`${teamLabel(game, team)} to win`} chance={chance.p} rough={chance.uncertain} leading={<Monogram text={team.abbr} />} />;
+        })}
+        {game.volume > 0 ? <p className="tabular pt-1.5 text-[13px] text-muted-foreground">{formatVolume(game.volume)}</p> : null}
+      </div>
     </Card>
   );
 }
 
 function Side({ game, team, score, align }: { game: Game; team: TeamSide; score: number | null; align: "left" | "right" }) {
-  const chance = winChance(team.contract.quote);
-  const text = chance.p == null ? "No price yet" : `${formatChance(chance.p)} to win`;
   return (
     <div className={align === "left" ? "text-left" : "text-right"}>
       <p className="text-[15px] font-medium">{teamLabel(game, team)}</p>
-      {score != null ? (
-        <>
-          <p className="tabular text-[64px] font-semibold leading-none tracking-tight">{score}</p>
-          <p className="tabular mt-2 text-[13px] text-muted-foreground">
-            {text}
-            {chance.uncertain && chance.p != null ? <span className="ml-2 align-middle"><Tag>Rough</Tag></span> : null}
-          </p>
-        </>
-      ) : (
-        <p className="tabular mt-1 text-[40px] font-semibold leading-none tracking-tight">
-          {chance.p == null ? <span className="text-[20px] text-muted-foreground">No price yet</span> : formatChance(chance.p)}
-          <span className="mt-2 block text-[13px] font-normal text-muted-foreground">
-            {chance.p == null ? "Nobody is quoting this team" : "chance to win"}
-            {chance.uncertain && chance.p != null ? <span className="ml-2 align-middle"><Tag>Rough</Tag></span> : null}
-          </span>
-        </p>
-      )}
+      {/* With no ESPN score the screen invents none: the bars below carry the market's read. */}
+      {score != null ? <p className="tabular text-[64px] font-semibold leading-none tracking-tight">{score}</p> : null}
     </div>
   );
 }

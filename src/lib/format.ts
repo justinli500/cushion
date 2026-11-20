@@ -18,6 +18,13 @@ export function formatLevel(value: number): string {
   return value.toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits });
 }
 
+/** Dollars traded, shortened the way a market card shows it: "$135K Vol." */
+export function formatVolume(dollars: number): string {
+  const short =
+    dollars >= 1_000_000 ? `${(dollars / 1_000_000).toFixed(1).replace(/\.0$/, "")}M` : dollars >= 1_000 ? `${Math.round(dollars / 1_000)}K` : `${Math.round(dollars)}`;
+  return `$${short} Vol.`;
+}
+
 /** A dollar price level: $62,500 / $89.50 / $0.967 */
 export const formatPrice = (value: number) => `$${formatLevel(value)}`;
 

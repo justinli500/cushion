@@ -7,9 +7,10 @@ import type { Game, TeamSide } from "@/domains/markets/types";
 import { updateProfile, useProfile } from "@/domains/profile/profile";
 import { winChance } from "@/domains/scores/chance";
 import { buildLobby, type LobbyRow } from "@/domains/scores/lobby";
-import { teamLabel } from "@/domains/scores/names";
+import { teamLabel, teamNickname } from "@/domains/scores/names";
 import { isLeague, type Score } from "@/domains/scores/types";
-import { formatChance, formatWhen } from "@/lib/format";
+import { OutcomeBar, Monogram } from "@/components/outcome-bar";
+import { formatVolume, formatWhen } from "@/lib/format";
 import { usePoll } from "@/lib/use-poll";
 
 const LIST_MS = 15_000;
@@ -142,9 +143,9 @@ function Group({ title, rows }: { title: string; rows: LobbyRow[] }) {
   return (
     <section>
       <h2 className="mb-3 text-[15px] font-semibold">{title}</h2>
-      <ul className="space-y-3">
+      <ul className="grid grid-cols-2 gap-3 xl:grid-cols-3">
         {rows.map((row) => (
-          <GameRow key={row.game.gameId} row={row} />
+          <GameCard key={row.game.gameId} row={row} />
         ))}
       </ul>
     </section>
@@ -159,7 +160,8 @@ function statusOf({ game, score }: LobbyRow): { text: string; live: boolean } {
   return { text: "In play", live: true };
 }
 
-function GameRow({ row }: { row: LobbyRow }) {
+/** One game as a market card: who plays, each team's chance as a filling bar, and how much has traded. */
+function GameCard({ row }: { row: LobbyRow }) {
   const { game, score } = row;
   const { team: mine } = useProfile();
   const status = statusOf(row);
@@ -167,55 +169,56 @@ function GameRow({ row }: { row: LobbyRow }) {
   const scoreOf = (t: TeamSide) => (score ? (t.side === "home" ? score.home.score : score.away.score) : null);
   const isMine = (t: TeamSide) => mine?.league === game.league && mine.abbr === t.abbr;
 
-  const chances = sides.map((t) => winChance(t.contract.quote));
-  const best = Math.max(...chances.map((c) => c.p ?? 0));
-
   return (
-    <li className="arrive press relative grid grid-cols-[36px_minmax(0,300px)_44px_120px_minmax(0,1fr)] grid-rows-2 items-center gap-y-1.5 rounded-[18px] bg-card px-3 py-3 hover:bg-accent/60">
+    <li className="arrive press relative rounded-[18px] bg-card p-4 hover:bg-accent/50">
       <Link href={`/games/${game.gameId}`} aria-label={`Open ${game.title}`} className="absolute inset-0 rounded-[18px]" />
-      {sides.map((t, i) => {
-        const chance = chances[i];
-        const favorite = chance.p != null && chance.p === best && !chance.uncertain;
-        return (
-          <RowCells key={t.abbr} row={i + 1}>
-            <button
-              type="button"
-              aria-pressed={isMine(t)}
-              aria-label={isMine(t) ? `Stop rooting for ${teamLabel(game, t)}` : `Root for ${teamLabel(game, t)}`}
-              title={isMine(t) ? "Your team" : "Make this my team"}
-              onClick={() => updateProfile("team", isMine(t) ? null : { league: game.league, abbr: t.abbr, name: t.name })}
-              className="press pointer-events-auto relative z-10 flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground/70 hover:text-foreground aria-pressed:text-primary"
-            >
-              <Star filled={isMine(t)} />
-            </button>
-            <span className={`pointer-events-none truncate text-[15px] ${isMine(t) ? "font-semibold" : "font-medium"}`}>{teamLabel(game, t)}</span>
-            <span className="tabular pointer-events-none text-right text-[17px] font-semibold">{scoreOf(t) ?? ""}</span>
-            {/* The chance each team wins, as a chip. The favorite is tinted, and a rough read is dimmed. */}
-            <span
-              className={`tabular pointer-events-none ml-4 flex h-8 items-center justify-center rounded-[10px] text-[14px] font-semibold ${
-                favorite ? "bg-primary/20 text-primary" : chance.uncertain ? "bg-secondary text-muted-foreground" : "bg-secondary text-foreground"
-              }`}
-              title={chance.uncertain ? "A rough read: not many people are trading this" : "The market's chance this team wins"}
-            >
-              {formatChance(chance.p)}
-            </span>
-          </RowCells>
-        );
-      })}
-      <div className="pointer-events-none col-start-5 row-span-2 row-start-1 pl-4 text-right">
-        <p className={`tabular text-[13px] font-medium ${status.live ? "text-primary" : "text-muted-foreground"}`}>
-          {status.live ? <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-primary align-middle" aria-hidden /> : null}
+      <div className="pointer-events-none mb-3 flex items-center justify-between gap-3">
+        <span className="flex min-w-0 items-center gap-2.5">
+          <Monogram text={game.league} className="size-8 bg-secondary text-foreground" />
+          <span className="truncate text-[15px] font-semibold">
+            {teamNickname(game, sides[0])} at {teamNickname(game, sides[1])}
+          </span>
+        </span>
+        <span className={`tabular shrink-0 text-[13px] font-medium ${status.live ? "text-positive" : "text-muted-foreground"}`}>
+          {status.live ? <span className="mr-1.5 inline-block size-1.5 rounded-full bg-positive align-middle" aria-hidden /> : null}
           {status.text}
-        </p>
-        {score == null && game.isLive ? <p className="mt-0.5 text-[12px] text-muted-foreground/70">No score yet</p> : null}
+        </span>
       </div>
+
+      <div className="pointer-events-none space-y-1.5">
+        {sides.map((t) => {
+          const chance = winChance(t.contract.quote);
+          return (
+            <OutcomeBar
+              key={t.abbr}
+              label={teamLabel(game, t)}
+              chance={chance.p}
+              rough={chance.uncertain}
+              emphasis={isMine(t)}
+              trailing={scoreOf(t)}
+              leading={
+                <button
+                  type="button"
+                  aria-pressed={isMine(t)}
+                  aria-label={isMine(t) ? `Stop rooting for ${teamLabel(game, t)}` : `Root for ${teamLabel(game, t)}`}
+                  title={isMine(t) ? "Your team" : "Make this my team"}
+                  onClick={() => updateProfile("team", isMine(t) ? null : { league: game.league, abbr: t.abbr, name: t.name })}
+                  className="press pointer-events-auto relative z-10 grid size-8 place-items-center rounded-full text-muted-foreground/70 hover:text-foreground aria-pressed:text-primary"
+                >
+                  <Star filled={isMine(t)} />
+                </button>
+              }
+            />
+          );
+        })}
+      </div>
+
+      <p className="tabular pointer-events-none mt-3 text-[13px] text-muted-foreground">
+        {formatVolume(game.volume)}
+        {score == null && game.isLive ? " · No score yet" : ""}
+      </p>
     </li>
   );
-}
-
-/** Places its four children in one grid row of the game row. */
-function RowCells({ row, children }: { row: number; children: React.ReactNode }) {
-  return <div className="col-span-4 grid grid-cols-subgrid items-center" style={{ gridRowStart: row }}>{children}</div>;
 }
 
 function Star({ filled }: { filled: boolean }) {

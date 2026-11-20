@@ -86,10 +86,16 @@ describe("games", () => {
     const neutral = gameCard(busy, null)!;
     expect(neutral.headline).toBe("Indianapolis Colts at Houston Texans");
     expect(neutral.stat).toEqual({ value: "61%", label: "chance the Texans win" });
+    expect(neutral.outcomes).toEqual([
+      { label: "Indianapolis Colts", chance: expect.closeTo(0.385), mine: false },
+      { label: "Houston Texans", chance: expect.closeTo(0.61), mine: false },
+    ]);
+    expect(neutral.footnote).toBe("$900 Vol.");
 
     const fan = gameCard(busy, { league: "NFL", abbr: "IND", name: "Indianapolis Colts" })!;
     expect(fan.stat?.label).toBe("chance the Colts win");
     expect(fan.action).toBe("Cushion a loss");
+    expect(fan.outcomes?.map((o) => o.mine)).toEqual([true, false]);
     expect(fan.href).toBe("/games/busy");
 
     // The same abbreviation in another league is not the person's team.
