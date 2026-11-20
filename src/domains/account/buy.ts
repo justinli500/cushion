@@ -12,14 +12,16 @@ export interface Purchase {
   quote: CushionQuote;
   eventTickers: string[];
   expiry: string;
+  /** The replay this was bought during, if any. */
+  replay?: string;
 }
 
 /** Books a simulated fill, then asks the server for an on-chain receipt without waiting on it. */
-export function buyCushion({ section, title, detail, quote, eventTickers, expiry }: Purchase): string {
+export function buyCushion({ section, title, detail, quote, eventTickers, expiry, replay }: Purchase): string {
   const id = crypto.randomUUID();
   const at = new Date().toISOString();
   const legs = filledLegs(quote);
-  record({ type: "CushionBought", at, id, section, title, detail, legs, cost: quote.cost, maxPayout: quote.maxPayout, eventTickers, expiry });
+  record({ type: "CushionBought", at, id, section, title, detail, legs, cost: quote.cost, maxPayout: quote.maxPayout, eventTickers, expiry, replay });
   void requestReceipt({ id, at, title, cost: quote.cost, maxPayout: quote.maxPayout, legs });
   return id;
 }

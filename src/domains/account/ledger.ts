@@ -29,6 +29,8 @@ const eventSchema = z.discriminatedUnion("type", [
     maxPayout: z.number(),
     eventTickers: z.array(z.string()),
     expiry: z.string(),
+    /** Set on a cushion bought during a game replay. It settles when the replay ends, not from Gemini. */
+    replay: z.string().optional(),
   }),
   z.object({ type: z.literal("CushionSettled"), at: z.string(), id: z.string(), payout: z.number() }),
   z.object({ type: z.literal("ReceiptRecorded"), at: z.string(), id: z.string(), signature: z.string() }),

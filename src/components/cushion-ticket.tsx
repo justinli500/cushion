@@ -27,20 +27,30 @@ export interface TicketProps {
   emptyMessage?: string;
   /** Lets a page draw its own chart from the live quote. */
   onQuote?: (quote: CushionQuote | null) => void;
+  /**
+   * A game replay passes its own books and id: the cushion is then priced from the replay's prices
+   * instead of Gemini's live book, tagged as a replay, and settled when the replay ends.
+   */
+  replay?: { id: string; books: Record<string, Book> };
 }
 
 const BOOK_REFRESH_MS = 5_000;
 
 /** Prices a cushion against the live book and books a simulated fill. Every section uses this one. */
 export function CushionTicket(props: TicketProps) {
-  const { section, title, detail, cushion, eventTickers, expiry, chance, emptyMessage, onQuote } = props;
+  const { section, title, detail, cushion, eventTickers, expiry, chance, emptyMessage, onQuote, replay } = props;
   const { balance } = useAccount();
   const [boughtKey, setBoughtKey] = useState<string | null>(null);
+  // In a replay the contract behind a cushion can change from one moment to the next, so the key alone
+  // would drop the confirmation the instant it appears. It stays up for a few seconds either way.
+  const [justNow, setJustNow] = useState(false);
 
   const symbols = cushion?.legs.map((l) => l.symbol) ?? [];
   const cushionKey = cushion ? cushion.legs.map((l) => `${l.symbol}:${l.side}:${l.quantity}`).join("|") : "";
-  const bookUrl = symbols.length > 0 ? `/api/book?symbols=${symbols.join(",")}` : null;
-  const { data, error, loading } = usePoll<{ books: Record<string, Book> }>(bookUrl, BOOK_REFRESH_MS);
+  const bookUrl = symbols.length > 0 && !replay ? `/api/book?symbols=${symbols.join(",")}` : null;
+  const polled = usePoll<{ books: Record<string, Book> }>(bookUrl, BOOK_REFRESH_MS);
+  const { error, loading } = polled;
+  const data = replay ? { books: replay.books } : polled.data;
 
   // The key stands in for the cushion's contents, which pages rebuild on every render.
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -52,21 +62,23 @@ export function CushionTicket(props: TicketProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quote]);
 
-  const justBought = boughtKey === cushionKey && cushionKey !== "";
+  const justBought = justNow || (boughtKey === cushionKey && cushionKey !== "");
   const nothingToBuy = !cushion || cushion.legs.length === 0;
   const canBuy = quote != null && quote.maxPayout > 0 && quote.cost > 0 && quote.cost <= balance;
 
   const buy = () => {
     if (!quote || !canBuy) return;
-    buyCushion({ section, title, detail, quote, eventTickers, expiry });
+    buyCushion({ section, title, detail, quote, eventTickers, expiry, replay: replay?.id });
     setBoughtKey(cushionKey);
+    setJustNow(true);
+    setTimeout(() => setJustNow(false), 4_000);
   };
 
   return (
     <div className="rounded-2xl border border-line bg-card p-6">
       <div className="mb-1 flex items-center justify-between">
         <h2 className="text-[15px] font-semibold">{title}</h2>
-        <Tag tone="note">Simulated</Tag>
+        <Tag tone="note">{replay ? "Replay" : "Simulated"}</Tag>
       </div>
       <p className="mb-5 text-[14px] leading-relaxed text-muted">{detail}</p>
 
@@ -119,7 +131,7 @@ export function CushionTicket(props: TicketProps) {
           <div className="mt-5">
             {justBought ? (
               <p className="arrive rounded-xl bg-cushion-soft px-4 py-3 text-[14px] font-medium text-cushion">
-                Cushion added. A receipt is being written on-chain.
+                {replay ? "Cushion added. It settles when the replay ends." : "Cushion added. A receipt is being written on-chain."}
               </p>
             ) : (
               <Button onClick={buy} disabled={!canBuy}>
@@ -144,7 +156,11 @@ export function CushionTicket(props: TicketProps) {
                 </li>
               ))}
             </ul>
-            <p className="mt-3 text-[12px] text-faint">Filled against Gemini&rsquo;s live order book. Exchange fees are not included.</p>
+            <p className="mt-3 text-[12px] text-faint">
+              {replay
+                ? "Filled at the last price that really traded at this point in the game, plus a 1 cent spread. Exchange fees are not included."
+                : "Filled against Gemini\u2019s live order book. Exchange fees are not included."}
+            </p>
           </details>
         </div>
       )}

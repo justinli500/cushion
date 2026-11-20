@@ -1,0 +1,1386 @@
+{
+ "header": {
+  "id": "401873066",
+  "season": {
+   "year": 2026,
+   "current": true,
+   "type": 2
+  },
+  "timeValid": true,
+  "competitions": [
+   {
+    "id": "401873066",
+    "date": "2026-11-20T01:15Z",
+    "neutralSite": false,
+    "conferenceCompetition": false,
+    "boxscoreAvailable": true,
+    "commentaryAvailable": false,
+    "liveAvailable": true,
+    "onWatchESPN": false,
+    "recent": true,
+    "wallclockAvailable": true,
+    "boxscoreSource": "full",
+    "playByPlaySource": "full",
+    "competitors": [
+     {
+      "id": "34",
+      "order": 0,
+      "homeAway": "home",
+      "team": {
+       "id": "34",
+       "guid": "595690b3-2161-4913-a7a7-814af2fd2621",
+       "location": "Houston",
+       "name": "Texans",
+       "nickname": "Texans",
+       "abbreviation": "HOU",
+       "displayName": "Houston Texans"
+      },
+      "score": "14",
+      "record": [
+       {
+        "type": "total",
+        "summary": "3-6",
+        "displayValue": "3-6"
+       },
+       {
+        "type": "home",
+        "summary": "0-4",
+        "displayValue": "0-4"
+       },
+       {
+        "type": "vsconf",
+        "summary": "3-4",
+        "displayValue": "3-4"
+       }
+      ],
+      "timeoutsUsed": 0,
+      "possession": false
+     },
+     {
+      "id": "11",
+      "order": 1,
+      "homeAway": "away",
+      "team": {
+       "id": "11",
+       "guid": "582d14eb-da61-e505-cc40-d972a1b60ed1",
+       "location": "Indianapolis",
+       "name": "Colts",
+       "nickname": "Colts",
+       "abbreviation": "IND",
+       "displayName": "Indianapolis Colts"
+      },
+      "score": "3",
+      "record": [
+       {
+        "type": "total",
+        "summary": "3-7",
+        "displayValue": "3-7"
+       },
+       {
+        "type": "road",
+        "summary": "1-4",
+        "displayValue": "1-4"
+       },
+       {
+        "type": "vsconf",
+        "summary": "2-5",
+        "displayValue": "2-5"
+       }
+      ],
+      "timeoutsUsed": 0,
+      "possession": true
+     }
+    ],
+    "status": {
+     "displayClock": "7:31",
+     "period": 2,
+     "type": {
+      "id": "2",
+      "name": "STATUS_IN_PROGRESS",
+      "state": "in",
+      "completed": false,
+      "description": "In Progress",
+      "detail": "7:31 - 2nd Quarter",
+      "shortDetail": "7:31 - 2nd",
+      "statusPrimary": "7:31",
+      "statusSecondary": "2nd"
+     },
+     "isTBDFlex": false,
+     "displayPeriod": "2nd"
+    },
+    "boxscoreMinutes": true
+   }
+  ],
+  "week": 11,
+  "league": {
+   "id": "28",
+   "name": "National Football League",
+   "abbreviation": "NFL",
+   "shortName": "NFL",
+   "slug": "nfl",
+   "isTournament": false
+  }
+ },
+ "drives": {
+  "previous": [
+   {
+    "id": "4018730665",
+    "plays": [
+     {
+      "id": "401873066877",
+      "sequenceNumber": "87700",
+      "type": {
+       "id": "53",
+       "text": "Kickoff",
+       "abbreviation": "K"
+      },
+      "text": "K.Fairbairn kicks 65 yards from HST 35 to landing zone to end zone, Touchback to the IND 20.",
+      "awayScore": 3,
+      "homeScore": 7,
+      "period": {
+       "number": 1
+      },
+      "clock": {
+       "displayValue": "2:14"
+      },
+      "scoringPlay": false,
+      "priority": false,
+      "modified": "2026-11-20T01:55Z",
+      "wallclock": "2026-11-20T01:52:15Z",
+      "isPenalty": false,
+      "statYardage": 0,
+      "start": {
+       "down": 0,
+       "distance": 0,
+       "yardLine": 35,
+       "yardsToEndzone": 65,
+       "team": {
+        "id": "34"
+       }
+      },
+      "end": {
+       "down": 1,
+       "distance": 10,
+       "yardLine": 80,
+       "yardsToEndzone": 80,
+       "downDistanceText": "1st & 10 at IND 20",
+       "shortDownDistanceText": "1st & 10",
+       "possessionText": "IND 20",
+       "team": {
+        "id": "11"
+       }
+      },
+      "isTurnover": false
+     },
+     {
+      "id": "401873066894",
+      "sequenceNumber": "89400",
+      "type": {
+       "id": "5",
+       "text": "Rush",
+       "abbreviation": "RUSH"
+      },
+      "text": "J.Taylor right end to IND 21 for 1 yard (J.Hansen; H.To'oTo'o).",
+      "awayScore": 3,
+      "homeScore": 7,
+      "period": {
+       "number": 1
+      },
+      "clock": {
+       "displayValue": "2:14"
+      },
+      "scoringPlay": false,
+      "priority": false,
+      "modified": "2026-11-20T01:55Z",
+      "wallclock": "2026-11-20T01:53:07Z",
+      "isPenalty": false,
+      "statYardage": 1,
+      "start": {
+       "down": 1,
+       "distance": 10,
+       "yardLine": 80,
+       "yardsToEndzone": 80,
+       "downDistanceText": "1st & 10 at IND 20",
+       "shortDownDistanceText": "1st & 10",
+       "possessionText": "IND 20",
+       "team": {
+        "id": "11"
+       }
+      },
+      "end": {
+       "down": 2,
+       "distance": 9,
+       "yardLine": 79,
+       "yardsToEndzone": 79,
+       "downDistanceText": "2nd & 9 at IND 21",
+       "shortDownDistanceText": "2nd & 9",
+       "possessionText": "IND 21",
+       "team": {
+        "id": "11"
+       }
+      },
+      "isTurnover": false
+     },
+     {
+      "id": "401873066916",
+      "sequenceNumber": "91600",
+      "type": {
+       "id": "24",
+       "text": "Pass Reception",
+       "abbreviation": "REC"
+      },
+      "text": "(Shotgun) D.Jones pass short left to A.Gould pushed ob at HST 48 for 31 yards (R.Blankenship).",
+      "awayScore": 3,
+      "homeScore": 7,
+      "period": {
+       "number": 1
+      },
+      "clock": {
+       "displayValue": "1:28"
+      },
+      "scoringPlay": false,
+      "priority": false,
+      "modified": "2026-11-20T01:56Z",
+      "wallclock": "2026-11-20T01:53:53Z",
+      "isPenalty": false,
+      "statYardage": 31,
+      "start": {
+       "down": 2,
+       "distance": 9,
+       "yardLine": 79,
+       "yardsToEndzone": 79,
+       "downDistanceText": "2nd & 9 at IND 21",
+       "shortDownDistanceText": "2nd & 9",
+       "possessionText": "IND 21",
+       "team": {
+        "id": "11"
+       }
+      },
+      "end": {
+       "down": 1,
+       "distance": 10,
+       "yardLine": 48,
+       "yardsToEndzone": 48,
+       "downDistanceText": "1st & 10 at HOU 48",
+       "shortDownDistanceText": "1st & 10",
+       "possessionText": "HOU 48",
+       "team": {
+        "id": "11"
+       }
+      },
+      "yardsAfterCatch": 31,
+      "isTurnover": false
+     },
+     {
+      "id": "401873066946",
+      "sequenceNumber": "94600",
+      "type": {
+       "id": "3",
+       "text": "Pass Incompletion"
+      },
+      "text": "(Shotgun) D.Jones pass incomplete deep right to A.Gould.",
+      "awayScore": 3,
+      "homeScore": 7,
+      "period": {
+       "number": 1
+      },
+      "clock": {
+       "displayValue": "0:48"
+      },
+      "scoringPlay": false,
+      "priority": false,
+      "modified": "2026-11-20T01:57Z",
+      "wallclock": "2026-11-20T01:54:42Z",
+      "isPenalty": false,
+      "statYardage": 0,
+      "start": {
+       "down": 1,
+       "distance": 10,
+       "yardLine": 48,
+       "yardsToEndzone": 48,
+       "downDistanceText": "1st & 10 at HOU 48",
+       "shortDownDistanceText": "1st & 10",
+       "possessionText": "HOU 48",
+       "team": {
+        "id": "11"
+       }
+      },
+      "end": {
+       "down": 2,
+       "distance": 10,
+       "yardLine": 48,
+       "yardsToEndzone": 48,
+       "downDistanceText": "2nd & 10 at HOU 48",
+       "shortDownDistanceText": "2nd & 10",
+       "possessionText": "HOU 48",
+       "team": {
+        "id": "11"
+       }
+      },
+      "isTurnover": false
+     },
+     {
+      "id": "401873066969",
+      "sequenceNumber": "96900",
+      "type": {
+       "id": "8",
+       "text": "Penalty",
+       "abbreviation": "PEN"
+      },
+      "text": "D.Jones pass short left to S.McGowan pushed ob at HST 35 for 13 yards (R.Blankenship).PENALTY on IND-L.Tenuta, Offensive Holding, 10 yards, enforced at HST 48 - No Play.",
+      "awayScore": 3,
+      "homeScore": 7,
+      "period": {
+       "number": 1
+      },
+      "clock": {
+       "displayValue": "0:42"
+      },
+      "scoringPlay": false,
+      "priority": false,
+      "modified": "2026-11-20T01:57Z",
+      "wallclock": "2026-11-20T01:55:25Z",
+      "isPenalty": true,
+      "statYardage": 13,
+      "start": {
+       "down": 2,
+       "distance": 10,
+       "yardLine": 48,
+       "yardsToEndzone": 48,
+       "downDistanceText": "2nd & 10 at HOU 48",
+       "shortDownDistanceText": "2nd & 10",
+       "possessionText": "HOU 48",
+       "team": {
+        "id": "11"
+       }
+      },
+      "end": {
+       "down": 2,
+       "distance": 20,
+       "yardLine": 58,
+       "yardsToEndzone": 58,
+       "downDistanceText": "2nd & 20 at IND 42",
+       "shortDownDistanceText": "2nd & 20",
+       "possessionText": "IND 42",
+       "team": {
+        "id": "11"
+       }
+      },
+      "yardsAfterCatch": 13,
+      "penalty": {
+       "yards": 10,
+       "type": {
+        "slug": "offensive-holding",
+        "text": "Offensive Holding"
+       },
+       "status": {
+        "slug": "accepted",
+        "text": "Accepted"
+       }
+      },
+      "isTurnover": false
+     },
+     {
+      "id": "4018730661010",
+      "sequenceNumber": "101000",
+      "type": {
+       "id": "24",
+       "text": "Pass Reception",
+       "abbreviation": "REC"
+      },
+      "text": "(Shotgun) D.Jones pass short middle to S.McGowan to IND 43 for 1 yard (H.To'oTo'o).",
+      "awayScore": 3,
+      "homeScore": 7,
+      "period": {
+       "number": 1
+      },
+      "clock": {
+       "displayValue": "0:15"
+      },
+      "scoringPlay": false,
+      "priority": false,
+      "modified": "2026-11-20T01:58Z",
+      "wallclock": "2026-11-20T01:56:23Z",
+      "isPenalty": false,
+      "statYardage": 1,
+      "start": {
+       "down": 2,
+       "distance": 20,
+       "yardLine": 58,
+       "yardsToEndzone": 58,
+       "downDistanceText": "2nd & 20 at IND 42",
+       "shortDownDistanceText": "2nd & 20",
+       "possessionText": "IND 42",
+       "team": {
+        "id": "11"
+       }
+      },
+      "end": {
+       "down": 3,
+       "distance": 19,
+       "yardLine": 57,
+       "yardsToEndzone": 57,
+       "downDistanceText": "3rd & 19 at IND 43",
+       "shortDownDistanceText": "3rd & 19",
+       "possessionText": "IND 43",
+       "team": {
+        "id": "11"
+       }
+      },
+      "yardsAfterCatch": 1,
+      "isTurnover": false
+     },
+     {
+      "id": "4018730661035",
+      "sequenceNumber": "103500",
+      "type": {
+       "id": "2",
+       "text": "End Period",
+       "abbreviation": "EP"
+      },
+      "text": "END QUARTER 1",
+      "awayScore": 3,
+      "homeScore": 7,
+      "period": {
+       "number": 1
+      },
+      "clock": {
+       "displayValue": "0:00"
+      },
+      "scoringPlay": false,
+      "priority": false,
+      "modified": "2026-11-20T01:56Z",
+      "wallclock": "2026-11-20T01:56:23Z",
+      "isPenalty": false,
+      "statYardage": 0,
+      "start": {
+       "down": 3,
+       "distance": 19,
+       "yardLine": 57,
+       "yardsToEndzone": 57,
+       "team": {
+        "id": "11"
+       }
+      },
+      "end": {
+       "down": 3,
+       "distance": 19,
+       "yardLine": 57,
+       "yardsToEndzone": 57,
+       "downDistanceText": "3rd & 19 at IND 43",
+       "shortDownDistanceText": "3rd & 19",
+       "possessionText": "IND 43",
+       "team": {
+        "id": "11"
+       }
+      },
+      "isTurnover": false
+     },
+     {
+      "id": "4018730661055",
+      "sequenceNumber": "105500",
+      "type": {
+       "id": "26",
+       "text": "Pass Interception Return",
+       "abbreviation": "INTR"
+      },
+      "text": "(Shotgun) D.Jones pass deep middle intended for D.Burks INTERCEPTED by K.Lassiter [L.Hall] at HST 15. K.Lassiter to HST 15 for no gain (D.Burks).",
+      "awayScore": 3,
+      "homeScore": 7,
+      "period": {
+       "number": 2
+      },
+      "clock": {
+       "displayValue": "15:00"
+      },
+      "scoringPlay": false,
+      "priority": false,
+      "modified": "2026-11-20T02:03Z",
+      "wallclock": "2026-11-20T01:59:54Z",
+      "isPenalty": false,
+      "statYardage": 0,
+      "start": {
+       "down": 3,
+       "distance": 19,
+       "yardLine": 57,
+       "yardsToEndzone": 57,
+       "downDistanceText": "3rd & 19 at IND 43",
+       "shortDownDistanceText": "3rd & 19",
+       "possessionText": "IND 43",
+       "team": {
+        "id": "11"
+       }
+      },
+      "end": {
+       "down": 1,
+       "distance": 10,
+       "yardLine": 15,
+       "yardsToEndzone": 85,
+       "downDistanceText": "1st & 10 at HOU 15",
+       "shortDownDistanceText": "1st & 10",
+       "possessionText": "HOU 15",
+       "team": {
+        "id": "34"
+       }
+      },
+      "isTurnover": true
+     }
+    ]
+   },
+   {
+    "id": "4018730666",
+    "plays": [
+     {
+      "id": "4018730661092",
+      "sequenceNumber": "109200",
+      "type": {
+       "id": "5",
+       "text": "Rush",
+       "abbreviation": "RUSH"
+      },
+      "text": "D.Montgomery right tackle to HST 23 for 8 yards (H.Wohler; K.Harris).",
+      "awayScore": 3,
+      "homeScore": 7,
+      "period": {
+       "number": 2
+      },
+      "clock": {
+       "displayValue": "14:52"
+      },
+      "scoringPlay": false,
+      "priority": false,
+      "modified": "2026-11-20T02:02Z",
+      "wallclock": "2026-11-20T02:01:04Z",
+      "isPenalty": false,
+      "statYardage": 8,
+      "start": {
+       "down": 1,
+       "distance": 10,
+       "yardLine": 15,
+       "yardsToEndzone": 85,
+       "downDistanceText": "1st & 10 at HOU 15",
+       "shortDownDistanceText": "1st & 10",
+       "possessionText": "HOU 15",
+       "team": {
+        "id": "34"
+       }
+      },
+      "end": {
+       "down": 2,
+       "distance": 2,
+       "yardLine": 23,
+       "yardsToEndzone": 77,
+       "downDistanceText": "2nd & 2 at HOU 23",
+       "shortDownDistanceText": "2nd & 2",
+       "possessionText": "HOU 23",
+       "team": {
+        "id": "34"
+       }
+      },
+      "isTurnover": false
+     },
+     {
+      "id": "4018730661114",
+      "sequenceNumber": "111400",
+      "type": {
+       "id": "5",
+       "text": "Rush",
+       "abbreviation": "RUSH"
+      },
+      "text": "B.Fisher reported in as eligible.  D.Montgomery right guard to HST 26 for 3 yards (T.Smith; G.Stewart).",
+      "awayScore": 3,
+      "homeScore": 7,
+      "period": {
+       "number": 2
+      },
+      "clock": {
+       "displayValue": "14:10"
+      },
+      "scoringPlay": false,
+      "priority": false,
+      "modified": "2026-11-20T02:03Z",
+      "wallclock": "2026-11-20T02:01:46Z",
+      "isPenalty": false,
+      "statYardage": 3,
+      "start": {
+       "down": 2,
+       "distance": 2,
+       "yardLine": 23,
+       "yardsToEndzone": 77,
+       "downDistanceText": "2nd & 2 at HOU 23",
+       "shortDownDistanceText": "2nd & 2",
+       "possessionText": "HOU 23",
+       "team": {
+        "id": "34"
+       }
+      },
+      "end": {
+       "down": 1,
+       "distance": 10,
+       "yardLine": 26,
+       "yardsToEndzone": 74,
+       "downDistanceText": "1st & 10 at HOU 26",
+       "shortDownDistanceText": "1st & 10",
+       "possessionText": "HOU 26",
+       "team": {
+        "id": "34"
+       }
+      },
+      "isTurnover": false
+     },
+     {
+      "id": "4018730661138",
+      "sequenceNumber": "113800",
+      "type": {
+       "id": "3",
+       "text": "Pass Incompletion"
+      },
+      "text": "C.Stroud pass incomplete short middle.",
+      "awayScore": 3,
+      "homeScore": 7,
+      "period": {
+       "number": 2
+      },
+      "clock": {
+       "displayValue": "13:30"
+      },
+      "scoringPlay": false,
+      "priority": false,
+      "modified": "2026-11-20T02:04Z",
+      "wallclock": "2026-11-20T02:02:26Z",
+      "isPenalty": false,
+      "statYardage": 0,
+      "start": {
+       "down": 1,
+       "distance": 10,
+       "yardLine": 26,
+       "yardsToEndzone": 74,
+       "downDistanceText": "1st & 10 at HOU 26",
+       "shortDownDistanceText": "1st & 10",
+       "possessionText": "HOU 26",
+       "team": {
+        "id": "34"
+       }
+      },
+      "end": {
+       "down": 2,
+       "distance": 10,
+       "yardLine": 26,
+       "yardsToEndzone": 74,
+       "downDistanceText": "2nd & 10 at HOU 26",
+       "shortDownDistanceText": "2nd & 10",
+       "possessionText": "HOU 26",
+       "team": {
+        "id": "34"
+       }
+      },
+      "isTurnover": false
+     },
+     {
+      "id": "4018730661161",
+      "sequenceNumber": "116100",
+      "type": {
+       "id": "24",
+       "text": "Pass Reception",
+       "abbreviation": "REC"
+      },
+      "text": "(Shotgun) C.Stroud pass short left to M.Klein to HST 30 for 4 yards (B.Boettcher; C.Allen).",
+      "awayScore": 3,
+      "homeScore": 7,
+      "period": {
+       "number": 2
+      },
+      "clock": {
+       "displayValue": "13:25"
+      },
+      "scoringPlay": false,
+      "priority": false,
+      "modified": "2026-11-20T02:05Z",
+      "wallclock": "2026-11-20T02:03:11Z",
+      "isPenalty": false,
+      "statYardage": 4,
+      "start": {
+       "down": 2,
+       "distance": 10,
+       "yardLine": 26,
+       "yardsToEndzone": 74,
+       "downDistanceText": "2nd & 10 at HOU 26",
+       "shortDownDistanceText": "2nd & 10",
+       "possessionText": "HOU 26",
+       "team": {
+        "id": "34"
+       }
+      },
+      "end": {
+       "down": 3,
+       "distance": 6,
+       "yardLine": 30,
+       "yardsToEndzone": 70,
+       "downDistanceText": "3rd & 6 at HOU 30",
+       "shortDownDistanceText": "3rd & 6",
+       "possessionText": "HOU 30",
+       "team": {
+        "id": "34"
+       }
+      },
+      "yardsAfterCatch": 1,
+      "isTurnover": false
+     },
+     {
+      "id": "4018730661186",
+      "sequenceNumber": "118600",
+      "type": {
+       "id": "24",
+       "text": "Pass Reception",
+       "abbreviation": "REC"
+      },
+      "text": "(Shotgun) C.Stroud pass short left to N.Collins to HST 36 for 6 yards (A.Ajiake).",
+      "awayScore": 3,
+      "homeScore": 7,
+      "period": {
+       "number": 2
+      },
+      "clock": {
+       "displayValue": "12:41"
+      },
+      "scoringPlay": false,
+      "priority": false,
+      "modified": "2026-11-20T02:06Z",
+      "wallclock": "2026-11-20T02:03:58Z",
+      "isPenalty": false,
+      "statYardage": 6,
+      "start": {
+       "down": 3,
+       "distance": 6,
+       "yardLine": 30,
+       "yardsToEndzone": 70,
+       "downDistanceText": "3rd & 6 at HOU 30",
+       "shortDownDistanceText": "3rd & 6",
+       "possessionText": "HOU 30",
+       "team": {
+        "id": "34"
+       }
+      },
+      "end": {
+       "down": 1,
+       "distance": 10,
+       "yardLine": 36,
+       "yardsToEndzone": 64,
+       "downDistanceText": "1st & 10 at HOU 36",
+       "shortDownDistanceText": "1st & 10",
+       "possessionText": "HOU 36",
+       "team": {
+        "id": "34"
+       }
+      },
+      "yardsAfterCatch": 0,
+      "isTurnover": false
+     },
+     {
+      "id": "4018730661211",
+      "sequenceNumber": "121100",
+      "type": {
+       "id": "24",
+       "text": "Pass Reception",
+       "abbreviation": "REC"
+      },
+      "text": "(Shotgun) C.Stroud pass short right to X.Hutchinson to HST 47 for 11 yards (C.Allen; A.Ajiake).  The first down was assisted by replay.",
+      "awayScore": 3,
+      "homeScore": 7,
+      "period": {
+       "number": 2
+      },
+      "clock": {
+       "displayValue": "11:54"
+      },
+      "scoringPlay": false,
+      "priority": false,
+      "modified": "2026-11-20T02:06Z",
+      "wallclock": "2026-11-20T02:04:45Z",
+      "isPenalty": false,
+      "statYardage": 11,
+      "start": {
+       "down": 1,
+       "distance": 10,
+       "yardLine": 36,
+       "yardsToEndzone": 64,
+       "downDistanceText": "1st & 10 at HOU 36",
+       "shortDownDistanceText": "1st & 10",
+       "possessionText": "HOU 36",
+       "team": {
+        "id": "34"
+       }
+      },
+      "end": {
+       "down": 1,
+       "distance": 10,
+       "yardLine": 47,
+       "yardsToEndzone": 53,
+       "downDistanceText": "1st & 10 at HOU 47",
+       "shortDownDistanceText": "1st & 10",
+       "possessionText": "HOU 47",
+       "team": {
+        "id": "34"
+       }
+      },
+      "yardsAfterCatch": 5,
+      "isTurnover": false
+     },
+     {
+      "id": "4018730661236",
+      "sequenceNumber": "123600",
+      "type": {
+       "id": "5",
+       "text": "Rush",
+       "abbreviation": "RUSH"
+      },
+      "text": "D.Montgomery left guard to IND 43 for 10 yards (C.Bynum; J.Walley).",
+      "awayScore": 3,
+      "homeScore": 7,
+      "period": {
+       "number": 2
+      },
+      "clock": {
+       "displayValue": "11:11"
+      },
+      "scoringPlay": false,
+      "priority": false,
+      "modified": "2026-11-20T02:13Z",
+      "wallclock": "2026-11-20T02:05:46Z",
+      "isPenalty": false,
+      "statYardage": 10,
+      "start": {
+       "down": 1,
+       "distance": 10,
+       "yardLine": 47,
+       "yardsToEndzone": 53,
+       "downDistanceText": "1st & 10 at HOU 47",
+       "shortDownDistanceText": "1st & 10",
+       "possessionText": "HOU 47",
+       "team": {
+        "id": "34"
+       }
+      },
+      "end": {
+       "down": 1,
+       "distance": 10,
+       "yardLine": 57,
+       "yardsToEndzone": 43,
+       "downDistanceText": "1st & 10 at IND 43",
+       "shortDownDistanceText": "1st & 10",
+       "possessionText": "IND 43",
+       "team": {
+        "id": "34"
+       }
+      },
+      "isTurnover": false
+     },
+     {
+      "id": "4018730661260",
+      "sequenceNumber": "126000",
+      "type": {
+       "id": "24",
+       "text": "Pass Reception",
+       "abbreviation": "REC"
+      },
+      "text": "C.Stroud pass short middle to F.Moreau to IND 35 for 8 yards (B.Boettcher).",
+      "awayScore": 3,
+      "homeScore": 7,
+      "period": {
+       "number": 2
+      },
+      "clock": {
+       "displayValue": "10:32"
+      },
+      "scoringPlay": false,
+      "priority": false,
+      "modified": "2026-11-20T02:08Z",
+      "wallclock": "2026-11-20T02:06:26Z",
+      "isPenalty": false,
+      "statYardage": 8,
+      "start": {
+       "down": 1,
+       "distance": 10,
+       "yardLine": 57,
+       "yardsToEndzone": 43,
+       "downDistanceText": "1st & 10 at IND 43",
+       "shortDownDistanceText": "1st & 10",
+       "possessionText": "IND 43",
+       "team": {
+        "id": "34"
+       }
+      },
+      "end": {
+       "down": 2,
+       "distance": 2,
+       "yardLine": 65,
+       "yardsToEndzone": 35,
+       "downDistanceText": "2nd & 2 at IND 35",
+       "shortDownDistanceText": "2nd & 2",
+       "possessionText": "IND 35",
+       "team": {
+        "id": "34"
+       }
+      },
+      "yardsAfterCatch": 7,
+      "isTurnover": false
+     },
+     {
+      "id": "4018730661285",
+      "sequenceNumber": "128500",
+      "type": {
+       "id": "24",
+       "text": "Pass Reception",
+       "abbreviation": "REC"
+      },
+      "text": "(Shotgun) C.Stroud pass short left to M.Klein to IND 32 for 3 yards (H.Wohler).",
+      "awayScore": 3,
+      "homeScore": 7,
+      "period": {
+       "number": 2
+      },
+      "clock": {
+       "displayValue": "9:46"
+      },
+      "scoringPlay": false,
+      "priority": false,
+      "modified": "2026-11-20T02:08Z",
+      "wallclock": "2026-11-20T02:07:12Z",
+      "isPenalty": false,
+      "statYardage": 3,
+      "start": {
+       "down": 2,
+       "distance": 2,
+       "yardLine": 65,
+       "yardsToEndzone": 35,
+       "downDistanceText": "2nd & 2 at IND 35",
+       "shortDownDistanceText": "2nd & 2",
+       "possessionText": "IND 35",
+       "team": {
+        "id": "34"
+       }
+      },
+      "end": {
+       "down": 1,
+       "distance": 10,
+       "yardLine": 68,
+       "yardsToEndzone": 32,
+       "downDistanceText": "1st & 10 at IND 32",
+       "shortDownDistanceText": "1st & 10",
+       "possessionText": "IND 32",
+       "team": {
+        "id": "34"
+       }
+      },
+      "yardsAfterCatch": 0,
+      "isTurnover": false
+     },
+     {
+      "id": "4018730661310",
+      "sequenceNumber": "131000",
+      "type": {
+       "id": "5",
+       "text": "Rush",
+       "abbreviation": "RUSH"
+      },
+      "text": "D.Montgomery left tackle to IND 28 for 4 yards (H.Wohler; G.Stewart).",
+      "awayScore": 3,
+      "homeScore": 7,
+      "period": {
+       "number": 2
+      },
+      "clock": {
+       "displayValue": "9:09"
+      },
+      "scoringPlay": false,
+      "priority": false,
+      "modified": "2026-11-20T02:10Z",
+      "wallclock": "2026-11-20T02:07:48Z",
+      "isPenalty": false,
+      "statYardage": 4,
+      "start": {
+       "down": 1,
+       "distance": 10,
+       "yardLine": 68,
+       "yardsToEndzone": 32,
+       "downDistanceText": "1st & 10 at IND 32",
+       "shortDownDistanceText": "1st & 10",
+       "possessionText": "IND 32",
+       "team": {
+        "id": "34"
+       }
+      },
+      "end": {
+       "down": 2,
+       "distance": 6,
+       "yardLine": 72,
+       "yardsToEndzone": 28,
+       "downDistanceText": "2nd & 6 at IND 28",
+       "shortDownDistanceText": "2nd & 6",
+       "possessionText": "IND 28",
+       "team": {
+        "id": "34"
+       }
+      },
+      "isTurnover": false
+     },
+     {
+      "id": "4018730661332",
+      "sequenceNumber": "133200",
+      "type": {
+       "id": "24",
+       "text": "Pass Reception",
+       "abbreviation": "REC"
+      },
+      "text": "(Shotgun) C.Stroud pass short middle to M.Klein to IND 24 for 4 yards (C.Allen).",
+      "awayScore": 3,
+      "homeScore": 7,
+      "period": {
+       "number": 2
+      },
+      "clock": {
+       "displayValue": "8:25"
+      },
+      "scoringPlay": false,
+      "priority": false,
+      "modified": "2026-11-20T02:11Z",
+      "wallclock": "2026-11-20T02:08:32Z",
+      "isPenalty": false,
+      "statYardage": 4,
+      "start": {
+       "down": 2,
+       "distance": 6,
+       "yardLine": 72,
+       "yardsToEndzone": 28,
+       "downDistanceText": "2nd & 6 at IND 28",
+       "shortDownDistanceText": "2nd & 6",
+       "possessionText": "IND 28",
+       "team": {
+        "id": "34"
+       }
+      },
+      "end": {
+       "down": 3,
+       "distance": 2,
+       "yardLine": 76,
+       "yardsToEndzone": 24,
+       "downDistanceText": "3rd & 2 at IND 24",
+       "shortDownDistanceText": "3rd & 2",
+       "possessionText": "IND 24",
+       "team": {
+        "id": "34"
+       }
+      },
+      "yardsAfterCatch": 4,
+      "isTurnover": false
+     },
+     {
+      "id": "4018730661357",
+      "sequenceNumber": "135700",
+      "type": {
+       "id": "67",
+       "text": "Passing Touchdown",
+       "abbreviation": "TD"
+      },
+      "text": "(Shotgun) C.Stroud pass deep middle to K.Boutte for 24 yards, TOUCHDOWN. K.Fairbairn extra point is GOOD, Center-A.Brinkman, Holder-K.Kroeger.",
+      "awayScore": 3,
+      "homeScore": 14,
+      "period": {
+       "number": 2
+      },
+      "clock": {
+       "displayValue": "7:38"
+      },
+      "scoringPlay": true,
+      "priority": false,
+      "modified": "2026-11-20T02:12Z",
+      "wallclock": "2026-11-20T02:09:14Z",
+      "isPenalty": false,
+      "statYardage": 24,
+      "start": {
+       "down": 3,
+       "distance": 2,
+       "yardLine": 76,
+       "yardsToEndzone": 24,
+       "downDistanceText": "3rd & 2 at IND 24",
+       "shortDownDistanceText": "3rd & 2",
+       "possessionText": "IND 24",
+       "team": {
+        "id": "34"
+       }
+      },
+      "end": {
+       "down": -1,
+       "distance": 10,
+       "yardLine": 100,
+       "yardsToEndzone": 0,
+       "team": {
+        "id": "34"
+       }
+      },
+      "scoringType": {
+       "name": "touchdown",
+       "displayName": "Touchdown",
+       "abbreviation": "TD"
+      },
+      "pointAfterAttempt": {
+       "id": 61,
+       "text": "Extra Point Good",
+       "abbreviation": "Extra Point Good",
+       "value": 1
+      },
+      "yardsAfterCatch": 0,
+      "isTurnover": false
+     },
+     {
+      "id": "4018730661391",
+      "sequenceNumber": "139100",
+      "type": {
+       "id": "74",
+       "text": "Official Timeout",
+       "abbreviation": "Off TO"
+      },
+      "text": "Official Timeout at 07:38.",
+      "awayScore": 3,
+      "homeScore": 14,
+      "period": {
+       "number": 2
+      },
+      "clock": {
+       "displayValue": "7:38"
+      },
+      "scoringPlay": false,
+      "priority": false,
+      "modified": "2026-11-20T02:10Z",
+      "wallclock": "2026-11-20T02:10:24Z",
+      "isPenalty": false,
+      "statYardage": 0,
+      "start": {
+       "down": -1,
+       "distance": 0,
+       "yardLine": 35,
+       "yardsToEndzone": 0,
+       "downDistanceText": " & Goal at HOU 35",
+       "shortDownDistanceText": " & Goal",
+       "possessionText": "HOU 35",
+       "team": {
+        "id": "34"
+       }
+      },
+      "end": {
+       "down": -1,
+       "distance": 0,
+       "yardLine": 35,
+       "yardsToEndzone": 0,
+       "team": {
+        "id": "34"
+       }
+      },
+      "isTurnover": false
+     }
+    ]
+   },
+   {
+    "id": "4018730667",
+    "plays": [
+     {
+      "id": "4018730661398",
+      "sequenceNumber": "139800",
+      "type": {
+       "id": "53",
+       "text": "Kickoff",
+       "abbreviation": "K"
+      },
+      "text": "K.Fairbairn kicks 65 yards from HST 35 to IND 0. S.McGowan pushed ob at IND 47 for 47 yards (C.Stover).",
+      "awayScore": 3,
+      "homeScore": 14,
+      "period": {
+       "number": 2
+      },
+      "clock": {
+       "displayValue": "7:38"
+      },
+      "scoringPlay": false,
+      "priority": false,
+      "modified": "2026-11-20T02:13Z",
+      "wallclock": "2026-11-20T02:13:04Z",
+      "isPenalty": false,
+      "statYardage": 47,
+      "start": {
+       "down": 0,
+       "distance": 0,
+       "yardLine": 35,
+       "yardsToEndzone": 65,
+       "team": {
+        "id": "34"
+       }
+      },
+      "end": {
+       "down": 1,
+       "distance": 10,
+       "yardLine": 53,
+       "yardsToEndzone": 53,
+       "downDistanceText": "1st & 10 at IND 47",
+       "shortDownDistanceText": "1st & 10",
+       "possessionText": "IND 47",
+       "team": {
+        "id": "11"
+       }
+      },
+      "isTurnover": false
+     },
+     {
+      "id": "4018730661438",
+      "sequenceNumber": "143800",
+      "type": {
+       "id": "5",
+       "text": "Rush",
+       "abbreviation": "RUSH"
+      },
+      "text": "(Shotgun) J.Taylor right tackle to IND 46 for -1 yards (W.Anderson, T.Togiai).",
+      "awayScore": 3,
+      "homeScore": 14,
+      "period": {
+       "number": 2
+      },
+      "clock": {
+       "displayValue": "7:31"
+      },
+      "scoringPlay": false,
+      "priority": false,
+      "modified": "2026-11-20T02:14Z",
+      "wallclock": "2026-11-20T02:13:54Z",
+      "isPenalty": false,
+      "statYardage": -1,
+      "start": {
+       "down": 1,
+       "distance": 10,
+       "yardLine": 53,
+       "yardsToEndzone": 53,
+       "downDistanceText": "1st & 10 at IND 47",
+       "shortDownDistanceText": "1st & 10",
+       "possessionText": "IND 47",
+       "team": {
+        "id": "11"
+       }
+      },
+      "end": {
+       "down": 2,
+       "distance": 11,
+       "yardLine": 54,
+       "yardsToEndzone": 54,
+       "downDistanceText": "2nd & 11 at IND 46",
+       "shortDownDistanceText": "2nd & 11",
+       "possessionText": "IND 46",
+       "team": {
+        "id": "11"
+       }
+      },
+      "isTurnover": false
+     }
+    ]
+   }
+  ],
+  "current": {
+   "id": "4018730667",
+   "plays": [
+    {
+     "id": "4018730661398",
+     "sequenceNumber": "139800",
+     "type": {
+      "id": "53",
+      "text": "Kickoff",
+      "abbreviation": "K"
+     },
+     "text": "K.Fairbairn kicks 65 yards from HST 35 to IND 0. S.McGowan pushed ob at IND 47 for 47 yards (C.Stover).",
+     "awayScore": 3,
+     "homeScore": 14,
+     "period": {
+      "number": 2
+     },
+     "clock": {
+      "displayValue": "7:38"
+     },
+     "scoringPlay": false,
+     "priority": false,
+     "modified": "2026-11-20T02:13Z",
+     "wallclock": "2026-11-20T02:13:04Z",
+     "isPenalty": false,
+     "statYardage": 47,
+     "start": {
+      "down": 0,
+      "distance": 0,
+      "yardLine": 35,
+      "yardsToEndzone": 65,
+      "team": {
+       "id": "34"
+      }
+     },
+     "end": {
+      "down": 1,
+      "distance": 10,
+      "yardLine": 53,
+      "yardsToEndzone": 53,
+      "downDistanceText": "1st & 10 at IND 47",
+      "shortDownDistanceText": "1st & 10",
+      "possessionText": "IND 47",
+      "team": {
+       "id": "11"
+      }
+     },
+     "isTurnover": false
+    },
+    {
+     "id": "4018730661438",
+     "sequenceNumber": "143800",
+     "type": {
+      "id": "5",
+      "text": "Rush",
+      "abbreviation": "RUSH"
+     },
+     "text": "(Shotgun) J.Taylor right tackle to IND 46 for -1 yards (W.Anderson, T.Togiai).",
+     "awayScore": 3,
+     "homeScore": 14,
+     "period": {
+      "number": 2
+     },
+     "clock": {
+      "displayValue": "7:31"
+     },
+     "scoringPlay": false,
+     "priority": false,
+     "scoreValue": 0,
+     "modified": "2026-11-20T02:14Z",
+     "wallclock": "2026-11-20T02:13:54Z",
+     "isPenalty": false,
+     "statYardage": -1,
+     "start": {
+      "down": 1,
+      "distance": 10,
+      "yardLine": 53,
+      "yardsToEndzone": 53,
+      "downDistanceText": "1st & 10 at IND 47",
+      "shortDownDistanceText": "1st & 10",
+      "possessionText": "IND 47",
+      "team": {
+       "id": "11"
+      }
+     },
+     "end": {
+      "down": 2,
+      "distance": 11,
+      "yardLine": 54,
+      "yardsToEndzone": 54,
+      "downDistanceText": "2nd & 11 at IND 46",
+      "shortDownDistanceText": "2nd & 11",
+      "possessionText": "IND 46",
+      "team": {
+       "id": "11"
+      }
+     },
+     "isTurnover": false
+    }
+   ]
+  }
+ }
+}

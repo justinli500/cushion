@@ -63,7 +63,14 @@ function Positions({ positions }: { positions: Position[] }) {
             <p className="text-[14px] font-medium">{p.title}</p>
             <p className="mt-0.5 text-[13px] leading-relaxed text-muted">{p.detail}</p>
             <p className="mt-1.5 flex flex-wrap items-center gap-2 text-[12px] text-faint">
-              <span>{p.payout == null ? `Settles ${formatWhen(p.expiry)}` : `Settled ${formatWhen(p.settledAt ?? p.expiry)}`}</span>
+              {p.replay ? <Tag>Replay</Tag> : null}
+              <span>
+                {p.payout != null
+                  ? `Settled ${formatWhen(p.settledAt ?? p.expiry)}`
+                  : p.replay
+                    ? "Settles when the replay ends"
+                    : `Settles ${formatWhen(p.expiry)}`}
+              </span>
               {p.receipt ? (
                 <a href={explorer(p.receipt)} target="_blank" rel="noreferrer" className="press text-cushion underline-offset-2 hover:underline">
                   View receipt

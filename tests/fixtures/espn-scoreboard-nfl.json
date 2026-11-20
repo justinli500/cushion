@@ -1,0 +1,233 @@
+{
+ "events": [
+  {
+   "id": "401873066",
+   "date": "2026-11-20T01:15Z",
+   "name": "Indianapolis Colts at Houston Texans",
+   "shortName": "IND @ HOU",
+   "season": {
+    "year": 2026,
+    "type": 2,
+    "slug": "regular-season"
+   },
+   "week": {
+    "number": 11
+   },
+   "competitions": [
+    {
+     "id": "401873066",
+     "date": "2026-11-20T01:15Z",
+     "attendance": 0,
+     "type": {
+      "id": "1",
+      "abbreviation": "STD"
+     },
+     "timeValid": true,
+     "neutralSite": false,
+     "conferenceCompetition": false,
+     "playByPlayAvailable": true,
+     "recent": true,
+     "competitors": [
+      {
+       "id": "34",
+       "type": "team",
+       "order": 0,
+       "homeAway": "home",
+       "team": {
+        "id": "34",
+        "location": "Houston",
+        "name": "Texans",
+        "abbreviation": "HOU",
+        "displayName": "Houston Texans",
+        "shortDisplayName": "Texans",
+        "isActive": true
+       },
+       "score": "14"
+      },
+      {
+       "id": "11",
+       "type": "team",
+       "order": 1,
+       "homeAway": "away",
+       "team": {
+        "id": "11",
+        "location": "Indianapolis",
+        "name": "Colts",
+        "abbreviation": "IND",
+        "displayName": "Indianapolis Colts",
+        "shortDisplayName": "Colts",
+        "isActive": true
+       },
+       "score": "3"
+      }
+     ],
+     "status": {
+      "clock": 451.0,
+      "displayClock": "7:31",
+      "period": 2,
+      "type": {
+       "id": "2",
+       "name": "STATUS_IN_PROGRESS",
+       "state": "in",
+       "completed": false,
+       "description": "In Progress",
+       "detail": "7:31 - 2nd Quarter",
+       "shortDetail": "7:31 - 2nd"
+      },
+      "isTBDFlex": false
+     },
+     "format": {
+      "regulation": {
+       "periods": 4
+      },
+      "overtime": {
+       "periods": 1
+      }
+     },
+     "startDate": "2026-11-20T01:15Z",
+     "broadcast": "Prime Video"
+    }
+   ],
+   "weather": {
+    "displayValue": "7",
+    "temperature": 70,
+    "highTemperature": 70,
+    "conditionId": "Cloudy",
+    "link": {
+     "language": "en-US",
+     "rel": [
+      "77054"
+     ],
+     "href": "http://www.accuweather.com/en/us/nrg-stadium-tx/77002/current-weather/43039_poi?lang=en-us",
+     "text": "Weather",
+     "shortText": "Weather",
+     "isExternal": true,
+     "isPremium": false
+    }
+   },
+   "status": {
+    "clock": 451.0,
+    "displayClock": "7:31",
+    "period": 2,
+    "type": {
+     "id": "2",
+     "name": "STATUS_IN_PROGRESS",
+     "state": "in",
+     "completed": false,
+     "description": "In Progress",
+     "detail": "7:31 - 2nd Quarter",
+     "shortDetail": "7:31 - 2nd"
+    }
+   }
+  },
+  {
+   "id": "401873070",
+   "date": "2026-11-22T18:00Z",
+   "name": "Miami Dolphins at Buffalo Bills",
+   "shortName": "MIA @ BUF",
+   "season": {
+    "year": 2026,
+    "type": 2,
+    "slug": "regular-season"
+   },
+   "week": {
+    "number": 11
+   },
+   "competitions": [
+    {
+     "id": "401873070",
+     "date": "2026-11-22T18:00Z",
+     "attendance": 0,
+     "type": {
+      "id": "1",
+      "abbreviation": "STD"
+     },
+     "timeValid": true,
+     "neutralSite": false,
+     "conferenceCompetition": false,
+     "playByPlayAvailable": false,
+     "recent": false,
+     "competitors": [
+      {
+       "id": "2",
+       "type": "team",
+       "order": 0,
+       "homeAway": "home",
+       "team": {
+        "id": "2",
+        "location": "Buffalo",
+        "name": "Bills",
+        "abbreviation": "BUF",
+        "displayName": "Buffalo Bills",
+        "shortDisplayName": "Bills",
+        "isActive": true
+       },
+       "score": "0"
+      },
+      {
+       "id": "15",
+       "type": "team",
+       "order": 1,
+       "homeAway": "away",
+       "team": {
+        "id": "15",
+        "location": "Miami",
+        "name": "Dolphins",
+        "abbreviation": "MIA",
+        "displayName": "Miami Dolphins",
+        "shortDisplayName": "Dolphins",
+        "isActive": true
+       },
+       "score": "0"
+      }
+     ],
+     "status": {
+      "clock": 0.0,
+      "displayClock": "0:00",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Sun, November 22nd at 1:00 PM EST",
+       "shortDetail": "11/22 - 1:00 PM EST"
+      },
+      "isTBDFlex": false
+     },
+     "format": {
+      "regulation": {
+       "periods": 4
+      },
+      "overtime": {
+       "periods": 1
+      }
+     },
+     "startDate": "2026-11-22T18:00Z",
+     "broadcast": "CBS"
+    }
+   ],
+   "weather": {
+    "displayValue": "Partly sunny",
+    "temperature": 65,
+    "highTemperature": 65,
+    "conditionId": "3"
+   },
+   "status": {
+    "clock": 0.0,
+    "displayClock": "0:00",
+    "period": 0,
+    "type": {
+     "id": "1",
+     "name": "STATUS_SCHEDULED",
+     "state": "pre",
+     "completed": false,
+     "description": "Scheduled",
+     "detail": "Sun, November 22nd at 1:00 PM EST",
+     "shortDetail": "11/22 - 1:00 PM EST"
+    }
+   }
+  }
+ ]
+}

@@ -13,7 +13,8 @@ export function SettlementWatcher() {
   useEffect(() => {
     const check = async () => {
       // A game or prop can resolve long before its listed expiry, so every open cushion is checked.
-      const open = positions.filter((p) => p.payout == null);
+      // Replay cushions are settled by the replay screen: Gemini resolved that game long ago.
+      const open = positions.filter((p) => p.payout == null && !p.replay);
       const tickers = [...new Set(open.flatMap((p) => p.eventTickers))].slice(0, 20);
       if (tickers.length === 0) return;
       try {

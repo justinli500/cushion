@@ -1,0 +1,1005 @@
+{
+ "header": {
+  "id": "401892743",
+  "season": {
+   "year": 2027,
+   "current": true,
+   "type": 2
+  },
+  "timeValid": true,
+  "competitions": [
+   {
+    "id": "401892743",
+    "date": "2026-11-20T00:00Z",
+    "neutralSite": false,
+    "boxscoreAvailable": true,
+    "commentaryAvailable": false,
+    "liveAvailable": true,
+    "shotChartAvailable": true,
+    "onWatchESPN": true,
+    "recent": true,
+    "wallclockAvailable": true,
+    "boxscoreSource": "full",
+    "playByPlaySource": "full",
+    "competitors": [
+     {
+      "id": "14",
+      "order": 0,
+      "homeAway": "home",
+      "team": {
+       "id": "14",
+       "guid": "3edd2776-99a9-c0bb-6a73-863b428e25ef",
+       "location": "Ottawa",
+       "name": "Senators",
+       "nickname": "Senators",
+       "abbreviation": "OTT",
+       "displayName": "Ottawa Senators"
+      },
+      "score": "5",
+      "record": [
+       {
+        "type": "total",
+        "summary": "14-6-2",
+        "displayValue": "14-6-2, 30 PTS"
+       },
+       {
+        "type": "home",
+        "summary": "7-2-1",
+        "displayValue": "7-2-1, 0 PTS"
+       }
+      ],
+      "possession": false
+     },
+     {
+      "id": "15",
+      "order": 1,
+      "homeAway": "away",
+      "team": {
+       "id": "15",
+       "guid": "68aba012-4e93-9371-6861-1bb9a63cfb11",
+       "location": "Philadelphia",
+       "name": "Flyers",
+       "nickname": "Flyers",
+       "abbreviation": "PHI",
+       "displayName": "Philadelphia Flyers"
+      },
+      "score": "4",
+      "record": [
+       {
+        "type": "total",
+        "summary": "7-11-6",
+        "displayValue": "7-11-6, 20 PTS"
+       },
+       {
+        "type": "road",
+        "summary": "3-6-3",
+        "displayValue": "3-6-3, 0 PTS"
+       }
+      ],
+      "possession": false
+     }
+    ],
+    "status": {
+     "displayClock": "13:20",
+     "period": 3,
+     "type": {
+      "id": "2",
+      "name": "STATUS_IN_PROGRESS",
+      "state": "in",
+      "completed": false,
+      "description": "In Progress",
+      "detail": "13:20 - 3rd Period",
+      "shortDetail": "13:20 - 3rd",
+      "statusPrimary": "13:20",
+      "statusSecondary": "3rd"
+     },
+     "displayPeriod": "3rd"
+    },
+    "series": [
+     {
+      "type": "season",
+      "title": "Regular Season Series",
+      "description": "Regular Season Series",
+      "summary": "Series tied 1-1",
+      "completed": false,
+      "totalCompetitions": 3,
+      "competitors": [
+       {
+        "id": "14",
+        "wins": 1,
+        "ties": 0,
+        "team": {
+         "$ref": "http://sports.core.api.espn.pvt/v2/sports/hockey/leagues/nhl/seasons/2027/teams/14?lang=en&region=us"
+        }
+       },
+       {
+        "id": "15",
+        "wins": 1,
+        "ties": 0,
+        "team": {
+         "$ref": "http://sports.core.api.espn.pvt/v2/sports/hockey/leagues/nhl/seasons/2027/teams/15?lang=en&region=us"
+        }
+       }
+      ],
+      "events": [
+       {
+        "$ref": "http://sports.core.api.espn.pvt/v2/sports/hockey/leagues/nhl/events/401891820?lang=en&region=us",
+        "id": "401891820"
+       },
+       {
+        "$ref": "http://sports.core.api.espn.pvt/v2/sports/hockey/leagues/nhl/events/401892526?lang=en&region=us",
+        "id": "401892526"
+       },
+       {
+        "$ref": "http://sports.core.api.espn.pvt/v2/sports/hockey/leagues/nhl/events/401892743?lang=en&region=us",
+        "id": "401892743"
+       }
+      ],
+      "startDate": "2026-10-08T23:00Z"
+     }
+    ],
+    "boxscoreMinutes": true
+   }
+  ],
+  "league": {
+   "id": "90",
+   "name": "National Hockey League",
+   "abbreviation": "NHL",
+   "shortName": "NHL",
+   "slug": "nhl",
+   "isTournament": false
+  },
+  "standings": [
+   {
+    "team": "Philadelphia",
+    "link": "https://www.espn.com/nhl/team/_/name/phi/philadelphia-flyers",
+    "id": "15",
+    "stats": [
+     {
+      "name": "otLosses",
+      "displayName": "Overtime Losses",
+      "shortDisplayName": "OTL",
+      "description": "Number of Overtime Losses",
+      "abbreviation": "OTL",
+      "type": "otlosses",
+      "value": 6.0,
+      "displayValue": "6"
+     },
+     {
+      "name": "losses",
+      "displayName": "Losses",
+      "shortDisplayName": "L",
+      "description": "Losses",
+      "abbreviation": "L",
+      "type": "losses",
+      "value": 11.0,
+      "displayValue": "11"
+     },
+     {
+      "name": "points",
+      "displayName": "Points",
+      "shortDisplayName": "PTS",
+      "description": "Total Points",
+      "abbreviation": "PTS",
+      "type": "points",
+      "value": 20.0,
+      "displayValue": "20"
+     },
+     {
+      "name": "wins",
+      "displayName": "Wins",
+      "shortDisplayName": "W",
+      "description": "Wins",
+      "abbreviation": "W",
+      "type": "wins",
+      "value": 7.0,
+      "displayValue": "7"
+     }
+    ]
+   }
+  ]
+ },
+ "plays": [
+  {
+   "id": "401892743000000500",
+   "sequenceNumber": "228",
+   "type": {
+    "id": "516",
+    "text": "Stoppage",
+    "abbreviation": "stoppage"
+   },
+   "text": "Goalie Stopped",
+   "awayScore": 2,
+   "homeScore": 4,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "0:52"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "modified": "2026-11-20T02:04Z",
+   "wallclock": "2026-11-20T02:01:53Z",
+   "shootingPlay": true,
+   "strength": {
+    "id": "701",
+    "text": "Even Strength",
+    "abbreviation": "even-strength"
+   }
+  },
+  {
+   "id": "401892743000008000",
+   "sequenceNumber": "229",
+   "type": {
+    "id": "45",
+    "text": "Roughing",
+    "abbreviation": "Roughing",
+    "penaltyMinutes": "2",
+    "penaltyType": "Minor"
+   },
+   "text": "Trevor Zegras Roughing against Fabian Zetterlund",
+   "awayScore": 2,
+   "homeScore": 4,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "0:52"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "modified": "2026-11-20T02:04Z",
+   "team": {
+    "id": "15"
+   },
+   "wallclock": "2026-11-20T02:01:53Z",
+   "shootingPlay": true,
+   "strength": {
+    "id": "701",
+    "text": "Even Strength",
+    "abbreviation": "even-strength"
+   }
+  },
+  {
+   "id": "401892743000007960",
+   "sequenceNumber": "230",
+   "type": {
+    "id": "502",
+    "text": "Face Off",
+    "abbreviation": "faceoff"
+   },
+   "text": "Tim St\u00fctzle faceoff won against Noel Acciari",
+   "awayScore": 2,
+   "homeScore": 4,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "0:52"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "modified": "2026-11-20T02:04Z",
+   "team": {
+    "id": "14"
+   },
+   "wallclock": "2026-11-20T02:02:46Z",
+   "shootingPlay": true,
+   "strength": {
+    "id": "702",
+    "text": "Power Play",
+    "abbreviation": "power-play"
+   }
+  },
+  {
+   "id": "401892743000008100",
+   "sequenceNumber": "231",
+   "type": {
+    "id": "503",
+    "text": "Hit",
+    "abbreviation": "hit"
+   },
+   "text": "Cam York hit Tim St\u00fctzle",
+   "awayScore": 2,
+   "homeScore": 4,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "1:34"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "modified": "2026-11-20T02:05Z",
+   "team": {
+    "id": "15"
+   },
+   "wallclock": "2026-11-20T02:03:28Z",
+   "shootingPlay": true,
+   "strength": {
+    "id": "703",
+    "text": "Shorthanded",
+    "abbreviation": "short-handed"
+   }
+  },
+  {
+   "id": "401892743000004510",
+   "sequenceNumber": "232",
+   "type": {
+    "id": "516",
+    "text": "Stoppage",
+    "abbreviation": "stoppage"
+   },
+   "text": "Off-side",
+   "awayScore": 2,
+   "homeScore": 4,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "1:43"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "modified": "2026-11-20T02:05Z",
+   "wallclock": "2026-11-20T02:03:36Z",
+   "shootingPlay": true,
+   "strength": {
+    "id": "703",
+    "text": "Shorthanded",
+    "abbreviation": "short-handed"
+   }
+  },
+  {
+   "id": "401892743000008060",
+   "sequenceNumber": "233",
+   "type": {
+    "id": "502",
+    "text": "Face Off",
+    "abbreviation": "faceoff"
+   },
+   "text": "Noah Cates faceoff won against Dylan Cozens",
+   "awayScore": 2,
+   "homeScore": 4,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "1:43"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "modified": "2026-11-20T02:05Z",
+   "team": {
+    "id": "15"
+   },
+   "wallclock": "2026-11-20T02:04:15Z",
+   "shootingPlay": true,
+   "strength": {
+    "id": "703",
+    "text": "Shorthanded",
+    "abbreviation": "short-handed"
+   }
+  },
+  {
+   "id": "401892743000008230",
+   "sequenceNumber": "234",
+   "type": {
+    "id": "1402",
+    "text": "Giveaway",
+    "abbreviation": "giveaway"
+   },
+   "text": "Giveaway by Dylan Cozens",
+   "awayScore": 2,
+   "homeScore": 4,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "2:40"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "modified": "2026-11-20T02:07Z",
+   "team": {
+    "id": "14"
+   },
+   "wallclock": "2026-11-20T02:05:12Z",
+   "shootingPlay": true,
+   "strength": {
+    "id": "702",
+    "text": "Power Play",
+    "abbreviation": "power-play"
+   }
+  },
+  {
+   "id": "401892743000008220",
+   "sequenceNumber": "235",
+   "type": {
+    "id": "508",
+    "text": "Blocked",
+    "abbreviation": "shot-blocked"
+   },
+   "text": "Samuel Blais shot blocked by Nick Seeler",
+   "awayScore": 2,
+   "homeScore": 4,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "3:27"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "modified": "2026-11-20T02:07Z",
+   "team": {
+    "id": "15"
+   },
+   "wallclock": "2026-11-20T02:05:59Z",
+   "shootingPlay": true,
+   "strength": {
+    "id": "701",
+    "text": "Even Strength",
+    "abbreviation": "even-strength"
+   }
+  },
+  {
+   "id": "401892743000008400",
+   "sequenceNumber": "236",
+   "type": {
+    "id": "45",
+    "text": "Roughing",
+    "abbreviation": "Roughing",
+    "penaltyMinutes": "2",
+    "penaltyType": "Minor"
+   },
+   "text": "Porter Martone Roughing against Samuel Blais",
+   "awayScore": 2,
+   "homeScore": 4,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "4:24"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "modified": "2026-11-20T02:09Z",
+   "team": {
+    "id": "15"
+   },
+   "wallclock": "2026-11-20T02:06:56Z",
+   "shootingPlay": true,
+   "strength": {
+    "id": "701",
+    "text": "Even Strength",
+    "abbreviation": "even-strength"
+   }
+  },
+  {
+   "id": "401892743000008360",
+   "sequenceNumber": "237",
+   "type": {
+    "id": "502",
+    "text": "Face Off",
+    "abbreviation": "faceoff"
+   },
+   "text": "Tim St\u00fctzle faceoff won against Noel Acciari",
+   "awayScore": 2,
+   "homeScore": 4,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "4:24"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "modified": "2026-11-20T02:09Z",
+   "team": {
+    "id": "14"
+   },
+   "wallclock": "2026-11-20T02:07:36Z",
+   "shootingPlay": true,
+   "strength": {
+    "id": "702",
+    "text": "Power Play",
+    "abbreviation": "power-play"
+   }
+  },
+  {
+   "id": "401892743000004530",
+   "sequenceNumber": "238",
+   "type": {
+    "id": "516",
+    "text": "Stoppage",
+    "abbreviation": "stoppage"
+   },
+   "text": "Off-side",
+   "awayScore": 2,
+   "homeScore": 4,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "4:46"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "modified": "2026-11-20T02:10Z",
+   "wallclock": "2026-11-20T02:07:59Z",
+   "shootingPlay": true,
+   "strength": {
+    "id": "702",
+    "text": "Power Play",
+    "abbreviation": "power-play"
+   }
+  },
+  {
+   "id": "401892743000008430",
+   "sequenceNumber": "239",
+   "type": {
+    "id": "502",
+    "text": "Face Off",
+    "abbreviation": "faceoff"
+   },
+   "text": "Shane Pinto faceoff won against Christian Dvorak",
+   "awayScore": 2,
+   "homeScore": 4,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "4:46"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "modified": "2026-11-20T02:10Z",
+   "team": {
+    "id": "14"
+   },
+   "wallclock": "2026-11-20T02:08:30Z",
+   "shootingPlay": true,
+   "strength": {
+    "id": "702",
+    "text": "Power Play",
+    "abbreviation": "power-play"
+   }
+  },
+  {
+   "id": "401892743000008460",
+   "sequenceNumber": "240",
+   "type": {
+    "id": "508",
+    "text": "Blocked",
+    "abbreviation": "shot-blocked"
+   },
+   "text": "Tim St\u00fctzle shot blocked by Cam York",
+   "awayScore": 2,
+   "homeScore": 4,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "5:04"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "modified": "2026-11-20T02:10Z",
+   "team": {
+    "id": "15"
+   },
+   "wallclock": "2026-11-20T02:08:48Z",
+   "shootingPlay": true,
+   "strength": {
+    "id": "703",
+    "text": "Shorthanded",
+    "abbreviation": "short-handed"
+   }
+  },
+  {
+   "id": "401892743000008500",
+   "sequenceNumber": "241",
+   "type": {
+    "id": "13",
+    "text": "Cross checking",
+    "abbreviation": "Cross checking",
+    "penaltyMinutes": "2",
+    "penaltyType": "Minor"
+   },
+   "text": "Stephen Halliday Cross-checking against Christian Dvorak",
+   "awayScore": 2,
+   "homeScore": 4,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "5:13"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "modified": "2026-11-20T02:10Z",
+   "team": {
+    "id": "14"
+   },
+   "wallclock": "2026-11-20T02:08:57Z",
+   "shootingPlay": true,
+   "strength": {
+    "id": "702",
+    "text": "Power Play",
+    "abbreviation": "power-play"
+   }
+  },
+  {
+   "id": "401892743000008470",
+   "sequenceNumber": "242",
+   "type": {
+    "id": "502",
+    "text": "Face Off",
+    "abbreviation": "faceoff"
+   },
+   "text": "Matvei Michkov faceoff won against Dylan Cozens",
+   "awayScore": 2,
+   "homeScore": 4,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "5:13"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "modified": "2026-11-20T02:10Z",
+   "team": {
+    "id": "15"
+   },
+   "wallclock": "2026-11-20T02:09:57Z",
+   "shootingPlay": true,
+   "strength": {
+    "id": "701",
+    "text": "Even Strength",
+    "abbreviation": "even-strength"
+   }
+  },
+  {
+   "id": "401892743000009090",
+   "sequenceNumber": "243",
+   "type": {
+    "id": "1402",
+    "text": "Giveaway",
+    "abbreviation": "giveaway"
+   },
+   "text": "Giveaway by Oliver Bonk",
+   "awayScore": 2,
+   "homeScore": 4,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "5:19"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "modified": "2026-11-20T02:12Z",
+   "team": {
+    "id": "15"
+   },
+   "wallclock": "2026-11-20T02:10:03Z",
+   "shootingPlay": true,
+   "strength": {
+    "id": "701",
+    "text": "Even Strength",
+    "abbreviation": "even-strength"
+   }
+  },
+  {
+   "id": "401892743000009040",
+   "sequenceNumber": "244",
+   "type": {
+    "id": "505",
+    "text": "Goal",
+    "abbreviation": "goal"
+   },
+   "text": "Dylan Cozens Goal (6) Snap Shot, assists: Ridly Greig (3)",
+   "awayScore": 2,
+   "homeScore": 5,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "5:27"
+   },
+   "scoringPlay": true,
+   "scoreValue": 1,
+   "modified": "2026-11-20T02:12Z",
+   "team": {
+    "id": "14"
+   },
+   "wallclock": "2026-11-20T02:10:11Z",
+   "shootingPlay": true,
+   "shotInfo": {
+    "id": "901",
+    "text": "None",
+    "abbreviation": "regular"
+   },
+   "strength": {
+    "id": "701",
+    "text": "Even Strength",
+    "abbreviation": "even-strength"
+   }
+  },
+  {
+   "id": "401892743000009050",
+   "sequenceNumber": "245",
+   "type": {
+    "id": "502",
+    "text": "Face Off",
+    "abbreviation": "faceoff"
+   },
+   "text": "Tim St\u00fctzle faceoff won against Cole Knuble",
+   "awayScore": 2,
+   "homeScore": 5,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "5:27"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "modified": "2026-11-20T02:12Z",
+   "team": {
+    "id": "14"
+   },
+   "wallclock": "2026-11-20T02:10:53Z",
+   "shootingPlay": true,
+   "strength": {
+    "id": "701",
+    "text": "Even Strength",
+    "abbreviation": "even-strength"
+   }
+  },
+  {
+   "id": "401892743000009100",
+   "sequenceNumber": "246",
+   "type": {
+    "id": "508",
+    "text": "Blocked",
+    "abbreviation": "shot-blocked"
+   },
+   "text": "Tim St\u00fctzle shot blocked by Rasmus Ristolainen",
+   "awayScore": 2,
+   "homeScore": 5,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "5:51"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "modified": "2026-11-20T02:12Z",
+   "team": {
+    "id": "15"
+   },
+   "wallclock": "2026-11-20T02:11:17Z",
+   "shootingPlay": true,
+   "strength": {
+    "id": "701",
+    "text": "Even Strength",
+    "abbreviation": "even-strength"
+   }
+  },
+  {
+   "id": "401892743000004540",
+   "sequenceNumber": "247",
+   "type": {
+    "id": "516",
+    "text": "Stoppage",
+    "abbreviation": "stoppage"
+   },
+   "text": "Puck in Netting",
+   "awayScore": 2,
+   "homeScore": 5,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "5:52"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "modified": "2026-11-20T02:14Z",
+   "wallclock": "2026-11-20T02:11:18Z",
+   "shootingPlay": true,
+   "strength": {
+    "id": "701",
+    "text": "Even Strength",
+    "abbreviation": "even-strength"
+   }
+  },
+  {
+   "id": "401892743000009110",
+   "sequenceNumber": "248",
+   "type": {
+    "id": "502",
+    "text": "Face Off",
+    "abbreviation": "faceoff"
+   },
+   "text": "Sean Couturier faceoff won against Tim St\u00fctzle",
+   "awayScore": 2,
+   "homeScore": 5,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "5:52"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "modified": "2026-11-20T02:14Z",
+   "team": {
+    "id": "15"
+   },
+   "wallclock": "2026-11-20T02:11:49Z",
+   "shootingPlay": true,
+   "strength": {
+    "id": "701",
+    "text": "Even Strength",
+    "abbreviation": "even-strength"
+   }
+  },
+  {
+   "id": "401892743000009210",
+   "sequenceNumber": "249",
+   "type": {
+    "id": "503",
+    "text": "Hit",
+    "abbreviation": "hit"
+   },
+   "text": "Tim St\u00fctzle hit Cam York",
+   "awayScore": 2,
+   "homeScore": 5,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "6:14"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "modified": "2026-11-20T02:13Z",
+   "team": {
+    "id": "14"
+   },
+   "wallclock": "2026-11-20T02:12:11Z",
+   "shootingPlay": true,
+   "strength": {
+    "id": "701",
+    "text": "Even Strength",
+    "abbreviation": "even-strength"
+   }
+  },
+  {
+   "id": "401892743000002540",
+   "sequenceNumber": "250",
+   "type": {
+    "id": "507",
+    "text": "Missed",
+    "abbreviation": "shot-missed"
+   },
+   "text": "Missed Shot",
+   "awayScore": 3,
+   "homeScore": 5,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "6:25"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "modified": "2026-11-20T02:14Z",
+   "wallclock": "2026-11-20T02:12:21Z",
+   "shootingPlay": true,
+   "strength": {
+    "id": "702",
+    "text": "Power Play",
+    "abbreviation": "power-play"
+   }
+  },
+  {
+   "id": "401892743000009140",
+   "sequenceNumber": "251",
+   "type": {
+    "id": "505",
+    "text": "Goal",
+    "abbreviation": "goal"
+   },
+   "text": "Cam York Goal (2) Snap Shot, assists: Noah Cates (5), Sean Couturier (7)",
+   "awayScore": 3,
+   "homeScore": 5,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "6:25"
+   },
+   "scoringPlay": true,
+   "scoreValue": 1,
+   "modified": "2026-11-20T02:14Z",
+   "team": {
+    "id": "15"
+   },
+   "wallclock": "2026-11-20T02:12:21Z",
+   "shootingPlay": true,
+   "shotInfo": {
+    "id": "901",
+    "text": "None",
+    "abbreviation": "regular"
+   },
+   "strength": {
+    "id": "702",
+    "text": "Power Play",
+    "abbreviation": "power-play"
+   }
+  },
+  {
+   "id": "401892743000009160",
+   "sequenceNumber": "252",
+   "type": {
+    "id": "502",
+    "text": "Face Off",
+    "abbreviation": "faceoff"
+   },
+   "text": "Ridly Greig faceoff won against Noah Cates",
+   "awayScore": 3,
+   "homeScore": 5,
+   "period": {
+    "number": 3,
+    "displayValue": "3rd"
+   },
+   "clock": {
+    "displayValue": "6:25"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "modified": "2026-11-20T02:14Z",
+   "team": {
+    "id": "14"
+   },
+   "wallclock": "2026-11-20T02:14:06Z",
+   "shootingPlay": true,
+   "strength": {
+    "id": "701",
+    "text": "Even Strength",
+    "abbreviation": "even-strength"
+   }
+  }
+ ]
+}

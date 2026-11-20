@@ -1,0 +1,854 @@
+{
+ "header": {
+  "id": "401910019",
+  "season": {
+   "year": 2027,
+   "current": true,
+   "type": 2
+  },
+  "timeValid": true,
+  "competitions": [
+   {
+    "id": "401910019",
+    "date": "2026-11-20T01:00Z",
+    "neutralSite": false,
+    "conferenceCompetition": false,
+    "boxscoreAvailable": true,
+    "commentaryAvailable": false,
+    "liveAvailable": true,
+    "shotChartAvailable": true,
+    "timeoutsAvailable": true,
+    "possessionArrowAvailable": false,
+    "onWatchESPN": false,
+    "recent": true,
+    "wallclockAvailable": true,
+    "boxscoreSource": "full",
+    "playByPlaySource": "full",
+    "competitors": [
+     {
+      "id": "29",
+      "order": 0,
+      "homeAway": "home",
+      "team": {
+       "id": "29",
+       "guid": "af5d4942-aeb5-2d07-2a8a-f70b54617e51",
+       "location": "Memphis",
+       "name": "Grizzlies",
+       "abbreviation": "MEM",
+       "displayName": "Memphis Grizzlies"
+      },
+      "score": "55",
+      "record": [
+       {
+        "type": "total",
+        "summary": "11-4",
+        "displayValue": "11-4"
+       },
+       {
+        "type": "home",
+        "summary": "3-4",
+        "displayValue": "3-4"
+       },
+       {
+        "type": "vsconf",
+        "summary": "7-3",
+        "displayValue": "7-3"
+       }
+      ],
+      "timeoutsUsed": 1,
+      "timeoutsRemaining": 5,
+      "fouls": {
+       "teamFouls": 14,
+       "teamFoulsCurrent": 9,
+       "foulsToGive": 0,
+       "bonusState": "DOUBLE"
+      },
+      "possession": false
+     },
+     {
+      "id": "9",
+      "order": 1,
+      "homeAway": "away",
+      "team": {
+       "id": "9",
+       "guid": "77a8546f-24bf-a333-8161-bf9f75396c49",
+       "location": "Golden State",
+       "name": "Warriors",
+       "abbreviation": "GS",
+       "displayName": "Golden State Warriors"
+      },
+      "score": "47",
+      "record": [
+       {
+        "type": "total",
+        "summary": "8-7",
+        "displayValue": "8-7"
+       },
+       {
+        "type": "road",
+        "summary": "2-6",
+        "displayValue": "2-6"
+       },
+       {
+        "type": "vsconf",
+        "summary": "6-7",
+        "displayValue": "6-7"
+       }
+      ],
+      "timeoutsUsed": 2,
+      "timeoutsRemaining": 4,
+      "fouls": {
+       "teamFouls": 8,
+       "teamFoulsCurrent": 4,
+       "foulsToGive": 0,
+       "bonusState": "DOUBLE"
+      },
+      "possession": false
+     }
+    ],
+    "status": {
+     "displayClock": "0.0",
+     "period": 2,
+     "type": {
+      "id": "23",
+      "name": "STATUS_HALFTIME",
+      "state": "in",
+      "completed": false,
+      "description": "Halftime",
+      "detail": "Halftime",
+      "shortDetail": "Halftime",
+      "statusPrimary": "Halftime"
+     },
+     "displayPeriod": "2nd"
+    },
+    "series": [
+     {
+      "type": "season",
+      "title": "Regular Season Series",
+      "description": "Regular Season Series",
+      "summary": "MEM leads series 1-0",
+      "completed": false,
+      "totalCompetitions": 4,
+      "competitors": [
+       {
+        "id": "29",
+        "wins": 1,
+        "ties": 0,
+        "team": {
+         "$ref": "http://sports.core.api.espn.pvt/v2/sports/basketball/leagues/nba/seasons/2027/teams/29?lang=en&region=us"
+        }
+       },
+       {
+        "id": "9",
+        "wins": 0,
+        "ties": 0,
+        "team": {
+         "$ref": "http://sports.core.api.espn.pvt/v2/sports/basketball/leagues/nba/seasons/2027/teams/9?lang=en&region=us"
+        }
+       }
+      ],
+      "events": [
+       {
+        "$ref": "http://sports.core.api.espn.pvt/v2/sports/basketball/leagues/nba/events/401909850?lang=en&region=us",
+        "id": "401909850"
+       },
+       {
+        "$ref": "http://sports.core.api.espn.pvt/v2/sports/basketball/leagues/nba/events/401910019?lang=en&region=us",
+        "id": "401910019"
+       },
+       {
+        "$ref": "http://sports.core.api.espn.pvt/v2/sports/basketball/leagues/nba/events/401910110?lang=en&region=us",
+        "id": "401910110"
+       },
+       {
+        "$ref": "http://sports.core.api.espn.pvt/v2/sports/basketball/leagues/nba/events/401910754?lang=en&region=us",
+        "id": "401910754"
+       }
+      ],
+      "startDate": "2026-10-24T02:00Z"
+     }
+    ],
+    "boxscoreMinutes": true
+   }
+  ],
+  "league": {
+   "id": "46",
+   "name": "National Basketball Association",
+   "abbreviation": "NBA",
+   "shortName": "NBA",
+   "slug": "nba",
+   "isTournament": false
+  }
+ },
+ "plays": [
+  {
+   "id": "401910019354",
+   "sequenceNumber": "354",
+   "type": {
+    "id": "64",
+    "text": "Traveling"
+   },
+   "text": "Jaylen Wells traveling turnover",
+   "awayScore": 44,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "1:32"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "team": {
+    "id": "29"
+   },
+   "wallclock": "2026-11-20T02:04:33Z",
+   "shootingPlay": false,
+   "pointsAttempted": 0,
+   "shortDescription": "Turnover"
+  },
+  {
+   "id": "401910019355",
+   "sequenceNumber": "355",
+   "type": {
+    "id": "45",
+    "text": "Personal Foul"
+   },
+   "text": "Jaylen Wells personal foul",
+   "awayScore": 44,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "1:24"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "team": {
+    "id": "29"
+   },
+   "wallclock": "2026-11-20T02:05:00Z",
+   "shootingPlay": false,
+   "pointsAttempted": 0,
+   "shortDescription": "Foul"
+  },
+  {
+   "id": "401910019357",
+   "sequenceNumber": "357",
+   "type": {
+    "id": "98",
+    "text": "Free Throw - 1 of 2"
+   },
+   "text": "Brandin Podziemski makes free throw 1 of 2",
+   "awayScore": 45,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "1:24"
+   },
+   "scoringPlay": true,
+   "scoreValue": 1,
+   "team": {
+    "id": "9"
+   },
+   "wallclock": "2026-11-20T02:05:48Z",
+   "shootingPlay": true,
+   "pointsAttempted": 1,
+   "shortDescription": "+1 Point"
+  },
+  {
+   "id": "401910019358",
+   "sequenceNumber": "358",
+   "type": {
+    "id": "99",
+    "text": "Free Throw - 2 of 2"
+   },
+   "text": "Brandin Podziemski makes free throw 2 of 2",
+   "awayScore": 46,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "1:24"
+   },
+   "scoringPlay": true,
+   "scoreValue": 1,
+   "team": {
+    "id": "9"
+   },
+   "wallclock": "2026-11-20T02:06:04Z",
+   "shootingPlay": true,
+   "pointsAttempted": 1,
+   "shortDescription": "+1 Point"
+  },
+  {
+   "id": "401910019359",
+   "sequenceNumber": "359",
+   "type": {
+    "id": "144",
+    "text": "Driving Floating Jump Shot"
+   },
+   "text": "Jaylen Wells misses driving floating jump shot",
+   "awayScore": 46,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "1:13"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "team": {
+    "id": "29"
+   },
+   "wallclock": "2026-11-20T02:06:16Z",
+   "shootingPlay": true,
+   "pointsAttempted": 2,
+   "shortDescription": "Missed FG"
+  },
+  {
+   "id": "401910019360",
+   "sequenceNumber": "360",
+   "type": {
+    "id": "156",
+    "text": "Offensive Rebound"
+   },
+   "text": "Jaylen Wells offensive rebound",
+   "awayScore": 46,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "1:13"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "team": {
+    "id": "29"
+   },
+   "wallclock": "2026-11-20T02:06:18Z",
+   "shootingPlay": false,
+   "pointsAttempted": 0,
+   "shortDescription": "Rebound"
+  },
+  {
+   "id": "401910019361",
+   "sequenceNumber": "361",
+   "type": {
+    "id": "92",
+    "text": "Jump Shot"
+   },
+   "text": "Cedric Coward misses 24-foot three point jumper",
+   "awayScore": 46,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "1:09"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "team": {
+    "id": "29"
+   },
+   "wallclock": "2026-11-20T02:06:20Z",
+   "shootingPlay": true,
+   "pointsAttempted": 3,
+   "shortDescription": "Missed 3PT"
+  },
+  {
+   "id": "401910019362",
+   "sequenceNumber": "362",
+   "type": {
+    "id": "155",
+    "text": "Defensive Rebound"
+   },
+   "text": "Gary Payton II defensive rebound",
+   "awayScore": 46,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "1:09"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "team": {
+    "id": "9"
+   },
+   "wallclock": "2026-11-20T02:06:22Z",
+   "shootingPlay": false,
+   "pointsAttempted": 0,
+   "shortDescription": "Rebound"
+  },
+  {
+   "id": "401910019363",
+   "sequenceNumber": "363",
+   "type": {
+    "id": "44",
+    "text": "Shooting Foul"
+   },
+   "text": "Cedric Coward shooting foul",
+   "awayScore": 46,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "1:03"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "team": {
+    "id": "29"
+   },
+   "wallclock": "2026-11-20T02:06:26Z",
+   "shootingPlay": false,
+   "pointsAttempted": 0,
+   "shortDescription": "Foul"
+  },
+  {
+   "id": "401910019365",
+   "sequenceNumber": "365",
+   "type": {
+    "id": "16",
+    "text": "Full Timeout"
+   },
+   "text": "Grizzlies Full timeout",
+   "awayScore": 46,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "1:03"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "team": {
+    "id": "29"
+   },
+   "wallclock": "2026-11-20T02:06:26Z",
+   "shootingPlay": false,
+   "pointsAttempted": 0,
+   "shortDescription": "Timeout"
+  },
+  {
+   "id": "401910019367",
+   "sequenceNumber": "367",
+   "type": {
+    "id": "98",
+    "text": "Free Throw - 1 of 2"
+   },
+   "text": "Gui Santos makes free throw 1 of 2",
+   "awayScore": 47,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "1:03"
+   },
+   "scoringPlay": true,
+   "scoreValue": 1,
+   "team": {
+    "id": "9"
+   },
+   "wallclock": "2026-11-20T02:08:39Z",
+   "shootingPlay": true,
+   "pointsAttempted": 1,
+   "shortDescription": "+1 Point"
+  },
+  {
+   "id": "401910019368",
+   "sequenceNumber": "368",
+   "type": {
+    "id": "8",
+    "text": "Delay of Game"
+   },
+   "text": "delay of game violation",
+   "awayScore": 46,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "1:03"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "wallclock": "2026-11-20T02:06:26Z",
+   "shootingPlay": false,
+   "pointsAttempted": 0,
+   "shortDescription": "Violation"
+  },
+  {
+   "id": "401910019369",
+   "sequenceNumber": "369",
+   "type": {
+    "id": "99",
+    "text": "Free Throw - 2 of 2"
+   },
+   "text": "Gui Santos misses free throw 2 of 2",
+   "awayScore": 47,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "1:03"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "team": {
+    "id": "9"
+   },
+   "wallclock": "2026-11-20T02:08:39Z",
+   "shootingPlay": true,
+   "pointsAttempted": 1,
+   "shortDescription": "Missed FT"
+  },
+  {
+   "id": "401910019370",
+   "sequenceNumber": "370",
+   "type": {
+    "id": "156",
+    "text": "Offensive Rebound"
+   },
+   "text": "Will Richard offensive rebound",
+   "awayScore": 47,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "1:03"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "team": {
+    "id": "9"
+   },
+   "wallclock": "2026-11-20T02:08:55Z",
+   "shootingPlay": false,
+   "pointsAttempted": 0,
+   "shortDescription": "Rebound"
+  },
+  {
+   "id": "401910019371",
+   "sequenceNumber": "371",
+   "type": {
+    "id": "128",
+    "text": "Driving Finger Roll Layup"
+   },
+   "text": "Gui Santos misses two point shot",
+   "awayScore": 47,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "52.0"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "team": {
+    "id": "9"
+   },
+   "wallclock": "2026-11-20T02:09:05Z",
+   "shootingPlay": true,
+   "pointsAttempted": 2,
+   "shortDescription": "Missed FG"
+  },
+  {
+   "id": "401910019372",
+   "sequenceNumber": "372",
+   "type": {
+    "id": "155",
+    "text": "Defensive Rebound"
+   },
+   "text": "Jaylen Wells defensive rebound",
+   "awayScore": 47,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "52.0"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "team": {
+    "id": "29"
+   },
+   "wallclock": "2026-11-20T02:09:06Z",
+   "shootingPlay": false,
+   "pointsAttempted": 0,
+   "shortDescription": "Rebound"
+  },
+  {
+   "id": "401910019374",
+   "sequenceNumber": "374",
+   "type": {
+    "id": "131",
+    "text": "Pullup Jump Shot"
+   },
+   "text": "Cedric Coward misses 8-foot pullup jump shot",
+   "awayScore": 47,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "36.0"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "team": {
+    "id": "29"
+   },
+   "wallclock": "2026-11-20T02:09:40Z",
+   "shootingPlay": true,
+   "pointsAttempted": 2,
+   "shortDescription": "Missed FG"
+  },
+  {
+   "id": "401910019375",
+   "sequenceNumber": "375",
+   "type": {
+    "id": "156",
+    "text": "Offensive Rebound"
+   },
+   "text": "Cedric Coward offensive rebound",
+   "awayScore": 47,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "36.0"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "team": {
+    "id": "29"
+   },
+   "wallclock": "2026-11-20T02:09:43Z",
+   "shootingPlay": false,
+   "pointsAttempted": 0,
+   "shortDescription": "Rebound"
+  },
+  {
+   "id": "401910019376",
+   "sequenceNumber": "376",
+   "type": {
+    "id": "125",
+    "text": "Layup Shot Putback"
+   },
+   "text": "Charles Bassey blocks Cedric Coward's two point shot",
+   "awayScore": 47,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "32.2"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "team": {
+    "id": "29"
+   },
+   "wallclock": "2026-11-20T02:09:44Z",
+   "shootingPlay": true,
+   "pointsAttempted": 2,
+   "shortDescription": "Missed FG"
+  },
+  {
+   "id": "401910019377",
+   "sequenceNumber": "377",
+   "type": {
+    "id": "155",
+    "text": "Defensive Rebound"
+   },
+   "text": "Charles Bassey defensive rebound",
+   "awayScore": 47,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "32.2"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "team": {
+    "id": "9"
+   },
+   "wallclock": "2026-11-20T02:09:45Z",
+   "shootingPlay": false,
+   "pointsAttempted": 0,
+   "shortDescription": "Rebound"
+  },
+  {
+   "id": "401910019379",
+   "sequenceNumber": "379",
+   "type": {
+    "id": "62",
+    "text": "Bad Pass\nTurnover"
+   },
+   "text": "Gui Santos bad pass\nturnover (Cam Spencer steals)",
+   "awayScore": 47,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "11.9"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "team": {
+    "id": "9"
+   },
+   "wallclock": "2026-11-20T02:10:05Z",
+   "shootingPlay": false,
+   "pointsAttempted": 0,
+   "shortDescription": "Turnover"
+  },
+  {
+   "id": "401910019383",
+   "sequenceNumber": "383",
+   "type": {
+    "id": "11",
+    "text": "Jump Ball"
+   },
+   "text": "Gary Payton II jump ball violation",
+   "awayScore": 47,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "7.5"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "team": {
+    "id": "9"
+   },
+   "wallclock": "2026-11-20T02:10:42Z",
+   "shootingPlay": false,
+   "pointsAttempted": 0,
+   "shortDescription": "Jump Ball"
+  },
+  {
+   "id": "401910019384",
+   "sequenceNumber": "384",
+   "type": {
+    "id": "92",
+    "text": "Jump Shot"
+   },
+   "text": "Jaylen Wells misses 23-foot three point jumper",
+   "awayScore": 47,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "1.9"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "team": {
+    "id": "29"
+   },
+   "wallclock": "2026-11-20T02:10:49Z",
+   "shootingPlay": true,
+   "pointsAttempted": 3,
+   "shortDescription": "Missed 3PT"
+  },
+  {
+   "id": "401910019385",
+   "sequenceNumber": "385",
+   "type": {
+    "id": "155",
+    "text": "Defensive Rebound"
+   },
+   "text": "Charles Bassey defensive rebound",
+   "awayScore": 47,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "1.9"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "team": {
+    "id": "9"
+   },
+   "wallclock": "2026-11-20T02:11:13Z",
+   "shootingPlay": false,
+   "pointsAttempted": 0,
+   "shortDescription": "Rebound"
+  },
+  {
+   "id": "401910019386",
+   "sequenceNumber": "386",
+   "type": {
+    "id": "412",
+    "text": "End Period"
+   },
+   "text": "End of the 2nd Quarter",
+   "awayScore": 47,
+   "homeScore": 55,
+   "period": {
+    "number": 2,
+    "displayValue": "2nd Quarter"
+   },
+   "clock": {
+    "displayValue": "0.0"
+   },
+   "scoringPlay": false,
+   "scoreValue": 0,
+   "wallclock": "2026-11-20T02:11:13Z",
+   "shootingPlay": false,
+   "pointsAttempted": 0,
+   "shortDescription": "Halftime"
+  }
+ ]
+}

@@ -1,0 +1,115 @@
+{
+ "header": {
+  "id": "401873070",
+  "season": {
+   "year": 2026,
+   "current": true,
+   "type": 2
+  },
+  "timeValid": true,
+  "competitions": [
+   {
+    "id": "401873070",
+    "date": "2026-11-22T18:00Z",
+    "neutralSite": false,
+    "conferenceCompetition": false,
+    "boxscoreAvailable": false,
+    "commentaryAvailable": false,
+    "liveAvailable": false,
+    "onWatchESPN": false,
+    "recent": false,
+    "wallclockAvailable": false,
+    "boxscoreSource": "none",
+    "playByPlaySource": "none",
+    "competitors": [
+     {
+      "id": "2",
+      "order": 0,
+      "homeAway": "home",
+      "team": {
+       "id": "2",
+       "guid": "232afaf2-01ac-fcc2-8bd6-66550df1703a",
+       "location": "Buffalo",
+       "name": "Bills",
+       "nickname": "Bills",
+       "abbreviation": "BUF",
+       "displayName": "Buffalo Bills"
+      },
+      "record": [
+       {
+        "type": "total",
+        "summary": "8-1",
+        "displayValue": "8-1"
+       },
+       {
+        "type": "home",
+        "summary": "3-1",
+        "displayValue": "3-1"
+       },
+       {
+        "type": "vsconf",
+        "summary": "5-1",
+        "displayValue": "5-1"
+       }
+      ],
+      "possession": false
+     },
+     {
+      "id": "15",
+      "order": 1,
+      "homeAway": "away",
+      "team": {
+       "id": "15",
+       "guid": "af33088b-1e19-d27d-dbc0-354fd7151703",
+       "location": "Miami",
+       "name": "Dolphins",
+       "nickname": "Dolphins",
+       "abbreviation": "MIA",
+       "displayName": "Miami Dolphins"
+      },
+      "record": [
+       {
+        "type": "total",
+        "summary": "1-8",
+        "displayValue": "1-8"
+       },
+       {
+        "type": "road",
+        "summary": "1-4",
+        "displayValue": "1-4"
+       },
+       {
+        "type": "vsconf",
+        "summary": "1-5",
+        "displayValue": "1-5"
+       }
+      ],
+      "possession": false
+     }
+    ],
+    "status": {
+     "type": {
+      "id": "1",
+      "name": "STATUS_SCHEDULED",
+      "state": "pre",
+      "completed": false,
+      "description": "Scheduled",
+      "detail": "Sun, November 22nd at 1:00 PM EST",
+      "shortDetail": "11/22 - 1:00 PM EST"
+     },
+     "isTBDFlex": false
+    },
+    "boxscoreMinutes": false
+   }
+  ],
+  "week": 11,
+  "league": {
+   "id": "28",
+   "name": "National Football League",
+   "abbreviation": "NFL",
+   "shortName": "NFL",
+   "slug": "nfl",
+   "isTournament": false
+  }
+ }
+}

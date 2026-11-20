@@ -1,0 +1,451 @@
+{
+ "events": [
+  {
+   "id": "401892742",
+   "date": "2026-11-20T00:00Z",
+   "name": "Los Angeles Kings at Toronto Maple Leafs",
+   "shortName": "LA @ TOR",
+   "season": {
+    "year": 2027,
+    "type": 2,
+    "slug": "regular-season"
+   },
+   "competitions": [
+    {
+     "id": "401892742",
+     "date": "2026-11-20T00:00Z",
+     "attendance": 0,
+     "type": {
+      "id": "1",
+      "abbreviation": "STD"
+     },
+     "timeValid": true,
+     "neutralSite": false,
+     "playByPlayAvailable": true,
+     "recent": true,
+     "competitors": [
+      {
+       "id": "21",
+       "type": "team",
+       "order": 0,
+       "homeAway": "home",
+       "team": {
+        "id": "21",
+        "location": "Toronto",
+        "name": "Maple Leafs",
+        "abbreviation": "TOR",
+        "displayName": "Toronto Maple Leafs",
+        "shortDisplayName": "Maple Leafs",
+        "isActive": true
+       },
+       "score": "3",
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "displayName": "Probable Starting Goalie",
+         "shortDisplayName": "Starter",
+         "abbreviation": "SG",
+         "playerId": 3067313,
+         "athlete": {
+          "id": "3067313",
+          "fullName": "Anthony Stolarz",
+          "displayName": "Anthony Stolarz",
+          "shortName": "A. Stolarz",
+          "jersey": "41",
+          "position": "G",
+          "team": {
+           "id": "21"
+          }
+         },
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "record": ""
+        }
+       ]
+      },
+      {
+       "id": "8",
+       "type": "team",
+       "order": 1,
+       "homeAway": "away",
+       "team": {
+        "id": "8",
+        "location": "Los Angeles",
+        "name": "Kings",
+        "abbreviation": "LA",
+        "displayName": "Los Angeles Kings",
+        "shortDisplayName": "Kings",
+        "isActive": true
+       },
+       "score": "3",
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "displayName": "Probable Starting Goalie",
+         "shortDisplayName": "Starter",
+         "abbreviation": "SG",
+         "playerId": 2610321,
+         "athlete": {
+          "id": "2610321",
+          "fullName": "Darcy Kuemper",
+          "displayName": "Darcy Kuemper",
+          "shortName": "D. Kuemper",
+          "jersey": "35",
+          "position": "G",
+          "team": {
+           "id": "8"
+          }
+         },
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "record": ""
+        }
+       ]
+      }
+     ],
+     "status": {
+      "clock": 835.0,
+      "displayClock": "13:55",
+      "period": 3,
+      "type": {
+       "id": "2",
+       "name": "STATUS_IN_PROGRESS",
+       "state": "in",
+       "completed": false,
+       "description": "In Progress",
+       "detail": "13:55 - 3rd Period",
+       "shortDetail": "13:55 - 3rd"
+      }
+     },
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     },
+     "startDate": "2026-11-20T00:00Z",
+     "broadcast": "ESPN+"
+    }
+   ],
+   "status": {
+    "clock": 835.0,
+    "displayClock": "13:55",
+    "period": 3,
+    "type": {
+     "id": "2",
+     "name": "STATUS_IN_PROGRESS",
+     "state": "in",
+     "completed": false,
+     "description": "In Progress",
+     "detail": "13:55 - 3rd Period",
+     "shortDetail": "13:55 - 3rd"
+    }
+   }
+  },
+  {
+   "id": "401892744",
+   "date": "2026-11-20T00:30Z",
+   "name": "Edmonton Oilers at Tampa Bay Lightning",
+   "shortName": "EDM @ TB",
+   "season": {
+    "year": 2027,
+    "type": 2,
+    "slug": "regular-season"
+   },
+   "competitions": [
+    {
+     "id": "401892744",
+     "date": "2026-11-20T00:30Z",
+     "attendance": 0,
+     "type": {
+      "id": "1",
+      "abbreviation": "STD"
+     },
+     "timeValid": true,
+     "neutralSite": false,
+     "playByPlayAvailable": true,
+     "recent": true,
+     "competitors": [
+      {
+       "id": "20",
+       "type": "team",
+       "order": 0,
+       "homeAway": "home",
+       "team": {
+        "id": "20",
+        "location": "Tampa Bay",
+        "name": "Lightning",
+        "abbreviation": "TB",
+        "displayName": "Tampa Bay Lightning",
+        "shortDisplayName": "Lightning",
+        "isActive": true
+       },
+       "score": "1",
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "displayName": "Probable Starting Goalie",
+         "shortDisplayName": "Starter",
+         "abbreviation": "SG",
+         "playerId": 2976847,
+         "athlete": {
+          "id": "2976847",
+          "fullName": "Andrei Vasilevskiy",
+          "displayName": "Andrei Vasilevskiy",
+          "shortName": "A. Vasilevskiy",
+          "jersey": "88",
+          "position": "G",
+          "team": {
+           "id": "20"
+          }
+         },
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "record": ""
+        }
+       ]
+      },
+      {
+       "id": "6",
+       "type": "team",
+       "order": 1,
+       "homeAway": "away",
+       "team": {
+        "id": "6",
+        "location": "Edmonton",
+        "name": "Oilers",
+        "abbreviation": "EDM",
+        "displayName": "Edmonton Oilers",
+        "shortDisplayName": "Oilers",
+        "isActive": true
+       },
+       "score": "0",
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "displayName": "Probable Starting Goalie",
+         "shortDisplayName": "Starter",
+         "abbreviation": "SG",
+         "playerId": 4894487,
+         "athlete": {
+          "id": "4894487",
+          "fullName": "Devon Levi",
+          "displayName": "Devon Levi",
+          "shortName": "D. Levi",
+          "jersey": "27",
+          "position": "G",
+          "team": {
+           "id": "6"
+          }
+         },
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "record": ""
+        }
+       ]
+      }
+     ],
+     "status": {
+      "clock": 0.0,
+      "displayClock": "0:00",
+      "period": 2,
+      "type": {
+       "id": "22",
+       "name": "STATUS_END_PERIOD",
+       "state": "in",
+       "completed": false,
+       "description": "End of Period",
+       "detail": "End of 2nd Period",
+       "shortDetail": "End of 2nd"
+      }
+     },
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     },
+     "startDate": "2026-11-20T00:30Z",
+     "broadcast": "Disney+/ESPN+/Hulu"
+    }
+   ],
+   "status": {
+    "clock": 0.0,
+    "displayClock": "0:00",
+    "period": 2,
+    "type": {
+     "id": "22",
+     "name": "STATUS_END_PERIOD",
+     "state": "in",
+     "completed": false,
+     "description": "End of Period",
+     "detail": "End of 2nd Period",
+     "shortDetail": "End of 2nd"
+    }
+   }
+  },
+  {
+   "id": "401892752",
+   "date": "2026-11-20T02:40Z",
+   "name": "Vancouver Canucks at Seattle Kraken",
+   "shortName": "VAN @ SEA",
+   "season": {
+    "year": 2027,
+    "type": 2,
+    "slug": "regular-season"
+   },
+   "competitions": [
+    {
+     "id": "401892752",
+     "date": "2026-11-20T02:40Z",
+     "attendance": 0,
+     "type": {
+      "id": "1",
+      "abbreviation": "STD"
+     },
+     "timeValid": true,
+     "neutralSite": false,
+     "playByPlayAvailable": false,
+     "recent": true,
+     "competitors": [
+      {
+       "id": "124292",
+       "type": "team",
+       "order": 0,
+       "homeAway": "home",
+       "team": {
+        "id": "124292",
+        "location": "Seattle",
+        "name": "Kraken",
+        "abbreviation": "SEA",
+        "displayName": "Seattle Kraken",
+        "shortDisplayName": "Kraken",
+        "isActive": true
+       },
+       "score": "0",
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "displayName": "Probable Starting Goalie",
+         "shortDisplayName": "Starter",
+         "abbreviation": "SG",
+         "playerId": 5657,
+         "athlete": {
+          "id": "5657",
+          "fullName": "Philipp Grubauer",
+          "displayName": "Philipp Grubauer",
+          "shortName": "P. Grubauer",
+          "jersey": "31",
+          "position": "G",
+          "team": {
+           "id": "124292"
+          }
+         },
+         "status": {
+          "id": "101",
+          "name": "Expected",
+          "type": "expected",
+          "abbreviation": "Expected"
+         },
+         "record": ""
+        }
+       ]
+      },
+      {
+       "id": "22",
+       "type": "team",
+       "order": 1,
+       "homeAway": "away",
+       "team": {
+        "id": "22",
+        "location": "Vancouver",
+        "name": "Canucks",
+        "abbreviation": "VAN",
+        "displayName": "Vancouver Canucks",
+        "shortDisplayName": "Canucks",
+        "isActive": true
+       },
+       "score": "0",
+       "probables": [
+        {
+         "name": "probableStartingGoalie",
+         "displayName": "Probable Starting Goalie",
+         "shortDisplayName": "Starter",
+         "abbreviation": "SG",
+         "playerId": 4894703,
+         "athlete": {
+          "id": "4894703",
+          "fullName": "Leevi Merilainen",
+          "displayName": "Leevi Merilainen",
+          "shortName": "L. Merilainen",
+          "jersey": "31",
+          "position": "G",
+          "team": {
+           "id": "22"
+          }
+         },
+         "status": {
+          "id": "102",
+          "name": "Confirmed",
+          "type": "confirmed",
+          "abbreviation": "Confirmed"
+         },
+         "record": ""
+        }
+       ]
+      }
+     ],
+     "status": {
+      "clock": 0.0,
+      "displayClock": "0:00",
+      "period": 0,
+      "type": {
+       "id": "1",
+       "name": "STATUS_SCHEDULED",
+       "state": "pre",
+       "completed": false,
+       "description": "Scheduled",
+       "detail": "Thu, November 19th at 9:40 PM EST",
+       "shortDetail": "11/19 - 9:40 PM EST"
+      }
+     },
+     "format": {
+      "regulation": {
+       "periods": 3
+      }
+     },
+     "startDate": "2026-11-20T02:40Z",
+     "broadcast": "ESPN+"
+    }
+   ],
+   "status": {
+    "clock": 0.0,
+    "displayClock": "0:00",
+    "period": 0,
+    "type": {
+     "id": "1",
+     "name": "STATUS_SCHEDULED",
+     "state": "pre",
+     "completed": false,
+     "description": "Scheduled",
+     "detail": "Thu, November 19th at 9:40 PM EST",
+     "shortDetail": "11/19 - 9:40 PM EST"
+    }
+   }
+  }
+ ]
+}
