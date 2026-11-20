@@ -12,11 +12,14 @@ export function LineupSearch({
   entries,
   names,
   failed,
+  example = false,
   onAdd,
 }: {
   entries: PlayerEntry[] | undefined;
   names: string[];
   failed: boolean;
+  /** True while the example lineup is showing: the first player added starts the person's own. */
+  example?: boolean;
   onAdd: (name: string) => void;
 }) {
   const [query, setQuery] = useState("");
@@ -63,10 +66,8 @@ export function LineupSearch({
 
   return (
     <Card className="rounded-[24px] px-[22px] py-[18px]">
-      <CardTitle hint={names.length > 0 ? `${names.length} in your lineup` : undefined}>{names.length > 0 ? "Add a player" : "Build your lineup"}</CardTitle>
-      {names.length === 0 && entries?.length ? (
-        <p className="mb-4 text-[14px] leading-relaxed text-body">Start with anyone on your fantasy team. Search by name, or by a team that plays soon.</p>
-      ) : null}
+      <CardTitle hint={!example && names.length > 0 ? `${names.length} in your lineup` : undefined}>{example ? "Use your own players" : "Add a player"}</CardTitle>
+      {example ? <p className="mb-3 text-[13px] leading-relaxed text-muted-foreground">Search by name or team. Your first pick replaces the example.</p> : null}
       <form
         onSubmit={(e) => {
           e.preventDefault();

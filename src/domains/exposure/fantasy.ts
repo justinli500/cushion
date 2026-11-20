@@ -21,6 +21,10 @@ export interface PlayerEntry {
   expiry: string;
   eventTickers: string[];
   stats: StatLines[];
+  /** From ESPN's roster, when ESPN lists the player: "RB", the team's abbreviation, and a picture. */
+  position?: string | null;
+  team?: string | null;
+  headshot?: string | null;
 }
 
 interface Metric {

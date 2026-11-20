@@ -25,6 +25,10 @@ const KICKS = /punt|kickoff/i;
 const CONFETTI = ["fill-white", "fill-covered-on-dark", "fill-risk-fill"];
 
 /**
+ * Not on any page right now: it was taken off the game screen and is kept for later. To bring it
+ * back, render `<PlayField field={fieldNow(plays)} home={...} away={...} />` where plays are shown;
+ * the saved game and ESPN's live football feed already carry the field position it needs.
+ *
  * The playing field for a football game: where the ball is, the line to gain, and the last play
  * drawn from where it started to where it ended. The home team defends the left end zone.
  */

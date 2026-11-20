@@ -15,9 +15,9 @@ A web app with a landing page and six sections that all work the same way: you s
 
 - **Today**: the news market that moved most in a day, what is coming up, a card for each thing you have at stake, and news markets you can take a side on.
 - **Portfolio**: enter coins and stocks. Cushion works out what each one really moves with, turns each into a scenario you switch on, and shows your loss with and without the cushions you chose.
-- **Live games**: a second screen for a game, with the score, a playing field that follows the ball, play by play and a win-chance chart, plus a cushion that pays if your team loses. You watch what the cushion is worth after each score and can cash it out. A recorded game runs as if live, in step with a broadcast of it, so it works any time.
+- **Live games**: a second screen for a game, with the score, play by play and a win-chance chart, plus a cushion that pays if your team loses. You watch what the cushion is worth after each score and can cash it out. A recorded game runs as if live, in step with a broadcast of it, so it works any time.
 - **Bills**: cover against a jump in gas or heating costs, bought once or re-bought daily on autopilot.
-- **Fantasy**: get paid back when your players have a bad game, one player or several at once.
+- **Fantasy**: a roster of your players, with an example lineup of this week's real players to start from. Pick a player to see every way to cushion him, and get paid back when he has a bad game.
 - **Small business**: pick your business type and city, and get hedges that fit, such as a cold day for a food truck or a home loss for a sports bar.
 
 Fills are simulated with play money. Prices, order books, odds and settlements are live from Gemini. Every cushion is written to Solana devnet as a receipt.
@@ -66,8 +66,8 @@ Gemini Prediction Markets API (market data), Solana devnet (Memo program), Next.
 
 1. **Landing and Today (20 s).** "Prediction markets are usually a place to bet. Cushion uses them to protect what you already have riding on tomorrow." On the landing page, tap two stakes and show each priced as one number. Open the app and show Today with live odds.
 2. **Portfolio (40 s).** Add BTC $2,000, MSTR $800 and NVDA $2,500. Point out that MicroStrategy is read as Bitcoin exposure and Nvidia as S&P exposure, each marked an estimate. Switch on two scenarios, show the loss bars with and without the cushion, and buy it.
-3. **Live game (40 s).** Open Colts at Texans and press play on the broadcast. Show the score, the playing field and Gemini's real traded odds moving with it. Root for the Colts, add a loss cushion, jump to a touchdown and show the field light up and what the cushion is worth now, then jump to the final and show it settle.
+3. **Live game (40 s).** Open Colts at Texans and press play on the broadcast. Show the score, plays and Gemini's real traded odds moving with it. Root for the Colts, add a loss cushion, jump to a touchdown and show what the cushion is worth now, then jump to the final and show it settle.
 4. **Small business (25 s).** Pick a food truck in Austin, enter a bad-day cost, and show the cold-day cushion priced on the live book, including the thin-market note if it appears.
-5. **Bills and fantasy (20 s).** Show the gas cover with spikes-only against full, then cover two fantasy players at once.
+5. **Bills and fantasy (20 s).** Show the gas cover with spikes-only against full, then open Fantasy, pick two players from the example lineup and cover both at once.
 6. **Account and receipt (20 s).** Open the account, show the cushions and play-money balance, and click "View receipt" to show the Solana transaction.
 7. **Close (10 s).** "Same markets, opposite purpose. Built on Gemini's prediction market API, with receipts on Solana."

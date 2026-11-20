@@ -15,9 +15,9 @@ Fills are simulated with play money. Prices, order books, odds and settlements a
 | Landing page | Nothing | Five example stakes, each priced as one number from live quotes, and how the app works in three steps. |
 | Today | Nothing | The news market that moved most in the last day, what is coming up, a card for each thing you have at stake, and news markets (the Fed, the S&P, elections, awards) you can take a side on. |
 | Portfolio | The coins and stocks you hold | Works out what each holding really moves with and turns each into a scenario you can switch on: a coin falling, oil falling, stocks falling with the S&P. It shows your loss with and without the cushions you chose. |
-| Live games | Your team | A second screen for the game: the score, the playing field with the ball, the line to gain and the last play (football), what your cushion is worth play by play, a win-chance chart, and a cushion that pays if your team loses, which you can add to or cash out. A real game can also be run as if it were live, in step with a broadcast of it, so the screen works when nothing is on. |
+| Live games | Your team | A second screen for the game: the score, what your cushion is worth play by play, a win-chance chart, and a cushion that pays if your team loses, which you can add to or cash out. A real game can also be run as if it were live, in step with a broadcast of it, so the screen works when nothing is on. |
 | Bills | Gallons of gas or a heating bill | Cover against a jump in oil or natural gas, bought once through month end or re-bought daily on autopilot. |
-| Fantasy | Your lineup and what is riding on the week | Covers one player or several at once: each pays you back when that player finishes under a line. |
+| Fantasy | Your lineup and what is riding on the week | A roster of your players, or an example lineup of this week's real players until you enter yours. Pick a player to see every way to cushion him, and cover one or several at once. |
 | Small business | Your business type, city and what a bad day costs | Suggests cushions that fit, each priced and bought from its own card: cold days, home-team losses, rising costs, a recession. |
 
 ## How it uses Gemini's prediction markets
@@ -61,7 +61,7 @@ When a contract's event resolves, the app reads `resolutionSide` and pays out th
 
 Nothing in it is made up. The plays, clock and score are ESPN's, each stamped with the time it happened. The win chance is every real trade on Gemini's winner market for that game, less two trades entered on the wrong contract (a jump of more than 25 points that reverses within three trades is dropped).
 
-A cushion added during the game uses play money and fills at the last price that really traded at that moment, plus a fixed 1 cent spread, since no order book was saved. The panel beside the video shows what your cushion would fetch right now and lets you cash it out at that price, a chart follows its worth through each score, and it settles on the real result when the game ends. The playing field under the video is drawn from ESPN's yard line, down and distance for each play. The screen is tagged "Simulated live" with the date the game was played.
+A cushion added during the game uses play money and fills at the last price that really traded at that moment, plus a fixed 1 cent spread, since no order book was saved. The panel beside the video shows what your cushion would fetch right now and lets you cash it out at that price, a chart follows its worth through each score, and it settles on the real result when the game ends. The screen is tagged "Simulated live" with the date the game was played.
 
 `node scripts/capture-replay.mjs` saves a game to `public/replays/`.
 
@@ -82,7 +82,7 @@ There is no login, and fills are simulated in the browser, so a receipt is a pub
 | Real | Simulated or estimated |
 |---|---|
 | Quotes, order books, odds, settlements, price history (Gemini) | Fills: play money, booked at the real book's prices and sizes |
-| Live scores, play-by-play, field position and team logos (ESPN's public feed; a team ESPN does not list by the same name keeps Gemini's own picture) | Exchange fees are not modelled |
+| Live scores, play-by-play, team logos, and players' positions and pictures (ESPN's public feed; a team ESPN does not list by the same name keeps Gemini's own picture) | Exchange fees are not modelled |
 | Stock and commodity history (Yahoo Finance) | Which market a stock "moves with": a regression on daily returns, labelled as an estimate |
 | Receipts (Solana devnet transactions) | How gas and heating bills follow oil and natural gas: rough pass-through, labelled as an estimate |
 | | The "this week" line on each card: written by hand and dated, not live |

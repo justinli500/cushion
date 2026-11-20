@@ -3,14 +3,12 @@
 import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
 import { OddsChart } from "@/components/odds-chart";
-import { PlayField } from "@/components/play-field";
 import { Card, CardTitle, Notice, Skeleton, Tag } from "@/components/kit";
 import type { Position } from "@/domains/account/ledger";
 import { useAccount } from "@/domains/account/store";
 import type { Game } from "@/domains/markets/types";
 import { worthFromQuotes, type HeldLeg } from "@/domains/replay/worth";
 import { cushionChance, quoteIndex, type MarketPick } from "@/domains/replay/worth-markets";
-import { fieldNow } from "@/domains/scores/field";
 import { teamLabel } from "@/domains/scores/names";
 import { formatUsd } from "@/lib/format";
 import { useBuyChoice } from "./buy-choice";
@@ -91,7 +89,6 @@ function Ready({ view, game }: { view: GameView; game: Game }) {
   const covered = open.length > 0 ? open.reduce((sum, p) => sum + p.maxPayout, 0) : null;
   const away = game.teams.find((t) => t.side === "away")!;
   const home = game.teams.find((t) => t.side === "home")!;
-  const field = fieldNow(view.plays);
 
   const press = (pick: MarketPick) => {
     choice.pickMarket(pick);
@@ -142,14 +139,6 @@ function Ready({ view, game }: { view: GameView; game: Game }) {
             ) : null}
             {view.replay ? <Moments replay={view.replay} /> : null}
           </div>
-
-          {field ? (
-            <PlayField
-              field={field}
-              home={{ abbr: home.abbr, logo: home.contract.image }}
-              away={{ abbr: away.abbr, logo: away.contract.image }}
-            />
-          ) : null}
 
           <WorthCard data={data} paid={held ? held.cost : null} example={example} caption={caption} empty={legs ? undefined : empty} />
 
