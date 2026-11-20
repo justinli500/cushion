@@ -58,6 +58,15 @@ export async function getPlayerProps(game: Game): Promise<PlayerProp[]> {
   return (await getGameEvents(game)).flatMap(toPlayerProps);
 }
 
+/**
+ * Every listed player prop, for every game, in one upstream request. Asking game by game is one
+ * search per game and took over 20 seconds for a weekend's slate.
+ */
+export async function getAllPlayerProps(): Promise<PlayerProp[]> {
+  const events = await fetchEvents({ status: "active", category: "Sports", sports_market_type: "prop" }, 60_000);
+  return events.flatMap(toPlayerProps);
+}
+
 /** Returns the settled side for each contract symbol of an event, once Gemini has resolved it. */
 export async function getResolutions(eventTicker: string): Promise<Record<string, "yes" | "no">> {
   return cached(`resolution:${eventTicker}`, 30_000, async () => {

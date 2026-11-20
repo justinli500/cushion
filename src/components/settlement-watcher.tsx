@@ -12,17 +12,20 @@ export function SettlementWatcher() {
 
   useEffect(() => {
     const check = async () => {
-      const due = positions.filter((p) => p.payout == null && Date.parse(p.expiry) <= Date.now());
-      for (const position of due) {
-        try {
-          const res = await fetch(`/api/resolutions?events=${position.eventTickers.join(",")}`);
-          if (!res.ok) continue;
-          const { resolutions } = (await res.json()) as { resolutions: Record<string, "yes" | "no"> };
+      // A game or prop can resolve long before its listed expiry, so every open cushion is checked.
+      const open = positions.filter((p) => p.payout == null);
+      const tickers = [...new Set(open.flatMap((p) => p.eventTickers))].slice(0, 20);
+      if (tickers.length === 0) return;
+      try {
+        const res = await fetch(`/api/resolutions?events=${tickers.join(",")}`);
+        if (!res.ok) return;
+        const { resolutions } = (await res.json()) as { resolutions: Record<string, "yes" | "no"> };
+        for (const position of open) {
           const payout = settleLegs(position.legs, resolutions);
           if (payout != null) record({ type: "CushionSettled", at: new Date().toISOString(), id: position.id, payout });
-        } catch {
-          // Try again on the next pass.
         }
+      } catch {
+        // Try again on the next pass.
       }
     };
     check();
