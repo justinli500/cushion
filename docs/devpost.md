@@ -16,7 +16,7 @@ A web app with a landing page and six sections that all work the same way: you s
 - **Today**: the news market that moved most in a day, what is coming up, a card for each thing you have at stake, and news markets you can take a side on.
 - **Portfolio**: enter coins and stocks. Cushion works out what each one really moves with and charts it, with every level Gemini lists a market at drawn across the chart. You drag a line to where your cushion should start paying, and see your loss with and without it.
 - **Live games**: a second screen for a game, with the score, play by play and a win-chance chart, plus a cushion that pays if your team loses. You watch what the cushion is worth after each score and can cash it out. A recorded game runs as if live, in step with a broadcast of it, so it works any time.
-- **Bills**: cover against a jump in gas or heating costs, bought once or re-bought daily on autopilot.
+- **Bills**: pick the kind of car you drive and how far, and Cushion works out your gas; or enter a heating bill. Then cover against a jump in gas or heating costs, bought once or re-bought daily on autopilot.
 - **Fantasy**: a roster of your players, with an example lineup of this week's real players to start from. Pick a player to see every way to cushion him, and get paid back when he has a bad game.
 - **Small business**: pick your business type and city, and get hedges that fit, such as a cold day for a food truck or a home loss for a sports bar.
 
@@ -68,6 +68,6 @@ Gemini Prediction Markets API (market data), Solana devnet (Memo program), Next.
 2. **Portfolio (40 s).** Add BTC $2,000, MSTR $800 and NVDA $2,500. Point out that MicroStrategy is read as Bitcoin exposure and Nvidia as S&P exposure, each marked an estimate. On the Bitcoin chart, drag the line down a level and show the price of the cushion fall. Add it, show the loss bars with and without the cushion, and buy it.
 3. **Live game (40 s).** Open Colts at Texans and press play on the broadcast. Show the score, plays and Gemini's real traded odds moving with it. Root for the Colts, add a loss cushion, jump to a touchdown and show what the cushion is worth now, then jump to the final and show it settle.
 4. **Small business (25 s).** Pick a food truck in Austin, enter a bad-day cost, and show the cold-day cushion priced on the live book, including the thin-market note if it appears.
-5. **Bills and fantasy (20 s).** Show the gas cover with spikes-only against full, then open Fantasy, pick two players from the example lineup and cover both at once.
+5. **Bills and fantasy (20 s).** Pick a car and a distance, show the gallons it works out and the gas cover with spikes-only against full, then open Fantasy, pick two players from the example lineup and cover both at once.
 6. **Account and receipt (20 s).** Open the account, show the cushions and play-money balance, and click "View receipt" to show the Solana transaction.
 7. **Close (10 s).** "Same markets, opposite purpose. Built on Gemini's prediction market API, with receipts on Solana."

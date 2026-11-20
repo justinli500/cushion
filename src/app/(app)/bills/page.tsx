@@ -1,16 +1,19 @@
 "use client";
 
 import { useState, useSyncExternalStore } from "react";
+import { CarRender } from "@/components/car-render";
 import { CushionTicket } from "@/components/cushion-ticket";
 import { Card, CardTitle, Chip, Notice, PageHeader, Skeleton, Tag, ToggleCard, ToggleTag, WithTicket } from "@/components/kit";
 import { chanceAtOrAbove } from "@/domains/cushion/probability";
 import type { Cushion, CushionQuote } from "@/domains/cushion/types";
+import { carOf } from "@/domains/exposure/bills-car";
 import { BILLS, COVER_LEVELS, dayLabel, spotOf, startLevel, type BillKind, type CoverLevel } from "@/domains/exposure/bills";
 import { updateProfile, useProfile, type Profile } from "@/domains/profile/profile";
 import { formatUsd, formatUsdWhole } from "@/lib/format";
 import { Autopilot } from "./autopilot";
 import { BillQuestion } from "./bill-question";
 import { COPY, LEVEL_NAMES, payIfSentence } from "./copy";
+import { GasSetup } from "./gas-setup";
 import { Replay } from "./replay";
 import { useBillMarkets, type BillMarkets } from "./use-bill-markets";
 
@@ -104,9 +107,41 @@ function CoverCard({ mode, markets, onPick }: CoverCardProps) {
   );
 }
 
-function ExposureCard({ bill, amount, exposure, onChange }: { bill: BillKind; amount: number; exposure: number | null; onChange: () => void }) {
+type Bills = Profile["bills"];
+/** Saves an amount for one bill, with anything else about it that changed. */
+type Save = (bill: BillKind, amount: number, also?: Partial<Bills>) => void;
+
+/** Asks how much of one bill the person has: by car and distance for gas, unless they would rather type the gallons. */
+function Ask({ bill, bills, save, onCancel }: { bill: BillKind; bills: Bills; save: Save; onCancel?: () => void }) {
+  const [typing, setTyping] = useState(false);
+  if (bill === "gas" && !typing) {
+    return <GasSetup car={bills.car} miles={bills.milesPerMonth} onSave={(gallons, car, milesPerMonth) => save("gas", gallons, { car, milesPerMonth })} onManual={() => setTyping(true)} onCancel={onCancel} />;
+  }
+  return (
+    <BillQuestion
+      key={bill}
+      bill={bill}
+      initial={bill === "gas" ? bills.gasGallonsPerMonth : bills.heatingBillPerMonth}
+      // Typed gallons are no longer the car's, so the car is forgotten.
+      onSave={(value) => save(bill, value, bill === "gas" ? { car: null, milesPerMonth: null } : undefined)}
+      onCancel={onCancel}
+    />
+  );
+}
+
+interface ExposureProps {
+  bill: BillKind;
+  amount: number;
+  exposure: number | null;
+  /** The car and distance the gallons came from, when they did. */
+  drive: { car: string; miles: number } | null;
+  onChange: () => void;
+}
+
+function ExposureCard({ bill, amount, exposure, drive, onChange }: ExposureProps) {
   const { name, commodity, jump, jumpText } = COPY[bill];
   const extra = exposure == null ? null : exposure * jump;
+  const car = drive ? carOf(drive.car) : null;
   return (
     <Card>
       <div className="flex items-start justify-between gap-4">
@@ -114,8 +149,13 @@ function ExposureCard({ bill, amount, exposure, onChange }: { bill: BillKind; am
         <Tag>{BILLS[bill].tag}</Tag>
       </div>
       <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 rounded-[18px] bg-muted p-4">
-        <p className="min-w-0 flex-[1_1_320px] text-[15px] leading-relaxed text-body">
-          {bill === "gas" ? `You buy about ${amount.toLocaleString("en-US")} gallons a month.` : `Your heating bill is about ${Number.isInteger(amount) ? formatUsdWhole(amount) : formatUsd(amount)} a month.`}{" "}
+        {car ? <CarRender kind={car.id} className="w-[170px] shrink-0" /> : null}
+        <p className="min-w-0 flex-[1_1_300px] text-[15px] leading-relaxed text-body">
+          {car && drive
+            ? `You drive a ${car.name.toLowerCase()} about ${drive.miles.toLocaleString("en-US")} miles a month, which is about ${amount.toLocaleString("en-US")} gallons.`
+            : bill === "gas"
+              ? `You buy about ${amount.toLocaleString("en-US")} gallons a month.`
+              : `Your heating bill is about ${Number.isInteger(amount) ? formatUsdWhole(amount) : formatUsd(amount)} a month.`}{" "}
           {extra == null ? "Cushion will size this once it has a live price." : `If ${commodity} rose ${jumpText}, your ${name.toLowerCase()} could cost about this much more this month.`}
         </p>
         {extra == null ? null : (
@@ -131,7 +171,7 @@ function ExposureCard({ bill, amount, exposure, onChange }: { bill: BillKind; am
           : "Utility rates barely follow daily gas prices, so this is a rough guess at the part of your bill that moves."}
       </p>
       <button type="button" onClick={onChange} className="press mt-3 min-h-11 text-[14px] font-semibold text-foreground underline underline-offset-4">
-        Change amount
+        {car ? "Change car or miles" : "Change amount"}
       </button>
     </Card>
   );
@@ -142,7 +182,7 @@ interface DashboardProps {
   kinds: BillKind[];
   asking: BillKind | null;
   setAsking: (bill: BillKind | null) => void;
-  save: (bill: BillKind, amount: number) => void;
+  save: Save;
 }
 
 function Dashboard({ bills, kinds, asking, setAsking, save }: DashboardProps) {
@@ -164,13 +204,7 @@ function Dashboard({ bills, kinds, asking, setAsking, save }: DashboardProps) {
     <>
       {asking ? (
         <div className="mb-5">
-          <BillQuestion
-            key={asking}
-            bill={asking}
-            initial={asking === "gas" ? bills.gasGallonsPerMonth : bills.heatingBillPerMonth}
-            onSave={(value) => save(asking, value)}
-            onCancel={() => setAsking(null)}
-          />
+          <Ask key={asking} bill={asking} bills={bills} save={save} onCancel={() => setAsking(null)} />
         </div>
       ) : null}
       <WithTicket
@@ -210,7 +244,13 @@ function Dashboard({ bills, kinds, asking, setAsking, save }: DashboardProps) {
           ))}
         </div>
         {markets.error ? <Notice>Gemini&rsquo;s markets are unavailable right now. Reload the page in a minute.</Notice> : null}
-        <ExposureCard bill={bill} amount={amount} exposure={markets.exposure} onChange={() => setAsking(bill)} />
+        <ExposureCard
+          bill={bill}
+          amount={amount}
+          exposure={markets.exposure}
+          drive={bill === "gas" && bills.car && bills.milesPerMonth ? { car: bills.car, miles: bills.milesPerMonth } : null}
+          onChange={() => setAsking(bill)}
+        />
         <CoverCard bill={bill} mode={mode} markets={markets} onPick={(level) => updateProfile("bills", { ...bills, mode: level })} />
         <Autopilot bills={bills} />
         <Replay bill={bill} exposure={markets.exposure} />
@@ -226,10 +266,11 @@ export default function BillsPage() {
   const [asking, setAsking] = useState<BillKind | null>(null);
   const kinds = ALL_BILLS.filter((k) => (k === "gas" ? bills.gasGallonsPerMonth : bills.heatingBillPerMonth));
 
-  const save = (bill: BillKind, amount: number) => {
-    updateProfile("bills", { ...bills, [bill === "gas" ? "gasGallonsPerMonth" : "heatingBillPerMonth"]: amount });
+  const save: Save = (bill, amount, also) => {
+    updateProfile("bills", { ...bills, ...also, [bill === "gas" ? "gasGallonsPerMonth" : "heatingBillPerMonth"]: amount });
     setAsking(null);
   };
+  const first = asking ?? "gas";
 
   return (
     <>
@@ -237,13 +278,16 @@ export default function BillsPage() {
       {!mounted ? (
         <Skeleton className="h-40 w-full max-w-xl" />
       ) : kinds.length === 0 ? (
-        <BillQuestion
-          key={asking ?? "gas"}
-          bill={asking ?? "gas"}
-          initial={null}
-          onSave={(value) => save(asking ?? "gas", value)}
-          onSwitch={() => setAsking(asking === "heating" ? "gas" : "heating")}
-        />
+        <div className="flex flex-col gap-4">
+          <div role="group" aria-label="Which bill to cushion" className="flex flex-wrap gap-2">
+            {ALL_BILLS.map((kind) => (
+              <Chip key={kind} pressed={kind === first} onClick={() => setAsking(kind)}>
+                {kind === "gas" ? "Gas for your car" : "Heating for your home"}
+              </Chip>
+            ))}
+          </div>
+          <Ask key={first} bill={first} bills={bills} save={save} />
+        </div>
       ) : (
         <Dashboard bills={bills} kinds={kinds} asking={asking} setAsking={setAsking} save={save} />
       )}

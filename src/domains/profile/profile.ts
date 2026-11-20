@@ -15,13 +15,16 @@ export const profileSchema = z.object({
   bills: z
     .object({
       gasGallonsPerMonth: z.number().nullable().default(null),
+      /** How the gallons were worked out, when the person chose a car and a distance: a `CARS` id and miles a month. */
+      car: z.string().nullable().default(null),
+      milesPerMonth: z.number().nullable().default(null),
       heatingBillPerMonth: z.number().nullable().default(null),
       mode: z.enum(["spike", "full"]).default("spike"),
       autopilot: z.boolean().default(false),
       /** The last day (YYYY-MM-DD) the autopilot bought cover, so it buys once a day. */
       lastRun: z.string().nullable().default(null),
     })
-    .default({ gasGallonsPerMonth: null, heatingBillPerMonth: null, mode: "spike", autopilot: false, lastRun: null }),
+    .default({ gasGallonsPerMonth: null, car: null, milesPerMonth: null, heatingBillPerMonth: null, mode: "spike", autopilot: false, lastRun: null }),
   /** Fantasy: player names exactly as Gemini lists them, e.g. "Jonathan Taylor". */
   fantasy: z
     .object({
