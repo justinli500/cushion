@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import { buyCushion } from "@/domains/account/buy";
 import type { Section } from "@/domains/account/ledger";
@@ -77,9 +78,12 @@ export function CushionTicket(props: TicketProps) {
   };
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-6">
-      <div className="mb-1 flex items-center justify-between">
-        <h2 className="text-[15px] font-semibold">{title}</h2>
+    <div className="rounded-[18px] bg-card p-6">
+      <div className="mb-1.5 flex items-center justify-between gap-3">
+        <h2 className="flex items-center gap-2 text-[19px] font-semibold tracking-tight">
+          <ShieldCheck className="size-5 shrink-0 text-primary" aria-hidden />
+          {title}
+        </h2>
         <Tag tone="note">Simulated</Tag>
       </div>
       <p className="mb-5 text-[14px] leading-relaxed text-muted-foreground">{detail}</p>
@@ -107,7 +111,7 @@ export function CushionTicket(props: TicketProps) {
         <div className="arrive">
           <dl className="space-y-3">
             <Row label="Costs">
-              <span className="tabular text-[26px] font-semibold tracking-tight">{formatUsd(quote.cost)}</span>
+              <span className="tabular text-[32px] font-semibold leading-none tracking-tight">{formatUsd(quote.cost)}</span>
             </Row>
             <Row label="Pays up to">
               <span className="tabular text-[17px] font-medium text-positive">{formatUsd(quote.maxPayout)}</span>
@@ -136,7 +140,7 @@ export function CushionTicket(props: TicketProps) {
                 {replay ? "Cushion added. It settles when the game ends." : "Cushion added. A receipt is being written on-chain."}
               </p>
             ) : (
-              <Button onClick={buy} disabled={!canBuy}>
+              <Button onClick={buy} disabled={!canBuy} wide>
                 {quote.cost > balance ? "Not enough play money" : `Add cushion for ${formatUsd(quote.cost)}`}
               </Button>
             )}

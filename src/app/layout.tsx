@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Figtree, Geist_Mono } from "next/font/google";
 import type { ReactNode } from "react";
 import { SettlementWatcher } from "@/components/settlement-watcher";
-import { Sidebar } from "@/components/sidebar";
+import { TopNav } from "@/components/top-nav";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+// A round geometric sans, close in feel to the Open Sauce that Totalis sets its interface in.
+const appFont = Figtree({ variable: "--font-app", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -16,12 +17,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`} suppressHydrationWarning>
+    <html lang="en" className={`${appFont.variable} ${geistMono.variable} dark h-full antialiased`} suppressHydrationWarning>
       <body className="min-h-full" suppressHydrationWarning>
-        <div className="mx-auto flex min-h-screen max-w-[1320px]">
-          <Sidebar />
-          <main className="min-w-0 flex-1 px-10 py-8">{children}</main>
-        </div>
+        <TopNav />
+        <main className="mx-auto max-w-[1292px] px-6 py-7">{children}</main>
         <SettlementWatcher />
         <Toaster position="bottom-right" />
       </body>

@@ -27,7 +27,7 @@ const LiveLink = () => (
 /** Always on the page, so the game screen can be used whether or not anything is being played tonight. */
 function FeaturedGame() {
   return (
-    <Link href="/games/live" className="press flex items-center justify-between gap-6 rounded-2xl border border-border bg-card p-5 hover:border-primary">
+    <Link href="/games/live" className="press flex items-center justify-between gap-6 rounded-[18px] bg-card p-5 hover:border-primary">
       <span>
         <span className="flex items-center gap-2">
           <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primary">Live</span>
@@ -167,11 +167,15 @@ function GameRow({ row }: { row: LobbyRow }) {
   const scoreOf = (t: TeamSide) => (score ? (t.side === "home" ? score.home.score : score.away.score) : null);
   const isMine = (t: TeamSide) => mine?.league === game.league && mine.abbr === t.abbr;
 
+  const chances = sides.map((t) => winChance(t.contract.quote));
+  const best = Math.max(...chances.map((c) => c.p ?? 0));
+
   return (
-    <li className="arrive press relative grid grid-cols-[36px_minmax(0,300px)_44px_104px_minmax(0,1fr)] grid-rows-2 items-center rounded-2xl border border-border bg-card px-3 py-2 hover:border-foreground/30">
-      <Link href={`/games/${game.gameId}`} aria-label={`Open ${game.title}`} className="absolute inset-0 rounded-2xl" />
+    <li className="arrive press relative grid grid-cols-[36px_minmax(0,300px)_44px_120px_minmax(0,1fr)] grid-rows-2 items-center gap-y-1.5 rounded-[18px] bg-card px-3 py-3 hover:bg-accent/60">
+      <Link href={`/games/${game.gameId}`} aria-label={`Open ${game.title}`} className="absolute inset-0 rounded-[18px]" />
       {sides.map((t, i) => {
-        const chance = winChance(t.contract.quote);
+        const chance = chances[i];
+        const favorite = chance.p != null && chance.p === best && !chance.uncertain;
         return (
           <RowCells key={t.abbr} row={i + 1}>
             <button
@@ -186,12 +190,14 @@ function GameRow({ row }: { row: LobbyRow }) {
             </button>
             <span className={`pointer-events-none truncate text-[15px] ${isMine(t) ? "font-semibold" : "font-medium"}`}>{teamLabel(game, t)}</span>
             <span className="tabular pointer-events-none text-right text-[17px] font-semibold">{scoreOf(t) ?? ""}</span>
+            {/* The chance each team wins, as a chip. The favorite is tinted, and a rough read is dimmed. */}
             <span
-              className={`tabular pointer-events-none text-right text-[14px] ${chance.uncertain ? "text-muted-foreground" : "text-foreground"}`}
-              title={chance.uncertain ? "A rough read: not many people are trading this" : undefined}
+              className={`tabular pointer-events-none ml-4 flex h-8 items-center justify-center rounded-[10px] text-[14px] font-semibold ${
+                favorite ? "bg-primary/20 text-primary" : chance.uncertain ? "bg-secondary text-muted-foreground" : "bg-secondary text-foreground"
+              }`}
+              title={chance.uncertain ? "A rough read: not many people are trading this" : "The market's chance this team wins"}
             >
               {formatChance(chance.p)}
-              <span className="ml-1 text-[12px] text-muted-foreground/70">to win</span>
             </span>
           </RowCells>
         );

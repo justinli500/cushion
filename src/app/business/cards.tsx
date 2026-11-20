@@ -78,7 +78,7 @@ export function SuggestionCard({ title, why, state, selected, onSelect }: { titl
   }
 
   return (
-    <section className="rounded-2xl border border-border bg-card p-5">
+    <section className="rounded-[18px] bg-card p-5">
       {head}
       <div className="mt-3">
         {state.kind === "loading" ? (

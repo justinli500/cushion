@@ -5,54 +5,60 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * One dark theme, in the spirit of Gemini's prediction markets: a near-black page, white type,
- * a cyan accent for anything you can act on, green for money coming back and red for trouble.
- * The app is always dark, so :root and .dark carry the same values.
+ * One dark theme. The surfaces, type and shapes follow Totalis: a warm charcoal page, flat
+ * borderless cards a step lighter, soft off-white type, and a lavender accent for whatever is
+ * selected. The one loud color is the indigo of the main action. The app is always dark, so :root
+ * and .dark carry the same values.
  */
 :root,
 .dark {
-  --background: #010304;
-  --foreground: #f5f6f7;
-  --card: #0d0f11;
-  --card-foreground: #f5f6f7;
-  --popover: #121417;
-  --popover-foreground: #f5f6f7;
-  --primary: #2cbcfc;
-  --primary-foreground: #010304;
-  --secondary: #1a1d20;
-  --secondary-foreground: #f5f6f7;
-  --muted: #15181b;
-  --muted-foreground: #a3a7ac;
-  --accent: #1a1d20;
-  --accent-foreground: #f5f6f7;
-  --destructive: #fc4848;
-  --border: #26292d;
-  --input: #2e3237;
-  --ring: #2cbcfc;
+  --background: #1a1a1a;
+  --foreground: #f2f0f0;
+  --card: #272727;
+  --card-foreground: #f2f0f0;
+  --popover: #302f2f;
+  --popover-foreground: #f2f0f0;
+  --primary: #aea4ff;
+  --primary-foreground: #1a1a1a;
+  --secondary: #302f2f;
+  --secondary-foreground: #f2f0f0;
+  --muted: #302f2f;
+  --muted-foreground: #a09f9f;
+  --accent: #343434;
+  --accent-foreground: #f2f0f0;
+  --destructive: #ff9d8f;
+  --border: #343434;
+  --input: #3b3a3a;
+  --ring: #aea4ff;
+  /* The main action on a screen: adding a cushion. */
+  --cta: #4636f5;
+  --cta-foreground: #ffffff;
   /* Money paid back to you, and anything that went your way. */
-  --positive: #41b868;
+  --positive: #a0e8ba;
   /* Estimates, simulations and thin markets: things to read with care. */
-  --warning: #ebb348;
-  --chart-1: #2cbcfc;
-  --chart-2: #ff8e00;
-  --chart-3: #41b868;
-  --chart-4: #a3a7ac;
-  --chart-5: #f5f6f7;
-  --radius: 0.875rem;
-  --sidebar: #010304;
-  --sidebar-foreground: #f5f6f7;
-  --sidebar-primary: #2cbcfc;
-  --sidebar-primary-foreground: #010304;
-  --sidebar-accent: #15181b;
-  --sidebar-accent-foreground: #f5f6f7;
-  --sidebar-border: #26292d;
-  --sidebar-ring: #2cbcfc;
+  --warning: #f9ce73;
+  --chart-1: #8b7ff0;
+  --chart-2: #b98c2a;
+  --chart-3: #a0e8ba;
+  --chart-4: #a09f9f;
+  --chart-5: #f2f0f0;
+  --radius: 0.75rem;
+  --sidebar: #1a1a1a;
+  --sidebar-foreground: #f2f0f0;
+  --sidebar-primary: #aea4ff;
+  --sidebar-primary-foreground: #1a1a1a;
+  --sidebar-accent: #272727;
+  --sidebar-accent-foreground: #f2f0f0;
+  --sidebar-border: #343434;
+  --sidebar-ring: #aea4ff;
 }
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-app);
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-geist-sans);
+  --font-heading: var(--font-app);
+  --color-cta: var(--cta);
+  --color-cta-foreground: var(--cta-foreground);
   --color-positive: var(--positive);
   --color-warning: var(--warning);
   --color-sidebar-ring: var(--sidebar-ring);
