@@ -16,8 +16,8 @@ describe("a heating bill from a home, a winter and a thermostat", () => {
     expect([homeOf("castle").id, winterOf(null).id, heatOf(undefined).id]).toEqual(["house", "cold", "gas"]);
     expect(heatOf("gas").note).toBeNull();
     expect(heatOf("electric")).toMatchObject({ weak: true });
-    expect(heatOf("oil")).toMatchObject({ weak: false });
-    expect(heatOf("oil").note).toMatch(/oil market/);
+    // Oil and propane are cushioned on the oil market, so they need no note.
+    expect(heatOf("oil")).toMatchObject({ weak: false, note: null });
   });
 
   it("stays inside what the page accepts, and reads warmth from the setting", () => {
