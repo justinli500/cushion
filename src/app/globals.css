@@ -143,3 +143,53 @@
     transition: none;
   }
 }
+
+/* The Drop landing page (/lab/drop). */
+.drop-draw {
+  stroke-dasharray: 2400;
+  animation: drop-draw 3s cubic-bezier(0.6, 0, 0.2, 1);
+}
+@keyframes drop-draw {
+  from {
+    stroke-dashoffset: 2400;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.drop-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: drop-ring 1.8s ease-out infinite;
+}
+@keyframes drop-ring {
+  from {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+.drop-soft {
+  font-family: var(--font-soft), serif;
+  font-variation-settings: "SOFT" 100, "opsz" 144;
+}
+
+.drop-cta {
+  transition: transform 180ms cubic-bezier(0.3, 1.6, 0.5, 1), box-shadow 250ms;
+}
+.drop-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.3), 0 18px 50px rgb(255 158 122 / 0.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drop-draw,
+  .drop-ring {
+    animation: none;
+  }
+}
