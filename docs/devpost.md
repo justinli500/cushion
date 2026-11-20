@@ -62,12 +62,56 @@ Gemini Prediction Markets API (market data), Solana devnet (Memo program), Next.
 - Program used: Memo program `MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr` on devnet.
 - Receipt wallet (fee payer and signer): `442CDMzrvfKqKkyqSHsLnQgPdzUeuJuYYMWPFQhd4jQm`.
 
-# Demo video script (2 to 3 minutes)
+# Demo video script (about 2:45)
 
-1. **Landing and Today (20 s).** "Prediction markets are usually a place to bet. Cushion uses them to protect what you already have riding on tomorrow." On the landing page, tap two stakes and show each priced as one number. Open the app and show Today with live odds.
-2. **Portfolio (40 s).** Add BTC $2,000, MSTR $800 and NVDA $2,500. Point out that MicroStrategy is read as Bitcoin exposure and Nvidia as S&P exposure, each marked an estimate. On the Bitcoin chart, drag the line down a level and show the price of the cushion fall. Add it, show the loss bars with and without the cushion, and buy it.
-3. **Live game (40 s).** Open Colts at Texans and press play on the broadcast. Show the score, plays and Gemini's real traded odds moving with it. Root for the Colts, add a loss cushion, jump to a touchdown and show what the cushion is worth now, then jump to the final and show it settle.
-4. **Small business (25 s).** Pick a food truck in Austin, enter a bad-day cost, and show the cold-day cushion priced on the live book, including the thin-market note if it appears.
-5. **Bills and fantasy (20 s).** Pick a car and a distance, show the gallons it works out and the gas cover with spikes-only against full, then open Fantasy, pick two players from the example lineup and cover both at once.
-6. **Account and receipt (20 s).** Open the account, show the cushions and play-money balance, and click "View receipt" to show the Solana transaction.
-7. **Close (10 s).** "Same markets, opposite purpose. Built on Gemini's prediction market API, with receipts on Solana."
+Spoken lines are in quotes. Numbers on screen will differ from take to take, since prices are live.
+
+## Before you record
+
+- **Warm the data:** open the landing page and Fantasy a minute beforehand. A first load after a quiet spell can take 20 to 45 seconds.
+- **Mute the game video:** the reel carries NFL broadcast audio, which can get the demo flagged or muted on YouTube.
+- **Stay off the middle of the reel:** it repeats the second quarter from about 23:30. Use the "Jump to" chips instead of letting it run.
+- **Pick light or dark** with the switch in the nav and keep it for the whole take.
+- **Fantasy:** check the ticks match "Players covered" before you start.
+
+## Script
+
+**1. Landing (0:00 to 0:15).** Start on the landing page, scroll a little.
+"Things fall. Your team loses, Bitcoin drops, gas spikes. Prediction markets already price all of that, but people only use them to bet. Cushion uses the same markets the other way: to protect what you already have riding on tomorrow."
+
+**2. Live game (0:15 to 0:55).** Open the app, then Live games, then Colts at Texans. Press play. Pick the Texans, $20, buy.
+"I'm a Texans fan. For a few dollars, I get twenty back if they lose."
+Click the first chip (Colts field goal).
+"The Colts score first, and my cushion is worth more. The field, the score and the price are Gemini's real trades from this game, moving with the video. I could cash out right here."
+Click the touchdown chip, then Final.
+"Houston wins. I'm out a few dollars and I didn't need it. That's what insurance is."
+
+**3. Portfolio (0:55 to 1:30).** Open Portfolio, choose Bitcoin.
+"Here's a portfolio. Each dashed line is a level Gemini has a market at. I drag the line to choose where my cushion starts paying. Nearer costs more, further costs less. Red is where it pays."
+Drag the line a level, point at the dark panel, buy.
+"Without a cushion, a drop costs me this much. With it, this much. Nvidia has no market of its own, so Cushion reads it as S&P exposure and labels that an estimate."
+
+**4. Fantasy (1:30 to 1:55).** Open Fantasy.
+"Fantasy points aren't a market, but yards and touchdowns are. Every player in my lineup starts cushioned, as one price."
+Open James Cook, tap a different line chip, then untick one player.
+"I choose the line that pays me back, and drop a player with one tap. The price follows."
+
+**5. Bills (1:55 to 2:20).** Open Bills. Pick the pickup, drag the miles slider.
+"Pick your car and how far you drive. Cushion works out the gallons and covers a gas spike."
+Switch to Heating, raise the thermostat.
+"Same for heating: your home, your winter, your thermostat. Oil heat is priced on the oil market."
+
+**6. Business (2:20 to 2:30).** Open Business, tap a suggested city.
+"A food truck can cushion a cold day. Pick a city and it's priced on the live book."
+
+**7. Account and receipt (2:30 to 2:40).** Click the balance in the nav, open the receipt link on the Portfolio cushion.
+"Every cushion gets a receipt on Solana."
+
+**8. Close (2:40 to 2:45).**
+"Same markets, opposite purpose. Every price is Gemini's live order book. Fills are simulated play money, and every estimate is labelled."
+
+## Notes
+
+- **Receipt:** use the Portfolio or Fantasy cushion for step 7. The game cushion is on a saved game and gets no on-chain receipt. The receipt takes a few seconds to write, so buying in step 3 leaves it ready by step 7.
+- **To cut to 2:30:** drop step 6.
+- **Do one dry run of step 2** (buy, then three chips) before the real take.
