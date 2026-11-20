@@ -55,10 +55,6 @@ export default function FantasyPage() {
   // which stays uncovered and holds the meter below the stake.
   const share = stakeShare(stake, cards.filter((c) => c.slot.status !== "over").length);
 
-  const coverable = cards.filter((c) => c.selection).map((c) => c.slot.key);
-  const on = (chosen ?? coverable).filter((key) => coverable.includes(key));
-  const covered = cards.flatMap((c) => (c.slot.entry && c.selection && on.includes(c.slot.key) ? [{ entry: c.slot.entry, pick: c.selection }] : []));
-
   const shown = cards.find((c) => c.slot.key === picked) ?? cards.find((c) => c.selection) ?? cards[0];
   // Every stat the shown player has an open line on, each at the person's line or the default one.
   const openStats = shown?.slot.entry && shown.slot.status !== "over" ? shown.slot.entry.stats.filter((s) => pickableLines(s).length > 0) : [];
@@ -73,6 +69,14 @@ export default function FantasyPage() {
 
   const symbols = [...new Set([...cards.flatMap((c) => (c.selection ? [c.selection.line.contract.symbol] : [])), ...offered.map((o) => o.line.contract.symbol)])].slice(0, MAX_BOOKS);
   const books = usePoll<{ books: Record<string, Book> }>(symbols.length > 0 ? `/api/book?symbols=${symbols.join(",")}` : null, 5_000);
+
+  const coverable = cards.filter((c) => c.selection).map((c) => c.slot.key);
+  // Before the person chooses, a player nobody is selling a cushion for right now starts uncovered, so every tick is a
+  // player the cushion would pay for and the ticks match the count in the panel.
+  const offer = books.data?.books;
+  const starting = cards.flatMap((c) => (c.selection && (!offer || priceCushion(playerUnderLegs(c.selection.line, share), offer).legs.some((l) => l.filled > 0)) ? [c.slot.key] : []));
+  const on = (chosen ?? starting).filter((key) => coverable.includes(key));
+  const covered = cards.flatMap((c) => (c.slot.entry && c.selection && on.includes(c.slot.key) ? [{ entry: c.slot.entry, pick: c.selection }] : []));
 
   const options: Option[] = offered.map((pick) => ({
     ...pick,
