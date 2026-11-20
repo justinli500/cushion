@@ -38,9 +38,10 @@ export function GasSetup({ car: savedCar, miles: savedMiles, onSave, onManual, o
       <div className="flex flex-wrap items-stretch gap-5">
         {/* The chosen car on a studio floor, with the others to pick from beneath it. */}
         <div className="flex min-w-0 flex-[3_1_420px] flex-col gap-3">
-          <div className="flex flex-col items-center rounded-[24px] bg-linear-to-b from-muted to-secondary px-6 pb-4 pt-6">
-            <CarRender key={car.id} kind={car.id} className="arrive w-full max-w-[560px]" />
-            <div className="mt-1 flex flex-wrap items-baseline justify-center gap-x-3">
+          <div className="flex flex-col items-center rounded-[24px] bg-linear-to-b from-muted to-secondary px-6 pb-5">
+            {/* The render has clear space around the car, so it is pulled in to sit close to its caption. */}
+            <CarRender key={car.id} kind={car.id} className="arrive -mt-3 w-full max-w-[370px]" />
+            <div className="-mt-4 flex flex-wrap items-baseline justify-center gap-x-3">
               <span className="display text-[22px] font-semibold">{car.name}</span>
               <span className="tabular text-[14px] text-body">about {car.mpg} miles a gallon</span>
             </div>

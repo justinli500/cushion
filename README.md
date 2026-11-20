@@ -88,6 +88,8 @@ There is no login, and fills are simulated in the browser, so a receipt is a pub
 | | The "this week" line on each card: written by hand and dated, not live |
 | | Prices in the simulated live game: the last real trade at that moment plus a fixed 1 cent spread |
 
+The car renders on the Bills page are 3D models from [Grab3D](https://grab3d.com/free-3d-models/car/), published under CC0. Each stands for a kind of car, not a make or model, and the miles a gallon beside it is a typical figure for that kind.
+
 ## Architecture
 
 One Next.js 16 app in TypeScript, with a shadcn/ui component layer on Tailwind and a light theme: a pale ground, white borderless cards, one blue for what is covered and one orange for what is at risk, and a dark panel that carries each cushion's summary. A landing page at `/` prices five example stakes from live quotes; the app's sections sit under a pill nav. Server routes fetch and cache upstream data. The browser holds the person's profile and their play-money account.
