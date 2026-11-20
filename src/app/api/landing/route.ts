@@ -12,4 +12,5 @@ async function quotes(): Promise<StakeQuote[]> {
 }
 
 /** GET /api/landing returns the landing page's example stakes, each priced from Gemini's live quotes. */
-export const GET = () => respond(async () => ({ quotes: await cached("landing:quotes", 30_000, quotes) }));
+// These are examples on the landing page, slow to price from cold, so the CDN keeps them.
+export const GET = () => respond(async () => ({ quotes: await cached("landing:quotes", 30_000, quotes) }), 60);

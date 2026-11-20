@@ -35,4 +35,5 @@ async function loadPlayers(): Promise<PlayerEntry[]> {
 }
 
 /** GET /api/markets/props lists every player with props for NFL and NBA games that are live or start soon. */
-export const GET = () => respond(async () => ({ players: await cached("fantasy:players", CACHE_MS, loadPlayers) }));
+// Gemini takes about 25 seconds to list every player market, so the CDN keeps the list. Buy prices come from the order book, not from here.
+export const GET = () => respond(async () => ({ players: await cached("fantasy:players", CACHE_MS, loadPlayers) }), 60);
