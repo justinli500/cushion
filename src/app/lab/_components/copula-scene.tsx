@@ -252,7 +252,10 @@ function Copula({ pours, cue, auto, lead }: { pours: number; cue: number; auto: 
     // The drop drifts toward the right of the screen as it falls, the way the line was heading.
     // That direction is fixed to the page, so as the sheet turns it lands somewhere new each time.
     const right = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 0).setY(0).normalize();
-    const drift = Math.abs(lead.vy) * lead.slant;
+    const slant = lead.slantPeriod
+      ? lead.slant * Math.sin((2 * Math.PI * sim.current.clock) / lead.slantPeriod)
+      : lead.slant;
+    const drift = Math.abs(lead.vy) * slant;
     spawnAt(drops, {
       // A hair off the very middle, which is a saddle: a drop there would balance instead of rolling off.
       x: (Math.random() - 0.5) * 0.12,
@@ -266,7 +269,7 @@ function Copula({ pours, cue, auto, lead }: { pours: number; cue: number; auto: 
       keep,
       born: sim.current.clock,
     });
-  }, [cue, lead.y, lead.vy, lead.size, lead.density, lead.keep, lead.slant, camera]);
+  }, [cue, lead.y, lead.vy, lead.size, lead.density, lead.keep, lead.slant, lead.slantPeriod, camera]);
 
   useFrame((_, rawDelta) => {
     const dt = Math.min(rawDelta, 1 / 30);
@@ -466,6 +469,11 @@ interface Lead {
   keep: number;
   /** Sideways drift toward the right of the screen, as a share of its falling speed. */
   slant: number;
+  /**
+   * When set, the slant swings back and forth over this many seconds, between `slant` to the right
+   * and `slant` to the left, so drops lean a little differently each time.
+   */
+  slantPeriod?: number;
 }
 
 export interface CopulaView {
