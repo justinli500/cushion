@@ -2,7 +2,8 @@
 
 import { Fraunces, Inter_Tight } from "next/font/google";
 import Link from "next/link";
-import type { CSSProperties, ReactNode } from "react";
+import { type CSSProperties, type ReactNode, useEffect, useRef, useState } from "react";
+import type { CopulaView } from "./copula-scene";
 import { CopulaCanvas } from "./lab-loaders";
 
 const soft = Fraunces({ subsets: ["latin"], axes: ["SOFT", "opsz"], style: ["normal", "italic"], variable: "--font-soft" });
@@ -12,6 +13,98 @@ const tight = Inter_Tight({ subsets: ["latin"], variable: "--font-tight" });
 // and runs off the bottom edge, straight down onto the copula below.
 const LINE =
   "M-20 470 C 120 430, 200 510, 300 470 S 460 390, 560 430 S 680 470, 720 450 C 770 438, 850 600, 868 760 S 880 940, 880 1000";
+
+// Where the line leaves the frame, as a share of its width. The copula is centered under this point,
+// and the lead drop falls straight down from it.
+const LINE_END = 880 / 1280;
+
+const COPULA_VIEW: CopulaView = {
+  camera: [5.2, 3.6, 6.1],
+  zoom: false,
+  transparent: true,
+  center: LINE_END,
+  auto: false,
+  // Just under the top of the copula's canvas, where the line fades out, and already falling.
+  lead: { y: 2.15, vy: -5.5 },
+};
+
+// The dot's loop, in seconds: along the line to the Texans, a beat, down the plunge, then a rest
+// while the drops land. The first loop waits for the line to finish drawing.
+const DRAW = 3;
+const TRAVEL = 3.6;
+const FALL = 0.8;
+const REST = 2.8;
+
+/**
+ * Runs a dot along the line. It eases to a stop at the live game, falls down the plunge, and the
+ * moment it leaves the frame `onLeave` fires, so the copula can drop a ball from the same spot.
+ */
+function useTraveller(onLeave: () => void) {
+  const path = useRef<SVGPathElement>(null);
+  const dot = useRef<SVGGElement>(null);
+  const leave = useRef(onLeave);
+  useEffect(() => {
+    leave.current = onLeave;
+  });
+
+  useEffect(() => {
+    const line = path.current;
+    const marker = dot.current;
+    if (!line || !marker) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      marker.style.opacity = "0";
+      const id = window.setInterval(() => leave.current(), (TRAVEL + FALL + REST) * 1000);
+      return () => window.clearInterval(id);
+    }
+
+    const total = line.getTotalLength();
+    // The plunge starts at the Texans' point on the line.
+    let split = 0;
+    let best = Infinity;
+    for (let s = 0; s < total; s += 2) {
+      const p = line.getPointAtLength(s);
+      const d = (p.x - 720) ** 2 + (p.y - 450) ** 2;
+      if (d < best) {
+        best = d;
+        split = s;
+      }
+    }
+
+    let start = performance.now() + DRAW * 1000;
+    let left = false;
+    let frame = 0;
+    const tick = (now: number) => {
+      const t = (now - start) / 1000;
+      let s = 0;
+      if (t < 0) s = 0;
+      else if (t < TRAVEL) {
+        const k = t / TRAVEL;
+        s = split * (k < 0.5 ? 2 * k * k : 1 - (-2 * k + 2) ** 2 / 2);
+      } else if (t < TRAVEL + FALL) {
+        const k = (t - TRAVEL) / FALL;
+        s = split + (total - split) * k * k;
+      } else {
+        s = total;
+        if (!left) {
+          left = true;
+          leave.current();
+        }
+      }
+      const p = line.getPointAtLength(s);
+      marker.setAttribute("transform", `translate(${p.x} ${p.y})`);
+      marker.style.opacity = t >= 0 && t < TRAVEL + FALL ? "1" : "0";
+      if (t > TRAVEL + FALL + REST) {
+        start = now;
+        left = false;
+      }
+      frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  return { path, dot };
+}
 
 /** Places a block at a point of the 1280 x 1000 frame, so it stays on the line as the page scales. */
 const at = (x: number, y: number): CSSProperties => ({ position: "absolute", left: `${(x / 1280) * 100}%`, top: `${(y / 1000) * 100}%` });
@@ -36,6 +129,8 @@ function Also({ value, children }: { value: string; children: ReactNode }) {
 }
 
 export function DropLanding() {
+  const [cue, setCue] = useState(0);
+  const { path: linePath, dot } = useTraveller(() => setCue((c) => c + 1));
   return (
     <div
       className={`${soft.variable} ${tight.variable} fixed inset-0 z-40 overflow-y-auto bg-[#0A0B14] text-[#F1EEF8]`}
@@ -92,7 +187,7 @@ export function DropLanding() {
             </filter>
           </defs>
           <path d={LINE} fill="none" stroke="url(#drop-line)" strokeWidth="18" strokeLinecap="round" filter="url(#drop-glow)" opacity="0.5" />
-          <path className="drop-draw" d={LINE} fill="none" stroke="url(#drop-line)" strokeWidth="4" strokeLinecap="round" />
+          <path ref={linePath} className="drop-draw" d={LINE} fill="none" stroke="url(#drop-line)" strokeWidth="4" strokeLinecap="round" />
           <circle cx="300" cy="470" r="7" fill="#0A0B14" stroke="#C3B5FF" strokeWidth="3" />
           <circle cx="560" cy="430" r="7" fill="#0A0B14" stroke="#C3B5FF" strokeWidth="3" />
           <circle className="drop-ring" cx="720" cy="450" r="10" fill="none" stroke="#FF9E7A" strokeWidth="2" />
@@ -100,6 +195,10 @@ export function DropLanding() {
           <line x1="300" y1="458" x2="300" y2="380" stroke="#3A3850" />
           <line x1="560" y1="444" x2="560" y2="520" stroke="#3A3850" />
           <line x1="720" y1="438" x2="720" y2="320" stroke="#3A3850" />
+          <g ref={dot} style={{ opacity: 0 }}>
+            <circle r="16" fill="#FFB894" opacity="0.35" filter="url(#drop-glow)" />
+            <circle r="7" fill="#FFF4EE" />
+          </g>
         </svg>
 
         <h1
@@ -131,8 +230,14 @@ export function DropLanding() {
         </p>
       </section>
 
-      <section aria-label="The landing" className="relative mx-auto -mt-[12%] flex max-w-[1280px] flex-wrap items-center">
-        <div className="relative z-10 w-full px-[6%] py-10 md:w-[36%] md:pr-0">
+      <section aria-label="The landing" className="relative mx-auto -mt-[12%] max-w-[1280px] md:h-[860px]">
+        <figure className="relative m-0 h-[560px] w-full md:absolute md:inset-0 md:h-full">
+          <CopulaCanvas pours={0} cue={cue} view={COPULA_VIEW} />
+          <figcaption className="absolute bottom-4 right-6 font-mono text-[12px] tracking-[0.08em] text-[#A29FB8]">
+            FRANK COPULA · θ = 6 · HOW TWO OUTCOMES FALL TOGETHER
+          </figcaption>
+        </figure>
+        <div className="relative z-10 w-full px-[6%] py-10 md:absolute md:left-0 md:top-1/2 md:w-[36%] md:-translate-y-1/2 md:pr-0">
           <p className={`drop-soft m-0 font-normal leading-[0.95] tracking-[-0.02em]`} style={{ fontSize: "clamp(44px, 6vw, 84px)" }}>
             you land on <span className="italic text-[#FFC9A8]">$40.</span>
           </p>
@@ -146,12 +251,6 @@ export function DropLanding() {
             Catch this one · $15
           </Link>
         </div>
-        <figure className="relative m-0 h-[560px] w-full md:h-[720px] md:w-[64%]">
-          <CopulaCanvas pours={0} view={{ camera: [4.4, 3.1, 5.2], zoom: false, transparent: true }} />
-          <figcaption className="absolute bottom-4 right-6 font-mono text-[12px] tracking-[0.08em] text-[#A29FB8]">
-            FRANK COPULA · θ = 6 · HOW TWO OUTCOMES FALL TOGETHER
-          </figcaption>
-        </figure>
       </section>
 
       <section aria-label="Also today" className="relative mx-auto max-w-[1280px] px-[4%] pb-24 pt-16">

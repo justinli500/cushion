@@ -4,7 +4,7 @@
 /* eslint-disable react-hooks/immutability */
 
 import { OrbitControls } from "@react-three/drei";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { frankDensity, Membrane } from "./copula";
@@ -71,6 +71,12 @@ function spawn(drops: Drop[], count: number) {
   }
 }
 
+/** Wakes one idle drop at a chosen point, already moving. */
+function spawnAt(drops: Drop[], x: number, z: number, y: number, vy: number) {
+  const drop = drops.find((d) => !d.active);
+  if (drop) Object.assign(drop, { active: true, x, z, y, vy, bounces: 0, life: 1, squash: 0 });
+}
+
 function buildSurface() {
   const base = new Float32Array(N * N);
   const positions = new Float32Array(N * N * 3);
@@ -110,7 +116,7 @@ function buildSurface() {
   return { base, position, color, fill, grid, maxBase };
 }
 
-function Copula({ pours }: { pours: number }) {
+function Copula({ pours, cue, auto, lead }: { pours: number; cue: number; auto: boolean; lead: Lead }) {
   const surface = useMemo(() => buildSurface(), []);
   const sim = useRef<Sim | null>(null);
   const cores = useRef<THREE.InstancedMesh>(null);
@@ -122,12 +128,24 @@ function Copula({ pours }: { pours: number }) {
     if (pours > 0 && sim.current) spawn(sim.current.drops, 26);
   }, [pours]);
 
+  // A cue drops one lead drop straight down the middle of the view, where the page's line ends,
+  // and a stream of drops just behind it.
+  useEffect(() => {
+    if (cue === 0 || !sim.current) return;
+    const { drops } = sim.current;
+    spawnAt(drops, 0, 0, lead.y, lead.vy);
+    // The rest follow in a stream from the same point, stacked above so they arrive one after another.
+    for (let i = 1; i <= 10; i++) {
+      spawnAt(drops, (Math.random() - 0.5) * 0.7, (Math.random() - 0.5) * 0.7, lead.y + 0.5 + i * 0.32, lead.vy);
+    }
+  }, [cue, lead.y, lead.vy]);
+
   useFrame((_, rawDelta) => {
     const dt = Math.min(rawDelta, 1 / 30);
     sim.current ??= newSim();
     const { membrane, drops } = sim.current;
 
-    sim.current.untilBurst -= dt;
+    if (auto) sim.current.untilBurst -= dt;
     if (sim.current.untilBurst <= 0) {
       spawn(drops, 8 + Math.floor(Math.random() * 8));
       sim.current.untilBurst = 1.8 + Math.random() * 1.2;
@@ -228,30 +246,61 @@ function Copula({ pours }: { pours: number }) {
   );
 }
 
+interface Lead {
+  /** Height the lead drop starts at, in world units. */
+  y: number;
+  /** Its downward speed when it appears. */
+  vy: number;
+}
+
 export interface CopulaView {
   camera?: [number, number, number];
   /** Wheel zoom. Off where the scene sits inside a scrolling page, so the wheel still scrolls. */
   zoom?: boolean;
   /** Lets the page behind show through, for a scene placed inside a page. */
   transparent?: boolean;
+  /** Where across the canvas the middle of the surface sits, 0 to 1. The surface still turns about it. */
+  center?: number;
+  /** Random bursts of drops. Off when the page cues every drop itself. */
+  auto?: boolean;
+  lead?: Lead;
 }
 
-export function CopulaScene({ pours, view = {} }: { pours: number; view?: CopulaView }) {
-  const { camera = [4.6, 3.4, 4.8], zoom = true, transparent = false } = view;
+/** Slides the picture sideways without moving the point the camera turns around. */
+function Recenter({ center }: { center: number }) {
+  const camera = useThree((state) => state.camera);
+  const size = useThree((state) => state.size);
+  useEffect(() => {
+    if (!(camera instanceof THREE.PerspectiveCamera)) return;
+    camera.setViewOffset(size.width, size.height, -(center - 0.5) * size.width, 0, size.width, size.height);
+    camera.updateProjectionMatrix();
+    return () => {
+      camera.clearViewOffset();
+      camera.updateProjectionMatrix();
+    };
+  }, [camera, size.width, size.height, center]);
+  return null;
+}
+
+const DEFAULT_LEAD: Lead = { y: 3.2, vy: -2 };
+
+export function CopulaScene({ pours, cue = 0, view = {} }: { pours: number; cue?: number; view?: CopulaView }) {
+  const { camera = [4.6, 3.4, 4.8], zoom = true, transparent = false, center = 0.5, auto = true, lead = DEFAULT_LEAD } = view;
   return (
     <Canvas dpr={[1, 2]} camera={{ position: camera, fov: 34 }} gl={{ antialias: true, alpha: transparent }}>
       {!transparent && <color attach="background" args={["#0A0B14"]} />}
-      <fog attach="fog" args={["#0A0B14", 7, 14]} />
+      <fog attach="fog" args={["#0A0B14", 7, 16]} />
       <ambientLight intensity={0.4} />
       <directionalLight position={[3, 5, 2]} intensity={1.2} color="#FFD9C4" />
       <pointLight position={[-3, 2, -2]} intensity={6} color="#8C7CFF" />
-      <Copula pours={pours} />
+      {center !== 0.5 && <Recenter center={center} />}
+      <Copula pours={pours} cue={cue} auto={auto} lead={lead} />
       <OrbitControls
         target={[0, 0.5, 0]}
         enablePan={false}
         enableZoom={zoom}
         minDistance={4}
-        maxDistance={11}
+        maxDistance={12}
         autoRotate
         autoRotateSpeed={0.35}
         enableDamping
