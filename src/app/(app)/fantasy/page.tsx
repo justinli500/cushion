@@ -146,7 +146,13 @@ export default function FantasyPage() {
 
         <div className="flex flex-wrap items-start gap-4">
           <div className="flex min-w-0 flex-[1_1_300px] flex-col gap-3">
-            {error && !entries ? null : <Roster rows={rows} selected={shown?.slot.key ?? null} onSelect={setPicked} example={isExample} />}
+            {error && !entries ? null : <Roster
+                rows={rows}
+                selected={shown?.slot.key ?? null}
+                onSelect={setPicked}
+                onToggle={(key) => setChosen(on.includes(key) ? on.filter((k) => k !== key) : [...on, key])}
+                example={isExample}
+              />}
             <LineupSearch
               entries={entries}
               names={names}
