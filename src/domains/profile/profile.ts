@@ -40,8 +40,13 @@ export const profileSchema = z.object({
     .default({ players: [], stake: 50 }),
   /** Small business: `type` is a preset id from domains/exposure/business. */
   business: z
-    .object({ type: z.string().nullable().default(null), city: z.string().nullable().default(null) })
-    .default({ type: null, city: null }),
+    .object({
+      type: z.string().nullable().default(null),
+      city: z.string().nullable().default(null),
+      /** Dollar amounts the owner has set, by what they are for: "badDay", or a market such as "BRENT" for a monthly spend. */
+      amounts: z.record(z.string(), z.number()).default({}),
+    })
+    .default({ type: null, city: null, amounts: {} }),
 });
 
 export type Profile = z.infer<typeof profileSchema>;

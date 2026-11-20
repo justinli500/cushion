@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Card, CardTitle, PageHeader } from "@/components/kit";
 import {
   businessType,
@@ -39,8 +38,10 @@ export default function BusinessPage() {
   const needs = business ? needsOf(business) : null;
   const now = useNow();
 
-  const [team, setTeam] = useState<Team | null>(null);
-  const [amounts, setAmounts] = useState<Partial<Record<AmountKey, number>>>({});
+  // The team and the amounts are saved with the rest of the profile, so they are still here after a reload or a visit to another page.
+  const team: Team | null = profile.team;
+  const setTeam = (next: Team | null) => updateProfile("team", next);
+  const amounts: Partial<Record<AmountKey, number>> = profile.business.amounts;
   const amountOf = (key: AmountKey) => amounts[key] ?? guessAmount(key);
 
   const weather = usePoll<{ markets: BucketMarket[] }>(needs?.city ? "/api/markets/weather" : null, 60_000);
@@ -61,7 +62,7 @@ export default function BusinessPage() {
   };
   const feedOf = (risk: Risk) => (risk.kind === "home-loss" ? games : risk.kind === "cost-rise" ? ladders : risk.kind === "event" ? events : weather);
 
-  const setCity = (name: string) => updateProfile("business", { type: business?.id ?? null, city: name });
+  const setCity = (name: string) => updateProfile("business", { ...profile.business, city: name });
   // A card waiting on a city or a team offers a few that have a market right now, so one press fills it in.
   const picksFor = (risk: Risk): Picks | undefined => {
     if ((risk.kind === "cold-day" || risk.kind === "hot-day") && !city && weather.data) {
@@ -97,7 +98,7 @@ export default function BusinessPage() {
         <section className="min-w-0 flex-[1_1_300px]">
           <YouCard
             businessId={business?.id ?? null}
-            onBusiness={(id) => updateProfile("business", { type: id, city })}
+            onBusiness={(id) => updateProfile("business", { ...profile.business, type: id })}
             needs={needs}
             city={city}
             cities={weather.data ? cityOptions(weather.data.markets) : null}
@@ -107,7 +108,7 @@ export default function BusinessPage() {
             onTeam={setTeam}
             amounts={amounts}
             amountOf={amountOf}
-            onAmount={(key, value) => setAmounts((previous) => ({ ...previous, [key]: value }))}
+            onAmount={(key, value) => updateProfile("business", { ...profile.business, amounts: { ...profile.business.amounts, [key]: value } })}
           />
         </section>
 
