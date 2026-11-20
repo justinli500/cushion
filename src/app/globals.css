@@ -141,7 +141,7 @@
   --chart-second: #ff9e7a;
   /* The portfolio chart's paying zones stay green and red in the dark too, a little brighter to show on it. */
   --rise: #22c55e;
-  --fall: #ef4444;
+  --fall: #ff3d3d;
   --font-body: var(--font-tight);
 }
 

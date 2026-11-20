@@ -34,6 +34,8 @@ interface Props {
 const RISE = "var(--rise)";
 const FALL = "var(--fall)";
 const WASH = 0.15;
+// Red is a darker colour than green and sits beside the warm beige band, so the same wash reads fainter. It gets more, to look as strong as the green.
+const FALL_WASH = 0.26;
 
 /** Two presses this close together count as a double-click. */
 const DOUBLE_MS = 350;
@@ -147,7 +149,7 @@ export function LevelChart({ history, chart, until, onStart }: Props) {
     >
       {/* The move before it starts paying, then the stretch it pays for. */}
       {gapHeight > 0 ? <rect x={LEFT} y={gapTop} width={RIGHT - LEFT} height={gapHeight} className="fill-risk-fill/15" /> : null}
-      <rect x={LEFT} y={bandTop} width={RIGHT - LEFT} height={Math.max(bandHeight, 2)} fill={falling ? FALL : RISE} fillOpacity={WASH} />
+      <rect x={LEFT} y={bandTop} width={RIGHT - LEFT} height={Math.max(bandHeight, 2)} fill={falling ? FALL : RISE} fillOpacity={falling ? FALL_WASH : WASH} />
 
       <line x1={NOW} y1={TOP} x2={NOW} y2={BOTTOM} className="stroke-border" strokeDasharray="2 5" />
       <text x={NOW - 6} y={H - 9} textAnchor="end" fontSize="12" className="fill-muted-foreground">
