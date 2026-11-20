@@ -55,8 +55,9 @@ const BUTTONS = {
   quiet: "h-11 border-[1.5px] border-border bg-card px-5 text-[15px] text-foreground hover:bg-secondary",
   /** An action inside a card: 48px, ink. */
   dark: "h-12 bg-foreground px-6 text-[15px] text-background hover:bg-foreground/90",
-  /** The main action on the dark panel: 52px, white. */
-  light: "h-[52px] bg-card px-7 text-[16px] text-foreground hover:bg-card/90",
+  /** The main action on the dark panel: 52px, the Drop's lavender, lit from below. */
+  light:
+    "h-[52px] bg-[#c3b5ff] px-7 text-[16px] text-[#12101f] shadow-[0_0_0_1px_rgb(255_255_255/0.15),0_12px_36px_rgb(195_181_255/0.35)] hover:bg-[#d2c7ff]",
 };
 
 export function Button({

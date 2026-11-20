@@ -5,67 +5,68 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Tokens from the design handoff. A light ground with white cards, ink type, one blue accent and
- * one orange for risk. Blue means covered or gained, orange means risk or lost, and neither is
- * ever the only signal: the words beside them say the same thing.
+ * Tokens from the design handoff, with the Drop's brand through them: a light ground with white
+ * cards and ink type, a deep violet from the Drop's lavender family for covered or gained, and
+ * orange for risk. The cushion panel is a piece of the Drop's night. Neither color is ever the only
+ * signal: the words beside them say the same thing.
  */
 :root {
-  --background: #f3f5f9;
-  --foreground: #0f1b2d;
+  --background: #f4f3f9;
+  --foreground: #14122b;
   --card: #ffffff;
-  --card-foreground: #0f1b2d;
+  --card-foreground: #14122b;
   --popover: #ffffff;
-  --popover-foreground: #0f1b2d;
-  --primary: #2447f9;
+  --popover-foreground: #14122b;
+  --primary: #5b47e0;
   --primary-foreground: #ffffff;
-  --secondary: #eef1f6;
-  --secondary-foreground: #0f1b2d;
+  --secondary: #efedf7;
+  --secondary-foreground: #14122b;
   /* Inner tiles on a white card are the ground color. */
-  --muted: #f3f5f9;
+  --muted: #f4f3f9;
   /* Captions. Body copy is a step darker, as --body. */
-  --muted-foreground: #4a5568;
-  --accent: #e3e8f4;
-  --accent-foreground: #26324a;
+  --muted-foreground: #514b68;
+  --accent: #e7e3f6;
+  --accent-foreground: #2a2449;
   --destructive: #b45309;
-  --border: #c5cedd;
-  --input: #c5cedd;
-  --ring: #2447f9;
+  --border: #cdc8e0;
+  --input: #cdc8e0;
+  --ring: #5b47e0;
   --radius: 0.875rem;
 
-  --body: #3a475c;
-  /* Blue that is safe as text on a light surface, and on the dark panel. */
-  --covered: #1d3fe0;
-  --covered-on-dark: #7d95ff;
+  --body: #3d3858;
+  /* Violet that is safe as text on a light surface, and the Drop's lavender on the night panel. */
+  --covered: #4a36d1;
+  --covered-on-dark: #c3b5ff;
   --risk: #b45309;
-  --risk-fill: #f59e0b;
-  --track: #dce2ee;
-  --yes: #e3e8ff;
-  --yes-foreground: #1730b8;
+  --risk-fill: #ff9e7a;
+  --track: #e2def0;
+  --yes: #e9e4ff;
+  --yes-foreground: #3b2aa8;
   --no: #ffefd9;
   --no-foreground: #8a3d06;
-  /* The dark panel that carries a cushion's summary. */
-  --panel: #0f1b2d;
-  --panel-tile: #18263d;
-  --panel-track: #2a3a56;
-  --panel-foreground: #c9d3e3;
+  /* The panel that carries a cushion's summary: a piece of the Drop's night. */
+  --panel: #0a0b14;
+  --panel-tile: #1b1a2b;
+  --panel-track: #2e2b48;
+  --panel-foreground: #cfcbe0;
 
-  --cta: #2447f9;
+  --cta: #5b47e0;
   --cta-foreground: #ffffff;
-  --positive: #1d3fe0;
+  --positive: #4a36d1;
   --warning: #b45309;
-  --chart-1: #2447f9;
-  --chart-2: #f59e0b;
-  --chart-3: #0f1b2d;
+  --chart-1: #5b47e0;
+  --chart-2: #ff9e7a;
+  --chart-3: #14122b;
   --chart-4: #5b6b88;
-  --chart-5: #9db0ff;
-  --sidebar: #f3f5f9;
-  --sidebar-foreground: #0f1b2d;
-  --sidebar-primary: #2447f9;
+  --chart-5: #c3b5ff;
+  --sidebar: #f4f3f9;
+  --sidebar-foreground: #14122b;
+  --sidebar-primary: #5b47e0;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #eef1f6;
-  --sidebar-accent-foreground: #0f1b2d;
-  --sidebar-border: #c5cedd;
-  --sidebar-ring: #2447f9;
+  --sidebar-accent: #efedf7;
+  --sidebar-accent-foreground: #14122b;
+  --sidebar-border: #cdc8e0;
+  --sidebar-ring: #5b47e0;
 }
 
 @theme inline {
@@ -141,10 +142,25 @@
   }
 }
 
-/* Headings and big numbers: Space Grotesk, tightened. */
+/* Headings and big numbers: Fraunces with its SOFT axis up, the Drop's display face. */
 .display {
-  font-family: var(--font-display), var(--font-app), sans-serif;
-  letter-spacing: -0.02em;
+  font-family: var(--font-soft), Georgia, serif;
+  font-variation-settings: "SOFT" 100, "opsz" 72;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+/*
+ * The cushion panel is the Drop's night on a light page: a lavender rim, its two glows inside, and
+ * a soft violet shadow under it. Full-width bands that share its color keep their plain edges.
+ */
+.bg-panel:not(section) {
+  background-image:
+    radial-gradient(420px 260px at 0% 0%, rgb(150 130 255 / 0.18), transparent 70%),
+    radial-gradient(380px 260px at 100% 100%, rgb(255 140 110 / 0.12), transparent 70%);
+  box-shadow:
+    inset 0 0 0 1px rgb(195 181 255 / 0.25),
+    0 30px 70px -25px rgb(91 71 224 / 0.45);
 }
 
 /* Money and odds line up in columns and do not jitter as they update. */
