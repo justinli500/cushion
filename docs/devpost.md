@@ -16,7 +16,7 @@ A web app with a landing page and six sections that all work the same way: you s
 - **Today**: the news market that moved most in a day, what is coming up, a card for each thing you have at stake, and news markets you can take a side on.
 - **Portfolio**: enter coins and stocks. Cushion works out what each one really moves with and charts it, with every level Gemini lists a market at drawn across the chart. You drag a line to where your cushion should start paying, and see your loss with and without it.
 - **Live games**: a second screen for a game, with the score, play by play and a win-chance chart, plus a cushion that pays if your team loses. You watch what the cushion is worth after each score and can cash it out. A recorded game runs as if live, in step with a broadcast of it, so it works any time.
-- **Bills**: pick the kind of car you drive and how far, and Cushion works out your gas; or enter a heating bill. Then cover against a jump in gas or heating costs, bought once or re-bought daily on autopilot.
+- **Bills**: pick the kind of car you drive and how far, and Cushion works out your gas; or pick your home and set the thermostat, and it works out a winter heating bill. Then cover against a jump in gas or heating costs, bought once or re-bought daily on autopilot.
 - **Fantasy**: a roster of your players, with an example lineup of this week's real players to start from. Pick a player to see every way to cushion him, and get paid back when he has a bad game.
 - **Small business**: pick your business type and city, and get hedges that fit, such as a cold day for a food truck or a home loss for a sports bar.
 

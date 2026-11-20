@@ -2,11 +2,13 @@
 
 import { useState, useSyncExternalStore } from "react";
 import { CarRender } from "@/components/car-render";
+import { HomeRender } from "@/components/home-render";
 import { CushionTicket } from "@/components/cushion-ticket";
 import { Card, CardTitle, Chip, Notice, PageHeader, Skeleton, Tag, ToggleCard, ToggleTag, WithTicket } from "@/components/kit";
 import { chanceAtOrAbove } from "@/domains/cushion/probability";
 import type { Cushion, CushionQuote } from "@/domains/cushion/types";
 import { carOf } from "@/domains/exposure/bills-car";
+import { homeOf, warmthOf, winterOf, WINTERS } from "@/domains/exposure/bills-home";
 import { BILLS, COVER_LEVELS, dayLabel, spotOf, startLevel, type BillKind, type CoverLevel } from "@/domains/exposure/bills";
 import { updateProfile, useProfile, type Profile } from "@/domains/profile/profile";
 import { formatUsd, formatUsdWhole } from "@/lib/format";
@@ -14,6 +16,7 @@ import { Autopilot } from "./autopilot";
 import { BillQuestion } from "./bill-question";
 import { COPY, LEVEL_NAMES, payIfSentence } from "./copy";
 import { GasSetup } from "./gas-setup";
+import { HeatingSetup } from "./heating-setup";
 import { Replay } from "./replay";
 import { useBillMarkets, type BillMarkets } from "./use-bill-markets";
 
@@ -111,11 +114,14 @@ type Bills = Profile["bills"];
 /** Saves an amount for one bill, with anything else about it that changed. */
 type Save = (bill: BillKind, amount: number, also?: Partial<Bills>) => void;
 
-/** Asks how much of one bill the person has: by car and distance for gas, unless they would rather type the gallons. */
+/** Asks how much of one bill the person has: by car and distance for gas, by home and thermostat for heating, unless they would rather type the amount. */
 function Ask({ bill, bills, save, onCancel }: { bill: BillKind; bills: Bills; save: Save; onCancel?: () => void }) {
   const [typing, setTyping] = useState(false);
   if (bill === "gas" && !typing) {
     return <GasSetup car={bills.car} miles={bills.milesPerMonth} onSave={(gallons, car, milesPerMonth) => save("gas", gallons, { car, milesPerMonth })} onManual={() => setTyping(true)} onCancel={onCancel} />;
+  }
+  if (bill === "heating" && !typing) {
+    return <HeatingSetup saved={bills} onSave={(amount, choice) => save("heating", amount, choice)} onManual={() => setTyping(true)} onCancel={onCancel} />;
   }
   return (
     <BillQuestion
@@ -123,7 +129,7 @@ function Ask({ bill, bills, save, onCancel }: { bill: BillKind; bills: Bills; sa
       bill={bill}
       initial={bill === "gas" ? bills.gasGallonsPerMonth : bills.heatingBillPerMonth}
       // Typed gallons are no longer the car's, so the car is forgotten.
-      onSave={(value) => save(bill, value, bill === "gas" ? { car: null, milesPerMonth: null } : undefined)}
+      onSave={(value) => save(bill, value, bill === "gas" ? { car: null, milesPerMonth: null } : { home: null, winter: null, heat: null, thermostat: null })}
       onCancel={onCancel}
     />
   );
@@ -135,10 +141,12 @@ interface ExposureProps {
   exposure: number | null;
   /** The car and distance the gallons came from, when they did. */
   drive: { car: string; miles: number } | null;
+  /** The home the heating bill came from, when it did. */
+  living: { home: string; winter: string; thermostat: number } | null;
   onChange: () => void;
 }
 
-function ExposureCard({ bill, amount, exposure, drive, onChange }: ExposureProps) {
+function ExposureCard({ bill, amount, exposure, drive, living, onChange }: ExposureProps) {
   const { name, commodity, jump, jumpText } = COPY[bill];
   const extra = exposure == null ? null : exposure * jump;
   const car = drive ? carOf(drive.car) : null;
@@ -150,10 +158,17 @@ function ExposureCard({ bill, amount, exposure, drive, onChange }: ExposureProps
       </div>
       <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 rounded-[18px] bg-muted p-4">
         {car ? <CarRender kind={car.id} className="w-[170px] shrink-0" /> : null}
+        {living ? (
+          <span className="w-[170px] shrink-0 overflow-hidden rounded-[14px] bg-panel">
+            <HomeRender kind={living.home} warmth={warmthOf(living.thermostat)} snow={WINTERS.findIndex((w) => w.id === winterOf(living.winter).id)} className="block w-full" />
+          </span>
+        ) : null}
         <p className="min-w-0 flex-[1_1_300px] text-[15px] leading-relaxed text-body">
           {car && drive
             ? `You drive a ${car.name.toLowerCase()} about ${drive.miles.toLocaleString("en-US")} miles a month, which is about ${amount.toLocaleString("en-US")} gallons.`
-            : bill === "gas"
+            : living
+              ? `You keep a ${homeOf(living.home).name.toLowerCase()} at ${living.thermostat}°F through a ${winterOf(living.winter).name.toLowerCase()} winter, which is about ${formatUsdWhole(amount)} a month.`
+              : bill === "gas"
               ? `You buy about ${amount.toLocaleString("en-US")} gallons a month.`
               : `Your heating bill is about ${Number.isInteger(amount) ? formatUsdWhole(amount) : formatUsd(amount)} a month.`}{" "}
           {extra == null ? "Cushion will size this once it has a live price." : `If ${commodity} rose ${jumpText}, your ${name.toLowerCase()} could cost about this much more this month.`}
@@ -171,7 +186,7 @@ function ExposureCard({ bill, amount, exposure, drive, onChange }: ExposureProps
           : "Utility rates barely follow daily gas prices, so this is a rough guess at the part of your bill that moves."}
       </p>
       <button type="button" onClick={onChange} className="press mt-3 min-h-11 text-[14px] font-semibold text-foreground underline underline-offset-4">
-        {car ? "Change car or miles" : "Change amount"}
+        {car ? "Change car or miles" : living ? "Change home or thermostat" : "Change amount"}
       </button>
     </Card>
   );
@@ -249,6 +264,7 @@ function Dashboard({ bills, kinds, asking, setAsking, save }: DashboardProps) {
           amount={amount}
           exposure={markets.exposure}
           drive={bill === "gas" && bills.car && bills.milesPerMonth ? { car: bills.car, miles: bills.milesPerMonth } : null}
+          living={bill === "heating" && bills.home && bills.winter && bills.thermostat ? { home: bills.home, winter: bills.winter, thermostat: bills.thermostat } : null}
           onChange={() => setAsking(bill)}
         />
         <CoverCard bill={bill} mode={mode} markets={markets} onPick={(level) => updateProfile("bills", { ...bills, mode: level })} />
