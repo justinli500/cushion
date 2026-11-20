@@ -64,6 +64,8 @@ export interface BucketMarket {
   eventTicker: string;
   title: string;
   city: string;
+  /** Gemini quotes cities in the United States in Fahrenheit and the rest in Celsius. */
+  unit: "F" | "C";
   expiry: string;
   /** Ascending by temperature. */
   buckets: Bucket[];
@@ -108,6 +110,21 @@ export interface PlayerProp {
   position: string | null;
   metric: string;
   lines: PropLine[];
+}
+
+/**
+ * A market about something in the news: a Fed decision, how low the S&P gets, who wins an award.
+ * Each outcome is its own yes/no contract.
+ */
+export interface EventMarket {
+  kind: "event";
+  eventTicker: string;
+  title: string;
+  /** Gemini's category, e.g. "Economics", "Politics", "Culture". */
+  category: string;
+  expiry: string;
+  volume: number;
+  outcomes: { label: string; contract: Contract }[];
 }
 
 export interface Level {

@@ -23,8 +23,19 @@ export const replaySchema = z.object({
   final: z.boolean(),
   /** Gemini's picture for the game's sport. */
   image: z.string().optional(),
-  /** A broadcast of the game that was streamed live, so its timeline matches the plays and trades. */
-  video: z.object({ youtubeId: z.string().regex(/^[\w-]{6,20}$/), startedAt: z.string(), by: z.string() }).optional(),
+  /**
+   * A video of the game. A stream that ran live gives `startedAt`, when it began, so its timeline is the game's.
+   * A highlights reel gives `sync`: pairs of a second of the video and the moment of the game on screen then.
+   */
+  video: z
+    .object({
+      youtubeId: z.string().regex(/^[\w-]{6,20}$/),
+      startedAt: z.string().optional(),
+      sync: z.array(z.tuple([z.number(), z.number()])).min(2).optional(),
+      by: z.string(),
+    })
+    .refine((video) => video.startedAt != null || video.sync != null)
+    .optional(),
   home: teamSchema,
   away: teamSchema,
   plays: z
@@ -38,6 +49,19 @@ export const replaySchema = z.object({
         away: z.number(),
         scoring: z.boolean(),
         homeWinProb: z.number().nullable(),
+        /** Where the play began and ended. See `PlayField`. Absent in a game saved before this was recorded. */
+        field: z
+          .object({
+            possession: z.string().nullable(),
+            from: z.number(),
+            to: z.number(),
+            down: z.number().nullable(),
+            distance: z.number(),
+            situation: z.string().nullable(),
+            kind: z.string(),
+            yards: z.number(),
+          })
+          .optional(),
       }),
     )
     .min(1),
@@ -100,6 +124,22 @@ export function replaySpan(replay: Replay): { start: number; end: number } {
   return { start: replay.plays[0].t - LEAD_IN_MS, end: replay.plays[replay.plays.length - 1].t + RUN_OUT_MS };
 }
 
+/**
+ * Reads a value off the straight lines drawn through `points`, from one column to the other: a second of a
+ * highlights reel to the moment of the game, or back. Past either end it holds the end. Where the reel holds
+ * the game still, a moment of the game reads as the first second of the video that shows it.
+ */
+export function along(points: [number, number][], value: number, from: 0 | 1): number {
+  const to = from === 0 ? 1 : 0;
+  if (value <= points[0][from]) return points[0][to];
+  for (let i = 1; i < points.length; i++) {
+    const a = points[i - 1];
+    const b = points[i];
+    if (value <= b[from] && b[from] > a[from]) return a[to] + ((value - a[from]) / (b[from] - a[from])) * (b[to] - a[to]);
+  }
+  return points[points.length - 1][to];
+}
+
 /** The last traded price at or before `at`, or null if the contract had not traded yet. */
 function priceAt(trades: Replay["home"]["trades"], at: number): number | null {
   let price: number | null = null;
@@ -119,7 +159,8 @@ function side(team: Replay["home"], homeAway: "home" | "away", at: number): Team
     abbr: team.abbr,
     name: team.name,
     side: homeAway,
-    contract: { symbol: team.symbol, label: team.name, quote, open: true, image: trustedImage(team.logo) },
+    // Gemini labels a team's contract with its city, and the saved game follows suit.
+    contract: { symbol: team.symbol, label: team.name.split(" ").slice(0, -1).join(" ") || team.name, quote, open: true, image: trustedImage(team.logo) },
   };
 }
 
@@ -174,7 +215,7 @@ export function frameAt(replay: Replay, at: number): ReplayFrame {
   };
 
   const plays: Play[] = seen
-    .map((play, i) => ({ id: `${replay.id}-${i}`, text: play.text, clock: play.clock, period: periodName(play.period), scoringPlay: play.scoring }))
+    .map((play, i) => ({ id: `${replay.id}-${i}`, text: play.text, clock: play.clock, period: periodName(play.period), scoringPlay: play.scoring, field: play.field }))
     .reverse();
 
   const winner = !over || replay.home.score === replay.away.score ? null : replay.home.score > replay.away.score ? "home" : "away";

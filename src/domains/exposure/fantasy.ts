@@ -21,6 +21,10 @@ export interface PlayerEntry {
   expiry: string;
   eventTickers: string[];
   stats: StatLines[];
+  /** From ESPN's roster, when ESPN lists the player: "RB", the team's abbreviation, and a picture. */
+  position?: string | null;
+  team?: string | null;
+  headshot?: string | null;
 }
 
 interface Metric {
@@ -164,13 +168,12 @@ export function searchPlayers(entries: PlayerEntry[], query: string, exclude: st
   return found;
 }
 
-export const PAYOUT_PRESETS = [10, 15, 25, 50];
-export const MIN_PAYOUT = 1;
-export const MAX_PAYOUT = 1000;
+export const MIN_STAKE = 1;
+export const MAX_STAKE = 1000;
 
-/** A typed payout in dollars, or null when it is not a whole-cent amount in range. */
-export function parsePayout(text: string): number | null {
+/** A typed stake in dollars, or null when it is not a whole-cent amount in range. */
+export function parseStake(text: string): number | null {
   if (!/^\d+(\.\d{1,2})?$/.test(text.trim())) return null;
   const dollars = Number(text);
-  return dollars >= MIN_PAYOUT && dollars <= MAX_PAYOUT ? dollars : null;
+  return dollars >= MIN_STAKE && dollars <= MAX_STAKE ? dollars : null;
 }

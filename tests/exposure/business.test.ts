@@ -1,7 +1,9 @@
 import { describe, expect, it } from "vitest";
 import {
   BUSINESS_TYPES,
+  amountsOf,
   businessType,
+  guessAmount,
   cityOptions,
   coverDay,
   defaultThreshold,
@@ -35,7 +37,7 @@ const bucket = (lo: number | null, hi: number | null, bid: number | null, ask: n
 });
 
 const market = (city: string, expiry: string, date: string, buckets: Bucket[]): BucketMarket => ({
-  kind: "buckets",
+  kind: "buckets", unit: "F",
   eventTicker: `WX-${city}-${expiry}`,
   title: `Highest temperature in ${city} on ${date}, 2026?`,
   city,
@@ -101,6 +103,7 @@ const input = (over: Partial<SuggestInput> = {}): SuggestInput => ({
   game: null,
   team: null,
   ladders: [],
+  events: [],
   badDayCost: 300,
   monthlySpend: {},
   ...over,
@@ -130,10 +133,24 @@ describe("the preset table", () => {
 
   it("asks only what the business's risks need", () => {
     const need = (id: string) => needsOf(businessType(id)!);
-    expect(need("patio")).toMatchObject({ city: true, team: false, badDay: true });
+    expect(need("patio")).toMatchObject({ city: true, team: false, badDay: true, events: true });
     expect(need("sports-bar")).toMatchObject({ city: false, team: true, badDay: true });
-    expect(need("jeweler")).toMatchObject({ city: false, team: false, badDay: false });
+    // Its only non-cost risk is a news event, which pays a bad day's worth.
+    expect(need("jeweler")).toMatchObject({ city: false, team: false, badDay: true, events: true });
     expect(need("jeweler").costs.map((c) => c.underlying)).toEqual(["XAU", "XAG"]);
+    expect(need("electrician")).toMatchObject({ city: false, team: false, badDay: false, events: false });
+  });
+
+  it("offers one amount for a bad day and one per monthly bill, each with a starting guess", () => {
+    expect(amountsOf(needsOf(businessType("food-truck")!)).map((a) => a.key)).toEqual(["badDay", "BRENT"]);
+    expect(amountsOf(needsOf(businessType("electrician")!)).map((a) => a.key)).toEqual(["COPPER", "BRENT"]);
+    expect(amountsOf(needsOf(businessType("coffee-cart")!)).map((a) => a.key)).toEqual(["badDay"]);
+    expect(guessAmount("badDay")).toBeGreaterThan(0);
+    expect(guessAmount("BRENT")).toBeGreaterThan(0);
+  });
+
+  it("gives every business type a plain name for 'Suggested for ...'", () => {
+    for (const b of BUSINESS_TYPES) expect(b.forWhom).toMatch(/^an? [a-z ]+$/);
   });
 
   it("returns nothing for an id it does not know", () => {
@@ -263,6 +280,17 @@ describe("a cold or hot day cushion", () => {
     expect(s.chance.uncertain).toBe(true);
   });
 
+  it("asks for a city before it looks for a market", () => {
+    const s = suggest(cold, input({ weather: null, city: null }));
+    expect(s).toMatchObject({ status: "unavailable", title: "A cold day" });
+    expect(s.status === "unavailable" && s.reason).toBe("Choose your city to see this one.");
+  });
+
+  it("says when it applies", () => {
+    const s = suggest(cold, input());
+    expect(s.status === "ready" && s.when).toBe("Tomorrow (November 20)");
+  });
+
   it("is unavailable, with the city named, when the city has no market", () => {
     const s = suggest(cold, input({ weather: null, city: "Nome" }));
     expect(s).toMatchObject({ status: "unavailable", title: "A cold day in Nome" });
@@ -319,6 +347,7 @@ describe("a cost cushion", () => {
     expect(s.chance.p).toBeCloseTo(0.5, 10);
     expect(s.chance).toMatchObject({ low: null, high: null, uncertain: false });
     expect(s.expiry).toBe("2026-11-30T22:00:00.000Z");
+    expect(s.when).toBe("By Nov 30");
   });
 
   it("names the first rung it pays at when the even-odds start falls between rungs", () => {

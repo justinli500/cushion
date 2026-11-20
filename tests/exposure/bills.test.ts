@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { priceCushion } from "@/domains/cushion/price";
 import type { CushionQuote } from "@/domains/cushion/types";
-import { autopilotStatus, billCushion, coverDay, dollarsPerPoint, pickLadders, startLevel } from "@/domains/exposure/bills";
+import { underlyingFor, autopilotStatus, billCushion, coverDay, dollarsPerPoint, pickLadders, startLevel } from "@/domains/exposure/bills";
 import type { Book, Ladder } from "@/domains/markets/types";
 
 const ladder = (expiry: string, underlying: Ladder["underlying"] = "BRENT", horizon: Ladder["horizon"] = "dated"): Ladder => ({
@@ -24,6 +24,9 @@ describe("sizing", () => {
 
   it("sizes heating at 40% of the bill spread over the gas price", () => {
     expect(dollarsPerPoint("heating", 150, 3.75)).toBeCloseTo(16, 10);
+    // A home that burns oil follows oil: half of a $150 bill, spread over a $90 barrel.
+    expect(dollarsPerPoint("heating", 150, 90, "oil")).toBeCloseTo(75 / 90, 10);
+    expect([underlyingFor("heating", "oil"), underlyingFor("heating", "gas"), underlyingFor("heating", "electric"), underlyingFor("heating"), underlyingFor("gas", "oil")]).toEqual(["BRENT", "NGAS", "NGAS", "NGAS", "BRENT"]);
   });
 
   it("starts spikes-only cover 3% above the price and full cover at the price", () => {

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import { buyCushion } from "@/domains/account/buy";
 import type { Section } from "@/domains/account/ledger";
@@ -11,7 +10,7 @@ import type { Chance, Cushion, CushionQuote } from "@/domains/cushion/types";
 import type { Book } from "@/domains/markets/types";
 import { formatChance, formatUsd } from "@/lib/format";
 import { usePoll } from "@/lib/use-poll";
-import { Button, Skeleton, Tag } from "./kit";
+import { Button, CushionMeter, Panel, Tile } from "./kit";
 
 export interface TicketProps {
   section: Section;
@@ -34,24 +33,33 @@ export interface TicketProps {
    * game's prices at this moment instead of Gemini's live book, and settles when the game ends.
    */
   replay?: { id: string; books: Record<string, Book> };
+  /**
+   * What is at stake, so the panel can show how much of it the cushion covers:
+   * `of` in dollars and `label` to finish the sentence "$40 of ...", e.g. "a $40 night out".
+   */
+  covers?: { of: number; label: string };
 }
 
 const BOOK_REFRESH_MS = 5_000;
 
-/** Prices a cushion against the live book and books a simulated fill. Every section uses this one. */
-export function CushionTicket(props: TicketProps) {
-  const { section, title, detail, cushion, eventTickers, expiry, chance, emptyMessage, onQuote, replay } = props;
+export type PurchaseInput = Pick<TicketProps, "section" | "title" | "detail" | "cushion" | "eventTickers" | "expiry" | "onQuote" | "replay">;
+
+/**
+ * The one buy flow: prices a cushion against the live book (or a recorded game's prices) and books
+ * a simulated fill. `CushionTicket` is its standard panel. A screen that needs its own layout around
+ * the same numbers calls this hook and draws them itself, so nothing prices or buys any other way.
+ */
+export function useCushionPurchase({ section, title, detail, cushion, eventTickers, expiry, onQuote, replay }: PurchaseInput) {
   const { balance } = useAccount();
   const [boughtKey, setBoughtKey] = useState<string | null>(null);
-  // In a replay the contract behind a cushion can change from one moment to the next, so the key alone
-  // would drop the confirmation the instant it appears. It stays up for a few seconds either way.
+  // In a recorded game the contract behind a cushion can change from one moment to the next, so the key
+  // alone would drop the confirmation the instant it appears. It stays up for a few seconds either way.
   const [justNow, setJustNow] = useState(false);
 
   const symbols = cushion?.legs.map((l) => l.symbol) ?? [];
   const cushionKey = cushion ? cushion.legs.map((l) => `${l.symbol}:${l.side}:${l.quantity}`).join("|") : "";
   const bookUrl = symbols.length > 0 && !replay ? `/api/book?symbols=${symbols.join(",")}` : null;
   const polled = usePoll<{ books: Record<string, Book> }>(bookUrl, BOOK_REFRESH_MS);
-  const { error, loading } = polled;
   const data = replay ? { books: replay.books } : polled.data;
 
   // The key stands in for the cushion's contents, which pages rebuild on every render.
@@ -64,8 +72,6 @@ export function CushionTicket(props: TicketProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quote]);
 
-  const justBought = justNow || (boughtKey === cushionKey && cushionKey !== "");
-  const nothingToBuy = !cushion || cushion.legs.length === 0;
   const canBuy = quote != null && quote.maxPayout > 0 && quote.cost > 0 && quote.cost <= balance;
 
   const buy = () => {
@@ -77,92 +83,110 @@ export function CushionTicket(props: TicketProps) {
     setTimeout(() => setJustNow(false), 4_000);
   };
 
+  return {
+    /** Null until the books have loaded, or when there is nothing to price. */
+    quote,
+    loading: polled.loading,
+    error: polled.error,
+    nothingToBuy: !cushion || cushion.legs.length === 0,
+    canBuy,
+    /** True for a few seconds after a purchase, and for as long as the same cushion stays selected. */
+    justBought: justNow || (boughtKey === cushionKey && cushionKey !== ""),
+    /** True when the quote costs more play money than is left. */
+    tooDear: quote != null && quote.cost > balance,
+    buy,
+  };
+}
+
+/**
+ * The dark summary panel: prices a cushion against the live book, says what it costs and pays in
+ * insurance terms, and books a simulated fill. The market detail ("40 × No at 30¢") is one level
+ * down, as a footnote.
+ */
+export function CushionTicket(props: TicketProps) {
+  const { title, detail, chance, emptyMessage, replay, covers } = props;
+  const { quote, loading, error, nothingToBuy, canBuy, justBought, tooDear, buy } = useCushionPurchase(props);
+
+  const whole = (dollars: number) => formatUsd(dollars).replace(/\.00$/, "");
+
   return (
-    <div className="rounded-[18px] bg-card p-6">
-      <div className="mb-1.5 flex items-center justify-between gap-3">
-        <h2 className="flex items-center gap-2 text-[19px] font-semibold tracking-tight">
-          <ShieldCheck className="size-5 shrink-0 text-primary" aria-hidden />
-          {title}
-        </h2>
-        <Tag tone="note">Simulated</Tag>
-      </div>
-      <p className="mb-5 text-[14px] leading-relaxed text-muted-foreground">{detail}</p>
+    <Panel label={title}>
+      <p className="-mt-2 text-[14px] leading-relaxed text-panel-foreground">{detail}</p>
 
       {nothingToBuy ? (
-        <p className="rounded-xl bg-muted px-4 py-3 text-[14px] leading-relaxed text-muted-foreground">
-          {emptyMessage ?? "Nothing to cushion yet."}
-        </p>
+        <p className="rounded-[18px] bg-panel-tile px-4 py-3 text-[14px] leading-relaxed text-panel-foreground">{emptyMessage ?? "Nothing to cushion yet."}</p>
       ) : !quote ? (
         loading ? (
-          <div className="space-y-3">
-            <Skeleton className="h-9 w-32" />
-            <Skeleton className="h-5 w-full" />
-            <Skeleton className="h-5 w-3/4" />
+          <div className="space-y-3" aria-hidden>
+            <div className="h-[52px] w-40 animate-pulse rounded-[14px] bg-panel-tile" />
+            <div className="h-7 animate-pulse rounded-full bg-panel-tile" />
+            <div className="h-[76px] animate-pulse rounded-[18px] bg-panel-tile" />
           </div>
         ) : (
-          <p className="rounded-xl bg-destructive/10 px-4 py-3 text-[14px] text-destructive">{error ?? "Gemini's order book is unavailable right now."}</p>
+          <p className="rounded-[18px] bg-panel-tile px-4 py-3 text-[14px] leading-relaxed text-white">{error ?? "Gemini's order book is unavailable right now."}</p>
         )
       ) : quote.maxPayout === 0 ? (
         // Nothing filled, so there is no cost or payout worth showing and nothing to buy.
-        <p className="arrive rounded-xl bg-destructive/10 px-4 py-3 text-[14px] leading-relaxed text-destructive">
+        <p className="arrive rounded-[18px] bg-panel-tile px-4 py-3 text-[14px] leading-relaxed text-white">
           Nobody is selling this cover on Gemini right now. Thin markets fill and empty through the day, so it may be back soon.
         </p>
       ) : (
-        <div className="arrive">
-          <dl className="space-y-3">
-            <Row label="Costs">
-              <span className="tabular text-[32px] font-semibold leading-none tracking-tight">{formatUsd(quote.cost)}</span>
-            </Row>
-            <Row label="Pays up to">
-              <span className="tabular text-[17px] font-medium text-positive">{formatUsd(quote.maxPayout)}</span>
-            </Row>
-            {chance ? (
-              <Row label="Market's chance it pays">
-                <span className="tabular text-[15px]">
-                  {chance.uncertain && chance.low != null && chance.high != null
-                    ? `${formatChance(chance.low)} to ${formatChance(chance.high)}`
-                    : formatChance(chance.p)}
-                  {chance.uncertain ? <span className="ml-2 align-middle"><Tag>Rough</Tag></span> : null}
-                </span>
-              </Row>
-            ) : null}
-          </dl>
+        <div className="arrive flex flex-col gap-5">
+          <div className="flex flex-col gap-0.5">
+            <span className="text-[14px] text-panel-foreground">If it goes against you, you get up to</span>
+            <span className="display tabular text-[52px] font-bold leading-none tracking-[-0.03em]">{formatUsd(quote.maxPayout)}</span>
+          </div>
+
+          {covers ? (
+            <CushionMeter onDark value={`${whole(quote.maxPayout)} of ${covers.label}`} fraction={covers.of > 0 ? quote.maxPayout / covers.of : 0} />
+          ) : null}
+
+          <div className="grid grid-cols-2 gap-3">
+            <Tile label="You pay" value={formatUsd(quote.cost)} tone="panel" />
+            <Tile
+              label="Chance it pays"
+              tone="panel"
+              value={
+                !chance
+                  ? "n/a"
+                  : chance.uncertain && chance.low != null && chance.high != null
+                    ? `${formatChance(chance.low)}–${formatChance(chance.high)}`
+                    : formatChance(chance.p)
+              }
+            />
+          </div>
 
           {quote.partial ? (
-            <p className="mt-4 rounded-xl bg-warning/15 px-4 py-3 text-[13px] leading-relaxed text-warning">
+            <p className="rounded-[18px] bg-panel-tile px-4 py-3 text-[13px] leading-relaxed text-white">
               Only {formatUsd(quote.maxPayout)} of the {formatUsd(quote.requestedPayout)} you asked for is on offer. The market for this is thin.
             </p>
           ) : null}
 
-          <div className="mt-5">
-            {justBought ? (
-              <p className="arrive rounded-xl bg-positive/15 px-4 py-3 text-[14px] font-medium text-positive">
-                {replay ? "Cushion added. It settles when the game ends." : "Cushion added. A receipt is being written on-chain."}
-              </p>
-            ) : (
-              <Button onClick={buy} disabled={!canBuy} wide>
-                {quote.cost > balance ? "Not enough play money" : `Add cushion for ${formatUsd(quote.cost)}`}
-              </Button>
-            )}
-          </div>
+          {justBought ? (
+            <p className="arrive rounded-full bg-covered-on-dark px-5 py-3.5 text-center text-[15px] font-semibold text-panel">
+              {replay ? "Cushion added. It settles when the game ends." : "Cushion added. A receipt is being written on-chain."}
+            </p>
+          ) : (
+            <Button onClick={buy} disabled={!canBuy} variant="light" wide>
+              {tooDear ? "Not enough play money" : "Buy this cushion"}
+            </Button>
+          )}
 
-          <details className="mt-5 text-[13px] text-muted-foreground">
-            <summary className="press cursor-pointer select-none hover:text-foreground">
-              {quote.legs.length === 1 ? "The contract behind it" : `The ${quote.legs.length} contracts behind it`}
-            </summary>
+          <p className="text-[13px] text-panel-foreground">If it goes fine, you&rsquo;re out {formatUsd(quote.cost)} and nothing more. Play money: no real funds move.</p>
+
+          <details className="text-[13px] text-panel-foreground">
+            <summary className="press cursor-pointer select-none hover:text-white">Under the hood</summary>
             <ul className="mt-3 space-y-1.5">
               {quote.legs.map((leg) => (
                 <li key={leg.symbol} className="tabular flex justify-between gap-3">
-                  <span className="truncate">
-                    {leg.side === "yes" ? "Yes" : "No"} on &ldquo;{leg.label}&rdquo;
-                  </span>
-                  <span className="shrink-0">
-                    {leg.filled} for {formatUsd(leg.cost)}
+                  <span className="truncate">{leg.label}</span>
+                  <span className="shrink-0 font-semibold text-white">
+                    {leg.filled} × {leg.side === "yes" ? "Yes" : "No"} at {leg.filled > 0 ? Math.round((leg.cost / leg.filled) * 100) : 0}¢
                   </span>
                 </li>
               ))}
             </ul>
-            <p className="mt-3 text-[12px] text-muted-foreground/70">
+            <p className="mt-3 text-[12px]">
               {replay
                 ? "This game was played earlier. Filled at the last price that really traded at this point in it, plus a 1 cent spread. Exchange fees are not included."
                 : "Filled against Gemini\u2019s live order book. Exchange fees are not included."}
@@ -170,15 +194,6 @@ export function CushionTicket(props: TicketProps) {
           </details>
         </div>
       )}
-    </div>
-  );
-}
-
-function Row({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <div className="flex items-baseline justify-between gap-4">
-      <dt className="text-[13px] text-muted-foreground">{label}</dt>
-      <dd>{children}</dd>
-    </div>
+    </Panel>
   );
 }

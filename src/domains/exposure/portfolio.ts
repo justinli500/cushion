@@ -20,6 +20,19 @@ export const cleanSymbol = (raw: string) => {
   return ALIASES[symbol] ?? symbol;
 };
 
+/** The symbol the S&P 500's daily history is fetched under. */
+export const INDEX = "SPX";
+
+/** Shown until the person adds a holding of their own, so the chart is there to try straight away. */
+export const EXAMPLE_HOLDINGS: Holding[] = [
+  { symbol: "BTC", value: 2000 },
+  { symbol: "ETH", value: 1000 },
+  { symbol: "NVDA", value: 1500 },
+];
+
+/** Where the portfolio page reads daily price history from: every market it can match a holding to, the index, and the holdings themselves. */
+export const historyUrl = (holdings: Holding[], factors: string[]): string => `/api/prices?symbols=${[...new Set([...factors, INDEX, ...holdings.map((h) => h.symbol)])].join(",")}`;
+
 /** A holding is only called a match when the factor explains at least this share of its daily moves. */
 export const MIN_R2 = 0.15;
 const MIN_DAYS = 40;
@@ -66,6 +79,8 @@ export type HoldingRead = Holding &
   (
     | { status: "direct"; underlying: UnderlyingId }
     | { status: "tracks"; underlying: UnderlyingId; fit: Fit }
+    /** Moves with the S&P 500, which Gemini lists as year-long barrier markets, not a price ladder. */
+    | { status: "index"; fit: Fit }
     /** Has history, but nothing Gemini lists moves with it closely enough to protect it. */
     | { status: "none" }
     /** No price history was found for the symbol. */
@@ -74,8 +89,11 @@ export type HoldingRead = Holding &
 
 export type History = Record<string, PricePoint[] | null | undefined>;
 
-/** Works out which listed market, if any, a holding moves with. */
-export function readHolding(holding: Holding, history: History, factors: UnderlyingId[]): HoldingRead {
+/**
+ * Works out which listed market, if any, a holding moves with. With `index` on, the S&P 500's
+ * history (under "SPX") is a candidate too, and wins when it explains more than any of `factors`.
+ */
+export function readHolding(holding: Holding, history: History, factors: UnderlyingId[], index = false): HoldingRead {
   if (isUnderlyingId(holding.symbol)) return { ...holding, status: "direct", underlying: holding.symbol };
   const series = history[holding.symbol];
   if (!series || series.length < MIN_DAYS) return { ...holding, status: "unknown" };
@@ -86,6 +104,9 @@ export function readHolding(holding: Holding, history: History, factors: Underly
     const fit = factorSeries ? regress(series, factorSeries) : null;
     if (fit && (!best || fit.r2 > best.fit.r2)) best = { underlying, fit };
   }
+  const indexSeries = index ? history[INDEX] : null;
+  const indexFit = indexSeries ? regress(series, indexSeries) : null;
+  if (indexFit && indexFit.r2 >= MIN_R2 && (!best || indexFit.r2 > best.fit.r2)) return { ...holding, status: "index", fit: indexFit };
   if (!best || best.fit.r2 < MIN_R2) return { ...holding, status: "none" };
   return { ...holding, status: "tracks", ...best };
 }
@@ -112,4 +133,16 @@ export function exposures(reads: HoldingRead[]): Exposure[] {
     byUnderlying.set(read.underlying, exposure);
   }
   return [...byUnderlying.values()].sort((a, b) => Math.abs(b.dollars) - Math.abs(a.dollars));
+}
+
+/** What the holdings that move with the S&P 500 have riding on it, in dollars; positive loses when it falls. Null when none do. */
+export function indexExposure(reads: HoldingRead[]): { dollars: number; holdings: HoldingRead[] } | null {
+  const holdings: HoldingRead[] = [];
+  let dollars = 0;
+  for (const read of reads) {
+    if (read.status !== "index") continue;
+    dollars += read.value * read.fit.beta;
+    holdings.push(read);
+  }
+  return holdings.length > 0 ? { dollars, holdings } : null;
 }

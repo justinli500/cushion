@@ -55,3 +55,11 @@ export async function requestReceipt(receipt: ReceiptRequest): Promise<boolean> 
     return false;
   }
 }
+
+/**
+ * Sells an open cushion back at what it is worth right now. In the ledger this is a settlement:
+ * the cushion closes and the amount is credited once.
+ */
+export function cashOut(id: string, worth: number) {
+  record({ type: "CushionSettled", at: new Date().toISOString(), id, payout: Math.round(Math.max(0, worth) * 100) / 100 });
+}

@@ -15,6 +15,13 @@ export const BILLS: Record<BillKind, { underlying: UnderlyingId; tag: "Estimate"
   heating: { underlying: "NGAS", tag: "Rough estimate", max: 10_000 },
 };
 
+/**
+ * The market a bill follows. A heating bill follows natural gas, unless the home burns oil or
+ * propane: those follow oil. `heat` is the `HEAT` id saved in the profile. Gemini lists no
+ * electricity market, so electric heat stays on natural gas, which power prices loosely follow.
+ */
+export const underlyingFor = (bill: BillKind, heat?: string | null): UnderlyingId => (bill === "heating" && heat === "oil" ? "BRENT" : BILLS[bill].underlying);
+
 /** Typed-in amount to a number, or null when it is empty, not a number, zero, negative or past the limit. */
 export function parseAmount(bill: BillKind, text: string): number | null {
   const amount = text.trim() === "" ? NaN : Number(text);
@@ -25,12 +32,15 @@ export function parseAmount(bill: BillKind, text: string): number | null {
 const GAS_DOLLARS_PER_GALLON_PER_POINT = 0.024;
 /** The rough share of a heating bill that follows the commodity. The rest is fixed charges and set rates. */
 const HEATING_COMMODITY_SHARE = 0.4;
+/** For a home that burns oil: about half the price of heating oil is the crude itself. Rough, like the share above. */
+const HEATING_OIL_SHARE = 0.5;
 /** "Spikes only" cover starts at a jump of 3%. */
 const SPIKE_JUMP = 1.03;
 
 /** Dollars added to the monthly bill for each $1 the commodity rises. `amount` is gallons for gas, dollars for heating. */
-export function dollarsPerPoint(bill: BillKind, amount: number, spot: number): number {
-  return bill === "gas" ? amount * GAS_DOLLARS_PER_GALLON_PER_POINT : (amount * HEATING_COMMODITY_SHARE) / spot;
+export function dollarsPerPoint(bill: BillKind, amount: number, spot: number, heat?: string | null): number {
+  if (bill === "gas") return amount * GAS_DOLLARS_PER_GALLON_PER_POINT;
+  return (amount * (heat === "oil" ? HEATING_OIL_SHARE : HEATING_COMMODITY_SHARE)) / spot;
 }
 
 export function startLevel(level: CoverLevel, spot: number): number {
@@ -67,9 +77,9 @@ export function autopilotTarget({ gasGallonsPerMonth, heatingBillPerMonth }: Bil
 export const spotOf = (ladder: Ladder | null): number | null => (ladder ? impliedSpot(ladder) : null);
 
 /** The cover for one bill on one ladder, or null when the ladder is missing or has no usable price. */
-export function coverFor(bill: BillKind, amount: number, ladder: Ladder | null, level: CoverLevel): Cushion | null {
+export function coverFor(bill: BillKind, amount: number, ladder: Ladder | null, level: CoverLevel, heat?: string | null): Cushion | null {
   const spot = spotOf(ladder);
-  return ladder && spot ? billCushion({ ladder, spot, level, dollarsPerPoint: dollarsPerPoint(bill, amount, spot) }) : null;
+  return ladder && spot ? billCushion({ ladder, spot, level, dollarsPerPoint: dollarsPerPoint(bill, amount, spot, heat) }) : null;
 }
 
 // A day ladder is listed about an hour before the previous one expires, so a ladder more than a

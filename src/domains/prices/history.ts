@@ -9,6 +9,9 @@ const DAYS = 200;
 
 export const isTicker = (value: string) => /^[A-Z][A-Z0-9.-]{0,9}$/.test(value);
 
+// Names the app uses for indexes, and the symbol Yahoo lists each under.
+const INDEXES: Record<string, string> = { SPX: "^GSPC", NDX: "^NDX" };
+
 // Coins people commonly hold that Yahoo lists as SYMBOL-USD. A bare symbol would hit an unrelated stock.
 const COINS = new Set(["DOGE", "ADA", "AVAX", "LINK", "BNB", "LTC", "DOT", "SHIB", "SUI", "TON", "TRX", "BCH", "UNI", "AAVE", "PEPE", "NEAR"]);
 
@@ -62,6 +65,7 @@ export function getHistory(symbol: string): Promise<PricePoint[] | null> {
       if (spot) return geminiDaily(spot);
       return yahoo ? yahooDaily(yahoo) : null;
     }
+    if (INDEXES[symbol]) return yahooDaily(INDEXES[symbol]);
     if (COINS.has(symbol)) return yahooDaily(`${symbol}-USD`);
     return (await yahooDaily(symbol)) ?? yahooDaily(`${symbol}-USD`);
   });
