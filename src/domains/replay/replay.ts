@@ -38,6 +38,19 @@ export const replaySchema = z.object({
         away: z.number(),
         scoring: z.boolean(),
         homeWinProb: z.number().nullable(),
+        /** Where the play began and ended. See `PlayField`. Absent in a game saved before this was recorded. */
+        field: z
+          .object({
+            possession: z.string().nullable(),
+            from: z.number(),
+            to: z.number(),
+            down: z.number().nullable(),
+            distance: z.number(),
+            situation: z.string().nullable(),
+            kind: z.string(),
+            yards: z.number(),
+          })
+          .optional(),
       }),
     )
     .min(1),
@@ -175,7 +188,7 @@ export function frameAt(replay: Replay, at: number): ReplayFrame {
   };
 
   const plays: Play[] = seen
-    .map((play, i) => ({ id: `${replay.id}-${i}`, text: play.text, clock: play.clock, period: periodName(play.period), scoringPlay: play.scoring }))
+    .map((play, i) => ({ id: `${replay.id}-${i}`, text: play.text, clock: play.clock, period: periodName(play.period), scoringPlay: play.scoring, field: play.field }))
     .reverse();
 
   const winner = !over || replay.home.score === replay.away.score ? null : replay.home.score > replay.away.score ? "home" : "away";

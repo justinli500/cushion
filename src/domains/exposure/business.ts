@@ -1,8 +1,8 @@
 import { stripLegs, teamLossLegs, temperatureLegs } from "@/domains/cushion/legs";
 import { chanceAtOrAbove, chanceOf, impliedSpot, yesChance } from "@/domains/cushion/probability";
-import type { Chance, Cushion } from "@/domains/cushion/types";
-import { UNDERLYINGS, type BucketMarket, type Game, type Ladder, type UnderlyingId } from "@/domains/markets/types";
+import { UNDERLYINGS, type BucketMarket, type EventMarket, type Game, type Ladder, type UnderlyingId } from "@/domains/markets/types";
 import { formatUsd, formatUsdWhole, formatWhen } from "@/lib/format";
+import { EVENT_TITLES, UNKNOWN, eventCover, sumChances, type Cover, type EventKind } from "./business-events";
 
 export type WeatherKind = "cold-day" | "hot-day";
 
@@ -10,7 +10,8 @@ export type WeatherKind = "cold-day" | "hot-day";
 export type Risk =
   | { kind: WeatherKind; why: string }
   | { kind: "home-loss"; why: string }
-  | { kind: "cost-rise"; underlying: UnderlyingId; what: string; why: string };
+  | { kind: "cost-rise"; underlying: UnderlyingId; what: string; why: string }
+  | { kind: "event"; event: EventKind; why: string };
 
 export type CostRisk = Extract<Risk, { kind: "cost-rise" }>;
 
@@ -18,7 +19,8 @@ export interface BusinessType {
   /** Saved in the profile, so it must stay stable. */
   id: string;
   name: string;
-  blurb: string;
+  /** Finishes "Suggested for", e.g. "a food truck". */
+  forWhom: string;
   risks: Risk[];
 }
 
@@ -26,18 +28,19 @@ const cold = (why: string): Risk => ({ kind: "cold-day", why });
 const hot = (why: string): Risk => ({ kind: "hot-day", why });
 const loss = (why: string): Risk => ({ kind: "home-loss", why });
 const cost = (underlying: UnderlyingId, what: string, why: string): CostRisk => ({ kind: "cost-rise", underlying, what, why });
+const event = (kind: EventKind, why: string): Risk => ({ kind: "event", event: kind, why });
 
 export const BUSINESS_TYPES: readonly BusinessType[] = [
   {
     id: "food-truck",
     name: "Food truck",
-    blurb: "Paid when the weather thins the line.",
+    forWhom: "a food truck",
     risks: [cold("Cold days thin out the lunch line."), cost("BRENT", "fuel", "Fuel for the truck and the generator adds up fast.")],
   },
   {
     id: "ice-cream",
     name: "Ice cream shop",
-    blurb: "Paid when a cold snap empties the shop.",
+    forWhom: "an ice cream shop",
     risks: [
       cold("Cold days send people anywhere but the ice cream shop."),
       cost("NGAS", "power", "The freezers never turn off, and power prices follow natural gas."),
@@ -46,62 +49,72 @@ export const BUSINESS_TYPES: readonly BusinessType[] = [
   {
     id: "patio",
     name: "Patio restaurant",
-    blurb: "Paid when the weather keeps people inside.",
+    forWhom: "a patio restaurant",
     risks: [
       cold("Cold evenings keep people off the patio."),
       hot("Scorching afternoons drive people indoors."),
       cost("NGAS", "gas", "The patio heaters and the kitchen both run on gas."),
+      event("recession", "In a recession, dinners out are the first thing people cut."),
     ],
   },
   {
     id: "coffee-cart",
     name: "Coffee cart",
-    blurb: "Paid when the weather turns people away.",
+    forWhom: "a coffee cart",
     risks: [cold("Bitter cold keeps people from stopping at the cart."), hot("Hot afternoons mean nobody wants a coffee.")],
   },
   {
     id: "sports-bar",
     name: "Sports bar",
-    blurb: "Paid when your team loses.",
+    forWhom: "a sports bar",
     risks: [
-      loss("When our team loses, the crowd leaves early and the tabs stay small."),
+      loss("When your team loses, the crowd leaves early and the tabs stay small."),
       cost("NGAS", "gas", "The fryers and the kitchen run on gas."),
+      event("unemployment", "When people lose their jobs, a night at the bar is an easy cut."),
     ],
   },
   {
     id: "car-wash",
     name: "Car wash",
-    blurb: "Paid when a freeze shuts the bays.",
+    forWhom: "a car wash",
     risks: [cold("Freezing days shut the bays, because wet cars ice up."), cost("NGAS", "gas", "Heating the wash water runs on gas.")],
   },
   {
     id: "delivery",
     name: "Delivery or courier",
-    blurb: "Paid when fuel gets pricier.",
-    risks: [cost("BRENT", "fuel", "Fuel is the cost I cannot pass on to customers.")],
+    forWhom: "a delivery driver",
+    risks: [
+      cost("BRENT", "fuel", "Fuel is the cost you cannot pass on to customers."),
+      event("fed-hike", "If your vehicle loan floats with interest rates, a bigger hike lifts your payment."),
+    ],
   },
   {
     id: "landscaping",
     name: "Landscaping",
-    blurb: "Paid when heat or fuel eats your margin.",
-    risks: [hot("Scorching days cut my crew's hours."), cost("BRENT", "fuel", "The mowers, the trimmers and the truck all run on fuel.")],
+    forWhom: "a landscaping crew",
+    risks: [
+      hot("Scorching days cut your crew's hours."),
+      cost("BRENT", "fuel", "The mowers, the trimmers and the truck all run on fuel."),
+      event("fed-hike", "If your equipment loan floats with interest rates, a bigger hike lifts your payment."),
+    ],
   },
   {
     id: "electrician",
     name: "Electrician or contractor",
-    blurb: "Paid when materials get pricier.",
+    forWhom: "an electrician",
     risks: [
-      cost("COPPER", "copper", "Wire is copper, and its price lands in every quote I give."),
+      cost("COPPER", "copper", "Wire is copper, and its price lands in every quote you give."),
       cost("BRENT", "fuel", "The van burns fuel on every job."),
     ],
   },
   {
     id: "jeweler",
     name: "Jeweler",
-    blurb: "Paid when metal gets pricier.",
+    forWhom: "a jeweler",
     risks: [
-      cost("XAU", "gold", "Every ring and chain starts with gold I have to buy."),
-      cost("XAG", "silver", "What I pay for silver sets the price of every piece I make."),
+      cost("XAU", "gold", "Every ring and chain starts with gold you have to buy."),
+      cost("XAG", "silver", "What you pay for silver sets the price of every piece you make."),
+      event("stocks-fall", "Rings and chains sell when people feel wealthy, and a falling market takes that feeling away."),
     ],
   },
 ];
@@ -111,10 +124,12 @@ export const businessType = (id: string | null): BusinessType | null => BUSINESS
 export interface Needs {
   city: boolean;
   team: boolean;
-  /** Weather and game cushions pay out what a bad day costs. */
+  /** Weather, game and news-event cushions pay out what a bad day costs. */
   badDay: boolean;
   /** Each cost risk needs a monthly spend. */
   costs: CostRisk[];
+  /** Some risk is a news-event market. */
+  events: boolean;
 }
 
 /** The questions a business has to answer before its risks can be priced. */
@@ -123,10 +138,30 @@ export function needsOf(business: BusinessType): Needs {
   return {
     city: kinds.has("cold-day") || kinds.has("hot-day"),
     team: kinds.has("home-loss"),
-    badDay: kinds.has("cold-day") || kinds.has("hot-day") || kinds.has("home-loss"),
+    badDay: kinds.has("cold-day") || kinds.has("hot-day") || kinds.has("home-loss") || kinds.has("event"),
     costs: business.risks.filter((r): r is CostRisk => r.kind === "cost-rise"),
+    events: kinds.has("event"),
   };
 }
+
+export type AmountKey = "badDay" | UnderlyingId;
+
+export interface Amount {
+  key: AmountKey;
+  /** Finishes the sentence the number answers, e.g. "A bad day costs about". */
+  label: string;
+}
+
+/** The dollar amounts a business owner can set, in the order they are shown. */
+export function amountsOf(needs: Needs): Amount[] {
+  return [
+    ...(needs.badDay ? [{ key: "badDay" as const, label: "A bad day costs about" }] : []),
+    ...needs.costs.map((c) => ({ key: c.underlying, label: `What you spend on ${c.what} each month` })),
+  ];
+}
+
+/** Where an amount starts until the owner types their own: a bad day, or a month's bill. */
+export const guessAmount = (key: AmountKey): number => (key === "badDay" ? 300 : 400);
 
 export interface Team {
   league: string;
@@ -216,39 +251,16 @@ export interface SuggestInput {
   /** The game already picked for `team`. */
   game: Game | null;
   ladders: Ladder[];
-  /** Dollars a bad day costs. Weather and game cushions pay this. */
+  events: EventMarket[];
+  /** Dollars a bad day costs. Weather, game and news-event cushions pay this. */
   badDayCost: number;
   /** Dollars spent each month, by underlying. */
   monthlySpend: Partial<Record<UnderlyingId, number>>;
 }
 
-interface Body {
-  /** What triggers the payout, in one plain sentence. */
-  trigger: string;
-  cushion: Cushion;
-  /** The market's chance that the cushion pays anything. */
-  chance: Chance;
-  eventTickers: string[];
-  expiry: string;
-}
-
 export type Suggestion =
-  | ({ status: "ready"; risk: Risk; title: string } & Body)
+  | ({ status: "ready"; risk: Risk; title: string } & Cover)
   | { status: "unavailable"; risk: Risk; title: string; reason: string };
-
-const UNKNOWN: Chance = { p: null, low: null, high: null, uncertain: true };
-
-/** Exactly one bucket wins, so the chance any of several pays is the sum of theirs. */
-function sumChances(chances: Chance[]): Chance {
-  if (chances.every((c) => c.p == null)) return UNKNOWN;
-  const total = (pick: (c: Chance) => number) => Math.min(1, chances.reduce((t, c) => t + pick(c), 0));
-  return {
-    p: total((c) => c.p ?? 0),
-    low: total((c) => c.low ?? 0),
-    high: total((c) => c.high ?? 1),
-    uncertain: chances.some((c) => c.uncertain),
-  };
-}
 
 // Mid-sentence names: UNDERLYINGS capitalises "Natural gas" and "Gold" as if they started one.
 const MARKET_WORDS: Partial<Record<UnderlyingId, string>> = { NGAS: "natural gas", XAU: "gold", XAG: "silver", COPPER: "copper" };
@@ -256,6 +268,7 @@ const marketWord = (id: UnderlyingId) => MARKET_WORDS[id] ?? UNDERLYINGS[id].nam
 
 const price = (level: number) => (level >= 1000 ? formatUsdWhole(level) : formatUsd(level));
 const shortDate = (iso: string) => new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+const capitalise = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
 
 export function titleOf(risk: Risk, input: Pick<SuggestInput, "city" | "team">): string {
   switch (risk.kind) {
@@ -266,12 +279,15 @@ export function titleOf(risk: Risk, input: Pick<SuggestInput, "city" | "team">):
       return input.team ? `A loss for ${input.team.name}` : "A loss for your team";
     case "cost-rise":
       return `Pricier ${risk.what}`;
+    case "event":
+      return EVENT_TITLES[risk.event];
   }
 }
 
-function weatherBody(kind: WeatherKind, input: SuggestInput): Body | string {
+function weatherBody(kind: WeatherKind, input: SuggestInput): Cover | string {
   const { weather: market, badDayCost: payout } = input;
-  if (!market) return `There is no temperature market for ${input.city ?? "your city"} right now.`;
+  if (!input.city) return "Choose your city to see this one.";
+  if (!market) return `There is no temperature market for ${input.city} right now.`;
   const threshold = defaultThreshold(market, kind);
   if (threshold == null) return "Nobody is quoting this market yet.";
 
@@ -284,6 +300,7 @@ function weatherBody(kind: WeatherKind, input: SuggestInput): Body | string {
   const verb = isCold ? `stays under ${threshold}` : `climbs above ${threshold}`;
   return {
     trigger: `Pays ${formatUsdWhole(payout)} if ${market.city}'s high ${verb}°F ${coverDay(market, input.now)}.`,
+    when: capitalise(coverDay(market, input.now)),
     cushion,
     chance: sumChances(picked.map((b) => yesChance(b.contract.quote))),
     eventTickers: [market.eventTicker],
@@ -291,9 +308,9 @@ function weatherBody(kind: WeatherKind, input: SuggestInput): Body | string {
   };
 }
 
-function gameBody(input: SuggestInput): Body | string {
+function gameBody(input: SuggestInput): Cover | string {
   const { game, team, badDayCost: payout } = input;
-  if (!team) return "Pick your team to see this one.";
+  if (!team) return "Choose your team to see this one.";
   if (!game) return `No game for ${team.name} is listed soon.`;
   const cushion = teamLossLegs(game, team.abbr, payout);
   const [leg] = cushion.legs;
@@ -304,6 +321,7 @@ function gameBody(input: SuggestInput): Body | string {
   const bought = game.teams.find((t) => t.contract.symbol === leg.symbol)?.contract;
   return {
     trigger: `Pays ${formatUsdWhole(payout)} if ${team.name} lose to ${opponent?.name ?? "the other side"} (${when}).`,
+    when: capitalise(when),
     cushion,
     chance: bought ? chanceOf(bought.quote, leg.side) : UNKNOWN,
     eventTickers: [game.eventTicker],
@@ -311,7 +329,7 @@ function gameBody(input: SuggestInput): Body | string {
   };
 }
 
-function costBody(risk: CostRisk, input: SuggestInput): Body | string {
+function costBody(risk: CostRisk, input: SuggestInput): Cover | string {
   const name = marketWord(risk.underlying);
   const ladder = monthEndLadder(input.ladders, risk.underlying, input.now);
   if (!ladder) return `No month-end market for ${name} is open right now.`;
@@ -329,6 +347,7 @@ function costBody(risk: CostRisk, input: SuggestInput): Body | string {
   const strikes = cushion.legs.map((l) => l.strike ?? start);
   return {
     trigger: `Pays as ${name} climbs past ${price(Math.min(...strikes))} by ${shortDate(ladder.expiry)}, up to ${formatUsdWhole(payout)} at ${price(Math.max(...strikes))}.`,
+    when: `By ${shortDate(ladder.expiry)}`,
     cushion,
     chance: { p: chanceAtOrAbove(ladder, start), low: null, high: null, uncertain: false },
     eventTickers: [ladder.eventTicker],
@@ -340,6 +359,12 @@ function costBody(risk: CostRisk, input: SuggestInput): Body | string {
 export function suggest(risk: Risk, input: SuggestInput): Suggestion {
   const title = titleOf(risk, input);
   const body =
-    risk.kind === "home-loss" ? gameBody(input) : risk.kind === "cost-rise" ? costBody(risk, input) : weatherBody(risk.kind, input);
+    risk.kind === "home-loss"
+      ? gameBody(input)
+      : risk.kind === "cost-rise"
+        ? costBody(risk, input)
+        : risk.kind === "event"
+          ? eventCover(risk.event, input.events, input.badDayCost)
+          : weatherBody(risk.kind, input);
   return typeof body === "string" ? { status: "unavailable", risk, title, reason: body } : { status: "ready", risk, title, ...body };
 }

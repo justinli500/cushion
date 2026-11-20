@@ -1,179 +1,165 @@
 "use client";
 
-import { Card, inputClass, Notice, Tag } from "@/components/kit";
+import { useState, type ReactNode } from "react";
+import { Card, Chip, ToggleCard, ToggleTag } from "@/components/kit";
 import { chanceOf } from "@/domains/cushion/probability";
-import {
-  bustWording,
-  hasOpenLine,
-  MAX_PAYOUT,
-  MIN_PAYOUT,
-  PAYOUT_PRESETS,
-  parsePayout,
-  type GameStatus,
-  type PlayerEntry,
-  type StatLines,
-} from "@/domains/exposure/fantasy";
-import { formatChance, formatUsdWhole, formatWhen } from "@/lib/format";
-
-/** The stat and bust line the person is looking at in this card. */
-export interface PickedStat {
-  metric: string;
-  line: number | null;
-}
+import type { CushionQuote } from "@/domains/cushion/types";
+import { bustWording, type PlayerEntry } from "@/domains/exposure/fantasy";
+import { initials, pickableLines, shortUsd, type Choice, type Selection, type Slot } from "@/domains/exposure/fantasy-cushion";
+import { formatChance, formatWhen } from "@/lib/format";
+import { cn } from "@/lib/utils";
 
 interface Props {
-  entry: PlayerEntry;
-  status: GameStatus;
-  picked: PickedStat | null;
-  amount: string;
-  onPickStat: (metric: string) => void;
-  onPickLine: (line: number) => void;
-  onAmount: (text: string) => void;
+  slot: Slot;
+  /** What the card covers, or null when the game is over or no market is open. */
+  selection: Selection | null;
+  /** The covered line priced for this card's share of the stake. Null until the books load. */
+  quote: CushionQuote | null;
+  booksFailed: boolean;
+  on: boolean;
+  onToggle: () => void;
+  onChoose: (choice: Choice) => void;
   onRemove: () => void;
 }
 
-const choice = (active: boolean) =>
-  `press rounded-xl border px-3 py-2 text-left disabled:cursor-not-allowed disabled:opacity-50 ${
-    active ? "border-primary bg-primary/10 text-primary" : "border-border bg-card text-foreground hover:border-foreground/30"
-  }`;
+export function PlayerCard({ slot, selection, quote, booksFailed, on, onToggle, onChoose, onRemove }: Props) {
+  const { entry, name, status } = slot;
+  const [adjusting, setAdjusting] = useState(false);
 
-export function PlayerCard({ entry, status, picked, amount, onPickStat, onPickLine, onAmount, onRemove }: Props) {
-  const anyOpen = entry.stats.some(hasOpenLine);
+  if (!entry) {
+    return (
+      <Card className="arrive flex flex-wrap items-center justify-between gap-x-4 rounded-[24px] px-5 py-[18px]">
+        <p className="min-w-0 flex-1 basis-60 text-[14px] text-body">
+          <strong className="font-semibold text-foreground">{name}</strong> has no markets today. They will show up here when their game is listed.
+        </p>
+        <RemoveButton name={name} onClick={onRemove} />
+      </Card>
+    );
+  }
+
+  const wording = selection && bustWording(selection.stat.metric, selection.line.line);
+  const offTag = status === "over" ? "Finished" : "Closed";
+  const filled = quote?.legs[0]?.filled ?? 0;
+  const noPrice = filled > 0 && quote ? Math.round((quote.cost / filled) * 100) : null;
+  const chance = selection ? chanceOf(selection.line.contract.quote, "no") : null;
+
   return (
-    <Card className="arrive">
-      <div className="flex items-start justify-between gap-4">
-        <div className="min-w-0">
-          <h3 className="text-[16px] font-semibold">{entry.player}</h3>
-          <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] text-muted-foreground">
-            <Tag tone="plain">{entry.league}</Tag>
-            <span>{entry.gameTitle}</span>
-            <span className="text-muted-foreground/70">
-              {status === "upcoming" ? "Starts" : "Started"} {formatWhen(entry.startTime)}
+    <div className={cn("arrive rounded-[24px] border-2 bg-card", on ? "border-primary" : "border-card")}>
+      <ToggleCard pressed={on} onToggle={onToggle} disabled={!selection} className="flex-row flex-wrap items-center gap-4 rounded-[22px] border-0 px-5 py-[18px]">
+        <span className="display grid size-[52px] flex-none place-items-center rounded-[18px] bg-foreground text-[16px] font-bold text-background" aria-hidden>
+          {initials(name)}
+        </span>
+        <span className="flex min-w-0 flex-[1_1_220px] flex-col gap-0.5">
+          <span className="text-[17px] font-semibold">{name}</span>
+          {wording ? <span className="text-[14px] font-semibold text-risk">Risk: {wording.clause}</span> : null}
+          <span className="text-[13px] text-muted-foreground">
+            {entry.gameTitle} · {status === "upcoming" ? "starts" : "started"} {formatWhen(entry.startTime)}
+            {status === "live" ? " · in progress" : ""}
+          </span>
+        </span>
+        <span className="flex min-w-0 flex-[1_1_240px] flex-col gap-0.5">
+          <span className="text-[13px] text-muted-foreground">Cushion market</span>
+          {selection ? (
+            <>
+              <span className="text-[15px] font-semibold">
+                {selection.line.contract.label}: No{noPrice != null ? ` at ${noPrice}¢` : ""}
+              </span>
+              {chance?.p != null ? (
+                <span className="text-[13px] text-muted-foreground">
+                  {chance.uncertain ? "About " : ""}
+                  {formatChance(chance.p)} chance it pays
+                </span>
+              ) : null}
+            </>
+          ) : (
+            <span className="text-[15px] font-semibold">
+              {status === "over" ? "Game probably finished, nothing left to cover" : "No market is open right now"}
             </span>
-            {status === "live" ? <Tag tone="note">In progress</Tag> : null}
-            {status === "over" ? <Tag tone="plain">Probably finished</Tag> : null}
-          </p>
-        </div>
-        <RemoveButton name={entry.player} onClick={onRemove} />
+          )}
+        </span>
+        <span className="flex flex-none flex-col items-end gap-1">
+          {selection ? <Price quote={quote} failed={booksFailed} /> : null}
+          <ToggleTag pressed={on} off={selection ? "Add" : offTag} />
+        </span>
+      </ToggleCard>
+
+      <div className="flex flex-wrap items-center justify-between gap-x-4 px-5 pb-1">
+        {selection ? (
+          <button
+            type="button"
+            aria-expanded={adjusting}
+            onClick={() => setAdjusting(!adjusting)}
+            className="press inline-flex min-h-11 items-center text-[14px] font-semibold text-covered"
+          >
+            {adjusting ? "Done" : "Change when it pays"}
+          </button>
+        ) : (
+          <span />
+        )}
+        <RemoveButton name={name} onClick={onRemove} />
       </div>
 
-      <div className="mt-4">
-        {status === "over" ? (
-          <Notice>This game has probably finished, so there is nothing left to cover. The next one shows up here once it is listed.</Notice>
-        ) : !anyOpen ? (
-          <Notice>Markets for this game are closed right now. Check back later.</Notice>
-        ) : (
-          <ul className="space-y-2">
-            {entry.stats.map((stat) => {
-              const selected = picked?.metric === stat.metric;
-              return (
-                <li key={stat.metric}>
-                  <StatRow stat={stat} selected={selected} onClick={() => onPickStat(stat.metric)} />
-                  {selected && picked ? (
-                    <Picker stat={stat} line={picked.line} amount={amount} onPickLine={onPickLine} onAmount={onAmount} />
-                  ) : null}
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </div>
-    </Card>
+      {adjusting && selection ? <Picker entry={entry} selection={selection} onChoose={onChoose} /> : null}
+    </div>
+  );
+}
+
+function Price({ quote, failed }: { quote: CushionQuote | null; failed: boolean }) {
+  if (!quote) return failed ? <span className="text-[14px] text-muted-foreground">Price unavailable</span> : <span aria-hidden className="block h-5 w-24 animate-pulse rounded-md bg-track" />;
+  if (quote.maxPayout === 0) return <span className="text-[14px] font-semibold text-muted-foreground">Nobody is selling this</span>;
+  return (
+    <span className="tabular text-[15px] font-semibold">
+      {shortUsd(quote.cost)} pays {shortUsd(quote.maxPayout)}
+    </span>
   );
 }
 
 export function RemoveButton({ name, onClick }: { name: string; onClick: () => void }) {
   return (
-    <button type="button" onClick={onClick} aria-label={`Remove ${name}`} className="press shrink-0 text-[13px] text-muted-foreground hover:text-foreground">
+    <button type="button" onClick={onClick} aria-label={`Remove ${name} from your lineup`} className="press inline-flex min-h-11 items-center text-[13px] font-semibold text-muted-foreground hover:text-foreground">
       Remove
     </button>
   );
 }
 
-function StatRow({ stat, selected, onClick }: { stat: StatLines; selected: boolean; onClick: () => void }) {
-  const open = hasOpenLine(stat);
+/** One level down: which stat to cover, and the line it has to miss for the cushion to pay. */
+function Picker({ entry, selection, onChoose }: { entry: PlayerEntry; selection: Selection; onChoose: (choice: Choice) => void }) {
+  const { metric } = selection.stat;
+  const stats = entry.stats.filter((s) => pickableLines(s).length > 0);
   return (
-    <button
-      type="button"
-      disabled={!open}
-      aria-pressed={selected}
-      onClick={onClick}
-      className={`${choice(selected)} flex w-full items-center justify-between gap-4`}
-    >
-      <span className="text-[14px] font-medium">{stat.label}</span>
-      <span className={`text-[13px] ${selected ? "" : "text-muted-foreground"}`}>{!open ? "Closed right now" : selected ? "Covering" : "Cover this"}</span>
-    </button>
+    <div className="arrive mx-5 mb-5 flex flex-col gap-4 rounded-[18px] bg-muted p-4">
+      {stats.length > 1 ? (
+        <ChipRow label="What to cover">
+          {stats.map((s) => (
+            <Chip key={s.metric} pressed={s.metric === metric} onClick={() => onChoose({ metric: s.metric })}>
+              {s.label}
+            </Chip>
+          ))}
+        </ChipRow>
+      ) : null}
+      <div>
+        <ChipRow label="When should it pay you back?">
+          {pickableLines(selection.stat).map((l) => {
+            const chance = chanceOf(l.contract.quote, "no");
+            return (
+              <Chip key={l.contract.symbol} pressed={l.line === selection.line.line} onClick={() => onChoose({ metric, line: l.line })}>
+                {bustWording(metric, l.line).chip} · {chance.uncertain ? "~" : ""}
+                {formatChance(chance.p)}
+              </Chip>
+            );
+          })}
+        </ChipRow>
+        <p className="mt-2 text-[12px] text-muted-foreground">Each percentage is the market&rsquo;s chance of that happening, which is your chance of being paid.</p>
+      </div>
+    </div>
   );
 }
 
-function Picker({
-  stat,
-  line,
-  amount,
-  onPickLine,
-  onAmount,
-}: {
-  stat: StatLines;
-  line: number | null;
-  amount: string;
-  onPickLine: (line: number) => void;
-  onAmount: (text: string) => void;
-}) {
+function ChipRow({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div className="arrive mt-2 space-y-5 rounded-xl bg-muted p-4">
-      <div>
-        <p className="mb-2 text-[13px] font-medium text-muted-foreground">When should it pay you back?</p>
-        <div className="flex flex-wrap gap-2">
-          {stat.lines.map((l) => {
-            const chance = chanceOf(l.contract.quote, "no");
-            return (
-              <button
-                key={l.contract.symbol}
-                type="button"
-                disabled={!l.contract.open}
-                aria-pressed={line === l.line}
-                onClick={() => onPickLine(l.line)}
-                className={choice(line === l.line)}
-              >
-                <span className="block text-[14px] font-medium">{bustWording(stat.metric, l.line).chip}</span>
-                <span className={`tabular block text-[12px] ${line === l.line ? "" : "text-muted-foreground/70"}`}>
-                  {!l.contract.open ? "Closed" : chance.p == null ? "No quotes" : `${chance.uncertain ? "~" : ""}${formatChance(chance.p)}`}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-        <p className="mt-2 text-[12px] text-muted-foreground/70">Each percentage is the market&rsquo;s chance of that happening, which is your chance of being paid.</p>
-      </div>
-
-      <div>
-        <p className="mb-2 text-[13px] font-medium text-muted-foreground">How much should it pay?</p>
-        <div className="flex flex-wrap items-center gap-2">
-          {PAYOUT_PRESETS.map((n) => (
-            <button key={n} type="button" aria-pressed={amount === String(n)} onClick={() => onAmount(String(n))} className={`${choice(amount === String(n))} tabular text-[14px] font-medium`}>
-              {formatUsdWhole(n)}
-            </button>
-          ))}
-          <div className="relative w-28">
-            <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[14px] text-muted-foreground/70" aria-hidden>
-              $
-            </span>
-            <input
-              inputMode="decimal"
-              aria-label="Other amount in dollars"
-              placeholder="Other"
-              value={amount}
-              onChange={(e) => onAmount(e.target.value)}
-              className={`${inputClass} tabular pl-6`}
-            />
-          </div>
-        </div>
-        {parsePayout(amount) == null ? (
-          <p className="mt-2 text-[12px] text-destructive">
-            Choose an amount from {formatUsdWhole(MIN_PAYOUT)} to {formatUsdWhole(MAX_PAYOUT)}.
-          </p>
-        ) : null}
-      </div>
+    <div>
+      <p className="mb-2 text-[13px] font-semibold text-muted-foreground">{label}</p>
+      <div className="flex flex-wrap gap-2">{children}</div>
     </div>
   );
 }

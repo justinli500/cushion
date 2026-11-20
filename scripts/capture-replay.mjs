@@ -1,7 +1,8 @@
 // Saves one finished game as a replay: ESPN's play-by-play and Gemini's real trades on the winner market.
 // Run: node scripts/capture-replay.mjs            (writes public/replays/<id>.json)
+//      node scripts/capture-replay.mjs --plays    (refreshes only the plays of a game already saved, keeping its trades)
 //      node scripts/capture-replay.mjs --wait     (first waits for the game to go final)
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 
 const GAME = {
   id: "nfl-ind-hou-2026-11-19",
@@ -30,6 +31,22 @@ async function espn() {
     return { abbr: c.team.abbreviation, name: c.team.displayName, score: Number(c.score), logo: c.team.logos?.[0]?.href };
   };
   const winProb = new Map((summary.winprobability ?? []).map((w) => [w.playId, w.homeWinPercentage]));
+  const abbrOf = new Map(competition.competitors.map((c) => [c.team.id, c.team.abbreviation]));
+  // ponytail: the same shaping as toField in src/domains/scores/parse.ts, repeated because this script cannot import TypeScript.
+  const field = (p) => {
+    if (p.start?.yardLine == null || p.end?.yardLine == null || !p.type?.text) return undefined;
+    const down = p.end.down >= 1 && p.end.down <= 4 ? p.end.down : null;
+    return {
+      possession: abbrOf.get(p.end.team?.id) ?? null,
+      from: p.start.yardLine,
+      to: p.end.yardLine,
+      down,
+      distance: p.end.distance ?? 0,
+      situation: down ? (p.end.downDistanceText?.trim() ?? null) : null,
+      kind: p.type.text,
+      yards: p.statYardage ?? 0,
+    };
+  };
   const plays = (summary.drives?.previous ?? [])
     .flatMap((drive) => drive.plays ?? [])
     .filter((p) => p.wallclock && p.text)
@@ -42,6 +59,7 @@ async function espn() {
       away: p.awayScore,
       scoring: Boolean(p.scoringPlay),
       homeWinProb: winProb.get(p.id) ?? null,
+      field: field(p),
     }))
     .sort((a, b) => a.t - b.t);
   return { state: competition.status.type.name, home: side("home"), away: side("away"), plays };
@@ -87,6 +105,16 @@ async function capture() {
       `${home.trades.length} + ${away.trades.length} trades`,
   );
   return replay.final;
+}
+
+if (process.argv.includes("--plays")) {
+  // Gemini serves only the newest 500 trades of a contract, so a saved game's trades cannot be fetched again later.
+  const file = new URL(`${GAME.id}.json`, OUT);
+  const saved = JSON.parse(await readFile(file, "utf8"));
+  const { plays } = await espn();
+  await writeFile(file, JSON.stringify({ ...saved, plays }));
+  console.log(`${GAME.id}: ${plays.length} plays refreshed, ${plays.filter((p) => p.field).length} with a field position`);
+  process.exit(0);
 }
 
 if (process.argv.includes("--wait")) {

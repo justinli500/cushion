@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { cleanSymbol, exposures, readHolding, regress, type PricePoint } from "@/domains/exposure/portfolio";
+import { cleanSymbol, exposures, indexExposure, readHolding, regress, type PricePoint } from "@/domains/exposure/portfolio";
 
 /** Deterministic pseudo-random daily moves (mulberry32), so each seed is an independent series. */
 function moves(seed: number, days: number, scale: number): number[] {
@@ -30,7 +30,10 @@ const miner = series(DAYS, (i) => btcMoves[i] * 1.5 + wobble[i]);
 const airline = series(DAYS, (i) => -oilMoves[i] * 0.8 + wobble[i]);
 const sodaMoves = moves(5, DAYS, 0.02);
 const unrelated = series(DAYS, (i) => sodaMoves[i]);
-const history = { BTC: btc, BRENT: oil, MINER: miner, AIR: airline, SODA: unrelated, THIN: btc.slice(0, 10) };
+const marketMoves = moves(3, DAYS, 0.02);
+const spx = series(DAYS, (i) => marketMoves[i]);
+const bigCap = series(DAYS, (i) => marketMoves[i] * 1.2 + wobble[i]);
+const history = { BTC: btc, BRENT: oil, MINER: miner, AIR: airline, SODA: unrelated, THIN: btc.slice(0, 10), SPX: spx, BIGCAP: bigCap };
 
 describe("regress", () => {
   it("recovers how hard a holding moves with a factor", () => {
@@ -69,6 +72,28 @@ describe("readHolding", () => {
     expect(readHolding({ symbol: "SODA", value: 500 }, history, [...factors]).status).toBe("none");
     expect(readHolding({ symbol: "THIN", value: 500 }, history, [...factors]).status).toBe("unknown");
     expect(readHolding({ symbol: "NOPE", value: 500 }, history, [...factors]).status).toBe("unknown");
+  });
+});
+
+describe("readHolding against the S&P 500", () => {
+  const reads = (symbol: string, index: boolean) => readHolding({ symbol, value: 1000 }, history, ["BTC", "BRENT"], index);
+
+  it("reads a stock that moves with the index as tracking it, when asked to look", () => {
+    const big = reads("BIGCAP", true);
+    expect(big.status).toBe("index");
+    expect(big.status === "index" && big.fit.beta).toBeCloseTo(1.2, 1);
+    expect(reads("BIGCAP", false).status).toBe("none");
+  });
+
+  it("still prefers a coin or commodity that explains the holding better", () => {
+    expect(reads("MINER", true)).toMatchObject({ status: "tracks", underlying: "BTC" });
+  });
+
+  it("sums what the index holdings have riding on it and leaves them out of the per-market exposures", () => {
+    const all = [reads("BIGCAP", true), readHolding({ symbol: "BTC", value: 2000 }, history, ["BTC"], true)];
+    expect(exposures(all).map((e) => e.underlying)).toEqual(["BTC"]);
+    expect(indexExposure(all)!.dollars).toBeCloseTo(1200, -2);
+    expect(indexExposure([all[1]])).toBeNull();
   });
 });
 

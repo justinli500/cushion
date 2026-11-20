@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { Play, Score } from "./types";
+import type { Play, PlayField, Score } from "./types";
 
 const MAX_PLAYS = 60;
 
@@ -9,7 +9,7 @@ const competitionSchema = z.object({
     z.object({
       homeAway: z.enum(["home", "away"]),
       score: z.string().optional(),
-      team: z.object({ abbreviation: z.string(), displayName: z.string() }),
+      team: z.object({ id: z.string().optional(), abbreviation: z.string(), displayName: z.string() }),
     }),
   ),
 });
@@ -28,7 +28,19 @@ const summarySchema = z.object({
     .optional(),
 });
 
+/** One end of a football play. */
+const spotSchema = z.object({
+  down: z.number().optional(),
+  distance: z.number().optional(),
+  yardLine: z.number().optional(),
+  downDistanceText: z.string().optional(),
+  team: z.object({ id: z.string() }).optional(),
+});
+
 const playSchema = z.object({
+  start: spotSchema.optional(),
+  end: spotSchema.optional(),
+  statYardage: z.number().optional(),
   id: z.string(),
   text: z.string().default(""),
   clock: z.object({ displayValue: z.string() }).optional(),
@@ -61,13 +73,30 @@ export function parseScoreboard(json: unknown): Score[] {
   });
 }
 
-function toPlay(raw: unknown): Play[] {
+/** Only football plays carry yard lines, so every other sport gets no field. */
+function toField({ start, end, type, statYardage }: z.infer<typeof playSchema>, abbrOf: Map<string, string>): PlayField | undefined {
+  if (start?.yardLine == null || end?.yardLine == null || !type?.text) return undefined;
+  const down = end.down != null && end.down >= 1 && end.down <= 4 ? end.down : null;
+  return {
+    possession: abbrOf.get(end.team?.id ?? "") ?? null,
+    from: start.yardLine,
+    to: end.yardLine,
+    down,
+    distance: end.distance ?? 0,
+    situation: down ? (end.downDistanceText?.trim() ?? null) : null,
+    kind: type.text,
+    yards: statYardage ?? 0,
+  };
+}
+
+function toPlay(raw: unknown, abbrOf: Map<string, string>): Play[] {
   const parsed = playSchema.safeParse(raw);
   if (!parsed.success || !parsed.data.text) return [];
   const { id, text, clock, period, scoringPlay, type } = parsed.data;
   // Faceoffs are most of a hockey feed and tell a viewer nothing.
   if (type?.text === "Face Off") return [];
-  return [{ id, text, clock: clock?.displayValue ?? "", period: period ? (period.displayValue ?? ordinal(period.number)) : "", scoringPlay }];
+  const field = toField(parsed.data, abbrOf);
+  return [{ id, text, clock: clock?.displayValue ?? "", period: period ? (period.displayValue ?? ordinal(period.number)) : "", scoringPlay, ...(field ? { field } : {}) }];
 }
 
 /** The score for one game plus its plays, newest first. Football lists plays under drives. */
@@ -78,6 +107,7 @@ export function parseSummary(json: unknown): { score: Score; plays: Play[] } {
   if (!score) throw new Error("ESPN summary has no home and away team");
   const chronological = plays ?? [...(drives?.previous ?? []), ...(drives?.current ? [drives.current] : [])].flatMap((d) => d.plays);
   // The drive in progress is listed under both `previous` and `current`.
-  const unique = [...new Map(chronological.flatMap(toPlay).map((p) => [p.id, p])).values()];
+  const abbrOf = new Map(competition.competitors.flatMap((c) => (c.team.id ? [[c.team.id, c.team.abbreviation] as const] : [])));
+  const unique = [...new Map(chronological.flatMap((raw) => toPlay(raw, abbrOf)).map((p) => [p.id, p])).values()];
   return { score, plays: unique.reverse().slice(0, MAX_PLAYS) };
 }

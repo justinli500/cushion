@@ -5,7 +5,7 @@ import {
   gameStatus,
   groupPlayers,
   metricLabel,
-  parsePayout,
+  parseStake,
   searchPlayers,
   type PlayerEntry,
 } from "@/domains/exposure/fantasy";
@@ -197,14 +197,14 @@ describe("searchPlayers", () => {
   });
 });
 
-describe("parsePayout", () => {
+describe("parseStake", () => {
   it("accepts whole dollars and cents in range", () => {
-    expect(parsePayout("15")).toBe(15);
-    expect(parsePayout("12.5")).toBe(12.5);
-    expect(parsePayout("1000")).toBe(1000);
+    expect(parseStake("70")).toBe(70);
+    expect(parseStake("12.5")).toBe(12.5);
+    expect(parseStake("1000")).toBe(1000);
   });
 
   it("rejects blanks, junk, too little, too much, and fractions of a cent", () => {
-    for (const bad of ["", "abc", "0", "0.5", "1001", "-5", "1e3", "5.123"]) expect(parsePayout(bad)).toBeNull();
+    for (const bad of ["", "abc", "0", "0.5", "1001", "-5", "1e3", "5.123"]) expect(parseStake(bad)).toBeNull();
   });
 });

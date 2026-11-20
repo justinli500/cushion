@@ -4,17 +4,30 @@ import { useState } from "react";
 import { Button, Field, inputClass } from "@/components/kit";
 import { cleanSymbol, type Holding } from "@/domains/exposure/portfolio";
 import { updateProfile } from "@/domains/profile/profile";
-import { formatUsdWhole } from "@/lib/format";
 
-const SUGGESTIONS = ["BTC", "ETH", "SOL", "MSTR", "COIN", "XOM", "NVDA"];
+const SUGGESTIONS = ["BTC", "ETH", "SOL", "SPY", "NVDA", "MSTR", "XOM"];
 const TICKER = /^[A-Z][A-Z0-9.-]{0,9}$/;
+/** /api/prices reads at most 30 symbols, and 13 of them are the markets a holding is compared with. */
+const MAX_HOLDINGS = 15;
 
+export function saveHoldings(next: Holding[]) {
+  updateProfile("holdings", next);
+}
+
+/** The outlined "Add a holding" control. It opens a small form, and is already open while there is nothing held. */
 export function HoldingsEditor({ holdings }: { holdings: Holding[] }) {
+  const [open, setOpen] = useState(false);
   const [symbol, setSymbol] = useState("");
   const [value, setValue] = useState("");
   const [problem, setProblem] = useState<string | null>(null);
+  const showing = open || holdings.length === 0;
 
-  const save = (next: Holding[]) => updateProfile("holdings", next);
+  const close = () => {
+    setOpen(false);
+    setSymbol("");
+    setValue("");
+    setProblem(null);
+  };
 
   const add = () => {
     const cleaned = cleanSymbol(symbol);
@@ -22,55 +35,60 @@ export function HoldingsEditor({ holdings }: { holdings: Holding[] }) {
     if (!TICKER.test(cleaned)) return setProblem("Enter a ticker, like BTC or XOM.");
     if (!Number.isFinite(dollars) || dollars <= 0) return setProblem("Enter how many dollars of it you hold.");
     if (dollars > 10_000_000) return setProblem("That is more than this demo can cushion. Try a smaller amount.");
+    const others = holdings.filter((h) => h.symbol !== cleaned);
+    if (others.length >= MAX_HOLDINGS) return setProblem(`This demo reads up to ${MAX_HOLDINGS} holdings. Remove one to add another.`);
     // Adding a ticker twice updates the amount instead of listing it twice.
-    save([...holdings.filter((h) => h.symbol !== cleaned), { symbol: cleaned, value: dollars }]);
-    setSymbol("");
-    setValue("");
-    setProblem(null);
+    saveHoldings([...others, { symbol: cleaned, value: dollars }]);
+    close();
   };
 
-  return (
-    <div>
-      {holdings.length > 0 ? (
-        <ul className="mb-5 flex flex-wrap gap-2">
-          {holdings.map((h) => (
-            <li key={h.symbol} className="arrive tabular flex items-center gap-2 rounded-full border border-border bg-muted py-1.5 pl-3.5 pr-1.5 text-[14px]">
-              <span className="font-medium">{h.symbol}</span>
-              <span className="text-muted-foreground">{formatUsdWhole(h.value)}</span>
-              <button
-                type="button"
-                aria-label={`Remove ${h.symbol}`}
-                onClick={() => save(holdings.filter((other) => other.symbol !== h.symbol))}
-                className="press grid h-6 w-6 place-items-center rounded-full text-muted-foreground/70 hover:bg-border hover:text-foreground"
-              >
-                ×
-              </button>
-            </li>
-          ))}
-        </ul>
-      ) : null}
+  if (!showing) {
+    return (
+      <Button variant="quiet" wide onClick={() => setOpen(true)}>
+        Add a holding
+      </Button>
+    );
+  }
 
+  return (
+    <div className="flex flex-col gap-3">
       <form
-        className="grid grid-cols-[1fr_1fr_auto] items-end gap-3"
+        className="flex flex-col gap-3"
         onSubmit={(event) => {
           event.preventDefault();
           add();
         }}
       >
-        <Field label="Ticker">
-          <input className={inputClass} value={symbol} onChange={(e) => setSymbol(e.target.value)} placeholder="BTC" autoCapitalize="characters" maxLength={10} />
-        </Field>
-        <Field label="Dollars held">
-          <input className={`${inputClass} tabular`} value={value} onChange={(e) => setValue(e.target.value)} placeholder="2,000" inputMode="decimal" />
-        </Field>
-        <Button type="submit">Add</Button>
+        <div className="grid grid-cols-2 gap-3">
+          <Field label="Ticker">
+            <input className={inputClass} value={symbol} onChange={(e) => setSymbol(e.target.value)} placeholder="BTC" autoCapitalize="characters" maxLength={10} />
+          </Field>
+          <Field label="Dollars held">
+            <input className={`${inputClass} tabular`} value={value} onChange={(e) => setValue(e.target.value)} placeholder="2,000" inputMode="decimal" />
+          </Field>
+        </div>
+        {problem ? <p className="text-[13px] text-risk">{problem}</p> : null}
+        <div className="flex items-center gap-2">
+          <Button type="submit" variant="dark">
+            Add holding
+          </Button>
+          {holdings.length > 0 ? (
+            <button type="button" onClick={close} className="press min-h-11 rounded-full px-4 text-[15px] font-semibold text-muted-foreground hover:text-foreground">
+              Cancel
+            </button>
+          ) : null}
+        </div>
       </form>
-      {problem ? <p className="mt-2 text-[13px] text-destructive">{problem}</p> : null}
 
-      <div className="mt-4 flex flex-wrap items-center gap-2 text-[13px] text-muted-foreground/70">
+      <div className="flex flex-wrap items-center gap-2 text-[13px] text-muted-foreground">
         <span>Try</span>
         {SUGGESTIONS.filter((s) => !holdings.some((h) => h.symbol === s)).map((s) => (
-          <button key={s} type="button" onClick={() => setSymbol(s)} className="press rounded-full border border-border px-2.5 py-1 text-muted-foreground hover:border-foreground/30 hover:text-foreground">
+          <button
+            key={s}
+            type="button"
+            onClick={() => setSymbol(s)}
+            className="press min-h-8 rounded-full border border-border px-3 text-muted-foreground hover:border-foreground/30 hover:text-foreground"
+          >
             {s}
           </button>
         ))}

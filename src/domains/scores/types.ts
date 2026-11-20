@@ -31,10 +31,32 @@ export interface Score {
   away: TeamScore;
 }
 
+/**
+ * Where a football play began and ended, and what the offense faces next. Positions are yards
+ * from the home team's goal line, 0 to 100, so the home team attacks toward 100.
+ */
+export interface PlayField {
+  /** The team with the ball after the play, as an abbreviation. */
+  possession: string | null;
+  from: number;
+  to: number;
+  /** The down to come, 1 to 4, or null between series: after a score, before a kickoff. */
+  down: number | null;
+  /** Yards needed for a first down. */
+  distance: number;
+  /** "2nd & 7 at HOU 36", as ESPN words it. Null between series. */
+  situation: string | null;
+  /** ESPN's name for the play: "Rush", "Pass Reception", "Punt". */
+  kind: string;
+  yards: number;
+}
+
 export interface Play {
   id: string;
   text: string;
   clock: string;
   period: string;
   scoringPlay: boolean;
+  /** Football only. */
+  field?: PlayField;
 }
