@@ -1,18 +1,22 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { PageHeader, Skeleton } from "@/components/kit";
+import { Card, Chip, PageHeader, Skeleton } from "@/components/kit";
 import { exposures, indexExposure, INDEX, readHolding, type History } from "@/domains/exposure/portfolio";
-import { buildScenarios, MAX_LEGS } from "@/domains/exposure/portfolio-scenarios";
+import { buildScenarios, MAX_LEGS, type Starts } from "@/domains/exposure/portfolio-scenarios";
 import { isUnderlyingId, UNDERLYINGS, type EventMarket, type Ladder, type UnderlyingId } from "@/domains/markets/types";
 import { useProfile } from "@/domains/profile/profile";
+import { formatLevel, formatPrice } from "@/lib/format";
 import { usePoll } from "@/lib/use-poll";
 import { CushionAside } from "./cushion-aside";
 import { HoldingsCard } from "./holdings-card";
+import { LevelChart } from "./level-chart";
 import { ScenarioCard } from "./scenario-card";
 
 const FACTORS = Object.keys(UNDERLYINGS) as UnderlyingId[];
 const NO_HISTORY: History = {};
+const day = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", timeZone: "America/New_York" });
+const sentence = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
 
 export default function PortfolioPage() {
   const { holdings } = useProfile();
@@ -20,8 +24,9 @@ export default function PortfolioPage() {
   // A holding that is itself a listed coin or commodity needs no price history to be understood.
   const needsHistory = holdings.some((h) => !isUnderlyingId(h.symbol));
   const symbols = [...new Set([...FACTORS, INDEX, ...holdings.map((h) => h.symbol)])];
-  const prices = usePoll<{ history: History }>(needsHistory ? `/api/prices?symbols=${symbols.join(",")}` : null);
-  const history = needsHistory ? prices.data?.history : NO_HISTORY;
+  // The chart draws history for every scenario, so it is fetched even when no holding needs it to be understood.
+  const prices = usePoll<{ history: History }>(holdings.length > 0 ? `/api/prices?symbols=${symbols.join(",")}` : null);
+  const history = prices.data?.history ?? (needsHistory ? undefined : NO_HISTORY);
   const reading = needsHistory && !history && !prices.error;
 
   const reads = useMemo(() => (history ? holdings.map((h) => readHolding(h, history, FACTORS, true)) : []), [holdings, history]);
@@ -32,10 +37,16 @@ export default function PortfolioPage() {
   const events = usePoll<{ markets: EventMarket[] }>(index ? "/api/markets/events" : null, 60_000);
   const indexSpot = history?.[INDEX]?.at(-1)?.close ?? null;
 
-  const scenarios = useMemo(
-    () => buildScenarios({ exposures: riding, index, ladders: ladders.data?.ladders ?? [], events: events.data?.markets ?? [], indexSpot }),
-    [riding, index, ladders.data, events.data, indexSpot],
-  );
+  // Where the person has dragged each scenario's cover to start.
+  const [starts, setStarts] = useState<Starts>({});
+  const scenarios = useMemo(() => {
+    const input = { exposures: riding, index, ladders: ladders.data?.ladders ?? [], events: events.data?.markets ?? [], indexSpot };
+    // Listed biggest loss first as each stands before anything is moved, so dragging a level never reorders them.
+    const order = buildScenarios(input).map((s) => s.id);
+    return buildScenarios(input, starts).sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
+  }, [riding, index, ladders.data, events.data, indexSpot, starts]);
+  const [shownId, setShownId] = useState<string | null>(null);
+  const shown = scenarios.find((s) => s.id === shownId) ?? scenarios[0];
 
   // Until the person chooses, the biggest scenario is on, so the panel has a price to show.
   const [picked, setPicked] = useState<string[] | null>(null);
@@ -57,7 +68,7 @@ export default function PortfolioPage() {
 
   return (
     <>
-      <PageHeader title="Cushion your portfolio" lead="Pick the bad scenarios you want covered. Cushion prices each one against a live market." />
+      <PageHeader title="Cushion your portfolio" lead="Pick what worries you, then drag the line on its chart to where your cushion should start paying. Cushion prices it against a live market." />
       <div className="flex flex-wrap items-start gap-6">
         <HoldingsCard holdings={holdings} reads={reads} reading={reading} />
 
@@ -72,15 +83,45 @@ export default function PortfolioPage() {
             <p className="rounded-[24px] bg-card p-5 text-[15px] leading-relaxed text-body">{empty.list}</p>
           ) : (
             <div className="arrive flex flex-col gap-3">
-              {scenarios.map((scenario) => (
-                <ScenarioCard
-                  key={scenario.id}
-                  scenario={scenario}
-                  pressed={active.includes(scenario.id)}
-                  blocked={legsUsed + scenario.cushion.legs.length > MAX_LEGS}
-                  onToggle={() => toggle(scenario.id)}
+              <div role="group" aria-label="Choose what to look at" className="flex flex-wrap gap-2">
+                {scenarios.map((scenario) => (
+                  <Chip key={scenario.id} pressed={scenario.id === shown.id} onClick={() => setShownId(scenario.id)}>
+                    {sentence(scenario.chart.name)}
+                    {active.includes(scenario.id) ? <span className="ml-2 text-[12px] font-semibold opacity-80">Cushioned</span> : null}
+                  </Chip>
+                ))}
+              </div>
+
+              <Card className="flex flex-col gap-3 p-5">
+                <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                  <h3 className="display text-[20px] font-semibold tracking-[-0.01em]">
+                    {sentence(shown.chart.name)}, and where your cushion starts
+                  </h3>
+                  <span className="tabular text-[14px] text-body">
+                    {shown.protective ? "Cover starts" : "Pays"} {shown.chart.falling ? "under" : "over"}{" "}
+                    <strong className="text-covered">{(shown.chart.unit === "index" ? formatLevel : formatPrice)(shown.chart.start)}</strong>
+                  </span>
+                </div>
+                <LevelChart
+                  history={history ? (history[shown.chart.symbol] ?? []) : undefined}
+                  chart={shown.chart}
+                  until={day.format(new Date(shown.expiry))}
+                  onStart={(level) => setStarts((previous) => ({ ...previous, [shown.id]: level }))}
                 />
-              ))}
+                <p className="text-[13px] leading-relaxed text-muted-foreground">
+                  Each dashed line is a level Gemini lists a market at. Drag the blue line, or press another one, to choose where your cushion starts
+                  paying{shown.chart.unit === "price" ? ": below the price it pays on a fall, above it on a rise" : ""}. Further from the price costs
+                  less. The orange band is the move before it pays, and the blue band is where it pays.
+                </p>
+              </Card>
+
+              <ScenarioCard
+                key={shown.id}
+                scenario={shown}
+                pressed={active.includes(shown.id)}
+                blocked={legsUsed + shown.cushion.legs.length > MAX_LEGS}
+                onToggle={() => toggle(shown.id)}
+              />
             </div>
           )}
         </section>

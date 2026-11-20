@@ -65,6 +65,30 @@ describe("buildScenarios: coins and commodities", () => {
     expect(scenario.loss).toBeCloseTo((1000 * 7500) / 62500, 5);
   });
 
+  it("starts cover at the level the person moved it to, and lists every level for the chart", () => {
+    const [scenario] = buildScenarios(input({ exposures: [btcExposure(1000)], ladders }), { "ladder:BTC": 57500 });
+    expect(scenario.cushion.legs.map((l) => [l.side, l.strike])).toEqual([
+      ["no", 57500],
+      ["no", 55000],
+    ]);
+    expect(scenario.chart).toMatchObject({ symbol: "BTC", unit: "price", spot: 62500, falling: true, start: 57500, end: 55000 });
+    expect(scenario.chart.levels).toEqual([70000, 67500, 65000, 62500, 60000, 57500, 55000]);
+    expect(scenario.protective).toBe(true);
+    // A level the market does not list is ignored.
+    expect(buildScenarios(input({ exposures: [btcExposure(1000)], ladders }), { "ladder:BTC": 58000 })[0].chart.start).toBe(60000);
+  });
+
+  it("pays on a rise when the level is moved above the price, and says that is a bet for someone who holds it", () => {
+    const [scenario] = buildScenarios(input({ exposures: [btcExposure(1000)], ladders }), { "ladder:BTC": 67500 });
+    expect(scenario.cushion.legs.map((l) => [l.side, l.strike])).toEqual([
+      ["yes", 67500],
+      ["yes", 70000],
+    ]);
+    expect(scenario).toMatchObject({ protective: false, loss: 0, title: "Bitcoin climbs 12% by Nov 30" });
+    expect(scenario.hurts).toBe("A rise helps your BTC, so this is a bet on top, not a cushion");
+    expect(scenario.chart).toMatchObject({ falling: false, start: 67500, end: 70000 });
+  });
+
   it("covers a rise with YES for a holding that moves against the market, and says it is an estimate", () => {
     const against: Exposure = { underlying: "BTC", dollars: -500, holdings: [{ symbol: "SHORT", value: 500, status: "tracks", underlying: "BTC", fit: { beta: -1, r2: 0.5, days: 100 } }] };
     const [scenario] = buildScenarios(input({ exposures: [against], ladders }));

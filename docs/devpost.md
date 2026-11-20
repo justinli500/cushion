@@ -14,7 +14,7 @@ Cushion turns prediction markets into everyday protection. Tell it what you have
 A web app with a landing page and six sections that all work the same way: you say what you have at stake, Cushion finds the Gemini prediction markets that move against it, and prices cover on the live order book.
 
 - **Today**: the news market that moved most in a day, what is coming up, a card for each thing you have at stake, and news markets you can take a side on.
-- **Portfolio**: enter coins and stocks. Cushion works out what each one really moves with, turns each into a scenario you switch on, and shows your loss with and without the cushions you chose.
+- **Portfolio**: enter coins and stocks. Cushion works out what each one really moves with and charts it, with every level Gemini lists a market at drawn across the chart. You drag a line to where your cushion should start paying, and see your loss with and without it.
 - **Live games**: a second screen for a game, with the score, play by play and a win-chance chart, plus a cushion that pays if your team loses. You watch what the cushion is worth after each score and can cash it out. A recorded game runs as if live, in step with a broadcast of it, so it works any time.
 - **Bills**: cover against a jump in gas or heating costs, bought once or re-bought daily on autopilot.
 - **Fantasy**: a roster of your players, with an example lineup of this week's real players to start from. Pick a player to see every way to cushion him, and get paid back when he has a bad game.
@@ -65,7 +65,7 @@ Gemini Prediction Markets API (market data), Solana devnet (Memo program), Next.
 # Demo video script (2 to 3 minutes)
 
 1. **Landing and Today (20 s).** "Prediction markets are usually a place to bet. Cushion uses them to protect what you already have riding on tomorrow." On the landing page, tap two stakes and show each priced as one number. Open the app and show Today with live odds.
-2. **Portfolio (40 s).** Add BTC $2,000, MSTR $800 and NVDA $2,500. Point out that MicroStrategy is read as Bitcoin exposure and Nvidia as S&P exposure, each marked an estimate. Switch on two scenarios, show the loss bars with and without the cushion, and buy it.
+2. **Portfolio (40 s).** Add BTC $2,000, MSTR $800 and NVDA $2,500. Point out that MicroStrategy is read as Bitcoin exposure and Nvidia as S&P exposure, each marked an estimate. On the Bitcoin chart, drag the line down a level and show the price of the cushion fall. Add it, show the loss bars with and without the cushion, and buy it.
 3. **Live game (40 s).** Open Colts at Texans and press play on the broadcast. Show the score, plays and Gemini's real traded odds moving with it. Root for the Colts, add a loss cushion, jump to a touchdown and show what the cushion is worth now, then jump to the final and show it settle.
 4. **Small business (25 s).** Pick a food truck in Austin, enter a bad-day cost, and show the cold-day cushion priced on the live book, including the thin-market note if it appears.
 5. **Bills and fantasy (20 s).** Show the gas cover with spikes-only against full, then open Fantasy, pick two players from the example lineup and cover both at once.

@@ -30,15 +30,17 @@ export function ScenarioCard({ scenario, pressed, blocked, onToggle }: { scenari
             {scenario.estimate ? <Tag>Estimate</Tag> : null}
           </span>
         </span>
-        <ToggleTag pressed={pressed} />
+        <ToggleTag pressed={pressed} on={scenario.protective ? "Cushioned" : "Added"} />
       </span>
 
       <span className="tabular flex flex-wrap gap-x-6 gap-y-2 text-[14px]">
+        {scenario.protective ? (
+          <span>
+            You&rsquo;d lose about <strong className="text-risk">{formatUsdWhole(scenario.loss)}</strong>
+          </span>
+        ) : null}
         <span>
-          You&rsquo;d lose about <strong className="text-risk">{formatUsdWhole(scenario.loss)}</strong>
-        </span>
-        <span>
-          Cushion costs <strong>{quote && !unsold ? whole(quote.cost) : books.error ? "n/a" : "…"}</strong>
+          {scenario.protective ? "Cushion costs" : "Costs"} <strong>{quote && !unsold ? whole(quote.cost) : books.error ? "n/a" : "…"}</strong>
         </span>
         <span>
           Pays <strong className="text-covered">{quote && !unsold ? whole(quote.maxPayout) : books.error ? "n/a" : "…"}</strong>
