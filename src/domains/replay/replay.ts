@@ -23,8 +23,19 @@ export const replaySchema = z.object({
   final: z.boolean(),
   /** Gemini's picture for the game's sport. */
   image: z.string().optional(),
-  /** A broadcast of the game that was streamed live, so its timeline matches the plays and trades. */
-  video: z.object({ youtubeId: z.string().regex(/^[\w-]{6,20}$/), startedAt: z.string(), by: z.string() }).optional(),
+  /**
+   * A video of the game. A stream that ran live gives `startedAt`, when it began, so its timeline is the game's.
+   * A highlights reel gives `sync`: pairs of a second of the video and the moment of the game on screen then.
+   */
+  video: z
+    .object({
+      youtubeId: z.string().regex(/^[\w-]{6,20}$/),
+      startedAt: z.string().optional(),
+      sync: z.array(z.tuple([z.number(), z.number()])).min(2).optional(),
+      by: z.string(),
+    })
+    .refine((video) => video.startedAt != null || video.sync != null)
+    .optional(),
   home: teamSchema,
   away: teamSchema,
   plays: z
@@ -111,6 +122,22 @@ export function cleaned(replay: Replay): Replay {
 
 export function replaySpan(replay: Replay): { start: number; end: number } {
   return { start: replay.plays[0].t - LEAD_IN_MS, end: replay.plays[replay.plays.length - 1].t + RUN_OUT_MS };
+}
+
+/**
+ * Reads a value off the straight lines drawn through `points`, from one column to the other: a second of a
+ * highlights reel to the moment of the game, or back. Past either end it holds the end. Where the reel holds
+ * the game still, a moment of the game reads as the first second of the video that shows it.
+ */
+export function along(points: [number, number][], value: number, from: 0 | 1): number {
+  const to = from === 0 ? 1 : 0;
+  if (value <= points[0][from]) return points[0][to];
+  for (let i = 1; i < points.length; i++) {
+    const a = points[i - 1];
+    const b = points[i];
+    if (value <= b[from] && b[from] > a[from]) return a[to] + ((value - a[from]) / (b[from] - a[from])) * (b[to] - a[to]);
+  }
+  return points[points.length - 1][to];
 }
 
 /** The last traded price at or before `at`, or null if the contract had not traded yet. */

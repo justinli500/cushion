@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { teamLossLegs } from "@/domains/cushion/legs";
 import { priceCushion, settleLegs, filledLegs } from "@/domains/cushion/price";
-import { frameAt, moments, replayBooks, replayResolutions, replaySchema, replaySpan, valueNow, cleaned, type Replay } from "@/domains/replay/replay";
+import { along, frameAt, moments, replayBooks, replayResolutions, replaySchema, replaySpan, valueNow, cleaned, type Replay } from "@/domains/replay/replay";
 
 const KICKOFF = Date.UTC(2026, 10, 20, 1, 15);
 const MIN = 60_000;
@@ -136,5 +136,30 @@ describe("cleaned", () => {
   it("leaves a normal game untouched", () => {
     const normal = game([[1, 0.85], [3, 0.83], [5, 0.9]], [[2, 0.16], [4, 0.15], [6, 0.1]]);
     expect(prices(cleaned(normal))).toEqual(prices(normal));
+  });
+});
+
+describe("along", () => {
+  // A reel that plays 10 seconds of game per second, holds the game still from 20 to 30, then moves on.
+  const reel: [number, number][] = [
+    [0, 1000],
+    [20, 1200],
+    [30, 1200],
+    [40, 1500],
+  ];
+
+  it("reads the moment of the game from a second of the video, holding either end", () => {
+    expect(along(reel, 10, 0)).toBe(1100);
+    expect(along(reel, 25, 0)).toBe(1200);
+    expect(along(reel, 35, 0)).toBe(1350);
+    expect(along(reel, -5, 0)).toBe(1000);
+    expect(along(reel, 99, 0)).toBe(1500);
+  });
+
+  it("reads the second of the video from a moment of the game, taking the first that shows it", () => {
+    expect(along(reel, 1100, 1)).toBe(10);
+    expect(along(reel, 1200, 1)).toBe(20);
+    expect(along(reel, 1350, 1)).toBe(35);
+    expect(along(reel, 5000, 1)).toBe(40);
   });
 });

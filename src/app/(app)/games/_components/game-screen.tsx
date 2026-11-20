@@ -133,8 +133,8 @@ function Ready({ view, game }: { view: GameView; game: Game }) {
             <StreamTags view={view} game={game} />
             {view.replay?.video ? (
               <p className="text-[12px] leading-relaxed text-muted-foreground">
-                Play-by-play broadcast by {view.replay.video.by} on YouTube. The score, plays and prices follow the video, so pause or scrub it
-                and everything moves with it.
+                Video by {view.replay.video.by} on YouTube. The score, plays and prices follow the video as closely as its cuts allow, so pause or
+                scrub it and everything moves with it.
               </p>
             ) : null}
             {view.replay ? <Moments replay={view.replay} /> : null}

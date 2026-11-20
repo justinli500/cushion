@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { record, useAccount } from "@/domains/account/store";
 import { settleLegs } from "@/domains/cushion/price";
-import { cleaned, frameAt, moments, replayBooks, replayResolutions, replaySchema, replaySpan, type Replay } from "@/domains/replay/replay";
+import { along, cleaned, frameAt, moments, replayBooks, replayResolutions, replaySchema, replaySpan, type Replay } from "@/domains/replay/replay";
 import { usePoll } from "@/lib/use-poll";
 import type { GameView } from "./view";
 
@@ -34,8 +34,12 @@ export function useReplayGame(): GameView {
 
   const length = span ? span.end - span.start : 0;
   const video = replay?.video && !videoFailed ? replay.video : null;
-  const streamStart = video ? Date.parse(video.startedAt) : 0;
-  const videoElapsed = video && span && videoSeconds != null ? streamStart + videoSeconds * 1000 - span.start : null;
+  // A live stream's timeline is the game's, offset by when it began. A highlights reel is read off its sync points.
+  const streamStart = video?.startedAt ? Date.parse(video.startedAt) : 0;
+  const sync = video?.sync;
+  const gameAt = (seconds: number) => (sync ? along(sync, seconds, 0) : streamStart + seconds * 1000);
+  const videoAt = (moment: number) => (sync ? along(sync, moment, 1) : (moment - streamStart) / 1000);
+  const videoElapsed = video && span && videoSeconds != null ? gameAt(videoSeconds) - span.start : null;
   const elapsed = Math.max(0, Math.min(length, videoElapsed ?? ownElapsed));
   const atEnd = length > 0 && elapsed >= length;
 
@@ -111,7 +115,7 @@ export function useReplayGame(): GameView {
       seek: (progress) => {
         const target = Math.max(0, Math.min(1, progress)) * length;
         if (!video) return setElapsed(target);
-        const seconds = (span.start + target - streamStart) / 1000;
+        const seconds = videoAt(span.start + target);
         setVideoSeconds(seconds);
         setJump((previous) => ({ seconds, nonce: (previous?.nonce ?? 0) + 1 }));
       },
@@ -120,7 +124,7 @@ export function useReplayGame(): GameView {
             youtubeId: video.youtubeId,
             by: video.by,
             // Open just before kickoff, skipping the pre-game show.
-            startSeconds: (span.start - streamStart) / 1000,
+            startSeconds: videoAt(span.start),
             jump,
             onTime: setVideoSeconds,
             onUnavailable: () => setVideoFailed(true),
