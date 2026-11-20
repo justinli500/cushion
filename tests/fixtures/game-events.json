@@ -1,0 +1,4344 @@
+[
+ {
+  "ticker": "NFL-2611200115-IND-HOU-M",
+  "title": "Indianapolis vs Houston",
+  "type": "categorical",
+  "category": "Sports",
+  "status": "active",
+  "startTime": "2026-11-20T01:15:00.000Z",
+  "expiryDate": "2026-11-21T13:15:00.000Z",
+  "isLive": true,
+  "gameId": "68932cc3-c0ad-4924-8e52-4e403cb4df5a",
+  "participants": [
+   {
+    "id": "434",
+    "name": "Houston Texans",
+    "abbreviation": "HOU",
+    "side": "home"
+   },
+   {
+    "id": "435",
+    "name": "Indianapolis Colts",
+    "abbreviation": "IND",
+    "side": "away"
+   }
+  ],
+  "template": "sports-game",
+  "sportsMarket": {
+   "sport": "american_football",
+   "type": "moneyline",
+   "subject": "contest",
+   "scope": {
+    "type": "full_contest"
+   },
+   "team": {
+    "symbol": "IND",
+    "name": "Indianapolis Colts",
+    "externalIds": {
+     "sportradarId": "82cf9565-6eb9-4f01-bdbd-5aa0d472fcd9"
+    }
+   }
+  },
+  "volume": "44571.28",
+  "contracts": [
+   {
+    "label": "Houston",
+    "ticker": "HOU",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-M-HOU",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.91",
+      "no": "0.84"
+     },
+     "sell": {
+      "yes": "0.16",
+      "no": "0.09"
+     },
+     "bestBid": "0.16",
+     "bestAsk": "0.91",
+     "lastTradePrice": "0.85"
+    }
+   },
+   {
+    "label": "Indianapolis",
+    "ticker": "IND",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-M-IND",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.11",
+      "no": "0.95"
+     },
+     "sell": {
+      "yes": "0.05",
+      "no": "0.89"
+     },
+     "bestBid": "0.05",
+     "bestAsk": "0.11",
+     "lastTradePrice": "0.05"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "NFL-2611200115-IND-HOU-S",
+  "title": "Indianapolis vs Houston: Point Spread",
+  "type": "categorical",
+  "category": "Sports",
+  "status": "active",
+  "startTime": "2026-11-20T01:15:00.000Z",
+  "expiryDate": "2026-11-21T13:15:00.000Z",
+  "isLive": true,
+  "gameId": "68932cc3-c0ad-4924-8e52-4e403cb4df5a",
+  "participants": [
+   {
+    "id": "434",
+    "name": "Houston Texans",
+    "abbreviation": "HOU",
+    "side": "home"
+   },
+   {
+    "id": "435",
+    "name": "Indianapolis Colts",
+    "abbreviation": "IND",
+    "side": "away"
+   }
+  ],
+  "template": "sports-spread",
+  "sportsMarket": {
+   "sport": "american_football",
+   "type": "spread",
+   "subject": "team",
+   "scope": {
+    "type": "full_contest"
+   },
+   "metric": "points"
+  },
+  "volume": "17720.37",
+  "contracts": [
+   {
+    "label": "Houston wins by more than 1.5 points",
+    "ticker": "HOU1",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-HOU1",
+    "strike": {
+     "type": "spread",
+     "value": "1.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.91",
+      "no": "0.15"
+     },
+     "sell": {
+      "yes": "0.85",
+      "no": "0.09"
+     },
+     "bestBid": "0.85",
+     "bestAsk": "0.91",
+     "lastTradePrice": "0.19"
+    }
+   },
+   {
+    "label": "Houston wins by more than 2.5 points",
+    "ticker": "HOU2",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-HOU2",
+    "strike": {
+     "type": "spread",
+     "value": "2.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.9",
+      "no": "0.13"
+     },
+     "sell": {
+      "yes": "0.87",
+      "no": "0.1"
+     },
+     "bestBid": "0.87",
+     "bestAsk": "0.9",
+     "lastTradePrice": "0.78"
+    }
+   },
+   {
+    "label": "Houston wins by more than 3.5 points",
+    "ticker": "HOU3",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-HOU3",
+    "strike": {
+     "type": "spread",
+     "value": "3.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.83",
+      "no": "0.24"
+     },
+     "sell": {
+      "yes": "0.76",
+      "no": "0.17"
+     },
+     "bestAsk": "0.83",
+     "lastTradePrice": "0.76"
+    }
+   },
+   {
+    "label": "Houston wins by more than 6.5 points",
+    "ticker": "HOU6",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-HOU6",
+    "strike": {
+     "type": "spread",
+     "value": "6.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.73",
+      "no": "0.27"
+     },
+     "sell": {
+      "yes": "0.73",
+      "no": "0.27"
+     },
+     "lastTradePrice": "0.73"
+    }
+   },
+   {
+    "label": "Houston wins by more than 9.5 points",
+    "ticker": "HOU9",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-HOU9",
+    "strike": {
+     "type": "spread",
+     "value": "9.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.67",
+      "no": "0.41"
+     },
+     "sell": {
+      "yes": "0.59",
+      "no": "0.33"
+     },
+     "bestBid": "0.59",
+     "bestAsk": "0.67",
+     "lastTradePrice": "0.54"
+    }
+   },
+   {
+    "label": "Houston wins by more than 10.5 points",
+    "ticker": "HOU10",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-HOU10",
+    "strike": {
+     "type": "spread",
+     "value": "10.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.64",
+      "no": "0.45"
+     },
+     "sell": {
+      "yes": "0.55",
+      "no": "0.36"
+     },
+     "bestBid": "0.55",
+     "bestAsk": "0.64",
+     "lastTradePrice": "0.55"
+    }
+   },
+   {
+    "label": "Houston wins by more than 13.5 points",
+    "ticker": "HOU13",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-HOU13",
+    "strike": {
+     "type": "spread",
+     "value": "13.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.59",
+      "no": "0.52"
+     },
+     "sell": {
+      "yes": "0.48",
+      "no": "0.41"
+     },
+     "bestBid": "0.48",
+     "bestAsk": "0.59",
+     "lastTradePrice": "0.23"
+    }
+   },
+   {
+    "label": "Houston wins by more than 4.5 points",
+    "ticker": "HOU4",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-HOU4",
+    "strike": {
+     "type": "spread",
+     "value": "4.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.57",
+      "no": "0.22"
+     },
+     "sell": {
+      "yes": "0.78",
+      "no": "0.43"
+     },
+     "bestBid": "0.78",
+     "lastTradePrice": "0.57"
+    }
+   },
+   {
+    "label": "Houston wins by more than 7.5 points",
+    "ticker": "HOU7",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-HOU7",
+    "strike": {
+     "type": "spread",
+     "value": "7.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.57",
+      "no": "0.43"
+     },
+     "sell": {
+      "yes": "0.57",
+      "no": "0.43"
+     },
+     "lastTradePrice": "0.57"
+    }
+   },
+   {
+    "label": "Houston wins by more than 14.5 points",
+    "ticker": "HOU14",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-HOU14",
+    "strike": {
+     "type": "spread",
+     "value": "14.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.51",
+      "no": "0.58"
+     },
+     "sell": {
+      "yes": "0.42",
+      "no": "0.49"
+     },
+     "bestBid": "0.42",
+     "bestAsk": "0.51",
+     "lastTradePrice": "0.45"
+    }
+   },
+   {
+    "label": "Houston wins by more than 17.5 points",
+    "ticker": "HOU17",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-HOU17",
+    "strike": {
+     "type": "spread",
+     "value": "17.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.41",
+      "no": "0.67"
+     },
+     "sell": {
+      "yes": "0.33",
+      "no": "0.59"
+     },
+     "bestBid": "0.33",
+     "bestAsk": "0.41",
+     "lastTradePrice": "0.33"
+    }
+   },
+   {
+    "label": "Houston wins by more than 16.5 points",
+    "ticker": "HOU16",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-HOU16",
+    "strike": {
+     "type": "spread",
+     "value": "16.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.37",
+      "no": "0.58"
+     },
+     "sell": {
+      "yes": "0.42",
+      "no": "0.63"
+     },
+     "bestBid": "0.42",
+     "lastTradePrice": "0.37"
+    }
+   },
+   {
+    "label": "Indianapolis wins by more than 4.5 points",
+    "ticker": "IND4",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-IND4",
+    "strike": {
+     "type": "spread",
+     "value": "4.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.09"
+     },
+     "sell": {
+      "no": "0.91"
+     },
+     "bestAsk": "0.09"
+    }
+   },
+   {
+    "label": "Indianapolis wins by more than 1.5 points",
+    "ticker": "IND1",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-IND1",
+    "strike": {
+     "type": "spread",
+     "value": "1.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.09",
+      "no": "0.94"
+     },
+     "sell": {
+      "yes": "0.06",
+      "no": "0.91"
+     },
+     "bestBid": "0.06",
+     "bestAsk": "0.09",
+     "lastTradePrice": "0.18"
+    }
+   },
+   {
+    "label": "Indianapolis wins by more than 9.5 points",
+    "ticker": "IND9",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-IND9",
+    "strike": {
+     "type": "spread",
+     "value": "9.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.06"
+     },
+     "sell": {
+      "no": "0.94"
+     },
+     "bestAsk": "0.06"
+    }
+   },
+   {
+    "label": "Indianapolis wins by more than 10.5 points",
+    "ticker": "IND10",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-IND10",
+    "strike": {
+     "type": "spread",
+     "value": "10.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.05"
+     },
+     "sell": {
+      "no": "0.95"
+     },
+     "bestAsk": "0.05"
+    }
+   },
+   {
+    "label": "Houston wins by more than 5.5 points",
+    "ticker": "HOU5",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-HOU5",
+    "strike": {
+     "type": "spread",
+     "value": "5.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Houston wins by more than 20.5 points",
+    "ticker": "HOU20",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-HOU20",
+    "strike": {
+     "type": "spread",
+     "value": "20.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Houston wins by more than 23.5 points",
+    "ticker": "HOU23",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-HOU23",
+    "strike": {
+     "type": "spread",
+     "value": "23.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Indianapolis wins by more than 5.5 points",
+    "ticker": "IND5",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-IND5",
+    "strike": {
+     "type": "spread",
+     "value": "5.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Indianapolis wins by more than 7.5 points",
+    "ticker": "IND7",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-IND7",
+    "strike": {
+     "type": "spread",
+     "value": "7.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Indianapolis wins by more than 3.5 points",
+    "ticker": "IND3",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-IND3",
+    "strike": {
+     "type": "spread",
+     "value": "3.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Indianapolis wins by more than 6.5 points",
+    "ticker": "IND6",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-IND6",
+    "strike": {
+     "type": "spread",
+     "value": "6.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Indianapolis wins by more than 2.5 points",
+    "ticker": "IND2",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-IND2",
+    "strike": {
+     "type": "spread",
+     "value": "2.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Houston wins by more than 27.5 points",
+    "ticker": "HOU27",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-HOU27",
+    "strike": {
+     "type": "spread",
+     "value": "27.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Houston wins by more than 30.5 points",
+    "ticker": "HOU30",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-S-HOU30",
+    "strike": {
+     "type": "spread",
+     "value": "30.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "NFL-2611200115-IND-HOU-T",
+  "title": "Indianapolis vs Houston: Total Points",
+  "type": "categorical",
+  "category": "Sports",
+  "status": "active",
+  "startTime": "2026-11-20T01:15:00.000Z",
+  "expiryDate": "2026-11-21T13:15:00.000Z",
+  "isLive": true,
+  "gameId": "68932cc3-c0ad-4924-8e52-4e403cb4df5a",
+  "participants": [
+   {
+    "id": "434",
+    "name": "Houston Texans",
+    "abbreviation": "HOU",
+    "side": "home"
+   },
+   {
+    "id": "435",
+    "name": "Indianapolis Colts",
+    "abbreviation": "IND",
+    "side": "away"
+   }
+  ],
+  "template": "sports-total",
+  "sportsMarket": {
+   "sport": "american_football",
+   "type": "total",
+   "subject": "contest",
+   "scope": {
+    "type": "full_contest"
+   },
+   "metric": "points"
+  },
+  "volume": "8883.54",
+  "contracts": [
+   {
+    "label": "More than 29.5 points scored",
+    "ticker": "O29",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-T-O29",
+    "strike": {
+     "type": "over",
+     "value": "29.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.9",
+      "no": "0.1"
+     },
+     "sell": {
+      "yes": "0.9",
+      "no": "0.1"
+     },
+     "lastTradePrice": "0.9"
+    }
+   },
+   {
+    "label": "More than 32.5 points scored",
+    "ticker": "O32",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-T-O32",
+    "strike": {
+     "type": "over",
+     "value": "32.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.85",
+      "no": "0.15"
+     },
+     "sell": {
+      "yes": "0.85",
+      "no": "0.15"
+     },
+     "lastTradePrice": "0.85"
+    }
+   },
+   {
+    "label": "More than 35.5 points scored",
+    "ticker": "O35",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-T-O35",
+    "strike": {
+     "type": "over",
+     "value": "35.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.84",
+      "no": "0.28"
+     },
+     "sell": {
+      "yes": "0.72",
+      "no": "0.16"
+     },
+     "bestBid": "0.72",
+     "lastTradePrice": "0.84"
+    }
+   },
+   {
+    "label": "More than 41.5 points scored",
+    "ticker": "O41",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-T-O41",
+    "strike": {
+     "type": "over",
+     "value": "41.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.61",
+      "no": "0.49"
+     },
+     "sell": {
+      "yes": "0.51",
+      "no": "0.39"
+     },
+     "bestBid": "0.51",
+     "bestAsk": "0.61",
+     "lastTradePrice": "0.61"
+    }
+   },
+   {
+    "label": "More than 42.5 points scored",
+    "ticker": "O42",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-T-O42",
+    "strike": {
+     "type": "over",
+     "value": "42.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.57",
+      "no": "0.52"
+     },
+     "sell": {
+      "yes": "0.48",
+      "no": "0.43"
+     },
+     "bestBid": "0.48",
+     "bestAsk": "0.57",
+     "lastTradePrice": "0.57"
+    }
+   },
+   {
+    "label": "More than 43.5 points scored",
+    "ticker": "O43",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-T-O43",
+    "strike": {
+     "type": "over",
+     "value": "43.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.54",
+      "no": "0.49"
+     },
+     "sell": {
+      "yes": "0.51",
+      "no": "0.46"
+     },
+     "bestBid": "0.51",
+     "bestAsk": "0.54",
+     "lastTradePrice": "0.52"
+    }
+   },
+   {
+    "label": "More than 44.5 points scored",
+    "ticker": "O44",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-T-O44",
+    "strike": {
+     "type": "over",
+     "value": "44.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.51",
+      "no": "0.59"
+     },
+     "sell": {
+      "yes": "0.41",
+      "no": "0.49"
+     },
+     "bestBid": "0.41",
+     "bestAsk": "0.51",
+     "lastTradePrice": "0.49"
+    }
+   },
+   {
+    "label": "More than 47.5 points scored",
+    "ticker": "O47",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-T-O47",
+    "strike": {
+     "type": "over",
+     "value": "47.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.45",
+      "no": "0.55"
+     },
+     "sell": {
+      "yes": "0.45",
+      "no": "0.55"
+     },
+     "lastTradePrice": "0.45"
+    }
+   },
+   {
+    "label": "More than 45.5 points scored",
+    "ticker": "O45",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-T-O45",
+    "strike": {
+     "type": "over",
+     "value": "45.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.44",
+      "no": "0.64"
+     },
+     "sell": {
+      "yes": "0.36",
+      "no": "0.56"
+     },
+     "bestBid": "0.36",
+     "bestAsk": "0.44",
+     "lastTradePrice": "0.44"
+    }
+   },
+   {
+    "label": "More than 46.5 points scored",
+    "ticker": "O46",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-T-O46",
+    "strike": {
+     "type": "over",
+     "value": "46.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.42",
+      "no": "0.66"
+     },
+     "sell": {
+      "yes": "0.34",
+      "no": "0.58"
+     },
+     "bestBid": "0.34",
+     "bestAsk": "0.42",
+     "lastTradePrice": "0.41"
+    }
+   },
+   {
+    "label": "More than 53.5 points scored",
+    "ticker": "O53",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-T-O53",
+    "strike": {
+     "type": "over",
+     "value": "53.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.23",
+      "no": "0.77"
+     },
+     "sell": {
+      "yes": "0.23",
+      "no": "0.77"
+     },
+     "lastTradePrice": "0.23"
+    }
+   },
+   {
+    "label": "More than 62.5 points scored",
+    "ticker": "O62",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-T-O62",
+    "strike": {
+     "type": "over",
+     "value": "62.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.12",
+      "no": "0.91"
+     },
+     "sell": {
+      "yes": "0.09",
+      "no": "0.88"
+     },
+     "bestAsk": "0.12",
+     "lastTradePrice": "0.09"
+    }
+   },
+   {
+    "label": "More than 56.5 points scored",
+    "ticker": "O56",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-T-O56",
+    "strike": {
+     "type": "over",
+     "value": "56.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "More than 38.5 points scored",
+    "ticker": "O38",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-T-O38",
+    "strike": {
+     "type": "over",
+     "value": "38.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "More than 23.5 points scored",
+    "ticker": "O23",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-T-O23",
+    "strike": {
+     "type": "over",
+     "value": "23.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "no": "0.05"
+     },
+     "sell": {
+      "yes": "0.95"
+     },
+     "bestBid": "0.95"
+    }
+   },
+   {
+    "label": "More than 26.5 points scored",
+    "ticker": "O26",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-T-O26",
+    "strike": {
+     "type": "over",
+     "value": "26.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "More than 50.5 points scored",
+    "ticker": "O50",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-T-O50",
+    "strike": {
+     "type": "over",
+     "value": "50.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "More than 65.5 points scored",
+    "ticker": "O65",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-T-O65",
+    "strike": {
+     "type": "over",
+     "value": "65.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "More than 59.5 points scored",
+    "ticker": "O59",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-T-O59",
+    "strike": {
+     "type": "over",
+     "value": "59.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "NFL-2611200115-IND-HOU-PPRECY",
+  "title": "Indianapolis vs Houston: Player Receiving Yards",
+  "type": "categorical",
+  "category": "Sports",
+  "status": "active",
+  "startTime": "2026-11-20T01:15:00.000Z",
+  "expiryDate": "2026-11-21T13:15:00.000Z",
+  "isLive": true,
+  "gameId": "68932cc3-c0ad-4924-8e52-4e403cb4df5a",
+  "participants": [
+   {
+    "id": "434",
+    "name": "Houston Texans",
+    "abbreviation": "HOU",
+    "side": "home"
+   },
+   {
+    "id": "435",
+    "name": "Indianapolis Colts",
+    "abbreviation": "IND",
+    "side": "away"
+   }
+  ],
+  "template": "sports-player-props",
+  "sportsMarket": {
+   "sport": "american_football",
+   "type": "prop",
+   "subject": "player",
+   "scope": {
+    "type": "full_contest"
+   },
+   "metric": "receiving_yards",
+   "team": {
+    "symbol": "IND",
+    "name": "Indianapolis Colts",
+    "externalIds": {
+     "sportradarId": "82cf9565-6eb9-4f01-bdbd-5aa0d472fcd9"
+    }
+   },
+   "player": {
+    "symbol": "DULIN",
+    "name": "Ashton Dulin",
+    "externalIds": {
+     "sportradarId": "f374262b-d642-4d05-9584-5955548ee4d1",
+     "officialLeagueId": "00-0035021",
+     "officialLeagueSource": "nfl_gsis"
+    },
+    "position": "WR",
+    "number": "16"
+   }
+  },
+  "volume": "5058.49",
+  "contracts": [
+   {
+    "label": "Nico Collins 40+ Receiving Yards",
+    "ticker": "NCOLLINSO39",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-NCOLLINSO39",
+    "strike": {
+     "type": "over",
+     "value": "39.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.8",
+      "no": "0.2"
+     },
+     "sell": {
+      "yes": "0.8",
+      "no": "0.2"
+     },
+     "lastTradePrice": "0.8"
+    }
+   },
+   {
+    "label": "Tank Dell 25+ Receiving Yards",
+    "ticker": "DELLO24",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DELLO24",
+    "strike": {
+     "type": "over",
+     "value": "24.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.73",
+      "no": "0.27"
+     },
+     "sell": {
+      "yes": "0.73",
+      "no": "0.27"
+     },
+     "lastTradePrice": "0.73"
+    }
+   },
+   {
+    "label": "Nico Collins 50+ Receiving Yards",
+    "ticker": "NCOLLINSO49",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-NCOLLINSO49",
+    "strike": {
+     "type": "over",
+     "value": "49.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.71",
+      "no": "0.29"
+     },
+     "sell": {
+      "yes": "0.71",
+      "no": "0.29"
+     },
+     "lastTradePrice": "0.71"
+    }
+   },
+   {
+    "label": "Laquon Treadwell 10+ Receiving Yards",
+    "ticker": "TREADWELLO9",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-TREADWELLO9",
+    "strike": {
+     "type": "over",
+     "value": "9.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.69",
+      "no": "0.32"
+     },
+     "sell": {
+      "yes": "0.68",
+      "no": "0.31"
+     },
+     "bestBid": "0.68",
+     "bestAsk": "0.69"
+    }
+   },
+   {
+    "label": "Jonathan Taylor 10+ Receiving Yards",
+    "ticker": "JTAYLOR2O9",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-JTAYLOR2O9",
+    "strike": {
+     "type": "over",
+     "value": "9.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.66"
+     },
+     "sell": {
+      "no": "0.34"
+     },
+     "bestAsk": "0.66"
+    }
+   },
+   {
+    "label": "Tyler Warren 20+ Receiving Yards",
+    "ticker": "TWARRENO19",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-TWARRENO19",
+    "strike": {
+     "type": "over",
+     "value": "19.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.66",
+      "no": "0.35"
+     },
+     "sell": {
+      "yes": "0.65",
+      "no": "0.34"
+     },
+     "bestBid": "0.65",
+     "bestAsk": "0.66",
+     "lastTradePrice": "0.75"
+    }
+   },
+   {
+    "label": "Anthony Gould 40+ Receiving Yards",
+    "ticker": "GOULDO39",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-GOULDO39",
+    "strike": {
+     "type": "over",
+     "value": "39.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.65",
+      "no": "0.36"
+     },
+     "sell": {
+      "yes": "0.64",
+      "no": "0.35"
+     },
+     "bestBid": "0.64",
+     "bestAsk": "0.65",
+     "lastTradePrice": "0.26"
+    }
+   },
+   {
+    "label": "Laquon Treadwell 15+ Receiving Yards",
+    "ticker": "TREADWELLO14",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-TREADWELLO14",
+    "strike": {
+     "type": "over",
+     "value": "14.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.58",
+      "no": "0.43"
+     },
+     "sell": {
+      "yes": "0.57",
+      "no": "0.42"
+     },
+     "bestBid": "0.57",
+     "bestAsk": "0.58"
+    }
+   },
+   {
+    "label": "Tyler Warren 25+ Receiving Yards",
+    "ticker": "TWARRENO24",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-TWARRENO24",
+    "strike": {
+     "type": "over",
+     "value": "24.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.57",
+      "no": "0.45"
+     },
+     "sell": {
+      "yes": "0.55",
+      "no": "0.43"
+     },
+     "bestBid": "0.55",
+     "bestAsk": "0.57"
+    }
+   },
+   {
+    "label": "Nico Collins 70+ Receiving Yards",
+    "ticker": "NCOLLINSO69",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-NCOLLINSO69",
+    "strike": {
+     "type": "over",
+     "value": "69.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.54",
+      "no": "0.46"
+     },
+     "sell": {
+      "yes": "0.54",
+      "no": "0.46"
+     },
+     "lastTradePrice": "0.54"
+    }
+   },
+   {
+    "label": "Deion Burks 10+ Receiving Yards",
+    "ticker": "DBURKSO9",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DBURKSO9",
+    "strike": {
+     "type": "over",
+     "value": "9.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.53",
+      "no": "0.48"
+     },
+     "sell": {
+      "yes": "0.52",
+      "no": "0.47"
+     },
+     "bestBid": "0.52",
+     "bestAsk": "0.53"
+    }
+   },
+   {
+    "label": "Anthony Gould 20+ Receiving Yards",
+    "ticker": "GOULDO19",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-GOULDO19",
+    "strike": {
+     "type": "over",
+     "value": "19.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.52",
+      "no": "0.48"
+     },
+     "sell": {
+      "yes": "0.52",
+      "no": "0.48"
+     },
+     "lastTradePrice": "0.52"
+    }
+   },
+   {
+    "label": "Laquon Treadwell 20+ Receiving Yards",
+    "ticker": "TREADWELLO19",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-TREADWELLO19",
+    "strike": {
+     "type": "over",
+     "value": "19.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.48",
+      "no": "0.53"
+     },
+     "sell": {
+      "yes": "0.47",
+      "no": "0.52"
+     },
+     "bestBid": "0.47",
+     "bestAsk": "0.48"
+    }
+   },
+   {
+    "label": "Ashton Dulin 15+ Receiving Yards",
+    "ticker": "DULINO14",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DULINO14",
+    "strike": {
+     "type": "over",
+     "value": "14.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.48",
+      "no": "0.52"
+     },
+     "sell": {
+      "yes": "0.48",
+      "no": "0.52"
+     },
+     "lastTradePrice": "0.48"
+    }
+   },
+   {
+    "label": "David Montgomery 10+ Receiving Yards",
+    "ticker": "DMONTGOMERYO9",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DMONTGOMERYO9",
+    "strike": {
+     "type": "over",
+     "value": "9.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.48",
+      "no": "0.52"
+     },
+     "sell": {
+      "yes": "0.48",
+      "no": "0.52"
+     },
+     "lastTradePrice": "0.48"
+    }
+   },
+   {
+    "label": "Laquon Treadwell 30+ Receiving Yards",
+    "ticker": "TREADWELLO29",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-TREADWELLO29",
+    "strike": {
+     "type": "over",
+     "value": "29.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.46",
+      "no": "0.54"
+     },
+     "sell": {
+      "yes": "0.46",
+      "no": "0.54"
+     },
+     "lastTradePrice": "0.46"
+    }
+   },
+   {
+    "label": "Jonathan Taylor 25+ Receiving Yards",
+    "ticker": "JTAYLOR2O24",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-JTAYLOR2O24",
+    "strike": {
+     "type": "over",
+     "value": "24.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.44",
+      "no": "0.56"
+     },
+     "sell": {
+      "yes": "0.44",
+      "no": "0.56"
+     },
+     "lastTradePrice": "0.44"
+    }
+   },
+   {
+    "label": "Nico Collins 80+ Receiving Yards",
+    "ticker": "NCOLLINSO79",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-NCOLLINSO79",
+    "strike": {
+     "type": "over",
+     "value": "79.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.43",
+      "no": "0.57"
+     },
+     "sell": {
+      "yes": "0.43",
+      "no": "0.57"
+     },
+     "lastTradePrice": "0.43"
+    }
+   },
+   {
+    "label": "Deion Burks 15+ Receiving Yards",
+    "ticker": "DBURKSO14",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DBURKSO14",
+    "strike": {
+     "type": "over",
+     "value": "14.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.41",
+      "no": "0.6"
+     },
+     "sell": {
+      "yes": "0.4",
+      "no": "0.59"
+     },
+     "bestBid": "0.4",
+     "bestAsk": "0.41",
+     "lastTradePrice": "0.51"
+    }
+   },
+   {
+    "label": "Laquon Treadwell 25+ Receiving Yards",
+    "ticker": "TREADWELLO24",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-TREADWELLO24",
+    "strike": {
+     "type": "over",
+     "value": "24.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.39",
+      "no": "0.62"
+     },
+     "sell": {
+      "yes": "0.38",
+      "no": "0.61"
+     },
+     "bestBid": "0.38",
+     "bestAsk": "0.39"
+    }
+   },
+   {
+    "label": "Tyler Warren 40+ Receiving Yards",
+    "ticker": "TWARRENO39",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-TWARRENO39",
+    "strike": {
+     "type": "over",
+     "value": "39.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.32"
+     },
+     "sell": {
+      "no": "0.68"
+     },
+     "bestAsk": "0.32"
+    }
+   },
+   {
+    "label": "Foster Moreau 10+ Receiving Yards",
+    "ticker": "FMOREAUO9",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-FMOREAUO9",
+    "strike": {
+     "type": "over",
+     "value": "9.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.3",
+      "no": "0.7"
+     },
+     "sell": {
+      "yes": "0.3",
+      "no": "0.7"
+     },
+     "lastTradePrice": "0.3"
+    }
+   },
+   {
+    "label": "Deion Burks 25+ Receiving Yards",
+    "ticker": "DBURKSO24",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DBURKSO24",
+    "strike": {
+     "type": "over",
+     "value": "24.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.23",
+      "no": "0.78"
+     },
+     "sell": {
+      "yes": "0.22",
+      "no": "0.77"
+     },
+     "bestBid": "0.22",
+     "bestAsk": "0.23"
+    }
+   },
+   {
+    "label": "Jonathan Taylor 40+ Receiving Yards",
+    "ticker": "JTAYLOR2O39",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-JTAYLOR2O39",
+    "strike": {
+     "type": "over",
+     "value": "39.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.21",
+      "no": "0.79"
+     },
+     "sell": {
+      "yes": "0.21",
+      "no": "0.79"
+     },
+     "lastTradePrice": "0.21"
+    }
+   },
+   {
+    "label": "Tyler Warren 50+ Receiving Yards",
+    "ticker": "TWARRENO49",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-TWARRENO49",
+    "strike": {
+     "type": "over",
+     "value": "49.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.21"
+     },
+     "sell": {
+      "no": "0.79"
+     },
+     "bestAsk": "0.21"
+    }
+   },
+   {
+    "label": "Kayshon Boutte 60+ Receiving Yards",
+    "ticker": "BOUTTEO59",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-BOUTTEO59",
+    "strike": {
+     "type": "over",
+     "value": "59.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.18",
+      "no": "0.82"
+     },
+     "sell": {
+      "yes": "0.18",
+      "no": "0.82"
+     },
+     "lastTradePrice": "0.18"
+    }
+   },
+   {
+    "label": "Deion Burks 40+ Receiving Yards",
+    "ticker": "DBURKSO39",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DBURKSO39",
+    "strike": {
+     "type": "over",
+     "value": "39.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.1",
+      "no": "0.92"
+     },
+     "sell": {
+      "yes": "0.08",
+      "no": "0.9"
+     },
+     "bestBid": "0.08",
+     "bestAsk": "0.1"
+    }
+   },
+   {
+    "label": "Anthony Gould 10+ Receiving Yards",
+    "ticker": "GOULDO9",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-GOULDO9",
+    "strike": {
+     "type": "over",
+     "value": "9.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Anthony Gould 15+ Receiving Yards",
+    "ticker": "GOULDO14",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-GOULDO14",
+    "strike": {
+     "type": "over",
+     "value": "14.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Anthony Gould 25+ Receiving Yards",
+    "ticker": "GOULDO24",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-GOULDO24",
+    "strike": {
+     "type": "over",
+     "value": "24.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Anthony Gould 30+ Receiving Yards",
+    "ticker": "GOULDO29",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-GOULDO29",
+    "strike": {
+     "type": "over",
+     "value": "29.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Anthony Gould 50+ Receiving Yards",
+    "ticker": "GOULDO49",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-GOULDO49",
+    "strike": {
+     "type": "over",
+     "value": "49.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Anthony Gould 60+ Receiving Yards",
+    "ticker": "GOULDO59",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-GOULDO59",
+    "strike": {
+     "type": "over",
+     "value": "59.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Anthony Gould 70+ Receiving Yards",
+    "ticker": "GOULDO69",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-GOULDO69",
+    "strike": {
+     "type": "over",
+     "value": "69.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Anthony Gould 80+ Receiving Yards",
+    "ticker": "GOULDO79",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-GOULDO79",
+    "strike": {
+     "type": "over",
+     "value": "79.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Deion Burks 20+ Receiving Yards",
+    "ticker": "DBURKSO19",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DBURKSO19",
+    "strike": {
+     "type": "over",
+     "value": "19.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Deion Burks 30+ Receiving Yards",
+    "ticker": "DBURKSO29",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DBURKSO29",
+    "strike": {
+     "type": "over",
+     "value": "29.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Deion Burks 50+ Receiving Yards",
+    "ticker": "DBURKSO49",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DBURKSO49",
+    "strike": {
+     "type": "over",
+     "value": "49.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Deion Burks 60+ Receiving Yards",
+    "ticker": "DBURKSO59",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DBURKSO59",
+    "strike": {
+     "type": "over",
+     "value": "59.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Deion Burks 70+ Receiving Yards",
+    "ticker": "DBURKSO69",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DBURKSO69",
+    "strike": {
+     "type": "over",
+     "value": "69.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Deion Burks 80+ Receiving Yards",
+    "ticker": "DBURKSO79",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DBURKSO79",
+    "strike": {
+     "type": "over",
+     "value": "79.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01"
+     },
+     "bestBid": "0.01"
+    }
+   },
+   {
+    "label": "Jonathan Taylor 15+ Receiving Yards",
+    "ticker": "JTAYLOR2O14",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-JTAYLOR2O14",
+    "strike": {
+     "type": "over",
+     "value": "14.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Jonathan Taylor 20+ Receiving Yards",
+    "ticker": "JTAYLOR2O19",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-JTAYLOR2O19",
+    "strike": {
+     "type": "over",
+     "value": "19.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "no": "0.62"
+     },
+     "sell": {
+      "yes": "0.38"
+     },
+     "bestBid": "0.38"
+    }
+   },
+   {
+    "label": "Jonathan Taylor 30+ Receiving Yards",
+    "ticker": "JTAYLOR2O29",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-JTAYLOR2O29",
+    "strike": {
+     "type": "over",
+     "value": "29.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Jonathan Taylor 50+ Receiving Yards",
+    "ticker": "JTAYLOR2O49",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-JTAYLOR2O49",
+    "strike": {
+     "type": "over",
+     "value": "49.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Jonathan Taylor 60+ Receiving Yards",
+    "ticker": "JTAYLOR2O59",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-JTAYLOR2O59",
+    "strike": {
+     "type": "over",
+     "value": "59.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Jonathan Taylor 70+ Receiving Yards",
+    "ticker": "JTAYLOR2O69",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-JTAYLOR2O69",
+    "strike": {
+     "type": "over",
+     "value": "69.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Laquon Treadwell 40+ Receiving Yards",
+    "ticker": "TREADWELLO39",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-TREADWELLO39",
+    "strike": {
+     "type": "over",
+     "value": "39.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Laquon Treadwell 50+ Receiving Yards",
+    "ticker": "TREADWELLO49",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-TREADWELLO49",
+    "strike": {
+     "type": "over",
+     "value": "49.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Laquon Treadwell 60+ Receiving Yards",
+    "ticker": "TREADWELLO59",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-TREADWELLO59",
+    "strike": {
+     "type": "over",
+     "value": "59.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Laquon Treadwell 70+ Receiving Yards",
+    "ticker": "TREADWELLO69",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-TREADWELLO69",
+    "strike": {
+     "type": "over",
+     "value": "69.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Laquon Treadwell 80+ Receiving Yards",
+    "ticker": "TREADWELLO79",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-TREADWELLO79",
+    "strike": {
+     "type": "over",
+     "value": "79.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Tyler Warren 30+ Receiving Yards",
+    "ticker": "TWARRENO29",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-TWARRENO29",
+    "strike": {
+     "type": "over",
+     "value": "29.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Tyler Warren 60+ Receiving Yards",
+    "ticker": "TWARRENO59",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-TWARRENO59",
+    "strike": {
+     "type": "over",
+     "value": "59.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Tyler Warren 70+ Receiving Yards",
+    "ticker": "TWARRENO69",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-TWARRENO69",
+    "strike": {
+     "type": "over",
+     "value": "69.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Tyler Warren 80+ Receiving Yards",
+    "ticker": "TWARRENO79",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-TWARRENO79",
+    "strike": {
+     "type": "over",
+     "value": "79.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Tyler Warren 90+ Receiving Yards",
+    "ticker": "TWARRENO89",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-TWARRENO89",
+    "strike": {
+     "type": "over",
+     "value": "89.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Tyler Warren 100+ Receiving Yards",
+    "ticker": "TWARRENO99",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-TWARRENO99",
+    "strike": {
+     "type": "over",
+     "value": "99.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Tyler Warren 110+ Receiving Yards",
+    "ticker": "TWARRENO109",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-TWARRENO109",
+    "strike": {
+     "type": "over",
+     "value": "109.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Dalton Schultz 10+ Receiving Yards",
+    "ticker": "SCHULTZO9",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-SCHULTZO9",
+    "strike": {
+     "type": "over",
+     "value": "9.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Dalton Schultz 15+ Receiving Yards",
+    "ticker": "SCHULTZO14",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-SCHULTZO14",
+    "strike": {
+     "type": "over",
+     "value": "14.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Dalton Schultz 20+ Receiving Yards",
+    "ticker": "SCHULTZO19",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-SCHULTZO19",
+    "strike": {
+     "type": "over",
+     "value": "19.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Dalton Schultz 25+ Receiving Yards",
+    "ticker": "SCHULTZO24",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-SCHULTZO24",
+    "strike": {
+     "type": "over",
+     "value": "24.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Dalton Schultz 30+ Receiving Yards",
+    "ticker": "SCHULTZO29",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-SCHULTZO29",
+    "strike": {
+     "type": "over",
+     "value": "29.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Dalton Schultz 40+ Receiving Yards",
+    "ticker": "SCHULTZO39",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-SCHULTZO39",
+    "strike": {
+     "type": "over",
+     "value": "39.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Dalton Schultz 50+ Receiving Yards",
+    "ticker": "SCHULTZO49",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-SCHULTZO49",
+    "strike": {
+     "type": "over",
+     "value": "49.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Dalton Schultz 60+ Receiving Yards",
+    "ticker": "SCHULTZO59",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-SCHULTZO59",
+    "strike": {
+     "type": "over",
+     "value": "59.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Dalton Schultz 70+ Receiving Yards",
+    "ticker": "SCHULTZO69",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-SCHULTZO69",
+    "strike": {
+     "type": "over",
+     "value": "69.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Dalton Schultz 80+ Receiving Yards",
+    "ticker": "SCHULTZO79",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-SCHULTZO79",
+    "strike": {
+     "type": "over",
+     "value": "79.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Dalton Schultz 90+ Receiving Yards",
+    "ticker": "SCHULTZO89",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-SCHULTZO89",
+    "strike": {
+     "type": "over",
+     "value": "89.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Nico Collins 30+ Receiving Yards",
+    "ticker": "NCOLLINSO29",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-NCOLLINSO29",
+    "strike": {
+     "type": "over",
+     "value": "29.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Nico Collins 60+ Receiving Yards",
+    "ticker": "NCOLLINSO59",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-NCOLLINSO59",
+    "strike": {
+     "type": "over",
+     "value": "59.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Nico Collins 90+ Receiving Yards",
+    "ticker": "NCOLLINSO89",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-NCOLLINSO89",
+    "strike": {
+     "type": "over",
+     "value": "89.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Nico Collins 100+ Receiving Yards",
+    "ticker": "NCOLLINSO99",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-NCOLLINSO99",
+    "strike": {
+     "type": "over",
+     "value": "99.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Nico Collins 110+ Receiving Yards",
+    "ticker": "NCOLLINSO109",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-NCOLLINSO109",
+    "strike": {
+     "type": "over",
+     "value": "109.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Nico Collins 120+ Receiving Yards",
+    "ticker": "NCOLLINSO119",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-NCOLLINSO119",
+    "strike": {
+     "type": "over",
+     "value": "119.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Nico Collins 130+ Receiving Yards",
+    "ticker": "NCOLLINSO129",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-NCOLLINSO129",
+    "strike": {
+     "type": "over",
+     "value": "129.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Nico Collins 140+ Receiving Yards",
+    "ticker": "NCOLLINSO139",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-NCOLLINSO139",
+    "strike": {
+     "type": "over",
+     "value": "139.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Nico Collins 150+ Receiving Yards",
+    "ticker": "NCOLLINSO149",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-NCOLLINSO149",
+    "strike": {
+     "type": "over",
+     "value": "149.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Ashton Dulin 10+ Receiving Yards",
+    "ticker": "DULINO9",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DULINO9",
+    "strike": {
+     "type": "over",
+     "value": "9.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Ashton Dulin 20+ Receiving Yards",
+    "ticker": "DULINO19",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DULINO19",
+    "strike": {
+     "type": "over",
+     "value": "19.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Ashton Dulin 25+ Receiving Yards",
+    "ticker": "DULINO24",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DULINO24",
+    "strike": {
+     "type": "over",
+     "value": "24.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Ashton Dulin 30+ Receiving Yards",
+    "ticker": "DULINO29",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DULINO29",
+    "strike": {
+     "type": "over",
+     "value": "29.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Ashton Dulin 40+ Receiving Yards",
+    "ticker": "DULINO39",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DULINO39",
+    "strike": {
+     "type": "over",
+     "value": "39.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Ashton Dulin 50+ Receiving Yards",
+    "ticker": "DULINO49",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DULINO49",
+    "strike": {
+     "type": "over",
+     "value": "49.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Ashton Dulin 60+ Receiving Yards",
+    "ticker": "DULINO59",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DULINO59",
+    "strike": {
+     "type": "over",
+     "value": "59.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Ashton Dulin 70+ Receiving Yards",
+    "ticker": "DULINO69",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DULINO69",
+    "strike": {
+     "type": "over",
+     "value": "69.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Kayshon Boutte 10+ Receiving Yards",
+    "ticker": "BOUTTEO9",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-BOUTTEO9",
+    "strike": {
+     "type": "over",
+     "value": "9.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Kayshon Boutte 15+ Receiving Yards",
+    "ticker": "BOUTTEO14",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-BOUTTEO14",
+    "strike": {
+     "type": "over",
+     "value": "14.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Kayshon Boutte 20+ Receiving Yards",
+    "ticker": "BOUTTEO19",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-BOUTTEO19",
+    "strike": {
+     "type": "over",
+     "value": "19.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Kayshon Boutte 25+ Receiving Yards",
+    "ticker": "BOUTTEO24",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-BOUTTEO24",
+    "strike": {
+     "type": "over",
+     "value": "24.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Kayshon Boutte 30+ Receiving Yards",
+    "ticker": "BOUTTEO29",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-BOUTTEO29",
+    "strike": {
+     "type": "over",
+     "value": "29.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Kayshon Boutte 40+ Receiving Yards",
+    "ticker": "BOUTTEO39",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-BOUTTEO39",
+    "strike": {
+     "type": "over",
+     "value": "39.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Kayshon Boutte 50+ Receiving Yards",
+    "ticker": "BOUTTEO49",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-BOUTTEO49",
+    "strike": {
+     "type": "over",
+     "value": "49.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Kayshon Boutte 70+ Receiving Yards",
+    "ticker": "BOUTTEO69",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-BOUTTEO69",
+    "strike": {
+     "type": "over",
+     "value": "69.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Kayshon Boutte 80+ Receiving Yards",
+    "ticker": "BOUTTEO79",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-BOUTTEO79",
+    "strike": {
+     "type": "over",
+     "value": "79.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Kayshon Boutte 90+ Receiving Yards",
+    "ticker": "BOUTTEO89",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-BOUTTEO89",
+    "strike": {
+     "type": "over",
+     "value": "89.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Tank Dell 10+ Receiving Yards",
+    "ticker": "DELLO9",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DELLO9",
+    "strike": {
+     "type": "over",
+     "value": "9.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Tank Dell 15+ Receiving Yards",
+    "ticker": "DELLO14",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DELLO14",
+    "strike": {
+     "type": "over",
+     "value": "14.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Tank Dell 20+ Receiving Yards",
+    "ticker": "DELLO19",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DELLO19",
+    "strike": {
+     "type": "over",
+     "value": "19.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Tank Dell 30+ Receiving Yards",
+    "ticker": "DELLO29",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DELLO29",
+    "strike": {
+     "type": "over",
+     "value": "29.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Tank Dell 40+ Receiving Yards",
+    "ticker": "DELLO39",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DELLO39",
+    "strike": {
+     "type": "over",
+     "value": "39.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Tank Dell 50+ Receiving Yards",
+    "ticker": "DELLO49",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DELLO49",
+    "strike": {
+     "type": "over",
+     "value": "49.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Tank Dell 60+ Receiving Yards",
+    "ticker": "DELLO59",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DELLO59",
+    "strike": {
+     "type": "over",
+     "value": "59.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Tank Dell 70+ Receiving Yards",
+    "ticker": "DELLO69",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DELLO69",
+    "strike": {
+     "type": "over",
+     "value": "69.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Tank Dell 80+ Receiving Yards",
+    "ticker": "DELLO79",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DELLO79",
+    "strike": {
+     "type": "over",
+     "value": "79.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Tank Dell 90+ Receiving Yards",
+    "ticker": "DELLO89",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DELLO89",
+    "strike": {
+     "type": "over",
+     "value": "89.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Tank Dell 100+ Receiving Yards",
+    "ticker": "DELLO99",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DELLO99",
+    "strike": {
+     "type": "over",
+     "value": "99.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Tank Dell 110+ Receiving Yards",
+    "ticker": "DELLO109",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DELLO109",
+    "strike": {
+     "type": "over",
+     "value": "109.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "David Montgomery 15+ Receiving Yards",
+    "ticker": "DMONTGOMERYO14",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DMONTGOMERYO14",
+    "strike": {
+     "type": "over",
+     "value": "14.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "David Montgomery 20+ Receiving Yards",
+    "ticker": "DMONTGOMERYO19",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DMONTGOMERYO19",
+    "strike": {
+     "type": "over",
+     "value": "19.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "David Montgomery 25+ Receiving Yards",
+    "ticker": "DMONTGOMERYO24",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DMONTGOMERYO24",
+    "strike": {
+     "type": "over",
+     "value": "24.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "David Montgomery 30+ Receiving Yards",
+    "ticker": "DMONTGOMERYO29",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DMONTGOMERYO29",
+    "strike": {
+     "type": "over",
+     "value": "29.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "David Montgomery 40+ Receiving Yards",
+    "ticker": "DMONTGOMERYO39",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-DMONTGOMERYO39",
+    "strike": {
+     "type": "over",
+     "value": "39.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Xavier Hutchinson 10+ Receiving Yards",
+    "ticker": "XHUTCHINSONO9",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-XHUTCHINSONO9",
+    "strike": {
+     "type": "over",
+     "value": "9.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Xavier Hutchinson 15+ Receiving Yards",
+    "ticker": "XHUTCHINSONO14",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-XHUTCHINSONO14",
+    "strike": {
+     "type": "over",
+     "value": "14.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Xavier Hutchinson 20+ Receiving Yards",
+    "ticker": "XHUTCHINSONO19",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-XHUTCHINSONO19",
+    "strike": {
+     "type": "over",
+     "value": "19.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Xavier Hutchinson 25+ Receiving Yards",
+    "ticker": "XHUTCHINSONO24",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-XHUTCHINSONO24",
+    "strike": {
+     "type": "over",
+     "value": "24.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Xavier Hutchinson 30+ Receiving Yards",
+    "ticker": "XHUTCHINSONO29",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-XHUTCHINSONO29",
+    "strike": {
+     "type": "over",
+     "value": "29.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Xavier Hutchinson 40+ Receiving Yards",
+    "ticker": "XHUTCHINSONO39",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-XHUTCHINSONO39",
+    "strike": {
+     "type": "over",
+     "value": "39.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Xavier Hutchinson 50+ Receiving Yards",
+    "ticker": "XHUTCHINSONO49",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-XHUTCHINSONO49",
+    "strike": {
+     "type": "over",
+     "value": "49.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Xavier Hutchinson 60+ Receiving Yards",
+    "ticker": "XHUTCHINSONO59",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-XHUTCHINSONO59",
+    "strike": {
+     "type": "over",
+     "value": "59.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Xavier Hutchinson 70+ Receiving Yards",
+    "ticker": "XHUTCHINSONO69",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-XHUTCHINSONO69",
+    "strike": {
+     "type": "over",
+     "value": "69.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Xavier Hutchinson 80+ Receiving Yards",
+    "ticker": "XHUTCHINSONO79",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-XHUTCHINSONO79",
+    "strike": {
+     "type": "over",
+     "value": "79.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Xavier Hutchinson 90+ Receiving Yards",
+    "ticker": "XHUTCHINSONO89",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-XHUTCHINSONO89",
+    "strike": {
+     "type": "over",
+     "value": "89.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Xavier Hutchinson 100+ Receiving Yards",
+    "ticker": "XHUTCHINSONO99",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-XHUTCHINSONO99",
+    "strike": {
+     "type": "over",
+     "value": "99.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Foster Moreau 15+ Receiving Yards",
+    "ticker": "FMOREAUO14",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-FMOREAUO14",
+    "strike": {
+     "type": "over",
+     "value": "14.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Foster Moreau 20+ Receiving Yards",
+    "ticker": "FMOREAUO19",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-FMOREAUO19",
+    "strike": {
+     "type": "over",
+     "value": "19.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Foster Moreau 25+ Receiving Yards",
+    "ticker": "FMOREAUO24",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-FMOREAUO24",
+    "strike": {
+     "type": "over",
+     "value": "24.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Foster Moreau 30+ Receiving Yards",
+    "ticker": "FMOREAUO29",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-FMOREAUO29",
+    "strike": {
+     "type": "over",
+     "value": "29.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Foster Moreau 40+ Receiving Yards",
+    "ticker": "FMOREAUO39",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRECY-FMOREAUO39",
+    "strike": {
+     "type": "over",
+     "value": "39.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "NFL-2611200115-IND-HOU-PPRYDS",
+  "title": "Indianapolis vs Houston: Player Rushing Yards",
+  "type": "categorical",
+  "category": "Sports",
+  "status": "active",
+  "startTime": "2026-11-20T01:15:00.000Z",
+  "expiryDate": "2026-11-21T13:15:00.000Z",
+  "isLive": true,
+  "gameId": "68932cc3-c0ad-4924-8e52-4e403cb4df5a",
+  "participants": [
+   {
+    "id": "434",
+    "name": "Houston Texans",
+    "abbreviation": "HOU",
+    "side": "home"
+   },
+   {
+    "id": "435",
+    "name": "Indianapolis Colts",
+    "abbreviation": "IND",
+    "side": "away"
+   }
+  ],
+  "template": "sports-player-props",
+  "sportsMarket": {
+   "sport": "american_football",
+   "type": "prop",
+   "subject": "player",
+   "scope": {
+    "type": "full_contest"
+   },
+   "metric": "rushing_yards",
+   "team": {
+    "symbol": "IND",
+    "name": "Indianapolis Colts",
+    "externalIds": {
+     "sportradarId": "82cf9565-6eb9-4f01-bdbd-5aa0d472fcd9"
+    }
+   },
+   "player": {
+    "symbol": "MCGOWAN",
+    "name": "Seth McGowan",
+    "externalIds": {
+     "sportradarId": "17deebdc-0ec2-4f3f-9584-d21b01743265",
+     "officialLeagueId": "00-0041125",
+     "officialLeagueSource": "nfl_gsis"
+    },
+    "position": "RB",
+    "number": "20"
+   }
+  },
+  "volume": "2134.65",
+  "contracts": [
+   {
+    "label": "Jonathan Taylor 25+ Rushing Yards",
+    "ticker": "JTAYLOR2O24",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-JTAYLOR2O24",
+    "strike": {
+     "type": "over",
+     "value": "24.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.91"
+     },
+     "sell": {
+      "no": "0.09"
+     },
+     "bestAsk": "0.91"
+    }
+   },
+   {
+    "label": "Jonathan Taylor 30+ Rushing Yards",
+    "ticker": "JTAYLOR2O29",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-JTAYLOR2O29",
+    "strike": {
+     "type": "over",
+     "value": "29.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.83",
+      "no": "0.18"
+     },
+     "sell": {
+      "yes": "0.82",
+      "no": "0.17"
+     },
+     "bestBid": "0.82",
+     "bestAsk": "0.83"
+    }
+   },
+   {
+    "label": "David Montgomery 40+ Rushing Yards",
+    "ticker": "DMONTGOMERYO39",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DMONTGOMERYO39",
+    "strike": {
+     "type": "over",
+     "value": "39.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.69",
+      "no": "0.32"
+     },
+     "sell": {
+      "yes": "0.68",
+      "no": "0.31"
+     },
+     "bestBid": "0.68",
+     "bestAsk": "0.69"
+    }
+   },
+   {
+    "label": "Seth McGowan 15+ Rushing Yards",
+    "ticker": "MCGOWANO14",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-MCGOWANO14",
+    "strike": {
+     "type": "over",
+     "value": "14.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.67",
+      "no": "0.34"
+     },
+     "sell": {
+      "yes": "0.66",
+      "no": "0.33"
+     },
+     "bestBid": "0.66",
+     "bestAsk": "0.67"
+    }
+   },
+   {
+    "label": "Emari Demercado 20+ Rushing Yards",
+    "ticker": "DEMERCADOO19",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DEMERCADOO19",
+    "strike": {
+     "type": "over",
+     "value": "19.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.65",
+      "no": "0.35"
+     },
+     "sell": {
+      "yes": "0.65",
+      "no": "0.35"
+     },
+     "lastTradePrice": "0.65"
+    }
+   },
+   {
+    "label": "Jonathan Taylor 40+ Rushing Yards",
+    "ticker": "JTAYLOR2O39",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-JTAYLOR2O39",
+    "strike": {
+     "type": "over",
+     "value": "39.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.61",
+      "no": "0.4"
+     },
+     "sell": {
+      "yes": "0.6",
+      "no": "0.39"
+     },
+     "bestBid": "0.6",
+     "bestAsk": "0.61",
+     "lastTradePrice": "0.68"
+    }
+   },
+   {
+    "label": "David Montgomery 50+ Rushing Yards",
+    "ticker": "DMONTGOMERYO49",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DMONTGOMERYO49",
+    "strike": {
+     "type": "over",
+     "value": "49.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.6",
+      "no": "0.4"
+     },
+     "sell": {
+      "yes": "0.6",
+      "no": "0.4"
+     },
+     "lastTradePrice": "0.6"
+    }
+   },
+   {
+    "label": "Seth McGowan 25+ Rushing Yards",
+    "ticker": "MCGOWANO24",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-MCGOWANO24",
+    "strike": {
+     "type": "over",
+     "value": "24.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.55",
+      "no": "0.45"
+     },
+     "sell": {
+      "yes": "0.55",
+      "no": "0.45"
+     },
+     "lastTradePrice": "0.55"
+    }
+   },
+   {
+    "label": "Emari Demercado 25+ Rushing Yards",
+    "ticker": "DEMERCADOO24",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DEMERCADOO24",
+    "strike": {
+     "type": "over",
+     "value": "24.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.55",
+      "no": "0.45"
+     },
+     "sell": {
+      "yes": "0.55",
+      "no": "0.45"
+     },
+     "lastTradePrice": "0.55"
+    }
+   },
+   {
+    "label": "Seth McGowan 20+ Rushing Yards",
+    "ticker": "MCGOWANO19",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-MCGOWANO19",
+    "strike": {
+     "type": "over",
+     "value": "19.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.53",
+      "no": "0.48"
+     },
+     "sell": {
+      "yes": "0.52",
+      "no": "0.47"
+     },
+     "bestBid": "0.52",
+     "bestAsk": "0.53"
+    }
+   },
+   {
+    "label": "C.J. Stroud 10+ Rushing Yards",
+    "ticker": "STROUDO9",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-STROUDO9",
+    "strike": {
+     "type": "over",
+     "value": "9.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.51",
+      "no": "0.49"
+     },
+     "sell": {
+      "yes": "0.51",
+      "no": "0.49"
+     },
+     "bestBid": "0.51",
+     "lastTradePrice": "0.51"
+    }
+   },
+   {
+    "label": "David Montgomery 60+ Rushing Yards",
+    "ticker": "DMONTGOMERYO59",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DMONTGOMERYO59",
+    "strike": {
+     "type": "over",
+     "value": "59.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.49",
+      "no": "0.51"
+     },
+     "sell": {
+      "yes": "0.49",
+      "no": "0.51"
+     },
+     "lastTradePrice": "0.49"
+    }
+   },
+   {
+    "label": "Jonathan Taylor 50+ Rushing Yards",
+    "ticker": "JTAYLOR2O49",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-JTAYLOR2O49",
+    "strike": {
+     "type": "over",
+     "value": "49.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.45",
+      "no": "0.46"
+     },
+     "sell": {
+      "yes": "0.54",
+      "no": "0.55"
+     },
+     "bestAsk": "0.45",
+     "lastTradePrice": "0.54"
+    }
+   },
+   {
+    "label": "David Montgomery 70+ Rushing Yards",
+    "ticker": "DMONTGOMERYO69",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DMONTGOMERYO69",
+    "strike": {
+     "type": "over",
+     "value": "69.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.4",
+      "no": "0.6"
+     },
+     "sell": {
+      "yes": "0.4",
+      "no": "0.6"
+     },
+     "lastTradePrice": "0.4"
+    }
+   },
+   {
+    "label": "Daniel Jones 10+ Rushing Yards",
+    "ticker": "DJONESO9",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DJONESO9",
+    "strike": {
+     "type": "over",
+     "value": "9.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.34",
+      "no": "0.55"
+     },
+     "sell": {
+      "yes": "0.45",
+      "no": "0.66"
+     },
+     "bestAsk": "0.34",
+     "lastTradePrice": "0.45"
+    }
+   },
+   {
+    "label": "Jonathan Taylor 60+ Rushing Yards",
+    "ticker": "JTAYLOR2O59",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-JTAYLOR2O59",
+    "strike": {
+     "type": "over",
+     "value": "59.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.31",
+      "no": "0.59"
+     },
+     "sell": {
+      "yes": "0.41",
+      "no": "0.69"
+     },
+     "bestAsk": "0.31",
+     "lastTradePrice": "0.41"
+    }
+   },
+   {
+    "label": "Seth McGowan 30+ Rushing Yards",
+    "ticker": "MCGOWANO29",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-MCGOWANO29",
+    "strike": {
+     "type": "over",
+     "value": "29.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.31",
+      "no": "0.71"
+     },
+     "sell": {
+      "yes": "0.29",
+      "no": "0.69"
+     },
+     "bestBid": "0.29",
+     "bestAsk": "0.31",
+     "lastTradePrice": "0.45"
+    }
+   },
+   {
+    "label": "C.J. Stroud 20+ Rushing Yards",
+    "ticker": "STROUDO19",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-STROUDO19",
+    "strike": {
+     "type": "over",
+     "value": "19.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.26",
+      "no": "0.74"
+     },
+     "sell": {
+      "yes": "0.26",
+      "no": "0.74"
+     },
+     "lastTradePrice": "0.26"
+    }
+   },
+   {
+    "label": "Jonathan Taylor 80+ Rushing Yards",
+    "ticker": "JTAYLOR2O79",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-JTAYLOR2O79",
+    "strike": {
+     "type": "over",
+     "value": "79.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.26",
+      "no": "0.74"
+     },
+     "sell": {
+      "yes": "0.26",
+      "no": "0.74"
+     },
+     "lastTradePrice": "0.26"
+    }
+   },
+   {
+    "label": "David Montgomery 80+ Rushing Yards",
+    "ticker": "DMONTGOMERYO79",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DMONTGOMERYO79",
+    "strike": {
+     "type": "over",
+     "value": "79.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.25",
+      "no": "0.75"
+     },
+     "sell": {
+      "yes": "0.25",
+      "no": "0.75"
+     },
+     "lastTradePrice": "0.25"
+    }
+   },
+   {
+    "label": "Seth McGowan 40+ Rushing Yards",
+    "ticker": "MCGOWANO39",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-MCGOWANO39",
+    "strike": {
+     "type": "over",
+     "value": "39.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.18",
+      "no": "0.68"
+     },
+     "sell": {
+      "yes": "0.32",
+      "no": "0.82"
+     },
+     "bestAsk": "0.18",
+     "lastTradePrice": "0.32"
+    }
+   },
+   {
+    "label": "Jonathan Taylor 90+ Rushing Yards",
+    "ticker": "JTAYLOR2O89",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-JTAYLOR2O89",
+    "strike": {
+     "type": "over",
+     "value": "89.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.16",
+      "no": "0.84"
+     },
+     "sell": {
+      "yes": "0.16",
+      "no": "0.84"
+     },
+     "lastTradePrice": "0.16"
+    }
+   },
+   {
+    "label": "Daniel Jones 20+ Rushing Yards",
+    "ticker": "DJONESO19",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DJONESO19",
+    "strike": {
+     "type": "over",
+     "value": "19.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.15"
+     },
+     "sell": {
+      "no": "0.85"
+     },
+     "bestAsk": "0.15"
+    }
+   },
+   {
+    "label": "C.J. Stroud 15+ Rushing Yards",
+    "ticker": "STROUDO14",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-STROUDO14",
+    "strike": {
+     "type": "over",
+     "value": "14.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "C.J. Stroud 25+ Rushing Yards",
+    "ticker": "STROUDO24",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-STROUDO24",
+    "strike": {
+     "type": "over",
+     "value": "24.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "C.J. Stroud 30+ Rushing Yards",
+    "ticker": "STROUDO29",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-STROUDO29",
+    "strike": {
+     "type": "over",
+     "value": "29.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "C.J. Stroud 40+ Rushing Yards",
+    "ticker": "STROUDO39",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-STROUDO39",
+    "strike": {
+     "type": "over",
+     "value": "39.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Daniel Jones 15+ Rushing Yards",
+    "ticker": "DJONESO14",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DJONESO14",
+    "strike": {
+     "type": "over",
+     "value": "14.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Daniel Jones 25+ Rushing Yards",
+    "ticker": "DJONESO24",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DJONESO24",
+    "strike": {
+     "type": "over",
+     "value": "24.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Daniel Jones 30+ Rushing Yards",
+    "ticker": "DJONESO29",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DJONESO29",
+    "strike": {
+     "type": "over",
+     "value": "29.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Daniel Jones 40+ Rushing Yards",
+    "ticker": "DJONESO39",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DJONESO39",
+    "strike": {
+     "type": "over",
+     "value": "39.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Jonathan Taylor 70+ Rushing Yards",
+    "ticker": "JTAYLOR2O69",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-JTAYLOR2O69",
+    "strike": {
+     "type": "over",
+     "value": "69.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Jonathan Taylor 100+ Rushing Yards",
+    "ticker": "JTAYLOR2O99",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-JTAYLOR2O99",
+    "strike": {
+     "type": "over",
+     "value": "99.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Jonathan Taylor 110+ Rushing Yards",
+    "ticker": "JTAYLOR2O109",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-JTAYLOR2O109",
+    "strike": {
+     "type": "over",
+     "value": "109.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Jonathan Taylor 120+ Rushing Yards",
+    "ticker": "JTAYLOR2O119",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-JTAYLOR2O119",
+    "strike": {
+     "type": "over",
+     "value": "119.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Seth McGowan 10+ Rushing Yards",
+    "ticker": "MCGOWANO9",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-MCGOWANO9",
+    "strike": {
+     "type": "over",
+     "value": "9.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Seth McGowan 50+ Rushing Yards",
+    "ticker": "MCGOWANO49",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-MCGOWANO49",
+    "strike": {
+     "type": "over",
+     "value": "49.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Seth McGowan 60+ Rushing Yards",
+    "ticker": "MCGOWANO59",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-MCGOWANO59",
+    "strike": {
+     "type": "over",
+     "value": "59.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Seth McGowan 70+ Rushing Yards",
+    "ticker": "MCGOWANO69",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-MCGOWANO69",
+    "strike": {
+     "type": "over",
+     "value": "69.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Seth McGowan 80+ Rushing Yards",
+    "ticker": "MCGOWANO79",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-MCGOWANO79",
+    "strike": {
+     "type": "over",
+     "value": "79.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Seth McGowan 90+ Rushing Yards",
+    "ticker": "MCGOWANO89",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-MCGOWANO89",
+    "strike": {
+     "type": "over",
+     "value": "89.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Emari Demercado 10+ Rushing Yards",
+    "ticker": "DEMERCADOO9",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DEMERCADOO9",
+    "strike": {
+     "type": "over",
+     "value": "9.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Emari Demercado 15+ Rushing Yards",
+    "ticker": "DEMERCADOO14",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DEMERCADOO14",
+    "strike": {
+     "type": "over",
+     "value": "14.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Emari Demercado 30+ Rushing Yards",
+    "ticker": "DEMERCADOO29",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DEMERCADOO29",
+    "strike": {
+     "type": "over",
+     "value": "29.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Emari Demercado 40+ Rushing Yards",
+    "ticker": "DEMERCADOO39",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DEMERCADOO39",
+    "strike": {
+     "type": "over",
+     "value": "39.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Emari Demercado 50+ Rushing Yards",
+    "ticker": "DEMERCADOO49",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DEMERCADOO49",
+    "strike": {
+     "type": "over",
+     "value": "49.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Emari Demercado 60+ Rushing Yards",
+    "ticker": "DEMERCADOO59",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DEMERCADOO59",
+    "strike": {
+     "type": "over",
+     "value": "59.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "Emari Demercado 70+ Rushing Yards",
+    "ticker": "DEMERCADOO69",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DEMERCADOO69",
+    "strike": {
+     "type": "over",
+     "value": "69.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "David Montgomery 25+ Rushing Yards",
+    "ticker": "DMONTGOMERYO24",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DMONTGOMERYO24",
+    "strike": {
+     "type": "over",
+     "value": "24.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "David Montgomery 30+ Rushing Yards",
+    "ticker": "DMONTGOMERYO29",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DMONTGOMERYO29",
+    "strike": {
+     "type": "over",
+     "value": "29.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "David Montgomery 90+ Rushing Yards",
+    "ticker": "DMONTGOMERYO89",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DMONTGOMERYO89",
+    "strike": {
+     "type": "over",
+     "value": "89.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "David Montgomery 100+ Rushing Yards",
+    "ticker": "DMONTGOMERYO99",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DMONTGOMERYO99",
+    "strike": {
+     "type": "over",
+     "value": "99.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "David Montgomery 110+ Rushing Yards",
+    "ticker": "DMONTGOMERYO109",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DMONTGOMERYO109",
+    "strike": {
+     "type": "over",
+     "value": "109.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "David Montgomery 120+ Rushing Yards",
+    "ticker": "DMONTGOMERYO119",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DMONTGOMERYO119",
+    "strike": {
+     "type": "over",
+     "value": "119.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "David Montgomery 130+ Rushing Yards",
+    "ticker": "DMONTGOMERYO129",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-PPRYDS-DMONTGOMERYO129",
+    "strike": {
+     "type": "over",
+     "value": "129.5"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   }
+  ]
+ }
+]

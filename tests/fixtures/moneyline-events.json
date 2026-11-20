@@ -1,0 +1,995 @@
+[
+ {
+  "ticker": "NFL-2611200115-IND-HOU-M",
+  "title": "Indianapolis vs Houston",
+  "type": "categorical",
+  "category": "Sports",
+  "status": "active",
+  "startTime": "2026-11-20T01:15:00.000Z",
+  "expiryDate": "2026-11-21T13:15:00.000Z",
+  "isLive": true,
+  "gameId": "68932cc3-c0ad-4924-8e52-4e403cb4df5a",
+  "participants": [
+   {
+    "id": "434",
+    "name": "Houston Texans",
+    "abbreviation": "HOU",
+    "side": "home"
+   },
+   {
+    "id": "435",
+    "name": "Indianapolis Colts",
+    "abbreviation": "IND",
+    "side": "away"
+   }
+  ],
+  "template": "sports-game",
+  "sportsMarket": {
+   "sport": "american_football",
+   "type": "moneyline",
+   "subject": "contest",
+   "scope": {
+    "type": "full_contest"
+   },
+   "team": {
+    "symbol": "IND",
+    "name": "Indianapolis Colts",
+    "externalIds": {
+     "sportradarId": "82cf9565-6eb9-4f01-bdbd-5aa0d472fcd9"
+    }
+   }
+  },
+  "volume": "44571.28",
+  "contracts": [
+   {
+    "label": "Houston",
+    "ticker": "HOU",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-M-HOU",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.91",
+      "no": "0.11"
+     },
+     "sell": {
+      "yes": "0.89",
+      "no": "0.09"
+     },
+     "bestBid": "0.89",
+     "bestAsk": "0.91",
+     "lastTradePrice": "0.85"
+    }
+   },
+   {
+    "label": "Indianapolis",
+    "ticker": "IND",
+    "instrumentSymbol": "GEMI-NFL-2611200115-IND-HOU-M-IND",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.11",
+      "no": "0.95"
+     },
+     "sell": {
+      "yes": "0.05",
+      "no": "0.89"
+     },
+     "bestBid": "0.05",
+     "bestAsk": "0.11",
+     "lastTradePrice": "0.05"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "NCAAM-2611200100-TAMU-TCU-M",
+  "title": "Texas A&M vs TCU",
+  "type": "categorical",
+  "category": "Sports",
+  "status": "active",
+  "startTime": "2026-11-20T01:00:00.000Z",
+  "expiryDate": "2026-11-22T01:00:00.000Z",
+  "isLive": true,
+  "gameId": "cd260705-8ebb-4be6-b24f-e1c78efc62e0",
+  "participants": [
+   {
+    "id": "794",
+    "name": "TCU Horned Frogs",
+    "abbreviation": "TCU",
+    "side": "home"
+   },
+   {
+    "id": "792",
+    "name": "Texas A&M Aggies",
+    "abbreviation": "TAMU",
+    "side": "away"
+   }
+  ],
+  "template": "sports-game",
+  "sportsMarket": {
+   "sport": "basketball",
+   "type": "moneyline",
+   "subject": "contest",
+   "scope": {
+    "type": "full_contest"
+   },
+   "team": {
+    "symbol": "TCU",
+    "name": "TCU Horned Frogs",
+    "externalIds": {
+     "sportradarId": "f7fcbb6e-4a55-41ea-ba21-f763ed914467"
+    }
+   }
+  },
+  "volume": "5152.31",
+  "contracts": [
+   {
+    "label": "TCU",
+    "ticker": "TCU",
+    "instrumentSymbol": "GEMI-NCAAM-2611200100-TAMU-TCU-M-TCU",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.85",
+      "no": "0.17"
+     },
+     "sell": {
+      "yes": "0.83",
+      "no": "0.15"
+     },
+     "bestBid": "0.83",
+     "bestAsk": "0.85",
+     "lastTradePrice": "0.86"
+    }
+   },
+   {
+    "label": "Texas A&M",
+    "ticker": "TAMU",
+    "instrumentSymbol": "GEMI-NCAAM-2611200100-TAMU-TCU-M-TAMU",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.16",
+      "no": "0.87"
+     },
+     "sell": {
+      "yes": "0.13",
+      "no": "0.84"
+     },
+     "bestBid": "0.13",
+     "bestAsk": "0.16",
+     "lastTradePrice": "0.5"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "NBA-2611200100-GSW-MEM-M",
+  "title": "Golden State vs Memphis",
+  "type": "categorical",
+  "category": "Sports",
+  "status": "active",
+  "startTime": "2026-11-20T01:00:00.000Z",
+  "expiryDate": "2026-11-21T13:00:00.000Z",
+  "isLive": true,
+  "gameId": "c617f7b9-adda-4211-924f-d822d8808bb8",
+  "participants": [
+   {
+    "id": "479",
+    "name": "Memphis Grizzlies",
+    "abbreviation": "MEM",
+    "side": "home"
+   },
+   {
+    "id": "475",
+    "name": "Golden State Warriors",
+    "abbreviation": "GSW",
+    "side": "away"
+   }
+  ],
+  "template": "sports-game",
+  "sportsMarket": {
+   "sport": "basketball",
+   "type": "moneyline",
+   "subject": "contest",
+   "scope": {
+    "type": "full_contest"
+   },
+   "team": {
+    "symbol": "MEM",
+    "name": "Memphis Grizzlies",
+    "externalIds": {
+     "sportradarId": "583eca88-fb46-11e1-82cb-f4ce4684ea4c"
+    }
+   }
+  },
+  "volume": "15818.71",
+  "contracts": [
+   {
+    "label": "Memphis",
+    "ticker": "MEM",
+    "instrumentSymbol": "GEMI-NBA-2611200100-GSW-MEM-M-MEM",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.85",
+      "no": "0.18"
+     },
+     "sell": {
+      "yes": "0.82",
+      "no": "0.15"
+     },
+     "bestBid": "0.82",
+     "bestAsk": "0.85",
+     "lastTradePrice": "0.84"
+    }
+   },
+   {
+    "label": "Golden State",
+    "ticker": "GSW",
+    "instrumentSymbol": "GEMI-NBA-2611200100-GSW-MEM-M-GSW",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.18",
+      "no": "0.84"
+     },
+     "sell": {
+      "yes": "0.16",
+      "no": "0.82"
+     },
+     "bestBid": "0.16",
+     "bestAsk": "0.18",
+     "lastTradePrice": "0.22"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "NBA-2611200100-NYK-MIN-M",
+  "title": "New York vs Minnesota",
+  "type": "categorical",
+  "category": "Sports",
+  "status": "active",
+  "startTime": "2026-11-20T01:00:00.000Z",
+  "expiryDate": "2026-11-21T13:00:00.000Z",
+  "isLive": true,
+  "gameId": "f974197a-fa84-4598-8fd4-4645710a6095",
+  "participants": [
+   {
+    "id": "480",
+    "name": "Minnesota Timberwolves",
+    "abbreviation": "MIN",
+    "side": "home"
+   },
+   {
+    "id": "468",
+    "name": "New York Knicks",
+    "abbreviation": "NYK",
+    "side": "away"
+   }
+  ],
+  "template": "sports-game",
+  "sportsMarket": {
+   "sport": "basketball",
+   "type": "moneyline",
+   "subject": "contest",
+   "scope": {
+    "type": "full_contest"
+   },
+   "team": {
+    "symbol": "MIN",
+    "name": "Minnesota Timberwolves",
+    "externalIds": {
+     "sportradarId": "583eca2f-fb46-11e1-82cb-f4ce4684ea4c"
+    }
+   }
+  },
+  "volume": "10013.58",
+  "contracts": [
+   {
+    "label": "New York",
+    "ticker": "NYK",
+    "instrumentSymbol": "GEMI-NBA-2611200100-NYK-MIN-M-NYK",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.87",
+      "no": "0.15"
+     },
+     "sell": {
+      "yes": "0.85",
+      "no": "0.13"
+     },
+     "bestBid": "0.85",
+     "bestAsk": "0.87",
+     "lastTradePrice": "0.73"
+    }
+   },
+   {
+    "label": "Minnesota",
+    "ticker": "MIN",
+    "instrumentSymbol": "GEMI-NBA-2611200100-NYK-MIN-M-MIN",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.15",
+      "no": "0.87"
+     },
+     "sell": {
+      "yes": "0.13",
+      "no": "0.85"
+     },
+     "bestBid": "0.13",
+     "bestAsk": "0.15",
+     "lastTradePrice": "0.33"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "NCAAM-2611150000-ULL-UNCW-M",
+  "title": "Louisiana vs UNC Wilmington",
+  "type": "categorical",
+  "category": "Sports",
+  "status": "active",
+  "startTime": "2026-11-15T00:00:00.000Z",
+  "expiryDate": "2026-11-30T05:00:00.000Z",
+  "isLive": true,
+  "gameId": "c98b0039-2460-4ec8-8ba0-531aa4e815e6",
+  "participants": [
+   {
+    "id": "834",
+    "name": "UNC Wilmington Seahawks",
+    "abbreviation": "UNCW",
+    "side": "home"
+   },
+   {
+    "id": "823",
+    "name": "Louisiana Ragin' Cajuns",
+    "abbreviation": "ULL",
+    "side": "away"
+   }
+  ],
+  "template": "sports-game",
+  "sportsMarket": {
+   "sport": "basketball",
+   "type": "moneyline",
+   "subject": "contest",
+   "scope": {
+    "type": "full_contest"
+   },
+   "team": {
+    "symbol": "ULL",
+    "name": "Louisiana Ragin' Cajuns",
+    "externalIds": {
+     "sportradarId": "63cad858-8654-4956-8438-8fe79cd1208a"
+    }
+   }
+  },
+  "volume": "3562.68",
+  "contracts": [
+   {
+    "label": "Louisiana",
+    "ticker": "ULL",
+    "instrumentSymbol": "GEMI-NCAAM-2611150000-ULL-UNCW-M-ULL",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.99",
+      "no": "0.01"
+     },
+     "sell": {
+      "yes": "0.99",
+      "no": "0.01"
+     },
+     "bestAsk": "0.99",
+     "lastTradePrice": "0.99"
+    }
+   },
+   {
+    "label": "UNC Wilmington",
+    "ticker": "UNCW",
+    "instrumentSymbol": "GEMI-NCAAM-2611150000-ULL-UNCW-M-UNCW",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.74",
+      "no": "0.36"
+     },
+     "sell": {
+      "yes": "0.64",
+      "no": "0.26"
+     },
+     "bestAsk": "0.74",
+     "lastTradePrice": "0.64"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "NCAAM-2611152200-PEPP-ORE-M",
+  "title": "Pepperdine vs Oregon",
+  "type": "categorical",
+  "category": "Sports",
+  "status": "active",
+  "startTime": "2026-11-15T22:00:00.000Z",
+  "expiryDate": "2026-11-30T05:00:00.000Z",
+  "isLive": true,
+  "gameId": "651b8977-d1b8-4240-aeda-1fae5fff4d84",
+  "participants": [
+   {
+    "id": "728",
+    "name": "Oregon Ducks",
+    "abbreviation": "ORE",
+    "side": "home"
+   },
+   {
+    "id": "735",
+    "name": "Pepperdine Waves",
+    "abbreviation": "PEPP",
+    "side": "away"
+   }
+  ],
+  "template": "sports-game",
+  "sportsMarket": {
+   "sport": "basketball",
+   "type": "moneyline",
+   "subject": "contest",
+   "scope": {
+    "type": "full_contest"
+   },
+   "team": {
+    "symbol": "ORE",
+    "name": "Oregon Ducks",
+    "externalIds": {
+     "sportradarId": "1da70895-f77f-44ef-b216-d63c02e696eb"
+    }
+   }
+  },
+  "volume": "3357.85",
+  "contracts": [
+   {
+    "label": "Oregon",
+    "ticker": "ORE",
+    "instrumentSymbol": "GEMI-NCAAM-2611152200-PEPP-ORE-M-ORE",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.86",
+      "no": "0.14"
+     },
+     "sell": {
+      "yes": "0.86",
+      "no": "0.14"
+     },
+     "bestBid": "0.86",
+     "lastTradePrice": "0.86"
+    }
+   },
+   {
+    "label": "Pepperdine",
+    "ticker": "PEPP",
+    "instrumentSymbol": "GEMI-NCAAM-2611152200-PEPP-ORE-M-PEPP",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.11",
+      "no": "0.89"
+     },
+     "sell": {
+      "yes": "0.11",
+      "no": "0.89"
+     },
+     "bestAsk": "0.11",
+     "lastTradePrice": "0.11"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "NCAAM-2611192200-AUB-ND-M",
+  "title": "Auburn vs Notre Dame",
+  "type": "categorical",
+  "category": "Sports",
+  "status": "active",
+  "startTime": "2026-11-19T22:00:00.000Z",
+  "expiryDate": "2026-11-21T22:00:00.000Z",
+  "isLive": true,
+  "gameId": "9230d2e8-49e5-4e13-8fca-c97dfd67798d",
+  "participants": [
+   {
+    "id": "708",
+    "name": "Notre Dame Fighting Irish",
+    "abbreviation": "ND",
+    "side": "home"
+   },
+   {
+    "id": "538",
+    "name": "Auburn Tigers",
+    "abbreviation": "AUB",
+    "side": "away"
+   }
+  ],
+  "template": "sports-game",
+  "sportsMarket": {
+   "sport": "basketball",
+   "type": "moneyline",
+   "subject": "contest",
+   "scope": {
+    "type": "full_contest"
+   },
+   "team": {
+    "symbol": "AUB",
+    "name": "Auburn Tigers",
+    "externalIds": {
+     "sportradarId": "0c0608b3-f349-4f5e-9a10-7e6a744dd0d2"
+    }
+   }
+  },
+  "volume": "12307.43",
+  "contracts": [
+   {
+    "label": "Notre Dame",
+    "ticker": "ND",
+    "instrumentSymbol": "GEMI-NCAAM-2611192200-AUB-ND-M-ND",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.85",
+      "no": "0.15"
+     },
+     "sell": {
+      "yes": "0.85",
+      "no": "0.15"
+     },
+     "lastTradePrice": "0.85"
+    }
+   },
+   {
+    "label": "Auburn",
+    "ticker": "AUB",
+    "instrumentSymbol": "GEMI-NCAAM-2611192200-AUB-ND-M-AUB",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.05",
+      "no": "0.95"
+     },
+     "sell": {
+      "yes": "0.05",
+      "no": "0.95"
+     },
+     "bestAsk": "0.05",
+     "lastTradePrice": "0.05"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "NCAAM-2611192300-MURR-NCST-M",
+  "title": "Murray State vs NC State",
+  "type": "categorical",
+  "category": "Sports",
+  "status": "active",
+  "startTime": "2026-11-19T23:00:00.000Z",
+  "expiryDate": "2026-11-21T23:00:00.000Z",
+  "isLive": true,
+  "gameId": "bf5e296c-54bd-4bb4-ad42-9c8afbcbe942",
+  "participants": [
+   {
+    "id": "707",
+    "name": "NC State Wolfpack",
+    "abbreviation": "NCST",
+    "side": "home"
+   },
+   {
+    "id": "701",
+    "name": "Murray State Racers",
+    "abbreviation": "MURR",
+    "side": "away"
+   }
+  ],
+  "template": "sports-game",
+  "sportsMarket": {
+   "sport": "basketball",
+   "type": "moneyline",
+   "subject": "contest",
+   "scope": {
+    "type": "full_contest"
+   },
+   "team": {
+    "symbol": "MURR",
+    "name": "Murray State Racers",
+    "externalIds": {
+     "sportradarId": "77a69fb0-1355-4342-ac09-b4cc7949d95e"
+    }
+   }
+  },
+  "volume": "347.82",
+  "contracts": [
+   {
+    "label": "NC State",
+    "ticker": "NCST",
+    "instrumentSymbol": "GEMI-NCAAM-2611192300-MURR-NCST-M-NCST",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.63",
+      "no": "0.37"
+     },
+     "sell": {
+      "yes": "0.63",
+      "no": "0.37"
+     },
+     "bestBid": "0.63",
+     "lastTradePrice": "0.63"
+    }
+   },
+   {
+    "label": "Murray State",
+    "ticker": "MURR",
+    "instrumentSymbol": "GEMI-NCAAM-2611192300-MURR-NCST-M-MURR",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.41",
+      "no": "0.59"
+     },
+     "sell": {
+      "yes": "0.41",
+      "no": "0.59"
+     },
+     "lastTradePrice": "0.41"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "NHL-2611200000-PHI-OTT-M",
+  "title": "Philadelphia vs Ottawa",
+  "type": "categorical",
+  "category": "Sports",
+  "status": "active",
+  "startTime": "2026-11-20T00:00:00.000Z",
+  "expiryDate": "2026-11-21T12:00:00.000Z",
+  "isLive": true,
+  "gameId": "451cbfc2-5a63-486b-a4fe-e7b3e6d22cc4",
+  "participants": [
+   {
+    "id": "508",
+    "name": "Ottawa Senators",
+    "abbreviation": "OTT",
+    "side": "home"
+   },
+   {
+    "id": "509",
+    "name": "Philadelphia Flyers",
+    "abbreviation": "PHI",
+    "side": "away"
+   }
+  ],
+  "template": "sports-game",
+  "sportsMarket": {
+   "sport": "hockey",
+   "type": "moneyline",
+   "subject": "contest",
+   "scope": {
+    "type": "full_contest"
+   },
+   "team": {
+    "symbol": "PHI",
+    "name": "Philadelphia Flyers",
+    "externalIds": {
+     "sportradarId": "44179d47-0f24-11e2-8525-18a905767e44"
+    }
+   }
+  },
+  "volume": "1499.28",
+  "contracts": [
+   {
+    "label": "Ottawa",
+    "ticker": "OTT",
+    "instrumentSymbol": "GEMI-NHL-2611200000-PHI-OTT-M-OTT",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.95",
+      "no": "0.09"
+     },
+     "sell": {
+      "yes": "0.91",
+      "no": "0.05"
+     },
+     "bestBid": "0.91",
+     "bestAsk": "0.95",
+     "lastTradePrice": "0.8"
+    }
+   },
+   {
+    "label": "Philadelphia",
+    "ticker": "PHI",
+    "instrumentSymbol": "GEMI-NHL-2611200000-PHI-OTT-M-PHI",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.08",
+      "no": "0.97"
+     },
+     "sell": {
+      "yes": "0.03",
+      "no": "0.92"
+     },
+     "bestBid": "0.03",
+     "bestAsk": "0.08",
+     "lastTradePrice": "0.12"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "NHL-2611200000-NYI-WPG-M",
+  "title": "New York I vs Winnipeg",
+  "type": "categorical",
+  "category": "Sports",
+  "status": "active",
+  "startTime": "2026-11-20T00:00:00.000Z",
+  "expiryDate": "2026-11-21T12:00:00.000Z",
+  "isLive": true,
+  "gameId": "5db48d96-b916-40ab-ac71-5e4b9fc473f7",
+  "participants": [
+   {
+    "id": "520",
+    "name": "Winnipeg Jets",
+    "abbreviation": "WPG",
+    "side": "home"
+   },
+   {
+    "id": "506",
+    "name": "New York Islanders",
+    "abbreviation": "NYI",
+    "side": "away"
+   }
+  ],
+  "template": "sports-game",
+  "sportsMarket": {
+   "sport": "hockey",
+   "type": "moneyline",
+   "subject": "contest",
+   "scope": {
+    "type": "full_contest"
+   },
+   "team": {
+    "symbol": "NYI",
+    "name": "New York Islanders",
+    "externalIds": {
+     "sportradarId": "441766b9-0f24-11e2-8525-18a905767e44"
+    }
+   }
+  },
+  "volume": "1145.27",
+  "contracts": [
+   {
+    "label": "New York I",
+    "ticker": "NYI",
+    "instrumentSymbol": "GEMI-NHL-2611200000-NYI-WPG-M-NYI",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.5",
+      "no": "0.5"
+     },
+     "sell": {
+      "yes": "0.5",
+      "no": "0.5"
+     },
+     "lastTradePrice": "0.5"
+    }
+   },
+   {
+    "label": "Winnipeg",
+    "ticker": "WPG",
+    "instrumentSymbol": "GEMI-NHL-2611200000-NYI-WPG-M-WPG",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.47",
+      "no": "0.51"
+     },
+     "sell": {
+      "yes": "0.49",
+      "no": "0.53"
+     },
+     "bestBid": "0.49",
+     "lastTradePrice": "0.47"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "NHL-2611200000-BUF-WSH-M",
+  "title": "Buffalo vs Washington",
+  "type": "categorical",
+  "category": "Sports",
+  "status": "active",
+  "startTime": "2026-11-20T00:00:00.000Z",
+  "expiryDate": "2026-11-21T12:00:00.000Z",
+  "isLive": true,
+  "gameId": "ed50480a-681d-45d8-8913-1c9c2b4f9efe",
+  "participants": [
+   {
+    "id": "519",
+    "name": "Washington Capitals",
+    "abbreviation": "WSH",
+    "side": "home"
+   },
+   {
+    "id": "491",
+    "name": "Buffalo Sabres",
+    "abbreviation": "BUF",
+    "side": "away"
+   }
+  ],
+  "template": "sports-game",
+  "sportsMarket": {
+   "sport": "hockey",
+   "type": "moneyline",
+   "subject": "contest",
+   "scope": {
+    "type": "full_contest"
+   },
+   "team": {
+    "symbol": "WSH",
+    "name": "Washington Capitals",
+    "externalIds": {
+     "sportradarId": "4417eede-0f24-11e2-8525-18a905767e44"
+    }
+   }
+  },
+  "volume": "927.55",
+  "contracts": [
+   {
+    "label": "Buffalo",
+    "ticker": "BUF",
+    "instrumentSymbol": "GEMI-NHL-2611200000-BUF-WSH-M-BUF",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.9",
+      "no": "0.04"
+     },
+     "sell": {
+      "yes": "0.96",
+      "no": "0.1"
+     },
+     "bestBid": "0.96",
+     "lastTradePrice": "0.9"
+    }
+   },
+   {
+    "label": "Washington",
+    "ticker": "WSH",
+    "instrumentSymbol": "GEMI-NHL-2611200000-BUF-WSH-M-WSH",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.03",
+      "no": "0.92"
+     },
+     "sell": {
+      "yes": "0.08",
+      "no": "0.97"
+     },
+     "bestAsk": "0.03",
+     "lastTradePrice": "0.08"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "NHL-2611200000-MTL-CAR-M",
+  "title": "Montreal vs Carolina",
+  "type": "categorical",
+  "category": "Sports",
+  "status": "active",
+  "startTime": "2026-11-20T00:00:00.000Z",
+  "expiryDate": "2026-11-21T12:00:00.000Z",
+  "isLive": true,
+  "gameId": "d6458e6c-b633-4a8c-a350-d6ed0a523267",
+  "participants": [
+   {
+    "id": "493",
+    "name": "Carolina Hurricanes",
+    "abbreviation": "CAR",
+    "side": "home"
+   },
+   {
+    "id": "503",
+    "name": "Montreal Canadiens",
+    "abbreviation": "MTL",
+    "side": "away"
+   }
+  ],
+  "template": "sports-game",
+  "sportsMarket": {
+   "sport": "hockey",
+   "type": "moneyline",
+   "subject": "contest",
+   "scope": {
+    "type": "full_contest"
+   },
+   "team": {
+    "symbol": "CAR",
+    "name": "Carolina Hurricanes",
+    "externalIds": {
+     "sportradarId": "44182a9d-0f24-11e2-8525-18a905767e44"
+    }
+   }
+  },
+  "volume": "805.82",
+  "contracts": [
+   {
+    "label": "Carolina",
+    "ticker": "CAR",
+    "instrumentSymbol": "GEMI-NHL-2611200000-MTL-CAR-M-CAR",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.68",
+      "no": "0.36"
+     },
+     "sell": {
+      "yes": "0.64",
+      "no": "0.32"
+     },
+     "bestBid": "0.64",
+     "bestAsk": "0.68",
+     "lastTradePrice": "0.68"
+    }
+   },
+   {
+    "label": "Montreal",
+    "ticker": "MTL",
+    "instrumentSymbol": "GEMI-NHL-2611200000-MTL-CAR-M-MTL",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.35",
+      "no": "0.69"
+     },
+     "sell": {
+      "yes": "0.31",
+      "no": "0.65"
+     },
+     "bestBid": "0.31",
+     "bestAsk": "0.35",
+     "lastTradePrice": "0.33"
+    }
+   }
+  ]
+ }
+]

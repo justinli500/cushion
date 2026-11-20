@@ -1,0 +1,3818 @@
+[
+ {
+  "ticker": "BTC2611200300",
+  "title": "BTC price today at 10pm EST",
+  "type": "categorical",
+  "category": "Crypto",
+  "status": "active",
+  "startTime": "2026-11-20T02:00:00.000Z",
+  "expiryDate": "2026-11-20T03:00:00.000Z",
+  "isLive": true,
+  "participants": [],
+  "template": "prices-ladder",
+  "volume": "0",
+  "contracts": [
+   {
+    "label": "$61,300 or above",
+    "ticker": "HI61300",
+    "instrumentSymbol": "GEMI-BTC2611200300-HI61300",
+    "strike": {
+     "type": "above",
+     "value": "61300"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.67",
+      "no": "0.34"
+     },
+     "sell": {
+      "yes": "0.66",
+      "no": "0.33"
+     },
+     "bestBid": "0.66",
+     "bestAsk": "0.67"
+    }
+   },
+   {
+    "label": "$61,400 or above",
+    "ticker": "HI61400",
+    "instrumentSymbol": "GEMI-BTC2611200300-HI61400",
+    "strike": {
+     "type": "above",
+     "value": "61400"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.6",
+      "no": "0.42"
+     },
+     "sell": {
+      "yes": "0.58",
+      "no": "0.4"
+     },
+     "bestBid": "0.58",
+     "bestAsk": "0.6"
+    }
+   },
+   {
+    "label": "$61,500 or above",
+    "ticker": "HI61500",
+    "instrumentSymbol": "GEMI-BTC2611200300-HI61500",
+    "strike": {
+     "type": "above",
+     "value": "61500"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.54",
+      "no": "0.5"
+     },
+     "sell": {
+      "yes": "0.5",
+      "no": "0.46"
+     },
+     "bestBid": "0.5",
+     "bestAsk": "0.54"
+    }
+   },
+   {
+    "label": "$61,600 or above",
+    "ticker": "HI61600",
+    "instrumentSymbol": "GEMI-BTC2611200300-HI61600",
+    "strike": {
+     "type": "above",
+     "value": "61600"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.46",
+      "no": "0.59"
+     },
+     "sell": {
+      "yes": "0.41",
+      "no": "0.54"
+     },
+     "bestBid": "0.41",
+     "bestAsk": "0.46",
+     "lastTradePrice": "0.46"
+    }
+   },
+   {
+    "label": "$61,700 or above",
+    "ticker": "HI61700",
+    "instrumentSymbol": "GEMI-BTC2611200300-HI61700",
+    "strike": {
+     "type": "above",
+     "value": "61700"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.36",
+      "no": "0.67"
+     },
+     "sell": {
+      "yes": "0.33",
+      "no": "0.64"
+     },
+     "bestBid": "0.33",
+     "bestAsk": "0.36",
+     "lastTradePrice": "0.36"
+    }
+   },
+   {
+    "label": "$61,800 or above",
+    "ticker": "HI61800",
+    "instrumentSymbol": "GEMI-BTC2611200300-HI61800",
+    "strike": {
+     "type": "above",
+     "value": "61800"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.29",
+      "no": "0.76"
+     },
+     "sell": {
+      "yes": "0.24",
+      "no": "0.71"
+     },
+     "bestBid": "0.24",
+     "bestAsk": "0.29",
+     "lastTradePrice": "0.3"
+    }
+   },
+   {
+    "label": "$61,900 or above",
+    "ticker": "HI61900",
+    "instrumentSymbol": "GEMI-BTC2611200300-HI61900",
+    "strike": {
+     "type": "above",
+     "value": "61900"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.24",
+      "no": "0.83"
+     },
+     "sell": {
+      "yes": "0.17",
+      "no": "0.76"
+     },
+     "bestBid": "0.17",
+     "bestAsk": "0.24",
+     "lastTradePrice": "0.26"
+    }
+   },
+   {
+    "label": "$62,000 or above",
+    "ticker": "HI62000",
+    "instrumentSymbol": "GEMI-BTC2611200300-HI62000",
+    "strike": {
+     "type": "above",
+     "value": "62000"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.18",
+      "no": "0.88"
+     },
+     "sell": {
+      "yes": "0.12",
+      "no": "0.82"
+     },
+     "bestBid": "0.12",
+     "bestAsk": "0.18",
+     "lastTradePrice": "0.24"
+    }
+   },
+   {
+    "label": "$62,100 or above",
+    "ticker": "HI62100",
+    "instrumentSymbol": "GEMI-BTC2611200300-HI62100",
+    "strike": {
+     "type": "above",
+     "value": "62100"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.14",
+      "no": "0.93"
+     },
+     "sell": {
+      "yes": "0.07",
+      "no": "0.86"
+     },
+     "bestBid": "0.07",
+     "bestAsk": "0.14",
+     "lastTradePrice": "0.2"
+    }
+   },
+   {
+    "label": "$62,200 or above",
+    "ticker": "HI62200",
+    "instrumentSymbol": "GEMI-BTC2611200300-HI62200",
+    "strike": {
+     "type": "above",
+     "value": "62200"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.11",
+      "no": "0.95"
+     },
+     "sell": {
+      "yes": "0.05",
+      "no": "0.89"
+     },
+     "bestBid": "0.05",
+     "bestAsk": "0.11",
+     "lastTradePrice": "0.16"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "ETH2611200300",
+  "title": "ETH price today at 10pm EST",
+  "type": "categorical",
+  "category": "Crypto",
+  "status": "active",
+  "startTime": "2026-11-20T02:00:00.000Z",
+  "expiryDate": "2026-11-20T03:00:00.000Z",
+  "isLive": true,
+  "participants": [],
+  "template": "prices-ladder",
+  "volume": "0",
+  "contracts": [
+   {
+    "label": "$1,720 or above",
+    "ticker": "HI1720",
+    "instrumentSymbol": "GEMI-ETH2611200300-HI1720",
+    "strike": {
+     "type": "above",
+     "value": "1720"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.83",
+      "no": "0.22"
+     },
+     "sell": {
+      "yes": "0.78",
+      "no": "0.17"
+     },
+     "bestBid": "0.78",
+     "bestAsk": "0.83"
+    }
+   },
+   {
+    "label": "$1,740 or above",
+    "ticker": "HI1740",
+    "instrumentSymbol": "GEMI-ETH2611200300-HI1740",
+    "strike": {
+     "type": "above",
+     "value": "1740"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.41",
+      "no": "0.65"
+     },
+     "sell": {
+      "yes": "0.35",
+      "no": "0.59"
+     },
+     "bestBid": "0.35",
+     "bestAsk": "0.41"
+    }
+   },
+   {
+    "label": "$1,760 or above",
+    "ticker": "HI1760",
+    "instrumentSymbol": "GEMI-ETH2611200300-HI1760",
+    "strike": {
+     "type": "above",
+     "value": "1760"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.1",
+      "no": "0.98"
+     },
+     "sell": {
+      "yes": "0.02",
+      "no": "0.9"
+     },
+     "bestBid": "0.02",
+     "bestAsk": "0.1"
+    }
+   },
+   {
+    "label": "$1,780 or above",
+    "ticker": "HI1780",
+    "instrumentSymbol": "GEMI-ETH2611200300-HI1780",
+    "strike": {
+     "type": "above",
+     "value": "1780"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.05"
+     },
+     "sell": {
+      "no": "0.95"
+     },
+     "bestAsk": "0.05"
+    }
+   },
+   {
+    "label": "$1,800 or above",
+    "ticker": "HI1800",
+    "instrumentSymbol": "GEMI-ETH2611200300-HI1800",
+    "strike": {
+     "type": "above",
+     "value": "1800"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.05"
+     },
+     "sell": {
+      "no": "0.95"
+     },
+     "bestAsk": "0.05"
+    }
+   },
+   {
+    "label": "$1,820 or above",
+    "ticker": "HI1820",
+    "instrumentSymbol": "GEMI-ETH2611200300-HI1820",
+    "strike": {
+     "type": "above",
+     "value": "1820"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.05"
+     },
+     "sell": {
+      "no": "0.95"
+     },
+     "bestAsk": "0.05"
+    }
+   },
+   {
+    "label": "$1,680 or above",
+    "ticker": "HI1680",
+    "instrumentSymbol": "GEMI-ETH2611200300-HI1680",
+    "strike": {
+     "type": "above",
+     "value": "1680"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "no": "0.05"
+     },
+     "sell": {
+      "yes": "0.95"
+     },
+     "bestBid": "0.95"
+    }
+   },
+   {
+    "label": "$1,700 or above",
+    "ticker": "HI1700",
+    "instrumentSymbol": "GEMI-ETH2611200300-HI1700",
+    "strike": {
+     "type": "above",
+     "value": "1700"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "no": "0.09"
+     },
+     "sell": {
+      "yes": "0.91"
+     },
+     "bestBid": "0.91"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "HYPE2611200300",
+  "title": "HYPE price today at 10pm EST",
+  "type": "categorical",
+  "category": "Crypto",
+  "status": "active",
+  "startTime": "2026-11-20T02:00:00.000Z",
+  "expiryDate": "2026-11-20T03:00:00.000Z",
+  "isLive": true,
+  "participants": [],
+  "template": "prices-ladder",
+  "volume": "0",
+  "contracts": [
+   {
+    "label": "$65 or above",
+    "ticker": "HI65",
+    "instrumentSymbol": "GEMI-HYPE2611200300-HI65",
+    "strike": {
+     "type": "above",
+     "value": "65"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.88",
+      "no": "0.35"
+     },
+     "sell": {
+      "yes": "0.65",
+      "no": "0.12"
+     },
+     "bestBid": "0.65",
+     "bestAsk": "0.88"
+    }
+   },
+   {
+    "label": "$65.5 or above",
+    "ticker": "HI65D5",
+    "instrumentSymbol": "GEMI-HYPE2611200300-HI65D5",
+    "strike": {
+     "type": "above",
+     "value": "65.5"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.63",
+      "no": "0.6"
+     },
+     "sell": {
+      "yes": "0.4",
+      "no": "0.37"
+     },
+     "bestBid": "0.4",
+     "bestAsk": "0.63"
+    }
+   },
+   {
+    "label": "$66 or above",
+    "ticker": "HI66",
+    "instrumentSymbol": "GEMI-HYPE2611200300-HI66",
+    "strike": {
+     "type": "above",
+     "value": "66"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.34",
+      "no": "0.88"
+     },
+     "sell": {
+      "yes": "0.12",
+      "no": "0.66"
+     },
+     "bestBid": "0.12",
+     "bestAsk": "0.34"
+    }
+   },
+   {
+    "label": "$66.5 or above",
+    "ticker": "HI66D5",
+    "instrumentSymbol": "GEMI-HYPE2611200300-HI66D5",
+    "strike": {
+     "type": "above",
+     "value": "66.5"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.19"
+     },
+     "sell": {
+      "no": "0.81"
+     },
+     "bestAsk": "0.19"
+    }
+   },
+   {
+    "label": "$64 or above",
+    "ticker": "HI64",
+    "instrumentSymbol": "GEMI-HYPE2611200300-HI64",
+    "strike": {
+     "type": "above",
+     "value": "64"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "no": "0.13"
+     },
+     "sell": {
+      "yes": "0.87"
+     },
+     "bestBid": "0.87"
+    }
+   },
+   {
+    "label": "$64.5 or above",
+    "ticker": "HI64D5",
+    "instrumentSymbol": "GEMI-HYPE2611200300-HI64D5",
+    "strike": {
+     "type": "above",
+     "value": "64.5"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "no": "0.21"
+     },
+     "sell": {
+      "yes": "0.79"
+     },
+     "bestBid": "0.79"
+    }
+   },
+   {
+    "label": "$67 or above",
+    "ticker": "HI67",
+    "instrumentSymbol": "GEMI-HYPE2611200300-HI67",
+    "strike": {
+     "type": "above",
+     "value": "67"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   },
+   {
+    "label": "$67.5 or above",
+    "ticker": "HI67D5",
+    "instrumentSymbol": "GEMI-HYPE2611200300-HI67D5",
+    "strike": {
+     "type": "above",
+     "value": "67.5"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "SOL2611200300",
+  "title": "SOL price today at 10pm EST",
+  "type": "categorical",
+  "category": "Crypto",
+  "status": "active",
+  "startTime": "2026-11-20T02:00:00.000Z",
+  "expiryDate": "2026-11-20T03:00:00.000Z",
+  "isLive": true,
+  "participants": [],
+  "template": "prices-ladder",
+  "volume": "0",
+  "contracts": [
+   {
+    "label": "$71 or above",
+    "ticker": "HI71",
+    "instrumentSymbol": "GEMI-SOL2611200300-HI71",
+    "strike": {
+     "type": "above",
+     "value": "71"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.93",
+      "no": "0.15"
+     },
+     "sell": {
+      "yes": "0.85",
+      "no": "0.07"
+     },
+     "bestBid": "0.85",
+     "bestAsk": "0.93"
+    }
+   },
+   {
+    "label": "$72 or above",
+    "ticker": "HI72",
+    "instrumentSymbol": "GEMI-SOL2611200300-HI72",
+    "strike": {
+     "type": "above",
+     "value": "72"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.53",
+      "no": "0.54"
+     },
+     "sell": {
+      "yes": "0.46",
+      "no": "0.47"
+     },
+     "bestBid": "0.46",
+     "bestAsk": "0.53"
+    }
+   },
+   {
+    "label": "$73 or above",
+    "ticker": "HI73",
+    "instrumentSymbol": "GEMI-SOL2611200300-HI73",
+    "strike": {
+     "type": "above",
+     "value": "73"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.12",
+      "no": "0.96"
+     },
+     "sell": {
+      "yes": "0.04",
+      "no": "0.88"
+     },
+     "bestBid": "0.04",
+     "bestAsk": "0.12"
+    }
+   },
+   {
+    "label": "$74 or above",
+    "ticker": "HI74",
+    "instrumentSymbol": "GEMI-SOL2611200300-HI74",
+    "strike": {
+     "type": "above",
+     "value": "74"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.05"
+     },
+     "sell": {
+      "no": "0.95"
+     },
+     "bestAsk": "0.05"
+    }
+   },
+   {
+    "label": "$75 or above",
+    "ticker": "HI75",
+    "instrumentSymbol": "GEMI-SOL2611200300-HI75",
+    "strike": {
+     "type": "above",
+     "value": "75"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.05"
+     },
+     "sell": {
+      "no": "0.95"
+     },
+     "bestAsk": "0.05"
+    }
+   },
+   {
+    "label": "$76 or above",
+    "ticker": "HI76",
+    "instrumentSymbol": "GEMI-SOL2611200300-HI76",
+    "strike": {
+     "type": "above",
+     "value": "76"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.05"
+     },
+     "sell": {
+      "no": "0.95"
+     },
+     "bestAsk": "0.05"
+    }
+   },
+   {
+    "label": "$69 or above",
+    "ticker": "HI69",
+    "instrumentSymbol": "GEMI-SOL2611200300-HI69",
+    "strike": {
+     "type": "above",
+     "value": "69"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "no": "0.05"
+     },
+     "sell": {
+      "yes": "0.95"
+     },
+     "bestBid": "0.95"
+    }
+   },
+   {
+    "label": "$70 or above",
+    "ticker": "HI70",
+    "instrumentSymbol": "GEMI-SOL2611200300-HI70",
+    "strike": {
+     "type": "above",
+     "value": "70"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "no": "0.06"
+     },
+     "sell": {
+      "yes": "0.94"
+     },
+     "bestBid": "0.94"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "XRP2611200300",
+  "title": "XRP price today at 10pm EST",
+  "type": "categorical",
+  "category": "Crypto",
+  "status": "active",
+  "startTime": "2026-11-20T02:00:00.000Z",
+  "expiryDate": "2026-11-20T03:00:00.000Z",
+  "isLive": true,
+  "participants": [],
+  "template": "prices-ladder",
+  "volume": "0",
+  "contracts": [
+   {
+    "label": "$0.94 or above",
+    "ticker": "HI0D94",
+    "instrumentSymbol": "GEMI-XRP2611200300-HI0D94",
+    "strike": {
+     "type": "above",
+     "value": "0.94"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.98",
+      "no": "0.12"
+     },
+     "sell": {
+      "yes": "0.88",
+      "no": "0.02"
+     },
+     "bestBid": "0.88",
+     "bestAsk": "0.98"
+    }
+   },
+   {
+    "label": "$0.96 or above",
+    "ticker": "HI0D96",
+    "instrumentSymbol": "GEMI-XRP2611200300-HI0D96",
+    "strike": {
+     "type": "above",
+     "value": "0.96"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.25",
+      "no": "0.8"
+     },
+     "sell": {
+      "yes": "0.2",
+      "no": "0.75"
+     },
+     "bestBid": "0.2",
+     "bestAsk": "0.25"
+    }
+   },
+   {
+    "label": "$0.98 or above",
+    "ticker": "HI0D98",
+    "instrumentSymbol": "GEMI-XRP2611200300-HI0D98",
+    "strike": {
+     "type": "above",
+     "value": "0.98"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.05"
+     },
+     "sell": {
+      "no": "0.95"
+     },
+     "bestAsk": "0.05"
+    }
+   },
+   {
+    "label": "$1 or above",
+    "ticker": "HI1",
+    "instrumentSymbol": "GEMI-XRP2611200300-HI1",
+    "strike": {
+     "type": "above",
+     "value": "1"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.05"
+     },
+     "sell": {
+      "no": "0.95"
+     },
+     "bestAsk": "0.05"
+    }
+   },
+   {
+    "label": "$1.02 or above",
+    "ticker": "HI1D02",
+    "instrumentSymbol": "GEMI-XRP2611200300-HI1D02",
+    "strike": {
+     "type": "above",
+     "value": "1.02"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.05"
+     },
+     "sell": {
+      "no": "0.95"
+     },
+     "bestAsk": "0.05"
+    }
+   },
+   {
+    "label": "$0.88 or above",
+    "ticker": "HI0D88",
+    "instrumentSymbol": "GEMI-XRP2611200300-HI0D88",
+    "strike": {
+     "type": "above",
+     "value": "0.88"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "no": "0.05"
+     },
+     "sell": {
+      "yes": "0.95"
+     },
+     "bestBid": "0.95"
+    }
+   },
+   {
+    "label": "$0.9 or above",
+    "ticker": "HI0D90",
+    "instrumentSymbol": "GEMI-XRP2611200300-HI0D90",
+    "strike": {
+     "type": "above",
+     "value": "0.90"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "no": "0.05"
+     },
+     "sell": {
+      "yes": "0.95"
+     },
+     "bestBid": "0.95"
+    }
+   },
+   {
+    "label": "$0.92 or above",
+    "ticker": "HI0D92",
+    "instrumentSymbol": "GEMI-XRP2611200300-HI0D92",
+    "strike": {
+     "type": "above",
+     "value": "0.92"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "no": "0.05"
+     },
+     "sell": {
+      "yes": "0.95"
+     },
+     "bestBid": "0.95"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "ZEC2611200300",
+  "title": "ZEC price today at 10pm EST",
+  "type": "categorical",
+  "category": "Crypto",
+  "status": "active",
+  "startTime": "2026-11-20T02:00:00.000Z",
+  "expiryDate": "2026-11-20T03:00:00.000Z",
+  "isLive": true,
+  "participants": [],
+  "template": "prices-ladder",
+  "volume": "0",
+  "contracts": [
+   {
+    "label": "$860 or above",
+    "ticker": "HI860",
+    "instrumentSymbol": "GEMI-ZEC2611200300-HI860",
+    "strike": {
+     "type": "above",
+     "value": "860"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.76",
+      "no": "0.37"
+     },
+     "sell": {
+      "yes": "0.63",
+      "no": "0.24"
+     },
+     "bestBid": "0.63",
+     "bestAsk": "0.76"
+    }
+   },
+   {
+    "label": "$870 or above",
+    "ticker": "HI870",
+    "instrumentSymbol": "GEMI-ZEC2611200300-HI870",
+    "strike": {
+     "type": "above",
+     "value": "870"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.52",
+      "no": "0.61"
+     },
+     "sell": {
+      "yes": "0.39",
+      "no": "0.48"
+     },
+     "bestBid": "0.39",
+     "bestAsk": "0.52"
+    }
+   },
+   {
+    "label": "$880 or above",
+    "ticker": "HI880",
+    "instrumentSymbol": "GEMI-ZEC2611200300-HI880",
+    "strike": {
+     "type": "above",
+     "value": "880"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.29",
+      "no": "0.84"
+     },
+     "sell": {
+      "yes": "0.16",
+      "no": "0.71"
+     },
+     "bestBid": "0.16",
+     "bestAsk": "0.29"
+    }
+   },
+   {
+    "label": "$890 or above",
+    "ticker": "HI890",
+    "instrumentSymbol": "GEMI-ZEC2611200300-HI890",
+    "strike": {
+     "type": "above",
+     "value": "890"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.15",
+      "no": "0.97"
+     },
+     "sell": {
+      "yes": "0.03",
+      "no": "0.85"
+     },
+     "bestBid": "0.03",
+     "bestAsk": "0.15"
+    }
+   },
+   {
+    "label": "$900 or above",
+    "ticker": "HI900",
+    "instrumentSymbol": "GEMI-ZEC2611200300-HI900",
+    "strike": {
+     "type": "above",
+     "value": "900"
+    },
+    "status": "active",
+    "marketState": "post_only",
+    "prices": {
+     "buy": {
+      "yes": "0.09"
+     },
+     "sell": {
+      "no": "0.91"
+     },
+     "bestAsk": "0.09"
+    }
+   },
+   {
+    "label": "$850 or above",
+    "ticker": "HI850",
+    "instrumentSymbol": "GEMI-ZEC2611200300-HI850",
+    "strike": {
+     "type": "above",
+     "value": "850"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {},
+     "sell": {}
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "BTC2611202200",
+  "title": "BTC price on November 20",
+  "type": "categorical",
+  "category": "Crypto",
+  "status": "active",
+  "startTime": "2026-11-13T10:30:00.000Z",
+  "expiryDate": "2026-11-20T22:00:00.000Z",
+  "isLive": true,
+  "participants": [],
+  "template": "prices-ladder",
+  "volume": "37609.74",
+  "contracts": [
+   {
+    "label": "$60,500 or above",
+    "ticker": "HI60500",
+    "instrumentSymbol": "GEMI-BTC2611202200-HI60500",
+    "strike": {
+     "type": "above",
+     "value": "60500"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.73",
+      "no": "0.29"
+     },
+     "sell": {
+      "yes": "0.71",
+      "no": "0.27"
+     },
+     "bestBid": "0.71",
+     "bestAsk": "0.73"
+    }
+   },
+   {
+    "label": "$61,000 or above",
+    "ticker": "HI61000",
+    "instrumentSymbol": "GEMI-BTC2611202200-HI61000",
+    "strike": {
+     "type": "above",
+     "value": "61000"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.64",
+      "no": "0.37"
+     },
+     "sell": {
+      "yes": "0.63",
+      "no": "0.36"
+     },
+     "bestBid": "0.63",
+     "bestAsk": "0.64",
+     "lastTradePrice": "0.78"
+    }
+   },
+   {
+    "label": "$61,500 or above",
+    "ticker": "HI61500",
+    "instrumentSymbol": "GEMI-BTC2611202200-HI61500",
+    "strike": {
+     "type": "above",
+     "value": "61500"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.55",
+      "no": "0.5"
+     },
+     "sell": {
+      "yes": "0.5",
+      "no": "0.45"
+     },
+     "bestBid": "0.5",
+     "bestAsk": "0.55",
+     "lastTradePrice": "0.64"
+    }
+   },
+   {
+    "label": "$62,000 or above",
+    "ticker": "HI62000",
+    "instrumentSymbol": "GEMI-BTC2611202200-HI62000",
+    "strike": {
+     "type": "above",
+     "value": "62000"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.43",
+      "no": "0.6"
+     },
+     "sell": {
+      "yes": "0.4",
+      "no": "0.57"
+     },
+     "bestBid": "0.4",
+     "bestAsk": "0.43",
+     "lastTradePrice": "0.54"
+    }
+   },
+   {
+    "label": "$62,500 or above",
+    "ticker": "HI62500",
+    "instrumentSymbol": "GEMI-BTC2611202200-HI62500",
+    "strike": {
+     "type": "above",
+     "value": "62500"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.33",
+      "no": "0.7"
+     },
+     "sell": {
+      "yes": "0.3",
+      "no": "0.67"
+     },
+     "bestBid": "0.3",
+     "bestAsk": "0.33",
+     "lastTradePrice": "0.5"
+    }
+   },
+   {
+    "label": "$63,000 or above",
+    "ticker": "HI63000",
+    "instrumentSymbol": "GEMI-BTC2611202200-HI63000",
+    "strike": {
+     "type": "above",
+     "value": "63000"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.23",
+      "no": "0.8"
+     },
+     "sell": {
+      "yes": "0.2",
+      "no": "0.77"
+     },
+     "bestBid": "0.2",
+     "bestAsk": "0.23",
+     "lastTradePrice": "0.36"
+    }
+   },
+   {
+    "label": "$63,500 or above",
+    "ticker": "HI63500",
+    "instrumentSymbol": "GEMI-BTC2611202200-HI63500",
+    "strike": {
+     "type": "above",
+     "value": "63500"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.16",
+      "no": "0.87"
+     },
+     "sell": {
+      "yes": "0.13",
+      "no": "0.84"
+     },
+     "bestBid": "0.13",
+     "bestAsk": "0.16",
+     "lastTradePrice": "0.27"
+    }
+   },
+   {
+    "label": "$64,000 or above",
+    "ticker": "HI64000",
+    "instrumentSymbol": "GEMI-BTC2611202200-HI64000",
+    "strike": {
+     "type": "above",
+     "value": "64000"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.11",
+      "no": "0.92"
+     },
+     "sell": {
+      "yes": "0.08",
+      "no": "0.89"
+     },
+     "bestBid": "0.08",
+     "bestAsk": "0.11",
+     "lastTradePrice": "0.12"
+    }
+   },
+   {
+    "label": "$64,500 or above",
+    "ticker": "HI64500",
+    "instrumentSymbol": "GEMI-BTC2611202200-HI64500",
+    "strike": {
+     "type": "above",
+     "value": "64500"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.07",
+      "no": "0.95"
+     },
+     "sell": {
+      "yes": "0.05",
+      "no": "0.93"
+     },
+     "bestBid": "0.05",
+     "bestAsk": "0.07",
+     "lastTradePrice": "0.09"
+    }
+   },
+   {
+    "label": "$65,000 or above",
+    "ticker": "HI65000",
+    "instrumentSymbol": "GEMI-BTC2611202200-HI65000",
+    "strike": {
+     "type": "above",
+     "value": "65000"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.05",
+      "no": "0.98"
+     },
+     "sell": {
+      "yes": "0.02",
+      "no": "0.95"
+     },
+     "bestBid": "0.02",
+     "bestAsk": "0.05",
+     "lastTradePrice": "0.03"
+    }
+   },
+   {
+    "label": "$66,000 or above",
+    "ticker": "HI66000",
+    "instrumentSymbol": "GEMI-BTC2611202200-HI66000",
+    "strike": {
+     "type": "above",
+     "value": "66000"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.04",
+      "no": "0.98"
+     },
+     "sell": {
+      "yes": "0.02",
+      "no": "0.96"
+     },
+     "bestAsk": "0.04",
+     "lastTradePrice": "0.02"
+    }
+   },
+   {
+    "label": "$65,500 or above",
+    "ticker": "HI65500",
+    "instrumentSymbol": "GEMI-BTC2611202200-HI65500",
+    "strike": {
+     "type": "above",
+     "value": "65500"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.04",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.96"
+     },
+     "bestBid": "0.01",
+     "bestAsk": "0.04",
+     "lastTradePrice": "0.05"
+    }
+   },
+   {
+    "label": "$67,500 or above",
+    "ticker": "HI67500",
+    "instrumentSymbol": "GEMI-BTC2611202200-HI67500",
+    "strike": {
+     "type": "above",
+     "value": "67500"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.03",
+      "no": "0.98"
+     },
+     "sell": {
+      "yes": "0.02",
+      "no": "0.97"
+     },
+     "bestBid": "0.02",
+     "bestAsk": "0.03",
+     "lastTradePrice": "0.05"
+    }
+   },
+   {
+    "label": "$68,500 or above",
+    "ticker": "HI68500",
+    "instrumentSymbol": "GEMI-BTC2611202200-HI68500",
+    "strike": {
+     "type": "above",
+     "value": "68500"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.03",
+      "no": "0.97"
+     },
+     "sell": {
+      "yes": "0.03",
+      "no": "0.97"
+     },
+     "bestAsk": "0.03",
+     "lastTradePrice": "0.03"
+    }
+   },
+   {
+    "label": "$69,000 or above",
+    "ticker": "HI69000",
+    "instrumentSymbol": "GEMI-BTC2611202200-HI69000",
+    "strike": {
+     "type": "above",
+     "value": "69000"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.03",
+      "no": "0.96"
+     },
+     "sell": {
+      "yes": "0.04",
+      "no": "0.97"
+     },
+     "bestAsk": "0.03",
+     "lastTradePrice": "0.04"
+    }
+   },
+   {
+    "label": "$69,500 or above",
+    "ticker": "HI69500",
+    "instrumentSymbol": "GEMI-BTC2611202200-HI69500",
+    "strike": {
+     "type": "above",
+     "value": "69500"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.03",
+      "no": "0.98"
+     },
+     "sell": {
+      "yes": "0.02",
+      "no": "0.97"
+     },
+     "bestAsk": "0.03",
+     "lastTradePrice": "0.02"
+    }
+   },
+   {
+    "label": "$70,000 or above",
+    "ticker": "HI70000",
+    "instrumentSymbol": "GEMI-BTC2611202200-HI70000",
+    "strike": {
+     "type": "above",
+     "value": "70000"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.03",
+      "no": "0.96"
+     },
+     "sell": {
+      "yes": "0.04",
+      "no": "0.97"
+     },
+     "bestAsk": "0.03",
+     "lastTradePrice": "0.04"
+    }
+   },
+   {
+    "label": "$70,500 or above",
+    "ticker": "HI70500",
+    "instrumentSymbol": "GEMI-BTC2611202200-HI70500",
+    "strike": {
+     "type": "above",
+     "value": "70500"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.03",
+      "no": "0.96"
+     },
+     "sell": {
+      "yes": "0.04",
+      "no": "0.97"
+     },
+     "bestAsk": "0.03",
+     "lastTradePrice": "0.04"
+    }
+   },
+   {
+    "label": "$66,500 or above",
+    "ticker": "HI66500",
+    "instrumentSymbol": "GEMI-BTC2611202200-HI66500",
+    "strike": {
+     "type": "above",
+     "value": "66500"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.03",
+      "no": "0.97"
+     },
+     "sell": {
+      "yes": "0.03",
+      "no": "0.97"
+     },
+     "bestAsk": "0.03",
+     "lastTradePrice": "0.03"
+    }
+   },
+   {
+    "label": "$67,000 or above",
+    "ticker": "HI67000",
+    "instrumentSymbol": "GEMI-BTC2611202200-HI67000",
+    "strike": {
+     "type": "above",
+     "value": "67000"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.02",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.98"
+     },
+     "bestBid": "0.01",
+     "bestAsk": "0.02",
+     "lastTradePrice": "0.04"
+    }
+   },
+   {
+    "label": "$68,000 or above",
+    "ticker": "HI68000",
+    "instrumentSymbol": "GEMI-BTC2611202200-HI68000",
+    "strike": {
+     "type": "above",
+     "value": "68000"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.02",
+      "no": "0.95"
+     },
+     "sell": {
+      "yes": "0.05",
+      "no": "0.98"
+     },
+     "bestAsk": "0.02",
+     "lastTradePrice": "0.05"
+    }
+   },
+   {
+    "label": "$71,000 or above",
+    "ticker": "HI71000",
+    "instrumentSymbol": "GEMI-BTC2611202200-HI71000",
+    "strike": {
+     "type": "above",
+     "value": "71000"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.02",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.98"
+     },
+     "bestBid": "0.01",
+     "bestAsk": "0.02",
+     "lastTradePrice": "0.03"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "ETH2611202200",
+  "title": "ETH price on November 20",
+  "type": "categorical",
+  "category": "Crypto",
+  "status": "active",
+  "startTime": "2026-11-13T10:30:00.000Z",
+  "expiryDate": "2026-11-20T22:00:00.000Z",
+  "isLive": true,
+  "participants": [],
+  "template": "prices-ladder",
+  "volume": "4917.23",
+  "contracts": [
+   {
+    "label": "$1,640 or above",
+    "ticker": "HI1640",
+    "instrumentSymbol": "GEMI-ETH2611202200-HI1640",
+    "strike": {
+     "type": "above",
+     "value": "1640"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.91",
+      "no": "0.1"
+     },
+     "sell": {
+      "yes": "0.9",
+      "no": "0.09"
+     },
+     "bestBid": "0.9",
+     "bestAsk": "0.91",
+     "lastTradePrice": "0.91"
+    }
+   },
+   {
+    "label": "$1,680 or above",
+    "ticker": "HI1680",
+    "instrumentSymbol": "GEMI-ETH2611202200-HI1680",
+    "strike": {
+     "type": "above",
+     "value": "1680"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.81",
+      "no": "0.23"
+     },
+     "sell": {
+      "yes": "0.77",
+      "no": "0.19"
+     },
+     "bestBid": "0.77",
+     "bestAsk": "0.81",
+     "lastTradePrice": "0.86"
+    }
+   },
+   {
+    "label": "$1,720 or above",
+    "ticker": "HI1720",
+    "instrumentSymbol": "GEMI-ETH2611202200-HI1720",
+    "strike": {
+     "type": "above",
+     "value": "1720"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.62",
+      "no": "0.42"
+     },
+     "sell": {
+      "yes": "0.58",
+      "no": "0.38"
+     },
+     "bestBid": "0.58",
+     "bestAsk": "0.62",
+     "lastTradePrice": "0.77"
+    }
+   },
+   {
+    "label": "$1,760 or above",
+    "ticker": "HI1760",
+    "instrumentSymbol": "GEMI-ETH2611202200-HI1760",
+    "strike": {
+     "type": "above",
+     "value": "1760"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.35",
+      "no": "0.7"
+     },
+     "sell": {
+      "yes": "0.3",
+      "no": "0.65"
+     },
+     "bestBid": "0.3",
+     "bestAsk": "0.35",
+     "lastTradePrice": "0.63"
+    }
+   },
+   {
+    "label": "$1,800 or above",
+    "ticker": "HI1800",
+    "instrumentSymbol": "GEMI-ETH2611202200-HI1800",
+    "strike": {
+     "type": "above",
+     "value": "1800"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.16",
+      "no": "0.88"
+     },
+     "sell": {
+      "yes": "0.12",
+      "no": "0.84"
+     },
+     "bestBid": "0.12",
+     "bestAsk": "0.16",
+     "lastTradePrice": "0.2"
+    }
+   },
+   {
+    "label": "$1,840 or above",
+    "ticker": "HI1840",
+    "instrumentSymbol": "GEMI-ETH2611202200-HI1840",
+    "strike": {
+     "type": "above",
+     "value": "1840"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.09",
+      "no": "0.95"
+     },
+     "sell": {
+      "yes": "0.05",
+      "no": "0.91"
+     },
+     "bestBid": "0.05",
+     "bestAsk": "0.09",
+     "lastTradePrice": "0.14"
+    }
+   },
+   {
+    "label": "$1,880 or above",
+    "ticker": "HI1880",
+    "instrumentSymbol": "GEMI-ETH2611202200-HI1880",
+    "strike": {
+     "type": "above",
+     "value": "1880"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.05",
+      "no": "0.98"
+     },
+     "sell": {
+      "yes": "0.02",
+      "no": "0.95"
+     },
+     "bestBid": "0.02",
+     "bestAsk": "0.05",
+     "lastTradePrice": "0.12"
+    }
+   },
+   {
+    "label": "$1,960 or above",
+    "ticker": "HI1960",
+    "instrumentSymbol": "GEMI-ETH2611202200-HI1960",
+    "strike": {
+     "type": "above",
+     "value": "1960"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.04",
+      "no": "0.87"
+     },
+     "sell": {
+      "yes": "0.13",
+      "no": "0.96"
+     },
+     "bestAsk": "0.04",
+     "lastTradePrice": "0.13"
+    }
+   },
+   {
+    "label": "$2,040 or above",
+    "ticker": "HI2040",
+    "instrumentSymbol": "GEMI-ETH2611202200-HI2040",
+    "strike": {
+     "type": "above",
+     "value": "2040"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.04",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.96"
+     },
+     "bestBid": "0.01",
+     "bestAsk": "0.04",
+     "lastTradePrice": "0.02"
+    }
+   },
+   {
+    "label": "$2,080 or above",
+    "ticker": "HI2080",
+    "instrumentSymbol": "GEMI-ETH2611202200-HI2080",
+    "strike": {
+     "type": "above",
+     "value": "2080"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.04",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.96"
+     },
+     "bestBid": "0.01",
+     "bestAsk": "0.04",
+     "lastTradePrice": "0.04"
+    }
+   },
+   {
+    "label": "$1,920 or above",
+    "ticker": "HI1920",
+    "instrumentSymbol": "GEMI-ETH2611202200-HI1920",
+    "strike": {
+     "type": "above",
+     "value": "1920"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.02",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.98"
+     },
+     "bestBid": "0.01",
+     "bestAsk": "0.02",
+     "lastTradePrice": "0.13"
+    }
+   },
+   {
+    "label": "$2,000 or above",
+    "ticker": "HI2000",
+    "instrumentSymbol": "GEMI-ETH2611202200-HI2000",
+    "strike": {
+     "type": "above",
+     "value": "2000"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.02",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.98"
+     },
+     "bestBid": "0.01",
+     "bestAsk": "0.02"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "HYPE2611202200",
+  "title": "HYPE price on November 20",
+  "type": "categorical",
+  "category": "Crypto",
+  "status": "active",
+  "startTime": "2026-11-19T21:00:00.000Z",
+  "expiryDate": "2026-11-20T22:00:00.000Z",
+  "isLive": true,
+  "participants": [],
+  "template": "prices-ladder",
+  "volume": "0",
+  "contracts": [
+   {
+    "label": "$63 or above",
+    "ticker": "HI63",
+    "instrumentSymbol": "GEMI-HYPE2611202200-HI63",
+    "strike": {
+     "type": "above",
+     "value": "63"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.89",
+      "no": "0.21"
+     },
+     "sell": {
+      "yes": "0.79",
+      "no": "0.11"
+     },
+     "bestBid": "0.79",
+     "bestAsk": "0.89"
+    }
+   },
+   {
+    "label": "$64 or above",
+    "ticker": "HI64",
+    "instrumentSymbol": "GEMI-HYPE2611202200-HI64",
+    "strike": {
+     "type": "above",
+     "value": "64"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.78",
+      "no": "0.32"
+     },
+     "sell": {
+      "yes": "0.68",
+      "no": "0.22"
+     },
+     "bestBid": "0.68",
+     "bestAsk": "0.78"
+    }
+   },
+   {
+    "label": "$65 or above",
+    "ticker": "HI65",
+    "instrumentSymbol": "GEMI-HYPE2611202200-HI65",
+    "strike": {
+     "type": "above",
+     "value": "65"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.62",
+      "no": "0.47"
+     },
+     "sell": {
+      "yes": "0.53",
+      "no": "0.38"
+     },
+     "bestBid": "0.53",
+     "bestAsk": "0.62"
+    }
+   },
+   {
+    "label": "$66 or above",
+    "ticker": "HI66",
+    "instrumentSymbol": "GEMI-HYPE2611202200-HI66",
+    "strike": {
+     "type": "above",
+     "value": "66"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.46",
+      "no": "0.63"
+     },
+     "sell": {
+      "yes": "0.37",
+      "no": "0.54"
+     },
+     "bestBid": "0.37",
+     "bestAsk": "0.46"
+    }
+   },
+   {
+    "label": "$67 or above",
+    "ticker": "HI67",
+    "instrumentSymbol": "GEMI-HYPE2611202200-HI67",
+    "strike": {
+     "type": "above",
+     "value": "67"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.32",
+      "no": "0.78"
+     },
+     "sell": {
+      "yes": "0.22",
+      "no": "0.68"
+     },
+     "bestBid": "0.22",
+     "bestAsk": "0.32"
+    }
+   },
+   {
+    "label": "$68 or above",
+    "ticker": "HI68",
+    "instrumentSymbol": "GEMI-HYPE2611202200-HI68",
+    "strike": {
+     "type": "above",
+     "value": "68"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.18",
+      "no": "0.87"
+     },
+     "sell": {
+      "yes": "0.13",
+      "no": "0.82"
+     },
+     "bestBid": "0.13",
+     "bestAsk": "0.18"
+    }
+   },
+   {
+    "label": "$69 or above",
+    "ticker": "HI69",
+    "instrumentSymbol": "GEMI-HYPE2611202200-HI69",
+    "strike": {
+     "type": "above",
+     "value": "69"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.14",
+      "no": "0.96"
+     },
+     "sell": {
+      "yes": "0.04",
+      "no": "0.86"
+     },
+     "bestBid": "0.04",
+     "bestAsk": "0.14"
+    }
+   },
+   {
+    "label": "$70 or above",
+    "ticker": "HI70",
+    "instrumentSymbol": "GEMI-HYPE2611202200-HI70",
+    "strike": {
+     "type": "above",
+     "value": "70"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.1",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.9"
+     },
+     "bestBid": "0.01",
+     "bestAsk": "0.1"
+    }
+   },
+   {
+    "label": "$71 or above",
+    "ticker": "HI71",
+    "instrumentSymbol": "GEMI-HYPE2611202200-HI71",
+    "strike": {
+     "type": "above",
+     "value": "71"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.08",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.92"
+     },
+     "bestBid": "0.01",
+     "bestAsk": "0.08"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "SOL2611202200",
+  "title": "SOL price on November 20",
+  "type": "categorical",
+  "category": "Crypto",
+  "status": "active",
+  "startTime": "2026-11-13T10:30:00.000Z",
+  "expiryDate": "2026-11-20T22:00:00.000Z",
+  "isLive": true,
+  "participants": [],
+  "template": "prices-ladder",
+  "volume": "2757.87",
+  "contracts": [
+   {
+    "label": "$66 or above",
+    "ticker": "HI66",
+    "instrumentSymbol": "GEMI-SOL2611202200-HI66",
+    "strike": {
+     "type": "above",
+     "value": "66"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.99",
+      "no": "0.05"
+     },
+     "sell": {
+      "yes": "0.95",
+      "no": "0.01"
+     },
+     "bestBid": "0.95",
+     "bestAsk": "0.99",
+     "lastTradePrice": "0.9"
+    }
+   },
+   {
+    "label": "$65 or above",
+    "ticker": "HI65",
+    "instrumentSymbol": "GEMI-SOL2611202200-HI65",
+    "strike": {
+     "type": "above",
+     "value": "65"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.99",
+      "no": "0.02"
+     },
+     "sell": {
+      "yes": "0.98",
+      "no": "0.01"
+     },
+     "bestBid": "0.98",
+     "bestAsk": "0.99",
+     "lastTradePrice": "0.98"
+    }
+   },
+   {
+    "label": "$67 or above",
+    "ticker": "HI67",
+    "instrumentSymbol": "GEMI-SOL2611202200-HI67",
+    "strike": {
+     "type": "above",
+     "value": "67"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.97",
+      "no": "0.06"
+     },
+     "sell": {
+      "yes": "0.94",
+      "no": "0.03"
+     },
+     "bestBid": "0.94",
+     "bestAsk": "0.97",
+     "lastTradePrice": "0.81"
+    }
+   },
+   {
+    "label": "$68 or above",
+    "ticker": "HI68",
+    "instrumentSymbol": "GEMI-SOL2611202200-HI68",
+    "strike": {
+     "type": "above",
+     "value": "68"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.95",
+      "no": "0.12"
+     },
+     "sell": {
+      "yes": "0.88",
+      "no": "0.05"
+     },
+     "bestBid": "0.88",
+     "bestAsk": "0.95",
+     "lastTradePrice": "0.63"
+    }
+   },
+   {
+    "label": "$69 or above",
+    "ticker": "HI69",
+    "instrumentSymbol": "GEMI-SOL2611202200-HI69",
+    "strike": {
+     "type": "above",
+     "value": "69"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.91",
+      "no": "0.16"
+     },
+     "sell": {
+      "yes": "0.84",
+      "no": "0.09"
+     },
+     "bestBid": "0.84",
+     "bestAsk": "0.91",
+     "lastTradePrice": "0.78"
+    }
+   },
+   {
+    "label": "$70 or above",
+    "ticker": "HI70",
+    "instrumentSymbol": "GEMI-SOL2611202200-HI70",
+    "strike": {
+     "type": "above",
+     "value": "70"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.82",
+      "no": "0.25"
+     },
+     "sell": {
+      "yes": "0.75",
+      "no": "0.18"
+     },
+     "bestBid": "0.75",
+     "bestAsk": "0.82",
+     "lastTradePrice": "0.42"
+    }
+   },
+   {
+    "label": "$71 or above",
+    "ticker": "HI71",
+    "instrumentSymbol": "GEMI-SOL2611202200-HI71",
+    "strike": {
+     "type": "above",
+     "value": "71"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.69",
+      "no": "0.38"
+     },
+     "sell": {
+      "yes": "0.62",
+      "no": "0.31"
+     },
+     "bestBid": "0.62",
+     "bestAsk": "0.69",
+     "lastTradePrice": "0.52"
+    }
+   },
+   {
+    "label": "$72 or above",
+    "ticker": "HI72",
+    "instrumentSymbol": "GEMI-SOL2611202200-HI72",
+    "strike": {
+     "type": "above",
+     "value": "72"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.49",
+      "no": "0.54"
+     },
+     "sell": {
+      "yes": "0.46",
+      "no": "0.51"
+     },
+     "bestBid": "0.46",
+     "bestAsk": "0.49",
+     "lastTradePrice": "0.45"
+    }
+   },
+   {
+    "label": "$73 or above",
+    "ticker": "HI73",
+    "instrumentSymbol": "GEMI-SOL2611202200-HI73",
+    "strike": {
+     "type": "above",
+     "value": "73"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.35",
+      "no": "0.7"
+     },
+     "sell": {
+      "yes": "0.3",
+      "no": "0.65"
+     },
+     "bestBid": "0.3",
+     "bestAsk": "0.35",
+     "lastTradePrice": "0.39"
+    }
+   },
+   {
+    "label": "$74 or above",
+    "ticker": "HI74",
+    "instrumentSymbol": "GEMI-SOL2611202200-HI74",
+    "strike": {
+     "type": "above",
+     "value": "74"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.24",
+      "no": "0.84"
+     },
+     "sell": {
+      "yes": "0.16",
+      "no": "0.76"
+     },
+     "bestBid": "0.16",
+     "bestAsk": "0.24",
+     "lastTradePrice": "0.33"
+    }
+   },
+   {
+    "label": "$75 or above",
+    "ticker": "HI75",
+    "instrumentSymbol": "GEMI-SOL2611202200-HI75",
+    "strike": {
+     "type": "above",
+     "value": "75"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.16",
+      "no": "0.92"
+     },
+     "sell": {
+      "yes": "0.08",
+      "no": "0.84"
+     },
+     "bestBid": "0.08",
+     "bestAsk": "0.16",
+     "lastTradePrice": "0.27"
+    }
+   },
+   {
+    "label": "$76 or above",
+    "ticker": "HI76",
+    "instrumentSymbol": "GEMI-SOL2611202200-HI76",
+    "strike": {
+     "type": "above",
+     "value": "76"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.11",
+      "no": "0.96"
+     },
+     "sell": {
+      "yes": "0.04",
+      "no": "0.89"
+     },
+     "bestBid": "0.04",
+     "bestAsk": "0.11",
+     "lastTradePrice": "0.16"
+    }
+   },
+   {
+    "label": "$77 or above",
+    "ticker": "HI77",
+    "instrumentSymbol": "GEMI-SOL2611202200-HI77",
+    "strike": {
+     "type": "above",
+     "value": "77"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.05",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.95"
+     },
+     "bestBid": "0.01",
+     "bestAsk": "0.05",
+     "lastTradePrice": "0.15"
+    }
+   },
+   {
+    "label": "$78 or above",
+    "ticker": "HI78",
+    "instrumentSymbol": "GEMI-SOL2611202200-HI78",
+    "strike": {
+     "type": "above",
+     "value": "78"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.05",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.95"
+     },
+     "bestBid": "0.01",
+     "bestAsk": "0.05",
+     "lastTradePrice": "0.11"
+    }
+   },
+   {
+    "label": "$79 or above",
+    "ticker": "HI79",
+    "instrumentSymbol": "GEMI-SOL2611202200-HI79",
+    "strike": {
+     "type": "above",
+     "value": "79"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.05",
+      "no": "0.4"
+     },
+     "sell": {
+      "yes": "0.6",
+      "no": "0.95"
+     },
+     "bestAsk": "0.05",
+     "lastTradePrice": "0.6"
+    }
+   },
+   {
+    "label": "$80 or above",
+    "ticker": "HI80",
+    "instrumentSymbol": "GEMI-SOL2611202200-HI80",
+    "strike": {
+     "type": "above",
+     "value": "80"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.05",
+      "no": "0.9"
+     },
+     "sell": {
+      "yes": "0.1",
+      "no": "0.95"
+     },
+     "bestAsk": "0.05",
+     "lastTradePrice": "0.1"
+    }
+   },
+   {
+    "label": "$81 or above",
+    "ticker": "HI81",
+    "instrumentSymbol": "GEMI-SOL2611202200-HI81",
+    "strike": {
+     "type": "above",
+     "value": "81"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.05",
+      "no": "0.91"
+     },
+     "sell": {
+      "yes": "0.09",
+      "no": "0.95"
+     },
+     "bestAsk": "0.05",
+     "lastTradePrice": "0.09"
+    }
+   },
+   {
+    "label": "$82 or above",
+    "ticker": "HI82",
+    "instrumentSymbol": "GEMI-SOL2611202200-HI82",
+    "strike": {
+     "type": "above",
+     "value": "82"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.04",
+      "no": "0.84"
+     },
+     "sell": {
+      "yes": "0.16",
+      "no": "0.96"
+     },
+     "bestAsk": "0.04",
+     "lastTradePrice": "0.16"
+    }
+   },
+   {
+    "label": "$83 or above",
+    "ticker": "HI83",
+    "instrumentSymbol": "GEMI-SOL2611202200-HI83",
+    "strike": {
+     "type": "above",
+     "value": "83"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.04",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.96"
+     },
+     "bestAsk": "0.04",
+     "lastTradePrice": "0.01"
+    }
+   },
+   {
+    "label": "$84 or above",
+    "ticker": "HI84",
+    "instrumentSymbol": "GEMI-SOL2611202200-HI84",
+    "strike": {
+     "type": "above",
+     "value": "84"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.04",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.96"
+     },
+     "bestBid": "0.01",
+     "bestAsk": "0.04",
+     "lastTradePrice": "0.02"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "XRP2611202200",
+  "title": "XRP price on November 20",
+  "type": "categorical",
+  "category": "Crypto",
+  "status": "active",
+  "startTime": "2026-11-13T10:30:00.000Z",
+  "expiryDate": "2026-11-20T22:00:00.000Z",
+  "isLive": true,
+  "participants": [],
+  "template": "prices-ladder",
+  "volume": "3522.38",
+  "contracts": [
+   {
+    "label": "$0.88 or above",
+    "ticker": "HI0D88",
+    "instrumentSymbol": "GEMI-XRP2611202200-HI0D88",
+    "strike": {
+     "type": "above",
+     "value": "0.88"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.99",
+      "no": "0.09"
+     },
+     "sell": {
+      "yes": "0.91",
+      "no": "0.01"
+     },
+     "bestBid": "0.91",
+     "bestAsk": "0.99",
+     "lastTradePrice": "0.92"
+    }
+   },
+   {
+    "label": "$0.86 or above",
+    "ticker": "HI0D86",
+    "instrumentSymbol": "GEMI-XRP2611202200-HI0D86",
+    "strike": {
+     "type": "above",
+     "value": "0.86"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.98",
+      "no": "0.05"
+     },
+     "sell": {
+      "yes": "0.95",
+      "no": "0.02"
+     },
+     "bestBid": "0.95",
+     "lastTradePrice": "0.98"
+    }
+   },
+   {
+    "label": "$0.9 or above",
+    "ticker": "HI0D90",
+    "instrumentSymbol": "GEMI-XRP2611202200-HI0D90",
+    "strike": {
+     "type": "above",
+     "value": "0.90"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.95",
+      "no": "0.12"
+     },
+     "sell": {
+      "yes": "0.88",
+      "no": "0.05"
+     },
+     "bestBid": "0.88",
+     "bestAsk": "0.95",
+     "lastTradePrice": "0.93"
+    }
+   },
+   {
+    "label": "$0.92 or above",
+    "ticker": "HI0D92",
+    "instrumentSymbol": "GEMI-XRP2611202200-HI0D92",
+    "strike": {
+     "type": "above",
+     "value": "0.92"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.85",
+      "no": "0.22"
+     },
+     "sell": {
+      "yes": "0.78",
+      "no": "0.15"
+     },
+     "bestBid": "0.78",
+     "bestAsk": "0.85",
+     "lastTradePrice": "0.52"
+    }
+   },
+   {
+    "label": "$0.94 or above",
+    "ticker": "HI0D94",
+    "instrumentSymbol": "GEMI-XRP2611202200-HI0D94",
+    "strike": {
+     "type": "above",
+     "value": "0.94"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.67",
+      "no": "0.38"
+     },
+     "sell": {
+      "yes": "0.62",
+      "no": "0.33"
+     },
+     "bestBid": "0.62",
+     "bestAsk": "0.67",
+     "lastTradePrice": "0.66"
+    }
+   },
+   {
+    "label": "$0.96 or above",
+    "ticker": "HI0D96",
+    "instrumentSymbol": "GEMI-XRP2611202200-HI0D96",
+    "strike": {
+     "type": "above",
+     "value": "0.96"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.44",
+      "no": "0.57"
+     },
+     "sell": {
+      "yes": "0.43",
+      "no": "0.56"
+     },
+     "bestBid": "0.43",
+     "bestAsk": "0.44",
+     "lastTradePrice": "0.51"
+    }
+   },
+   {
+    "label": "$0.98 or above",
+    "ticker": "HI0D98",
+    "instrumentSymbol": "GEMI-XRP2611202200-HI0D98",
+    "strike": {
+     "type": "above",
+     "value": "0.98"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.25",
+      "no": "0.79"
+     },
+     "sell": {
+      "yes": "0.21",
+      "no": "0.75"
+     },
+     "bestBid": "0.21",
+     "bestAsk": "0.25",
+     "lastTradePrice": "0.33"
+    }
+   },
+   {
+    "label": "$1 or above",
+    "ticker": "HI1",
+    "instrumentSymbol": "GEMI-XRP2611202200-HI1",
+    "strike": {
+     "type": "above",
+     "value": "1"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.12",
+      "no": "0.92"
+     },
+     "sell": {
+      "yes": "0.08",
+      "no": "0.88"
+     },
+     "bestBid": "0.08",
+     "bestAsk": "0.12",
+     "lastTradePrice": "0.37"
+    }
+   },
+   {
+    "label": "$1.02 or above",
+    "ticker": "HI1D02",
+    "instrumentSymbol": "GEMI-XRP2611202200-HI1D02",
+    "strike": {
+     "type": "above",
+     "value": "1.02"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.05",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.95"
+     },
+     "bestBid": "0.01",
+     "bestAsk": "0.05",
+     "lastTradePrice": "0.19"
+    }
+   },
+   {
+    "label": "$1.04 or above",
+    "ticker": "HI1D04",
+    "instrumentSymbol": "GEMI-XRP2611202200-HI1D04",
+    "strike": {
+     "type": "above",
+     "value": "1.04"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.05",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.95"
+     },
+     "bestAsk": "0.05",
+     "lastTradePrice": "0.01"
+    }
+   },
+   {
+    "label": "$1.06 or above",
+    "ticker": "HI1D06",
+    "instrumentSymbol": "GEMI-XRP2611202200-HI1D06",
+    "strike": {
+     "type": "above",
+     "value": "1.06"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.05"
+     },
+     "sell": {
+      "no": "0.95"
+     },
+     "bestAsk": "0.05"
+    }
+   },
+   {
+    "label": "$1.08 or above",
+    "ticker": "HI1D08",
+    "instrumentSymbol": "GEMI-XRP2611202200-HI1D08",
+    "strike": {
+     "type": "above",
+     "value": "1.08"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.02",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.98"
+     },
+     "bestBid": "0.01",
+     "bestAsk": "0.02",
+     "lastTradePrice": "0.05"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "ZEC2611202200",
+  "title": "ZEC price on November 20",
+  "type": "categorical",
+  "category": "Crypto",
+  "status": "active",
+  "startTime": "2026-11-13T10:30:00.000Z",
+  "expiryDate": "2026-11-20T22:00:00.000Z",
+  "isLive": true,
+  "participants": [],
+  "template": "prices-ladder",
+  "volume": "10551.43",
+  "contracts": [
+   {
+    "label": "$780 or above",
+    "ticker": "HI780",
+    "instrumentSymbol": "GEMI-ZEC2611202200-HI780",
+    "strike": {
+     "type": "above",
+     "value": "780"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.99",
+      "no": "0.09"
+     },
+     "sell": {
+      "yes": "0.91",
+      "no": "0.01"
+     },
+     "bestBid": "0.91",
+     "bestAsk": "0.99",
+     "lastTradePrice": "0.89"
+    }
+   },
+   {
+    "label": "$760 or above",
+    "ticker": "HI760",
+    "instrumentSymbol": "GEMI-ZEC2611202200-HI760",
+    "strike": {
+     "type": "above",
+     "value": "760"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.99",
+      "no": "0.02"
+     },
+     "sell": {
+      "yes": "0.98",
+      "no": "0.01"
+     },
+     "bestBid": "0.98",
+     "bestAsk": "0.99",
+     "lastTradePrice": "0.97"
+    }
+   },
+   {
+    "label": "$800 or above",
+    "ticker": "HI800",
+    "instrumentSymbol": "GEMI-ZEC2611202200-HI800",
+    "strike": {
+     "type": "above",
+     "value": "800"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.96",
+      "no": "0.14"
+     },
+     "sell": {
+      "yes": "0.86",
+      "no": "0.04"
+     },
+     "bestBid": "0.86",
+     "bestAsk": "0.96",
+     "lastTradePrice": "0.84"
+    }
+   },
+   {
+    "label": "$820 or above",
+    "ticker": "HI820",
+    "instrumentSymbol": "GEMI-ZEC2611202200-HI820",
+    "strike": {
+     "type": "above",
+     "value": "820"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.87",
+      "no": "0.23"
+     },
+     "sell": {
+      "yes": "0.77",
+      "no": "0.13"
+     },
+     "bestBid": "0.77",
+     "bestAsk": "0.87",
+     "lastTradePrice": "0.91"
+    }
+   },
+   {
+    "label": "$840 or above",
+    "ticker": "HI840",
+    "instrumentSymbol": "GEMI-ZEC2611202200-HI840",
+    "strike": {
+     "type": "above",
+     "value": "840"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.71",
+      "no": "0.31"
+     },
+     "sell": {
+      "yes": "0.69",
+      "no": "0.29"
+     },
+     "bestBid": "0.69",
+     "bestAsk": "0.71",
+     "lastTradePrice": "0.67"
+    }
+   },
+   {
+    "label": "$860 or above",
+    "ticker": "HI860",
+    "instrumentSymbol": "GEMI-ZEC2611202200-HI860",
+    "strike": {
+     "type": "above",
+     "value": "860"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.6",
+      "no": "0.44"
+     },
+     "sell": {
+      "yes": "0.56",
+      "no": "0.4"
+     },
+     "bestBid": "0.56",
+     "bestAsk": "0.6",
+     "lastTradePrice": "0.6"
+    }
+   },
+   {
+    "label": "$880 or above",
+    "ticker": "HI880",
+    "instrumentSymbol": "GEMI-ZEC2611202200-HI880",
+    "strike": {
+     "type": "above",
+     "value": "880"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.45",
+      "no": "0.59"
+     },
+     "sell": {
+      "yes": "0.41",
+      "no": "0.55"
+     },
+     "bestBid": "0.41",
+     "bestAsk": "0.45",
+     "lastTradePrice": "0.64"
+    }
+   },
+   {
+    "label": "$900 or above",
+    "ticker": "HI900",
+    "instrumentSymbol": "GEMI-ZEC2611202200-HI900",
+    "strike": {
+     "type": "above",
+     "value": "900"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.29",
+      "no": "0.74"
+     },
+     "sell": {
+      "yes": "0.26",
+      "no": "0.71"
+     },
+     "bestBid": "0.26",
+     "bestAsk": "0.29",
+     "lastTradePrice": "0.1"
+    }
+   },
+   {
+    "label": "$920 or above",
+    "ticker": "HI920",
+    "instrumentSymbol": "GEMI-ZEC2611202200-HI920",
+    "strike": {
+     "type": "above",
+     "value": "920"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.25",
+      "no": "0.81"
+     },
+     "sell": {
+      "yes": "0.19",
+      "no": "0.75"
+     },
+     "bestBid": "0.19",
+     "bestAsk": "0.25",
+     "lastTradePrice": "0.05"
+    }
+   },
+   {
+    "label": "$980 or above",
+    "ticker": "HI980",
+    "instrumentSymbol": "GEMI-ZEC2611202200-HI980",
+    "strike": {
+     "type": "above",
+     "value": "980"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.15",
+      "no": "0.95"
+     },
+     "sell": {
+      "yes": "0.05",
+      "no": "0.85"
+     },
+     "bestBid": "0.05",
+     "bestAsk": "0.15",
+     "lastTradePrice": "0.13"
+    }
+   },
+   {
+    "label": "$940 or above",
+    "ticker": "HI940",
+    "instrumentSymbol": "GEMI-ZEC2611202200-HI940",
+    "strike": {
+     "type": "above",
+     "value": "940"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.12",
+      "no": "0.92"
+     },
+     "sell": {
+      "yes": "0.08",
+      "no": "0.88"
+     },
+     "bestBid": "0.08",
+     "bestAsk": "0.12",
+     "lastTradePrice": "0.45"
+    }
+   },
+   {
+    "label": "$960 or above",
+    "ticker": "HI960",
+    "instrumentSymbol": "GEMI-ZEC2611202200-HI960",
+    "strike": {
+     "type": "above",
+     "value": "960"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.1",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.9"
+     },
+     "bestBid": "0.01",
+     "bestAsk": "0.1",
+     "lastTradePrice": "0.12"
+    }
+   },
+   {
+    "label": "$1,000 or above",
+    "ticker": "HI1000",
+    "instrumentSymbol": "GEMI-ZEC2611202200-HI1000",
+    "strike": {
+     "type": "above",
+     "value": "1000"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.05",
+      "no": "0.77"
+     },
+     "sell": {
+      "yes": "0.23",
+      "no": "0.95"
+     },
+     "bestAsk": "0.05",
+     "lastTradePrice": "0.23"
+    }
+   },
+   {
+    "label": "$1,020 or above",
+    "ticker": "HI1020",
+    "instrumentSymbol": "GEMI-ZEC2611202200-HI1020",
+    "strike": {
+     "type": "above",
+     "value": "1020"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.05",
+      "no": "0.81"
+     },
+     "sell": {
+      "yes": "0.19",
+      "no": "0.95"
+     },
+     "bestAsk": "0.05",
+     "lastTradePrice": "0.19"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "BTC2611302200",
+  "title": "BTC price on November 30",
+  "type": "categorical",
+  "category": "Crypto",
+  "status": "active",
+  "startTime": "2026-10-31T21:00:00.000Z",
+  "expiryDate": "2026-11-30T22:00:00.000Z",
+  "isLive": false,
+  "participants": [],
+  "template": "prices-ladder",
+  "volume": "98381.29",
+  "contracts": [
+   {
+    "label": "$57,500 or above",
+    "ticker": "HI57500",
+    "instrumentSymbol": "GEMI-BTC2611302200-HI57500",
+    "strike": {
+     "type": "above",
+     "value": "57500"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.84",
+      "no": "0.19"
+     },
+     "sell": {
+      "yes": "0.81",
+      "no": "0.16"
+     },
+     "bestBid": "0.81",
+     "bestAsk": "0.84",
+     "lastTradePrice": "0.83"
+    }
+   },
+   {
+    "label": "$60,000 or above",
+    "ticker": "HI60000",
+    "instrumentSymbol": "GEMI-BTC2611302200-HI60000",
+    "strike": {
+     "type": "above",
+     "value": "60000"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.67",
+      "no": "0.34"
+     },
+     "sell": {
+      "yes": "0.66",
+      "no": "0.33"
+     },
+     "bestBid": "0.66",
+     "bestAsk": "0.67",
+     "lastTradePrice": "0.71"
+    }
+   },
+   {
+    "label": "$62,500 or above",
+    "ticker": "HI62500",
+    "instrumentSymbol": "GEMI-BTC2611302200-HI62500",
+    "strike": {
+     "type": "above",
+     "value": "62500"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.46",
+      "no": "0.57"
+     },
+     "sell": {
+      "yes": "0.43",
+      "no": "0.54"
+     },
+     "bestBid": "0.43",
+     "bestAsk": "0.46",
+     "lastTradePrice": "0.5"
+    }
+   },
+   {
+    "label": "$65,000 or above",
+    "ticker": "HI65000",
+    "instrumentSymbol": "GEMI-BTC2611302200-HI65000",
+    "strike": {
+     "type": "above",
+     "value": "65000"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.24",
+      "no": "0.78"
+     },
+     "sell": {
+      "yes": "0.22",
+      "no": "0.76"
+     },
+     "bestBid": "0.22",
+     "bestAsk": "0.24",
+     "lastTradePrice": "0.3"
+    }
+   },
+   {
+    "label": "$67,500 or above",
+    "ticker": "HI67500",
+    "instrumentSymbol": "GEMI-BTC2611302200-HI67500",
+    "strike": {
+     "type": "above",
+     "value": "67500"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.11",
+      "no": "0.91"
+     },
+     "sell": {
+      "yes": "0.09",
+      "no": "0.89"
+     },
+     "bestBid": "0.09",
+     "bestAsk": "0.11",
+     "lastTradePrice": "0.13"
+    }
+   },
+   {
+    "label": "$70,000 or above",
+    "ticker": "HI70000",
+    "instrumentSymbol": "GEMI-BTC2611302200-HI70000",
+    "strike": {
+     "type": "above",
+     "value": "70000"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.05",
+      "no": "0.98"
+     },
+     "sell": {
+      "yes": "0.02",
+      "no": "0.95"
+     },
+     "bestBid": "0.02",
+     "bestAsk": "0.05",
+     "lastTradePrice": "0.1"
+    }
+   },
+   {
+    "label": "$72,500 or above",
+    "ticker": "HI72500",
+    "instrumentSymbol": "GEMI-BTC2611302200-HI72500",
+    "strike": {
+     "type": "above",
+     "value": "72500"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.04",
+      "no": "0.91"
+     },
+     "sell": {
+      "yes": "0.09",
+      "no": "0.96"
+     },
+     "bestAsk": "0.04",
+     "lastTradePrice": "0.09"
+    }
+   },
+   {
+    "label": "$75,000 or above",
+    "ticker": "HI75000",
+    "instrumentSymbol": "GEMI-BTC2611302200-HI75000",
+    "strike": {
+     "type": "above",
+     "value": "75000"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.03",
+      "no": "0.94"
+     },
+     "sell": {
+      "yes": "0.06",
+      "no": "0.97"
+     },
+     "bestAsk": "0.03",
+     "lastTradePrice": "0.06"
+    }
+   },
+   {
+    "label": "$77,500 or above",
+    "ticker": "HI77500",
+    "instrumentSymbol": "GEMI-BTC2611302200-HI77500",
+    "strike": {
+     "type": "above",
+     "value": "77500"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.03",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.97"
+     },
+     "bestBid": "0.01",
+     "bestAsk": "0.03",
+     "lastTradePrice": "0.03"
+    }
+   },
+   {
+    "label": "$80,000 or above",
+    "ticker": "HI80000",
+    "instrumentSymbol": "GEMI-BTC2611302200-HI80000",
+    "strike": {
+     "type": "above",
+     "value": "80000"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.03",
+      "no": "0.98"
+     },
+     "sell": {
+      "yes": "0.02",
+      "no": "0.97"
+     },
+     "bestAsk": "0.03",
+     "lastTradePrice": "0.02"
+    }
+   },
+   {
+    "label": "$82,500 or above",
+    "ticker": "HI82500",
+    "instrumentSymbol": "GEMI-BTC2611302200-HI82500",
+    "strike": {
+     "type": "above",
+     "value": "82500"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.03",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.97"
+     },
+     "bestBid": "0.01",
+     "bestAsk": "0.03",
+     "lastTradePrice": "0.03"
+    }
+   },
+   {
+    "label": "$85,000 or above",
+    "ticker": "HI85000",
+    "instrumentSymbol": "GEMI-BTC2611302200-HI85000",
+    "strike": {
+     "type": "above",
+     "value": "85000"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.02",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.98"
+     },
+     "bestBid": "0.01",
+     "bestAsk": "0.02",
+     "lastTradePrice": "0.04"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "ETH2611302200",
+  "title": "ETH price on November 30",
+  "type": "categorical",
+  "category": "Crypto",
+  "status": "active",
+  "startTime": "2026-10-31T21:00:00.000Z",
+  "expiryDate": "2026-11-30T22:00:00.000Z",
+  "isLive": false,
+  "participants": [],
+  "template": "prices-ladder",
+  "volume": "30215.52",
+  "contracts": [
+   {
+    "label": "$1,250 or above",
+    "ticker": "HI1250",
+    "instrumentSymbol": "GEMI-ETH2611302200-HI1250",
+    "strike": {
+     "type": "above",
+     "value": "1250"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.99",
+      "no": "0.02"
+     },
+     "sell": {
+      "yes": "0.98",
+      "no": "0.01"
+     },
+     "bestBid": "0.98",
+     "bestAsk": "0.99"
+    }
+   },
+   {
+    "label": "$1,500 or above",
+    "ticker": "HI1500",
+    "instrumentSymbol": "GEMI-ETH2611302200-HI1500",
+    "strike": {
+     "type": "above",
+     "value": "1500"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.94",
+      "no": "0.11"
+     },
+     "sell": {
+      "yes": "0.89",
+      "no": "0.06"
+     },
+     "bestBid": "0.89",
+     "bestAsk": "0.94",
+     "lastTradePrice": "0.9"
+    }
+   },
+   {
+    "label": "$1,750 or above",
+    "ticker": "HI1750",
+    "instrumentSymbol": "GEMI-ETH2611302200-HI1750",
+    "strike": {
+     "type": "above",
+     "value": "1750"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.5",
+      "no": "0.54"
+     },
+     "sell": {
+      "yes": "0.46",
+      "no": "0.5"
+     },
+     "bestBid": "0.46",
+     "bestAsk": "0.5",
+     "lastTradePrice": "0.69"
+    }
+   },
+   {
+    "label": "$2,000 or above",
+    "ticker": "HI2000",
+    "instrumentSymbol": "GEMI-ETH2611302200-HI2000",
+    "strike": {
+     "type": "above",
+     "value": "2000"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.07",
+      "no": "0.97"
+     },
+     "sell": {
+      "yes": "0.03",
+      "no": "0.93"
+     },
+     "bestBid": "0.03",
+     "bestAsk": "0.07",
+     "lastTradePrice": "0.1"
+    }
+   },
+   {
+    "label": "$2,750 or above",
+    "ticker": "HI2750",
+    "instrumentSymbol": "GEMI-ETH2611302200-HI2750",
+    "strike": {
+     "type": "above",
+     "value": "2750"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.04",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.96"
+     },
+     "bestBid": "0.01",
+     "bestAsk": "0.04",
+     "lastTradePrice": "0.04"
+    }
+   },
+   {
+    "label": "$3,000 or above",
+    "ticker": "HI3000",
+    "instrumentSymbol": "GEMI-ETH2611302200-HI3000",
+    "strike": {
+     "type": "above",
+     "value": "3000"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.04",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.96"
+     },
+     "bestBid": "0.01",
+     "bestAsk": "0.04",
+     "lastTradePrice": "0.04"
+    }
+   },
+   {
+    "label": "$2,250 or above",
+    "ticker": "HI2250",
+    "instrumentSymbol": "GEMI-ETH2611302200-HI2250",
+    "strike": {
+     "type": "above",
+     "value": "2250"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.02",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.98"
+     },
+     "bestBid": "0.01",
+     "bestAsk": "0.02",
+     "lastTradePrice": "0.02"
+    }
+   },
+   {
+    "label": "$2,500 or above",
+    "ticker": "HI2500",
+    "instrumentSymbol": "GEMI-ETH2611302200-HI2500",
+    "strike": {
+     "type": "above",
+     "value": "2500"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.02",
+      "no": "0.99"
+     },
+     "sell": {
+      "yes": "0.01",
+      "no": "0.98"
+     },
+     "bestBid": "0.01",
+     "bestAsk": "0.02",
+     "lastTradePrice": "0.05"
+    }
+   }
+  ]
+ }
+]

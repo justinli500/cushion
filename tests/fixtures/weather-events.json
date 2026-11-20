@@ -1,0 +1,249 @@
+[
+ {
+  "ticker": "WXHIGH-AUS-2611200459",
+  "title": "Highest temperature in Austin on November 19, 2026?",
+  "type": "categorical",
+  "category": "Weather",
+  "status": "active",
+  "expiryDate": "2026-11-20T04:59:59.000Z",
+  "isLive": false,
+  "participants": [],
+  "volume": "0",
+  "contracts": [
+   {
+    "label": "69°F or below",
+    "ticker": "LO69",
+    "instrumentSymbol": "GEMI-WXHIGH-AUS-2611200459-LO69",
+    "strike": {
+     "type": "below",
+     "value": "69"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.01"
+     },
+     "sell": {
+      "no": "0.99"
+     },
+     "bestAsk": "0.01"
+    }
+   },
+   {
+    "label": "70°F to 71°F",
+    "ticker": "70TO71",
+    "instrumentSymbol": "GEMI-WXHIGH-AUS-2611200459-70TO71",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.01"
+     },
+     "sell": {
+      "no": "0.99"
+     },
+     "bestAsk": "0.01"
+    }
+   },
+   {
+    "label": "74°F to 75°F",
+    "ticker": "74TO75",
+    "instrumentSymbol": "GEMI-WXHIGH-AUS-2611200459-74TO75",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.01"
+     },
+     "sell": {
+      "no": "0.99"
+     },
+     "bestAsk": "0.01"
+    }
+   },
+   {
+    "label": "76°F to 77°F",
+    "ticker": "76TO77",
+    "instrumentSymbol": "GEMI-WXHIGH-AUS-2611200459-76TO77",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.01"
+     },
+     "sell": {
+      "no": "0.99"
+     },
+     "bestAsk": "0.01"
+    }
+   },
+   {
+    "label": "78°F or above",
+    "ticker": "HI78",
+    "instrumentSymbol": "GEMI-WXHIGH-AUS-2611200459-HI78",
+    "strike": {
+     "type": "above",
+     "value": "78"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.01"
+     },
+     "sell": {
+      "no": "0.99"
+     },
+     "bestAsk": "0.01"
+    }
+   },
+   {
+    "label": "72°F to 73°F",
+    "ticker": "72TO73",
+    "instrumentSymbol": "GEMI-WXHIGH-AUS-2611200459-72TO73",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "no": "0.01"
+     },
+     "sell": {
+      "yes": "0.99"
+     },
+     "bestBid": "0.99"
+    }
+   }
+  ]
+ },
+ {
+  "ticker": "WXHIGH-AUS-2611210459",
+  "title": "Highest temperature in Austin on November 20, 2026?",
+  "type": "categorical",
+  "category": "Weather",
+  "status": "active",
+  "expiryDate": "2026-11-21T04:59:59.000Z",
+  "isLive": false,
+  "participants": [],
+  "volume": "8",
+  "contracts": [
+   {
+    "label": "76°F to 77°F",
+    "ticker": "76TO77",
+    "instrumentSymbol": "GEMI-WXHIGH-AUS-2611210459-76TO77",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.56",
+      "no": "0.49"
+     },
+     "sell": {
+      "yes": "0.51",
+      "no": "0.44"
+     },
+     "bestBid": "0.51",
+     "bestAsk": "0.56"
+    }
+   },
+   {
+    "label": "74°F to 75°F",
+    "ticker": "74TO75",
+    "instrumentSymbol": "GEMI-WXHIGH-AUS-2611210459-74TO75",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.39",
+      "no": "0.66"
+     },
+     "sell": {
+      "yes": "0.34",
+      "no": "0.61"
+     },
+     "bestBid": "0.34",
+     "bestAsk": "0.39"
+    }
+   },
+   {
+    "label": "78°F to 79°F",
+    "ticker": "78TO79",
+    "instrumentSymbol": "GEMI-WXHIGH-AUS-2611210459-78TO79",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.08",
+      "no": "0.94"
+     },
+     "sell": {
+      "yes": "0.06",
+      "no": "0.92"
+     },
+     "bestBid": "0.06",
+     "bestAsk": "0.08"
+    }
+   },
+   {
+    "label": "73°F or below",
+    "ticker": "LO73",
+    "instrumentSymbol": "GEMI-WXHIGH-AUS-2611210459-LO73",
+    "strike": {
+     "type": "below",
+     "value": "73"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.04",
+      "no": "0.98"
+     },
+     "sell": {
+      "yes": "0.02",
+      "no": "0.96"
+     },
+     "bestBid": "0.02",
+     "bestAsk": "0.04",
+     "lastTradePrice": "0.04"
+    }
+   },
+   {
+    "label": "80°F to 81°F",
+    "ticker": "80TO81",
+    "instrumentSymbol": "GEMI-WXHIGH-AUS-2611210459-80TO81",
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.01"
+     },
+     "sell": {
+      "no": "0.99"
+     },
+     "bestAsk": "0.01"
+    }
+   },
+   {
+    "label": "82°F or above",
+    "ticker": "HI82",
+    "instrumentSymbol": "GEMI-WXHIGH-AUS-2611210459-HI82",
+    "strike": {
+     "type": "above",
+     "value": "82"
+    },
+    "status": "active",
+    "marketState": "open",
+    "prices": {
+     "buy": {
+      "yes": "0.01"
+     },
+     "sell": {
+      "no": "0.99"
+     },
+     "bestAsk": "0.01"
+    }
+   }
+  ]
+ }
+]
