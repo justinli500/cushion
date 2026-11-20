@@ -58,7 +58,9 @@ export function Autopilot({ bills }: { bills: Profile["bills"] }) {
 
 function AutopilotCard({ bills, bill, amount }: { bills: Profile["bills"]; bill: BillKind; amount: number }) {
   const { balance, positions } = useAccount();
-  const markets = useBillMarkets(bill, amount);
+  // Only a heating bill has a fuel: oil and propane heat are cushioned on the oil market.
+  const heat = bill === "heating" ? bills.heat : null;
+  const markets = useBillMarkets(bill, amount, heat);
   const { daily } = markets.ladders;
   const quote = markets.quotes.daily[bills.mode];
   const cover = markets.covers.daily[bills.mode];
@@ -81,13 +83,13 @@ function AutopilotCard({ bills, bill, amount }: { bills: Profile["bills"]; bill:
       buyCushion({
         section: "bills",
         title: autopilotTitle(name),
-        detail: payIfSentence(bill, startLevel(bills.mode, spot), "today"),
+        detail: payIfSentence(bill, startLevel(bills.mode, spot), "today", heat),
         quote,
         eventTickers: [daily.eventTicker],
         expiry: daily.expiry,
       });
     });
-  }, [status, daily, quote, bills, bill, name]);
+  }, [status, daily, quote, bills, bill, name, heat]);
 
   const added = positions.find(
     (p) => p.section === "bills" && p.title === autopilotTitle(name) && p.expiry.slice(0, 10) === bills.lastRun,

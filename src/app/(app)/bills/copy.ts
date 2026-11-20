@@ -9,8 +9,11 @@ export const COPY: Record<BillKind, { name: string; commodity: string; unit: str
   heating: { name: "Heating", commodity: "natural gas", unit: "", jump: 0.5, jumpText: "50 cents" },
 };
 
+/** The wording for a bill. A home heated with oil or propane follows oil, so its heating bill is worded like one. */
+export const copyFor = (bill: BillKind, heat?: string | null) => (bill === "heating" && heat === "oil" ? { ...COPY.gas, name: COPY.heating.name } : COPY[bill]);
+
 /** One plain sentence on when a cover pays, for a cover that starts at `level`. */
-export function payIfSentence(bill: BillKind, level: number, when: string): string {
-  const { name, commodity, unit } = COPY[bill];
+export function payIfSentence(bill: BillKind, level: number, when: string, heat?: string | null): string {
+  const { name, commodity, unit } = copyFor(bill, heat);
   return `If ${commodity} climbs past $${formatLevel(level)}${unit} ${when}, this pays back part of what your ${name.toLowerCase()} costs you.`;
 }

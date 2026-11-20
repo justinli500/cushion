@@ -117,7 +117,9 @@ export function HeatingSetup({ saved, onSave, onManual, onCancel }: Props) {
             </span>
           </div>
 
-          {heat.match ? <p className="rounded-[18px] bg-no px-4 py-3 text-[14px] leading-relaxed text-no-foreground">{heat.match}</p> : null}
+          {heat.note ? (
+            <p className={cn("rounded-[18px] px-4 py-3 text-[14px] leading-relaxed", heat.weak ? "bg-no text-no-foreground" : "bg-yes text-yes-foreground")}>{heat.note}</p>
+          ) : null}
 
           <div className="flex flex-wrap items-center gap-3">
             <Button onClick={() => onSave(bill, { home: home.id, winter: winter.id, heat: heat.id, thermostat })}>Use this</Button>

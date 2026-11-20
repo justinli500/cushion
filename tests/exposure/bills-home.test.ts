@@ -14,8 +14,10 @@ describe("a heating bill from a home, a winter and a thermostat", () => {
 
   it("falls back to a house, a cold winter and gas for choices it does not know", () => {
     expect([homeOf("castle").id, winterOf(null).id, heatOf(undefined).id]).toEqual(["house", "cold", "gas"]);
-    expect(heatOf("gas").match).toBeNull();
-    expect(heatOf("electric").match).toMatch(/weak match/);
+    expect(heatOf("gas").note).toBeNull();
+    expect(heatOf("electric")).toMatchObject({ weak: true });
+    expect(heatOf("oil")).toMatchObject({ weak: false });
+    expect(heatOf("oil").note).toMatch(/oil market/);
   });
 
   it("stays inside what the page accepts, and reads warmth from the setting", () => {

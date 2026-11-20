@@ -21,11 +21,15 @@ export const WINTERS = [
   { id: "harsh", name: "Very cold", factor: 1.4 },
 ] as const;
 
-/** What heats the home. Only gas follows the natural gas market the cushion is built on. */
+/**
+ * What heats the home, and so which market its bill follows. Gas follows natural gas. Oil and
+ * propane follow oil, so their cushion is built on the oil market. Gemini lists no electricity
+ * market, so electric heat stays on natural gas and says the match is weak.
+ */
 export const HEAT = [
-  { id: "gas", name: "Gas", match: null },
-  { id: "electric", name: "Electric", match: "Electric heat follows power prices, which only loosely follow natural gas. This cushion is a weak match for it." },
-  { id: "oil", name: "Oil or propane", match: "Oil and propane heat follow oil prices more than natural gas. This cushion is a weak match for it." },
+  { id: "gas", name: "Gas", note: null, weak: false },
+  { id: "electric", name: "Electric", note: "Electric heat follows power prices, which only loosely follow natural gas. This cushion is a weak match for it.", weak: true },
+  { id: "oil", name: "Oil or propane", note: "Oil and propane heat follow oil prices, so this cushion is built on the oil market and not natural gas.", weak: false },
 ] as const;
 
 export const THERMOSTAT = { min: 60, max: 76, typical: 68 } as const;

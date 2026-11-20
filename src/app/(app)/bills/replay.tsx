@@ -2,11 +2,11 @@
 
 import { CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis, type TooltipContentProps } from "recharts";
 import { Card, CardTitle, Notice, Skeleton, Tag } from "@/components/kit";
-import { BILLS, COVER_LEVELS, dayLabel, type BillKind, type CoverLevel } from "@/domains/exposure/bills";
+import { COVER_LEVELS, dayLabel, underlyingFor, type BillKind, type CoverLevel } from "@/domains/exposure/bills";
 import type { Replay as ReplayData, ReplayDay } from "@/domains/exposure/bills-replay";
 import { formatLevel, formatUsd } from "@/lib/format";
 import { usePoll } from "@/lib/use-poll";
-import { COPY, LEVEL_NAMES } from "./copy";
+import { copyFor, LEVEL_NAMES } from "./copy";
 
 // Spikes only is the accent; Full is the quiet gray. The two keep their colors whichever is selected.
 const STROKE: Record<CoverLevel, string> = { spike: "var(--primary)", full: "var(--muted-foreground)" };
@@ -104,7 +104,7 @@ function Cost({ day }: { day: ReplayDay | undefined }) {
   );
 }
 
-function ReplayTable({ bill, replay }: { bill: BillKind; replay: ReplayData }) {
+function ReplayTable({ bill, replay, heat }: { bill: BillKind; replay: ReplayData; heat?: string | null }) {
   const dates = [...new Set(COVER_LEVELS.flatMap((l) => replay[l].days.map((d) => d.date)))].sort();
   const find = (level: CoverLevel, date: string) => replay[level].days.find((d) => d.date === date);
   const settle = (date: string) => (find("spike", date) ?? find("full", date))!.settle;
@@ -116,7 +116,7 @@ function ReplayTable({ bill, replay }: { bill: BillKind; replay: ReplayData }) {
             Day
           </th>
           <th className={th} rowSpan={2}>
-            {COPY[bill].commodity.replace(/^./, (c) => c.toUpperCase())} at close
+            {copyFor(bill, heat).commodity.replace(/^./, (c) => c.toUpperCase())} at close
           </th>
           {COVER_LEVELS.map((level) => (
             <th key={level} className={`${th} border-l border-border pl-4`} colSpan={2}>
@@ -185,11 +185,13 @@ interface Props {
   bill: BillKind;
   /** Dollars added to the monthly bill per $1 on the commodity, or null when it cannot be sized yet. */
   exposure: number | null;
+  /** What heats the home, for a heating bill: it decides which market the bill follows. */
+  heat?: string | null;
 }
 
 /** What each cover level would have cost and paid over the last settled days. */
-export function Replay({ bill, exposure }: Props) {
-  const url = exposure ? `/api/bills/replay?underlying=${BILLS[bill].underlying}&dollarsPerPoint=${exposure.toFixed(4)}` : null;
+export function Replay({ bill, exposure, heat }: Props) {
+  const url = exposure ? `/api/bills/replay?underlying=${underlyingFor(bill, heat)}&dollarsPerPoint=${exposure.toFixed(4)}` : null;
   const { data, error, loading } = usePoll<ReplayData>(url);
   const points = data ? runningNet(data) : [];
   const hasDays = points.length > 0;
@@ -232,7 +234,7 @@ export function Replay({ bill, exposure }: Props) {
             </div>
             <NetChart points={points} />
           </div>
-          <ReplayTable bill={bill} replay={data} />
+          <ReplayTable bill={bill} replay={data} heat={heat} />
           <p className="text-[12px] leading-relaxed text-muted-foreground/70">
             Costs come from traded prices where a trade happened and from an estimate elsewhere. Payouts are Gemini&rsquo;s real results.
           </p>

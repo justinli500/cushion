@@ -14,7 +14,7 @@ import { updateProfile, useProfile, type Profile } from "@/domains/profile/profi
 import { formatUsd, formatUsdWhole } from "@/lib/format";
 import { Autopilot } from "./autopilot";
 import { BillQuestion } from "./bill-question";
-import { COPY, LEVEL_NAMES, payIfSentence } from "./copy";
+import { COPY, copyFor, LEVEL_NAMES, payIfSentence } from "./copy";
 import { GasSetup } from "./gas-setup";
 import { HeatingSetup } from "./heating-setup";
 import { Replay } from "./replay";
@@ -143,11 +143,13 @@ interface ExposureProps {
   drive: { car: string; miles: number } | null;
   /** The home the heating bill came from, when it did. */
   living: { home: string; winter: string; thermostat: number } | null;
+  /** What heats the home, for a heating bill. */
+  heat: string | null;
   onChange: () => void;
 }
 
-function ExposureCard({ bill, amount, exposure, drive, living, onChange }: ExposureProps) {
-  const { name, commodity, jump, jumpText } = COPY[bill];
+function ExposureCard({ bill, amount, exposure, drive, living, heat, onChange }: ExposureProps) {
+  const { name, commodity, jump, jumpText } = copyFor(bill, heat);
   const extra = exposure == null ? null : exposure * jump;
   const car = drive ? carOf(drive.car) : null;
   return (
@@ -183,7 +185,9 @@ function ExposureCard({ bill, amount, exposure, drive, living, onChange }: Expos
       <p className="mt-3 text-[13px] leading-relaxed text-muted-foreground">
         {bill === "gas"
           ? "Pump prices follow oil with a delay, so this is a guide and not a forecast."
-          : "Utility rates barely follow daily gas prices, so this is a rough guess at the part of your bill that moves."}
+          : heat === "oil"
+            ? "About half the price of heating oil is the crude itself, and it follows with a delay, so this is a rough guess at the part of your bill that moves."
+            : "Utility rates barely follow daily gas prices, so this is a rough guess at the part of your bill that moves."}
       </p>
       <button type="button" onClick={onChange} className="press mt-3 min-h-11 text-[14px] font-semibold text-foreground underline underline-offset-4">
         {car ? "Change car or miles" : living ? "Change home or thermostat" : "Change amount"}
@@ -204,7 +208,9 @@ function Dashboard({ bills, kinds, asking, setAsking, save }: DashboardProps) {
   const [picked, setPicked] = useState<BillKind>("gas");
   const bill = kinds.includes(picked) ? picked : kinds[0];
   const amount = (bill === "gas" ? bills.gasGallonsPerMonth : bills.heatingBillPerMonth) ?? 0;
-  const markets = useBillMarkets(bill, amount);
+  // Only a heating bill has a fuel: oil and propane heat are cushioned on the oil market.
+  const heat = bill === "heating" ? bills.heat : null;
+  const markets = useBillMarkets(bill, amount, heat);
   const { monthEnd } = markets.ladders;
   const mode = bills.mode;
 
@@ -227,12 +233,12 @@ function Dashboard({ bills, kinds, asking, setAsking, save }: DashboardProps) {
           <CushionTicket
             section="bills"
             title={until ? `${COPY[bill].name} cover through ${until}` : `${COPY[bill].name} cover`}
-            detail={until && from ? payIfSentence(bill, from, `by ${until}`) : "Cover against a rise in the price behind your bill."}
+            detail={until && from ? payIfSentence(bill, from, `by ${until}`, heat) : "Cover against a rise in the price behind your bill."}
             cushion={markets.covers.monthEnd[mode]}
             eventTickers={monthEnd ? [monthEnd.eventTicker] : []}
             expiry={monthEnd?.expiry ?? ""}
             chance={chance == null ? undefined : { p: chance, low: null, high: null, uncertain: true }}
-            covers={markets.exposure == null ? undefined : { of: markets.exposure * COPY[bill].jump, label: `a ${formatUsdWhole(markets.exposure * COPY[bill].jump)} jump` }}
+            covers={markets.exposure == null ? undefined : { of: markets.exposure * copyFor(bill, heat).jump, label: `a ${formatUsdWhole(markets.exposure * copyFor(bill, heat).jump)} jump` }}
             emptyMessage={
               ticketView.kind === "message"
                 ? `${ticketView.text} Daily cover on autopilot may still be available.`
@@ -264,12 +270,13 @@ function Dashboard({ bills, kinds, asking, setAsking, save }: DashboardProps) {
           amount={amount}
           exposure={markets.exposure}
           drive={bill === "gas" && bills.car && bills.milesPerMonth ? { car: bills.car, miles: bills.milesPerMonth } : null}
+          heat={heat}
           living={bill === "heating" && bills.home && bills.winter && bills.thermostat ? { home: bills.home, winter: bills.winter, thermostat: bills.thermostat } : null}
           onChange={() => setAsking(bill)}
         />
         <CoverCard bill={bill} mode={mode} markets={markets} onPick={(level) => updateProfile("bills", { ...bills, mode: level })} />
         <Autopilot bills={bills} />
-        <Replay bill={bill} exposure={markets.exposure} />
+        <Replay bill={bill} exposure={markets.exposure} heat={heat} />
       </WithTicket>
     </>
   );

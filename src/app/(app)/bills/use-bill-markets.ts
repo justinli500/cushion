@@ -4,7 +4,6 @@ import { useMemo, useSyncExternalStore } from "react";
 import { priceCushion } from "@/domains/cushion/price";
 import type { Cushion, CushionQuote } from "@/domains/cushion/types";
 import {
-  BILLS,
   COVER_LEVELS,
   coverFor,
   dollarsPerPoint,
@@ -13,6 +12,7 @@ import {
   type BillKind,
   type BillLadders,
   type CoverLevel,
+  underlyingFor,
 } from "@/domains/exposure/bills";
 import type { Book, Ladder } from "@/domains/markets/types";
 import { usePoll } from "@/lib/use-poll";
@@ -47,19 +47,19 @@ const minuteNow = () => Math.floor(Date.now() / MINUTE_MS) * MINUTE_MS;
 const useClock = () => useSyncExternalStore(subscribeToClock, minuteNow, () => 0);
 
 /** The ladders for one bill and the day and month-end covers on them, priced live at both levels. */
-export function useBillMarkets(bill: BillKind, amount: number): BillMarkets {
+export function useBillMarkets(bill: BillKind, amount: number, heat?: string | null): BillMarkets {
   const ladderPoll = usePoll<{ ladders: Ladder[] }>("/api/markets/ladders", LADDER_REFRESH_MS);
   const now = useClock();
   const ladders = useMemo(
-    () => pickLadders(ladderPoll.data?.ladders ?? [], BILLS[bill].underlying, now),
-    [ladderPoll.data, bill, now],
+    () => pickLadders(ladderPoll.data?.ladders ?? [], underlyingFor(bill, heat), now),
+    [ladderPoll.data, bill, heat, now],
   );
 
   const covers = useMemo(() => {
     const build = (ladder: Ladder | null) =>
-      Object.fromEntries(COVER_LEVELS.map((level) => [level, coverFor(bill, amount, ladder, level)])) as ByLevel<Cushion | null>;
+      Object.fromEntries(COVER_LEVELS.map((level) => [level, coverFor(bill, amount, ladder, level, heat)])) as ByLevel<Cushion | null>;
     return { daily: build(ladders.daily), monthEnd: build(ladders.monthEnd) };
-  }, [bill, amount, ladders]);
+  }, [bill, amount, heat, ladders]);
 
   const symbols = [...new Set(HORIZONS.flatMap((h) => COVER_LEVELS.flatMap((l) => covers[h][l]?.legs.map((leg) => leg.symbol) ?? [])))];
   const bookPoll = usePoll<{ books: Record<string, Book> }>(
@@ -75,7 +75,7 @@ export function useBillMarkets(bill: BillKind, amount: number): BillMarkets {
   }, [covers, bookPoll.data]);
 
   const spot = spotOf(ladders.daily) ?? spotOf(ladders.monthEnd);
-  const exposure = bill === "gas" || spot ? dollarsPerPoint(bill, amount, spot ?? 1) : null;
+  const exposure = bill === "gas" || spot ? dollarsPerPoint(bill, amount, spot ?? 1, heat) : null;
 
   return {
     ladders,
