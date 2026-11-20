@@ -94,10 +94,15 @@ function ladderScenario(exposure: Exposure, ladders: Ladder[], chosen: number | 
   for (const ladder of candidates) {
     const spot = impliedSpot(ladder);
     if (spot == null || spot <= 0) continue;
-    const levels = ladder.rungs
+    const open = ladder.rungs
       .filter((r) => r.contract.open)
       .map((r) => r.strike)
       .sort((a, b) => b - a);
+    const above = open.filter((strike) => strike >= spot);
+    const below = open.filter((strike) => strike < spot);
+    // Cover cannot start at the outermost level on either side: each level is sized to the gap to the
+    // one beyond it, and the last has none. Offering it gave an empty cushion.
+    const levels = [...above.slice(1), ...below.slice(0, -1)];
     // A level the person chose decides the direction by which side of the price it is on. Until then, cover sits on the side that hurts.
     const moved = chosen != null && levels.includes(chosen) ? chosen : null;
     const falling = moved != null ? moved < spot : hurtsFalling;
@@ -128,7 +133,8 @@ function ladderScenario(exposure: Exposure, ladders: Ladder[], chosen: number | 
       expiry: ladder.expiry,
       trigger: `${name} closes ${falling ? "below" : "above"} ${formatPrice(first)} on ${when}`,
       market: `Market: \u201c${ladder.title}\u201d \u00b7 pays in steps from ${formatPrice(first)} ${falling ? "down" : "up"} to ${formatPrice(last)}.`,
-      chart: { symbol: exposure.underlying, name, unit: "price", spot, falling, levels, start: first, end: last },
+      // The cover's own start is always on the chart, even when it is the only level on its side.
+      chart: { symbol: exposure.underlying, name, unit: "price", spot, falling, levels: levels.includes(first) ? levels : [...levels, first].sort((a, b) => b - a), start: first, end: last },
     };
   }
   return null;

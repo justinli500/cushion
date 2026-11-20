@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, type KeyboardEvent, type PointerEvent } from "react";
+import { useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import type { PricePoint } from "@/domains/exposure/portfolio";
 import type { ScenarioChart } from "@/domains/exposure/portfolio-scenarios";
 import { formatLevel, formatPrice } from "@/lib/format";
@@ -27,14 +27,26 @@ interface Props {
   onStart: (level: number) => void;
 }
 
+/** Two presses this close together count as a double-click. */
+const DOUBLE_MS = 350;
+
 /**
  * The price of what a holding moves with, and every level the market lets a cushion start at as a
- * line across it. The chosen line can be dragged, pressed, or moved with the arrow keys; it snaps
- * to the market's own levels because those are the only ones that can be bought.
+ * line across it. The line snaps to the market's own levels because those are the only ones that
+ * can be bought.
+ *
+ * The side of the price the line is on decides whether the cushion pays on a fall or a rise, and
+ * that side is locked: a drag or the arrow keys only move the line nearer to or further from the
+ * price. A double-click unlocks it. The line then follows the pointer across the price, and the
+ * next release or click sets the side again.
  */
 export function LevelChart({ history, chart, until, onStart }: Props) {
   const svg = useRef<SVGSVGElement>(null);
   const dragging = useRef(false);
+  const lastDown = useRef(0);
+  // True between a double-click and the release or click that sets the side.
+  const [unlocked, setUnlocked] = useState(false);
+  const moved = useRef(false);
   const format = chart.unit === "index" ? formatLevel : formatPrice;
   const { falling, spot, start, end } = chart;
 
@@ -46,35 +58,64 @@ export function LevelChart({ history, chart, until, onStart }: Props) {
 
   // Only levels within about a quarter of the price are drawn: a ladder can list ones so far out that the chart would flatten.
   const levels = chart.levels.filter((level) => level >= Math.min(end, spot * 0.75) && level <= Math.max(end, spot * 1.25));
-  const low = Math.min(...closes, spot, ...levels);
-  const high = Math.max(...closes, spot, ...levels);
+  // The furthest level the cover reaches is not one the line can sit on, but the blue band runs to it.
+  const low = Math.min(...closes, spot, ...levels, end);
+  const high = Math.max(...closes, spot, ...levels, end);
   const pad = (high - low || 1) * 0.06;
   const y = (price: number) => BOTTOM - ((price - (low - pad)) / (high - low + 2 * pad)) * (BOTTOM - TOP);
   const x = (i: number) => LEFT + (closes.length > 1 ? i / (closes.length - 1) : 1) * (NOW - LEFT);
 
   const spacing = levels.length > 1 ? Math.abs(y(levels[0]) - y(levels[1])) : LABEL_GAP;
   const every = Math.max(1, Math.ceil(LABEL_GAP / Math.max(spacing, 1)));
-  const at = levels.indexOf(start);
   const covered = (level: number) => (falling ? level <= start && level >= end : level >= start && level <= end);
 
-  /** The listed level nearest to where the pointer is. */
-  const levelAt = (clientY: number) => {
+  // The levels on the side the cushion is on now. Past the last of them a drag simply stops there.
+  const sameSide = levels.filter((level) => level < spot === falling);
+
+  /** The nearest level to where the pointer is, among the ones it may move to. */
+  const levelAt = (clientY: number, among: number[]) => {
     const box = svg.current?.getBoundingClientRect();
-    if (!box || levels.length === 0) return null;
+    if (!box || among.length === 0) return null;
     const py = ((clientY - box.top) / box.height) * H;
-    return levels.reduce((best, level) => (Math.abs(y(level) - py) < Math.abs(y(best) - py) ? level : best));
+    return among.reduce((best, level) => (Math.abs(y(level) - py) < Math.abs(y(best) - py) ? level : best));
   };
-  const move = (event: PointerEvent) => {
-    const level = levelAt(event.clientY);
+  const move = (event: PointerEvent, free: boolean) => {
+    const level = levelAt(event.clientY, free ? levels : sameSide);
     if (level != null && level !== start) onStart(level);
   };
   const keys = (event: KeyboardEvent) => {
     // Levels run from the highest down, so up the screen is one earlier in the list.
     const step = event.key === "ArrowUp" ? -1 : event.key === "ArrowDown" ? 1 : 0;
-    const next = levels[at + step];
+    const next = sameSide[sameSide.indexOf(start) + step];
     if (step === 0 || next == null) return;
     event.preventDefault();
     onStart(next);
+  };
+  const down = (event: PointerEvent<SVGSVGElement>) => {
+    const double = event.timeStamp - lastDown.current < DOUBLE_MS;
+    lastDown.current = event.timeStamp;
+    dragging.current = true;
+    event.currentTarget.setPointerCapture(event.pointerId);
+    if (double && !unlocked) {
+      moved.current = false;
+      setUnlocked(true);
+      return;
+    }
+    // A press while unlocked places the line on either side, and its release sets that side.
+    if (unlocked) moved.current = true;
+    move(event, unlocked);
+  };
+  const drag = (event: PointerEvent) => {
+    if (unlocked) {
+      // Unlocked, the line follows the pointer whether or not a button is held.
+      moved.current = true;
+      move(event, true);
+    } else if (dragging.current) move(event, false);
+  };
+  const up = () => {
+    dragging.current = false;
+    // Releasing after choosing a side sets it. A double-click released without moving stays unlocked until the next click.
+    if (unlocked && moved.current) setUnlocked(false);
   };
 
   const line = closes.map((close, i) => `${i === 0 ? "M" : "L"}${x(i).toFixed(1)} ${y(close).toFixed(1)}`).join(" ");
@@ -89,14 +130,10 @@ export function LevelChart({ history, chart, until, onStart }: Props) {
       ref={svg}
       viewBox={`0 0 ${W} ${H}`}
       className="w-full cursor-ns-resize touch-none select-none"
-      onPointerDown={(event) => {
-        dragging.current = true;
-        event.currentTarget.setPointerCapture(event.pointerId);
-        move(event);
-      }}
-      onPointerMove={(event) => (dragging.current ? move(event) : undefined)}
-      onPointerUp={() => (dragging.current = false)}
-      onPointerCancel={() => (dragging.current = false)}
+      onPointerDown={down}
+      onPointerMove={drag}
+      onPointerUp={up}
+      onPointerCancel={up}
     >
       {/* The move before it starts paying, then the stretch it pays for. */}
       {gapHeight > 0 ? <rect x={LEFT} y={gapTop} width={RIGHT - LEFT} height={gapHeight} className="fill-risk-fill/15" /> : null}
@@ -109,6 +146,12 @@ export function LevelChart({ history, chart, until, onStart }: Props) {
       <text x={RIGHT} y={H - 9} textAnchor="end" fontSize="12" className="fill-muted-foreground">
         to {until}
       </text>
+
+      {unlocked ? (
+        <text x={LEFT + 6} y={TOP - 4} fontSize="12" fontWeight="600" className="fill-covered">
+          Move above or below the price to pick a side, then click to set it.
+        </text>
+      ) : null}
 
       {levels.map((level, i) =>
         level === start ? null : (
@@ -135,7 +178,7 @@ export function LevelChart({ history, chart, until, onStart }: Props) {
       )}
 
       <g role="slider" tabIndex={0} aria-label={label} aria-orientation="vertical" aria-valuemin={Math.min(...levels)} aria-valuemax={Math.max(...levels)} aria-valuenow={start} aria-valuetext={format(start)} onKeyDown={keys} className="outline-none [&:focus-visible>rect]:stroke-foreground">
-        <line x1={LEFT} y1={y(start)} x2={RIGHT} y2={y(start)} className="stroke-primary" strokeWidth="3" />
+        <line x1={LEFT} y1={y(start)} x2={RIGHT} y2={y(start)} className="stroke-primary" strokeWidth="3" strokeDasharray={unlocked ? "10 6" : undefined} />
         <rect x={RIGHT - 2} y={y(start) - 14} width={88} height={28} rx={14} className="fill-primary" strokeWidth="2.5" />
         <text x={RIGHT + 43} y={y(start) + 4.5} textAnchor="middle" fontSize="13" fontWeight="700" className="tabular fill-primary-foreground">
           {format(start)}

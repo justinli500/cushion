@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Card, Chip, PageHeader, Skeleton } from "@/components/kit";
+import { Button, Card, Chip, PageHeader, Skeleton } from "@/components/kit";
 import { exposures, indexExposure, INDEX, readHolding, type History, type Holding } from "@/domains/exposure/portfolio";
 import { buildScenarios, MAX_LEGS, type Starts } from "@/domains/exposure/portfolio-scenarios";
 import { isUnderlyingId, UNDERLYINGS, type EventMarket, type Ladder, type UnderlyingId } from "@/domains/markets/types";
@@ -55,6 +55,9 @@ export default function PortfolioPage() {
   }, [riding, index, ladders.data, events.data, indexSpot, starts]);
   const [shownId, setShownId] = useState<string | null>(null);
   const shown = scenarios.find((s) => s.id === shownId) ?? scenarios[0];
+  // The nearest level on the other side of the price, for switching between a fall and a rise. An index market lists one side only.
+  const across = shown?.chart.levels.filter((level) => level < shown.chart.spot !== shown.chart.falling) ?? [];
+  const flip = across.length === 0 ? null : shown.chart.falling ? Math.min(...across) : Math.max(...across);
 
   // Until the person chooses, the biggest scenario is on, so the panel has a price to show.
   const [picked, setPicked] = useState<string[] | null>(null);
@@ -117,10 +120,17 @@ export default function PortfolioPage() {
                   onStart={(level) => setStarts((previous) => ({ ...previous, [shown.id]: level }))}
                 />
                 <p className="text-[13px] leading-relaxed text-muted-foreground">
-                  Each dashed line is a level Gemini lists a market at. Drag the blue line, or press another one, to choose where your cushion starts
-                  paying{shown.chart.unit === "price" ? ": below the price it pays on a fall, above it on a rise" : ""}. Further from the price costs
-                  less. The orange band is the move before it pays, and the blue band is where it pays.
+                  Each dashed line is a level Gemini lists a market at. Drag the blue line nearer to or further from the price to choose where your
+                  cushion starts paying; further costs less. The orange band is the move before it pays, and the blue band is where it pays.
+                  {flip != null ? ` It pays on a ${shown.chart.falling ? "fall" : "rise"} and stays that way as you drag. To switch, double-click the chart and move above or below the price, or use the button.` : ""}
                 </p>
+                {flip != null ? (
+                  <div>
+                    <Button variant="quiet" onClick={() => setStarts((previous) => ({ ...previous, [shown.id]: flip }))}>
+                      Pay on a {shown.chart.falling ? "rise" : "fall"} instead
+                    </Button>
+                  </div>
+                ) : null}
               </Card>
 
               <ScenarioCard

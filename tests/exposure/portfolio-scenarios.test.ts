@@ -72,10 +72,19 @@ describe("buildScenarios: coins and commodities", () => {
       ["no", 55000],
     ]);
     expect(scenario.chart).toMatchObject({ symbol: "BTC", unit: "price", spot: 62500, falling: true, start: 57500, end: 55000 });
-    expect(scenario.chart.levels).toEqual([70000, 67500, 65000, 62500, 60000, 57500, 55000]);
+    // The outermost level on each side is left out: there is nothing beyond it to size a cover against.
+    expect(scenario.chart.levels).toEqual([67500, 65000, 62500, 60000, 57500]);
     expect(scenario.protective).toBe(true);
     // A level the market does not list is ignored.
     expect(buildScenarios(input({ exposures: [btcExposure(1000)], ladders }), { "ladder:BTC": 58000 })[0].chart.start).toBe(60000);
+  });
+
+  it("keeps the same market when the furthest level is asked for, instead of jumping to another one", () => {
+    const [scenario] = buildScenarios(input({ exposures: [btcExposure(1000)], ladders }), { "ladder:BTC": 55000 });
+    // 55,000 is the last level, so it is not on offer: the cover stays on the month-end market at its usual start.
+    expect(scenario.eventTicker).toBe("BTC-2026-11-30T22:00:00.000Z");
+    expect(scenario.chart.start).toBe(60000);
+    expect(scenario.cushion.legs.length).toBeGreaterThan(0);
   });
 
   it("pays on a rise when the level is moved above the price, and says that is a bet for someone who holds it", () => {
