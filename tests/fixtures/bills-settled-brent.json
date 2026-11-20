@@ -1,0 +1,147 @@
+{
+ "ticker": "BRENT2611182200",
+ "title": "Oil (Brent) price on November 18?",
+ "type": "categorical",
+ "category": "Commodities",
+ "status": "settled",
+ "expiryDate": "2026-11-18T22:00:00.000Z",
+ "template": "prices-ladder",
+ "contracts": [
+  {
+   "label": "$88 or above",
+   "ticker": "HI88",
+   "instrumentSymbol": "GEMI-BRENT2611182200-HI88",
+   "strike": {
+    "type": "above",
+    "value": "88"
+   },
+   "status": "settled",
+   "marketState": "closed",
+   "resolutionSide": "yes",
+   "settlementValue": "88.69566666666665",
+   "prices": {
+    "buy": {},
+    "sell": {}
+   }
+  },
+  {
+   "label": "$89 or above",
+   "ticker": "HI89",
+   "instrumentSymbol": "GEMI-BRENT2611182200-HI89",
+   "strike": {
+    "type": "above",
+    "value": "89"
+   },
+   "status": "settled",
+   "marketState": "closed",
+   "resolutionSide": "no",
+   "settlementValue": "88.69566666666665",
+   "prices": {
+    "buy": {},
+    "sell": {}
+   }
+  },
+  {
+   "label": "$90 or above",
+   "ticker": "HI90",
+   "instrumentSymbol": "GEMI-BRENT2611182200-HI90",
+   "strike": {
+    "type": "above",
+    "value": "90"
+   },
+   "status": "settled",
+   "marketState": "closed",
+   "resolutionSide": "no",
+   "settlementValue": "88.69566666666665",
+   "prices": {
+    "buy": {},
+    "sell": {}
+   }
+  },
+  {
+   "label": "$91 or above",
+   "ticker": "HI91",
+   "instrumentSymbol": "GEMI-BRENT2611182200-HI91",
+   "strike": {
+    "type": "above",
+    "value": "91"
+   },
+   "status": "settled",
+   "marketState": "closed",
+   "resolutionSide": "no",
+   "settlementValue": "88.69566666666665",
+   "prices": {
+    "buy": {},
+    "sell": {}
+   }
+  },
+  {
+   "label": "$92 or above",
+   "ticker": "HI92",
+   "instrumentSymbol": "GEMI-BRENT2611182200-HI92",
+   "strike": {
+    "type": "above",
+    "value": "92"
+   },
+   "status": "settled",
+   "marketState": "closed",
+   "resolutionSide": "no",
+   "settlementValue": "88.69566666666665",
+   "prices": {
+    "buy": {},
+    "sell": {}
+   }
+  },
+  {
+   "label": "$93 or above",
+   "ticker": "HI93",
+   "instrumentSymbol": "GEMI-BRENT2611182200-HI93",
+   "strike": {
+    "type": "above",
+    "value": "93"
+   },
+   "status": "settled",
+   "marketState": "closed",
+   "resolutionSide": "no",
+   "settlementValue": "88.69566666666665",
+   "prices": {
+    "buy": {},
+    "sell": {}
+   }
+  },
+  {
+   "label": "$87 or above",
+   "ticker": "HI87",
+   "instrumentSymbol": "GEMI-BRENT2611182200-HI87",
+   "strike": {
+    "type": "above",
+    "value": "87"
+   },
+   "status": "settled",
+   "marketState": "closed",
+   "resolutionSide": "yes",
+   "settlementValue": "88.69566666666665",
+   "prices": {
+    "buy": {},
+    "sell": {}
+   }
+  },
+  {
+   "label": "$86 or above",
+   "ticker": "HI86",
+   "instrumentSymbol": "GEMI-BRENT2611182200-HI86",
+   "strike": {
+    "type": "above",
+    "value": "86"
+   },
+   "status": "settled",
+   "marketState": "closed",
+   "resolutionSide": "yes",
+   "settlementValue": "88.69566666666665",
+   "prices": {
+    "buy": {},
+    "sell": {}
+   }
+  }
+ ]
+}

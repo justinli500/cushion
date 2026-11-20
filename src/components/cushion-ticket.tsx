@@ -84,6 +84,11 @@ export function CushionTicket(props: TicketProps) {
         ) : (
           <p className="rounded-xl bg-loss-soft px-4 py-3 text-[14px] text-loss">{error ?? "Gemini's order book is unavailable right now."}</p>
         )
+      ) : quote.maxPayout === 0 ? (
+        // Nothing filled, so there is no cost or payout worth showing and nothing to buy.
+        <p className="arrive rounded-xl bg-loss-soft px-4 py-3 text-[14px] leading-relaxed text-loss">
+          Nobody is selling this cover on Gemini right now. Thin markets fill and empty through the day, so it may be back soon.
+        </p>
       ) : (
         <div className="arrive">
           <dl className="space-y-3">
@@ -105,11 +110,7 @@ export function CushionTicket(props: TicketProps) {
             ) : null}
           </dl>
 
-          {quote.maxPayout === 0 ? (
-            <p className="mt-4 rounded-xl bg-loss-soft px-4 py-3 text-[13px] leading-relaxed text-loss">
-              Nobody is selling this cover on Gemini right now.
-            </p>
-          ) : quote.partial ? (
+          {quote.partial ? (
             <p className="mt-4 rounded-xl bg-note-soft px-4 py-3 text-[13px] leading-relaxed text-note">
               Only {formatUsd(quote.maxPayout)} of the {formatUsd(quote.requestedPayout)} you asked for is on offer. The market for this is thin.
             </p>

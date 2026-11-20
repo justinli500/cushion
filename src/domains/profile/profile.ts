@@ -38,20 +38,26 @@ const EMPTY: Profile = profileSchema.parse({});
 let profile: Profile | null = null;
 const listeners = new Set<() => void>();
 
-function load(): Profile {
-  if (profile) return profile;
+/** The profile as storage has it right now, or null when storage cannot be read or does not parse. */
+export function storedProfile(): Profile | null {
   try {
     const parsed = profileSchema.safeParse(JSON.parse(localStorage.getItem(KEY) ?? "{}"));
-    profile = parsed.success ? parsed.data : EMPTY;
+    return parsed.success ? parsed.data : null;
   } catch {
-    profile = EMPTY;
+    return null;
   }
+}
+
+function load(): Profile {
+  profile ??= storedProfile() ?? EMPTY;
   return profile;
 }
 
 /** Replaces one slice of the profile, e.g. updateProfile("team", {...}). */
 export function updateProfile<K extends keyof Profile>(slice: K, value: Profile[K]) {
-  profile = { ...load(), [slice]: value };
+  // Start from what is stored, not from this tab's copy, so a tab that has been open a while does
+  // not write its old view of the other slices over what another tab saved since.
+  profile = { ...(storedProfile() ?? load()), [slice]: value };
   try {
     localStorage.setItem(KEY, JSON.stringify(profile));
   } catch {
@@ -62,8 +68,16 @@ export function updateProfile<K extends keyof Profile>(slice: K, value: Profile[
 
 function subscribe(listener: () => void) {
   listeners.add(listener);
+  // Another tab saved: pick up its change.
+  const onStorage = (event: StorageEvent) => {
+    if (event.key !== KEY) return;
+    profile = null;
+    listeners.forEach((each) => each());
+  };
+  window.addEventListener("storage", onStorage);
   return () => {
     listeners.delete(listener);
+    window.removeEventListener("storage", onStorage);
   };
 }
 
