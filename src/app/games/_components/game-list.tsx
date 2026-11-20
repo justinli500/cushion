@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { Button, Card, Notice, Skeleton } from "@/components/ui";
+import { Button, Card, Notice, Skeleton } from "@/components/kit";
 import type { Game, TeamSide } from "@/domains/markets/types";
 import { updateProfile, useProfile } from "@/domains/profile/profile";
 import { winChance } from "@/domains/scores/chance";
@@ -18,7 +18,7 @@ const SCORES_MS = 10_000;
 const LiveLink = () => (
   <>
     No game on?{" "}
-    <Link href="/games/live" className="press text-cushion underline-offset-2 hover:underline">
+    <Link href="/games/live" className="press text-primary underline-offset-2 hover:underline">
       Watch Colts at Texans.
     </Link>
   </>
@@ -27,18 +27,18 @@ const LiveLink = () => (
 /** Always on the page, so the game screen can be used whether or not anything is being played tonight. */
 function FeaturedGame() {
   return (
-    <Link href="/games/live" className="press flex items-center justify-between gap-6 rounded-2xl border border-line bg-card p-5 hover:border-cushion">
+    <Link href="/games/live" className="press flex items-center justify-between gap-6 rounded-2xl border border-border bg-card p-5 hover:border-primary">
       <span>
         <span className="flex items-center gap-2">
-          <span className="rounded-full bg-cushion-soft px-2 py-0.5 text-[11px] font-medium text-cushion">Live</span>
-          <span className="rounded-full bg-note-soft px-2 py-0.5 text-[11px] font-medium text-note">Simulated · played Nov 19</span>
+          <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primary">Live</span>
+          <span className="rounded-full bg-warning/15 px-2 py-0.5 text-[11px] font-medium text-warning">Simulated · played Nov 19</span>
         </span>
         <span className="mt-2 block text-[17px] font-semibold tracking-tight">Colts at Texans, Thursday Night Football</span>
-        <span className="mt-1 block text-[14px] text-muted">
+        <span className="mt-1 block text-[14px] text-muted-foreground">
           Watch the broadcast with the score, plays and Gemini&rsquo;s real prices moving beside it, and cushion a loss as it happens.
         </span>
       </span>
-      <span className="shrink-0 rounded-xl bg-ink px-4 py-2 text-[14px] font-medium text-card">Watch</span>
+      <span className="shrink-0 rounded-xl bg-foreground px-4 py-2 text-[14px] font-medium text-background">Watch</span>
     </Link>
   );
 }
@@ -80,7 +80,7 @@ export function GameList() {
     return (
       <Card>
         <h2 className="text-[17px] font-semibold tracking-tight">No games on the market right now</h2>
-        <p className="mt-2 max-w-md text-[14px] leading-relaxed text-muted">
+        <p className="mt-2 max-w-md text-[14px] leading-relaxed text-muted-foreground">
           New games appear here a day or so before kickoff. <LiveLink />
         </p>
       </Card>
@@ -101,7 +101,7 @@ export function GameList() {
             </Chip>
           ))}
         </div>
-        <p className="text-[14px] text-muted">
+        <p className="text-[14px] text-muted-foreground">
           <LiveLink />
         </p>
       </div>
@@ -130,7 +130,7 @@ function Chip({ active, onClick, children }: { active: boolean; onClick: () => v
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`press rounded-full px-3.5 py-1.5 text-[13px] font-medium ${active ? "bg-ink text-card" : "bg-card text-muted shadow-[0_0_0_1px_var(--line)] hover:text-ink"}`}
+      className={`press rounded-full px-3.5 py-1.5 text-[13px] font-medium ${active ? "bg-foreground text-background" : "bg-card text-muted-foreground shadow-[0_0_0_1px_var(--border)] hover:text-foreground"}`}
     >
       {children}
     </button>
@@ -168,7 +168,7 @@ function GameRow({ row }: { row: LobbyRow }) {
   const isMine = (t: TeamSide) => mine?.league === game.league && mine.abbr === t.abbr;
 
   return (
-    <li className="arrive press relative grid grid-cols-[36px_minmax(0,300px)_44px_104px_minmax(0,1fr)] grid-rows-2 items-center rounded-2xl border border-line bg-card px-3 py-2 hover:border-faint">
+    <li className="arrive press relative grid grid-cols-[36px_minmax(0,300px)_44px_104px_minmax(0,1fr)] grid-rows-2 items-center rounded-2xl border border-border bg-card px-3 py-2 hover:border-foreground/30">
       <Link href={`/games/${game.gameId}`} aria-label={`Open ${game.title}`} className="absolute inset-0 rounded-2xl" />
       {sides.map((t, i) => {
         const chance = winChance(t.contract.quote);
@@ -180,28 +180,28 @@ function GameRow({ row }: { row: LobbyRow }) {
               aria-label={isMine(t) ? `Stop rooting for ${teamLabel(game, t)}` : `Root for ${teamLabel(game, t)}`}
               title={isMine(t) ? "Your team" : "Make this my team"}
               onClick={() => updateProfile("team", isMine(t) ? null : { league: game.league, abbr: t.abbr, name: t.name })}
-              className="press pointer-events-auto relative z-10 flex h-9 w-9 items-center justify-center rounded-full text-faint hover:text-ink aria-pressed:text-cushion"
+              className="press pointer-events-auto relative z-10 flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground/70 hover:text-foreground aria-pressed:text-primary"
             >
               <Star filled={isMine(t)} />
             </button>
             <span className={`pointer-events-none truncate text-[15px] ${isMine(t) ? "font-semibold" : "font-medium"}`}>{teamLabel(game, t)}</span>
             <span className="tabular pointer-events-none text-right text-[17px] font-semibold">{scoreOf(t) ?? ""}</span>
             <span
-              className={`tabular pointer-events-none text-right text-[14px] ${chance.uncertain ? "text-muted" : "text-ink"}`}
+              className={`tabular pointer-events-none text-right text-[14px] ${chance.uncertain ? "text-muted-foreground" : "text-foreground"}`}
               title={chance.uncertain ? "A rough read: not many people are trading this" : undefined}
             >
               {formatChance(chance.p)}
-              <span className="ml-1 text-[12px] text-faint">to win</span>
+              <span className="ml-1 text-[12px] text-muted-foreground/70">to win</span>
             </span>
           </RowCells>
         );
       })}
       <div className="pointer-events-none col-start-5 row-span-2 row-start-1 pl-4 text-right">
-        <p className={`tabular text-[13px] font-medium ${status.live ? "text-cushion" : "text-muted"}`}>
-          {status.live ? <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-cushion align-middle" aria-hidden /> : null}
+        <p className={`tabular text-[13px] font-medium ${status.live ? "text-primary" : "text-muted-foreground"}`}>
+          {status.live ? <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-primary align-middle" aria-hidden /> : null}
           {status.text}
         </p>
-        {score == null && game.isLive ? <p className="mt-0.5 text-[12px] text-faint">No score yet</p> : null}
+        {score == null && game.isLive ? <p className="mt-0.5 text-[12px] text-muted-foreground/70">No score yet</p> : null}
       </div>
     </li>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis, type TooltipContentProps } from "recharts";
-import { Card, CardTitle, Notice, Skeleton, Tag } from "@/components/ui";
+import { Card, CardTitle, Notice, Skeleton, Tag } from "@/components/kit";
 import { BILLS, COVER_LEVELS, dayLabel, type BillKind, type CoverLevel } from "@/domains/exposure/bills";
 import type { Replay as ReplayData, ReplayDay } from "@/domains/exposure/bills-replay";
 import { formatLevel, formatUsd } from "@/lib/format";
@@ -9,7 +9,7 @@ import { usePoll } from "@/lib/use-poll";
 import { COPY, LEVEL_NAMES } from "./copy";
 
 // Spikes only is the accent; Full is the quiet gray. The two keep their colors whichever is selected.
-const STROKE: Record<CoverLevel, string> = { spike: "var(--cushion)", full: "var(--faint)" };
+const STROKE: Record<CoverLevel, string> = { spike: "var(--primary)", full: "var(--muted-foreground)" };
 
 const signed = (dollars: number) => `${dollars < 0 ? "-" : dollars > 0 ? "+" : ""}${formatUsd(Math.abs(dollars))}`;
 
@@ -43,13 +43,13 @@ function Key({ level }: { level: CoverLevel }) {
 function ChartTooltip({ active, payload, label }: TooltipContentProps) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="rounded-xl border border-line bg-card px-3 py-2 text-[12px] shadow-sm">
-      <p className="mb-1 text-muted">After {label}</p>
+    <div className="rounded-xl border border-border bg-card px-3 py-2 text-[12px] shadow-sm">
+      <p className="mb-1 text-muted-foreground">After {label}</p>
       {payload.map((entry) => (
         <p key={String(entry.dataKey)} className="tabular flex items-center gap-2">
           <Key level={entry.dataKey as CoverLevel} />
-          <span className="font-semibold text-ink">{signed(Number(entry.value))}</span>
-          <span className="text-muted">{LEVEL_NAMES[entry.dataKey as CoverLevel]}</span>
+          <span className="font-semibold text-foreground">{signed(Number(entry.value))}</span>
+          <span className="text-muted-foreground">{LEVEL_NAMES[entry.dataKey as CoverLevel]}</span>
         </p>
       ))}
     </div>
@@ -57,16 +57,16 @@ function ChartTooltip({ active, payload, label }: TooltipContentProps) {
 }
 
 function NetChart({ points }: { points: Point[] }) {
-  const axis = { fontSize: 12, fill: "var(--muted)" };
+  const axis = { fontSize: 12, fill: "var(--muted-foreground)" };
   return (
     <div className="h-[200px]" role="img" aria-label="Running net result for each cover level over the replayed days. The table below has the same numbers.">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={points} margin={{ top: 8, right: 16, bottom: 0, left: 0 }}>
-          <CartesianGrid vertical={false} stroke="var(--line)" />
-          <XAxis dataKey="label" tick={axis} tickLine={false} axisLine={{ stroke: "var(--line)" }} />
+          <CartesianGrid vertical={false} stroke="var(--border)" />
+          <XAxis dataKey="label" tick={axis} tickLine={false} axisLine={{ stroke: "var(--border)" }} />
           <YAxis tick={axis} tickLine={false} axisLine={false} width={56} tickFormatter={(v: number) => signed(v)} />
-          <ReferenceLine y={0} stroke="var(--faint)" />
-          <Tooltip content={ChartTooltip} cursor={{ stroke: "var(--faint)", strokeWidth: 1 }} />
+          <ReferenceLine y={0} stroke="var(--muted-foreground)" />
+          <Tooltip content={ChartTooltip} cursor={{ stroke: "var(--muted-foreground)", strokeWidth: 1 }} />
           {COVER_LEVELS.map((level) => (
             <Line
               key={level}
@@ -87,11 +87,11 @@ function NetChart({ points }: { points: Point[] }) {
   );
 }
 
-const th = "pb-2 text-right text-[12px] font-medium text-muted";
+const th = "pb-2 text-right text-[12px] font-medium text-muted-foreground";
 const td = "py-2 text-right text-[13px]";
 
 function Cost({ day }: { day: ReplayDay | undefined }) {
-  if (!day) return <span className="text-faint">n/a</span>;
+  if (!day) return <span className="text-muted-foreground/70">n/a</span>;
   return (
     <>
       {day.estimated ? (
@@ -111,7 +111,7 @@ function ReplayTable({ bill, replay }: { bill: BillKind; replay: ReplayData }) {
   return (
     <table className="tabular w-full">
       <thead>
-        <tr className="border-b border-line">
+        <tr className="border-b border-border">
           <th className={`${th} text-left`} rowSpan={2}>
             Day
           </th>
@@ -119,14 +119,14 @@ function ReplayTable({ bill, replay }: { bill: BillKind; replay: ReplayData }) {
             {COPY[bill].commodity.replace(/^./, (c) => c.toUpperCase())} at close
           </th>
           {COVER_LEVELS.map((level) => (
-            <th key={level} className={`${th} border-l border-line pl-4`} colSpan={2}>
+            <th key={level} className={`${th} border-l border-border pl-4`} colSpan={2}>
               <Key level={level} /> <span className="ml-1">{LEVEL_NAMES[level]}</span>
             </th>
           ))}
         </tr>
-        <tr className="border-b border-line">
+        <tr className="border-b border-border">
           {COVER_LEVELS.flatMap((level) => [
-            <th key={`${level}-cost`} className={`${th} border-l border-line pl-4`}>
+            <th key={`${level}-cost`} className={`${th} border-l border-border pl-4`}>
               Cost
             </th>,
             <th key={`${level}-paid`} className={th}>
@@ -135,7 +135,7 @@ function ReplayTable({ bill, replay }: { bill: BillKind; replay: ReplayData }) {
           ])}
         </tr>
       </thead>
-      <tbody className="divide-y divide-line">
+      <tbody className="divide-y divide-border">
         {dates.map((date) => (
           <tr key={date}>
             <td className={`${td} text-left`}>{dayLabel(date)}</td>
@@ -143,11 +143,11 @@ function ReplayTable({ bill, replay }: { bill: BillKind; replay: ReplayData }) {
             {COVER_LEVELS.flatMap((level) => {
               const day = find(level, date);
               return [
-                <td key={`${level}-cost`} className={`${td} border-l border-line pl-4`}>
+                <td key={`${level}-cost`} className={`${td} border-l border-border pl-4`}>
                   <Cost day={day} />
                 </td>,
                 <td key={`${level}-paid`} className={td}>
-                  {day ? formatUsd(day.payout) : <span className="text-faint">n/a</span>}
+                  {day ? formatUsd(day.payout) : <span className="text-muted-foreground/70">n/a</span>}
                 </td>,
               ];
             })}
@@ -155,11 +155,11 @@ function ReplayTable({ bill, replay }: { bill: BillKind; replay: ReplayData }) {
         ))}
       </tbody>
       <tfoot>
-        <tr className="border-t border-line font-medium">
+        <tr className="border-t border-border font-medium">
           <td className={`${td} text-left`}>Total</td>
           <td />
           {COVER_LEVELS.flatMap((level) => [
-            <td key={`${level}-cost`} className={`${td} border-l border-line pl-4`}>
+            <td key={`${level}-cost`} className={`${td} border-l border-border pl-4`}>
               {formatUsd(replay[level].totals.cost)}
             </td>,
             <td key={`${level}-paid`} className={td}>
@@ -171,7 +171,7 @@ function ReplayTable({ bill, replay }: { bill: BillKind; replay: ReplayData }) {
           <td className={`${td} text-left`}>Net</td>
           <td />
           {COVER_LEVELS.map((level) => (
-            <td key={level} className={`${td} border-l border-line pl-4`} colSpan={2}>
+            <td key={level} className={`${td} border-l border-border pl-4`} colSpan={2}>
               {signed(replay[level].totals.net)}
             </td>
           ))}
@@ -197,7 +197,7 @@ export function Replay({ bill, exposure }: Props) {
   return (
     <Card>
       <CardTitle hint={hasDays ? `Last ${points.length} days` : undefined}>How it would have done</CardTitle>
-      <p className="mb-5 max-w-xl text-[14px] leading-relaxed text-muted">
+      <p className="mb-5 max-w-xl text-[14px] leading-relaxed text-muted-foreground">
         Each day&rsquo;s cover is bought at that day&rsquo;s opening price and held until it closes at 22:00 UTC.
       </p>
       {!url || loading ? (
@@ -221,8 +221,8 @@ export function Replay({ bill, exposure }: Props) {
           </p>
           <div>
             <div className="mb-2 flex items-center justify-between gap-4">
-              <p className="text-[13px] font-medium text-muted">Net after each day</p>
-              <p className="flex gap-4 text-[12px] text-muted">
+              <p className="text-[13px] font-medium text-muted-foreground">Net after each day</p>
+              <p className="flex gap-4 text-[12px] text-muted-foreground">
                 {COVER_LEVELS.map((level) => (
                   <span key={level}>
                     <Key level={level} /> <span className="ml-1">{LEVEL_NAMES[level]}</span>
@@ -233,7 +233,7 @@ export function Replay({ bill, exposure }: Props) {
             <NetChart points={points} />
           </div>
           <ReplayTable bill={bill} replay={data} />
-          <p className="text-[12px] leading-relaxed text-faint">
+          <p className="text-[12px] leading-relaxed text-muted-foreground/70">
             Costs come from traded prices where a trade happened and from an estimate elsewhere. Payouts are Gemini&rsquo;s real results.
           </p>
         </div>

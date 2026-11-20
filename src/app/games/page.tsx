@@ -1,4 +1,4 @@
-import { PageHeader } from "@/components/ui";
+import { PageHeader } from "@/components/kit";
 import { GameList } from "./_components/game-list";
 
 export default function Page() {

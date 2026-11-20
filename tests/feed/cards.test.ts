@@ -91,6 +91,11 @@ describe("games", () => {
     expect(fan.stat?.label).toBe("chance the Colts win");
     expect(fan.action).toBe("Cushion a loss");
     expect(fan.href).toBe("/games/busy");
+
+    // The same abbreviation in another league is not the person's team.
+    const other = gameCard(busy, { league: "NCAAM", abbr: "HOU", name: "Houston Cougars" })!;
+    expect(other.eyebrow).toBe("On now");
+    expect(other.action).toBe("Open game");
   });
 });
 

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMemo } from "react";
 import { FeedCardView } from "@/components/feed/feed-card";
-import { PageHeader, Skeleton } from "@/components/ui";
+import { PageHeader, Skeleton } from "@/components/kit";
 import { exposures, readHolding, type History } from "@/domains/exposure/portfolio";
 import {
   billsCard,
@@ -91,13 +91,13 @@ export default function TodayPage() {
       {missing.length > 0 ? (
         <section className="mt-10">
           <h2 className="mb-1 text-[15px] font-semibold">Make this yours</h2>
-          <p className="mb-4 text-[14px] text-muted">Tell Cushion what you have riding on tomorrow. Each one adds a card here.</p>
+          <p className="mb-4 text-[14px] text-muted-foreground">Tell Cushion what you have riding on tomorrow. Each one adds a card here.</p>
           <ul className="grid grid-cols-3 gap-3 xl:grid-cols-5">
             {missing.map((starter) => (
               <li key={starter.href}>
-                <Link href={starter.href} className="press block h-full rounded-2xl border border-line px-4 py-3.5 hover:border-cushion">
+                <Link href={starter.href} className="press block h-full rounded-2xl border border-border px-4 py-3.5 hover:border-primary">
                   <span className="block text-[14px] font-medium">{starter.title}</span>
-                  <span className="mt-0.5 block text-[13px] leading-snug text-muted">{starter.body}</span>
+                  <span className="mt-0.5 block text-[13px] leading-snug text-muted-foreground">{starter.body}</span>
                 </Link>
               </li>
             ))}

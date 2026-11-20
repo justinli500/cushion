@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, inputClass, Notice, Tag } from "@/components/ui";
+import { Card, inputClass, Notice, Tag } from "@/components/kit";
 import { chanceOf } from "@/domains/cushion/probability";
 import {
   bustWording,
@@ -34,7 +34,7 @@ interface Props {
 
 const choice = (active: boolean) =>
   `press rounded-xl border px-3 py-2 text-left disabled:cursor-not-allowed disabled:opacity-50 ${
-    active ? "border-cushion bg-cushion-soft text-cushion" : "border-line bg-card text-ink hover:border-faint"
+    active ? "border-primary bg-primary/10 text-primary" : "border-border bg-card text-foreground hover:border-foreground/30"
   }`;
 
 export function PlayerCard({ entry, status, picked, amount, onPickStat, onPickLine, onAmount, onRemove }: Props) {
@@ -44,10 +44,10 @@ export function PlayerCard({ entry, status, picked, amount, onPickStat, onPickLi
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
           <h3 className="text-[16px] font-semibold">{entry.player}</h3>
-          <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] text-muted">
+          <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] text-muted-foreground">
             <Tag tone="plain">{entry.league}</Tag>
             <span>{entry.gameTitle}</span>
-            <span className="text-faint">
+            <span className="text-muted-foreground/70">
               {status === "upcoming" ? "Starts" : "Started"} {formatWhen(entry.startTime)}
             </span>
             {status === "live" ? <Tag tone="note">In progress</Tag> : null}
@@ -84,7 +84,7 @@ export function PlayerCard({ entry, status, picked, amount, onPickStat, onPickLi
 
 export function RemoveButton({ name, onClick }: { name: string; onClick: () => void }) {
   return (
-    <button type="button" onClick={onClick} aria-label={`Remove ${name}`} className="press shrink-0 text-[13px] text-muted hover:text-ink">
+    <button type="button" onClick={onClick} aria-label={`Remove ${name}`} className="press shrink-0 text-[13px] text-muted-foreground hover:text-foreground">
       Remove
     </button>
   );
@@ -101,7 +101,7 @@ function StatRow({ stat, selected, onClick }: { stat: StatLines; selected: boole
       className={`${choice(selected)} flex w-full items-center justify-between gap-4`}
     >
       <span className="text-[14px] font-medium">{stat.label}</span>
-      <span className={`text-[13px] ${selected ? "" : "text-muted"}`}>{!open ? "Closed right now" : selected ? "Covering" : "Cover this"}</span>
+      <span className={`text-[13px] ${selected ? "" : "text-muted-foreground"}`}>{!open ? "Closed right now" : selected ? "Covering" : "Cover this"}</span>
     </button>
   );
 }
@@ -120,9 +120,9 @@ function Picker({
   onAmount: (text: string) => void;
 }) {
   return (
-    <div className="arrive mt-2 space-y-5 rounded-xl bg-paper p-4">
+    <div className="arrive mt-2 space-y-5 rounded-xl bg-muted p-4">
       <div>
-        <p className="mb-2 text-[13px] font-medium text-muted">When should it pay you back?</p>
+        <p className="mb-2 text-[13px] font-medium text-muted-foreground">When should it pay you back?</p>
         <div className="flex flex-wrap gap-2">
           {stat.lines.map((l) => {
             const chance = chanceOf(l.contract.quote, "no");
@@ -136,18 +136,18 @@ function Picker({
                 className={choice(line === l.line)}
               >
                 <span className="block text-[14px] font-medium">{bustWording(stat.metric, l.line).chip}</span>
-                <span className={`tabular block text-[12px] ${line === l.line ? "" : "text-faint"}`}>
+                <span className={`tabular block text-[12px] ${line === l.line ? "" : "text-muted-foreground/70"}`}>
                   {!l.contract.open ? "Closed" : chance.p == null ? "No quotes" : `${chance.uncertain ? "~" : ""}${formatChance(chance.p)}`}
                 </span>
               </button>
             );
           })}
         </div>
-        <p className="mt-2 text-[12px] text-faint">Each percentage is the market&rsquo;s chance of that happening, which is your chance of being paid.</p>
+        <p className="mt-2 text-[12px] text-muted-foreground/70">Each percentage is the market&rsquo;s chance of that happening, which is your chance of being paid.</p>
       </div>
 
       <div>
-        <p className="mb-2 text-[13px] font-medium text-muted">How much should it pay?</p>
+        <p className="mb-2 text-[13px] font-medium text-muted-foreground">How much should it pay?</p>
         <div className="flex flex-wrap items-center gap-2">
           {PAYOUT_PRESETS.map((n) => (
             <button key={n} type="button" aria-pressed={amount === String(n)} onClick={() => onAmount(String(n))} className={`${choice(amount === String(n))} tabular text-[14px] font-medium`}>
@@ -155,7 +155,7 @@ function Picker({
             </button>
           ))}
           <div className="relative w-28">
-            <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[14px] text-faint" aria-hidden>
+            <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[14px] text-muted-foreground/70" aria-hidden>
               $
             </span>
             <input
@@ -169,7 +169,7 @@ function Picker({
           </div>
         </div>
         {parsePayout(amount) == null ? (
-          <p className="mt-2 text-[12px] text-loss">
+          <p className="mt-2 text-[12px] text-destructive">
             Choose an amount from {formatUsdWhole(MIN_PAYOUT)} to {formatUsdWhole(MAX_PAYOUT)}.
           </p>
         ) : null}

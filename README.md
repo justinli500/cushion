@@ -89,7 +89,7 @@ There is no login, and fills are simulated in the browser, so a receipt is a pub
 
 ## Architecture
 
-One Next.js 16 app in TypeScript. Server routes fetch and cache upstream data. The browser holds the person's profile and their play-money account.
+One Next.js 16 app in TypeScript, with a shadcn/ui component layer on Tailwind and a dark theme in the spirit of Gemini's prediction markets. Server routes fetch and cache upstream data. The browser holds the person's profile and their play-money account.
 
 ```
 src/
@@ -106,6 +106,8 @@ src/
     receipts/             Solana memo builder and sender
     profile/              what the person has told the app
   components/             cushion ticket, charts, layout
+    ui/                   shadcn/ui components
+    kit.tsx               Cushion's own building blocks, each a thin layer over a shadcn component
 tests/                    mirrors src/domains, with fixtures of real Gemini responses
 ```
 

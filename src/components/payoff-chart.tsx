@@ -39,7 +39,7 @@ export function PayoffChart({ points, spot, name }: Props) {
   const ticks = points.length > 1 ? niceTicks(points[0].price, points[points.length - 1].price) : undefined;
   return (
     <figure>
-      <figcaption className="mb-3 flex items-center gap-5 text-[13px] text-muted">
+      <figcaption className="mb-3 flex items-center gap-5 text-[13px] text-muted-foreground">
         <span className="flex items-center gap-2">
           <svg width="22" height="6" aria-hidden>
             <line x1="0" y1="3" x2="22" y2="3" stroke={WITHOUT} strokeWidth="2" strokeDasharray="5 4" />
@@ -58,34 +58,36 @@ export function PayoffChart({ points, spot, name }: Props) {
       <div className="h-[280px]" role="img" aria-label={`Gain or loss across ${name} closing prices, with and without the cushion`}>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={points} margin={{ top: 8, right: 16, bottom: 4, left: 4 }}>
-            <CartesianGrid stroke="var(--line)" vertical={false} />
+            <CartesianGrid stroke="var(--border)" vertical={false} />
             <XAxis
               dataKey="price"
               type="number"
               domain={["dataMin", "dataMax"]}
               tickFormatter={(value: number) => formatPrice(value)}
-              tick={{ fill: "var(--muted)", fontSize: 12 }}
+              tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
               tickLine={false}
-              axisLine={{ stroke: "var(--line)" }}
+              axisLine={{ stroke: "var(--border)" }}
               ticks={ticks}
             />
             <YAxis
               tickFormatter={(value: number) => formatUsdWhole(value)}
-              tick={{ fill: "var(--muted)", fontSize: 12 }}
+              tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
               tickLine={false}
               axisLine={false}
               width={64}
             />
-            <ReferenceLine y={0} stroke="var(--faint)" />
+            <ReferenceLine y={0} stroke="var(--muted-foreground)" />
             <ReferenceLine
               x={spot}
-              stroke="var(--faint)"
+              stroke="var(--muted-foreground)"
               strokeDasharray="2 4"
-              label={{ value: "Expected close", position: "insideTopRight", fill: "var(--muted)", fontSize: 12 }}
+              label={{ value: "Expected close", position: "insideTopRight", fill: "var(--muted-foreground)", fontSize: 12 }}
             />
             <Tooltip
-              cursor={{ stroke: "var(--faint)" }}
-              contentStyle={{ borderRadius: 12, border: "1px solid var(--line)", fontSize: 13, color: "var(--ink)" }}
+              cursor={{ stroke: "var(--muted-foreground)" }}
+              contentStyle={{ borderRadius: 12, border: "1px solid var(--border)", background: "var(--popover)", fontSize: 13, color: "var(--foreground)" }}
+              itemStyle={{ color: "var(--foreground)" }}
+              labelStyle={{ color: "var(--muted-foreground)" }}
               labelFormatter={(price) => `${name} closes at ${formatPrice(Number(price))}`}
               formatter={(value, key) => [formatUsd(Number(value)), key === "without" ? "Without a cushion" : "With the cushion"]}
             />

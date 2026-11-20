@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { toast } from "sonner";
 import { buyCushion } from "@/domains/account/buy";
 import type { Section } from "@/domains/account/ledger";
 import { useAccount } from "@/domains/account/store";
@@ -9,7 +10,7 @@ import type { Chance, Cushion, CushionQuote } from "@/domains/cushion/types";
 import type { Book } from "@/domains/markets/types";
 import { formatChance, formatUsd } from "@/lib/format";
 import { usePoll } from "@/lib/use-poll";
-import { Button, Skeleton, Tag } from "./ui";
+import { Button, Skeleton, Tag } from "./kit";
 
 export interface TicketProps {
   section: Section;
@@ -70,20 +71,21 @@ export function CushionTicket(props: TicketProps) {
     if (!quote || !canBuy) return;
     buyCushion({ section, title, detail, quote, eventTickers, expiry, replay: replay?.id });
     setBoughtKey(cushionKey);
+    toast.success(`${title} added`, { description: `Costs ${formatUsd(quote.cost)}, pays up to ${formatUsd(quote.maxPayout)}.` });
     setJustNow(true);
     setTimeout(() => setJustNow(false), 4_000);
   };
 
   return (
-    <div className="rounded-2xl border border-line bg-card p-6">
+    <div className="rounded-2xl border border-border bg-card p-6">
       <div className="mb-1 flex items-center justify-between">
         <h2 className="text-[15px] font-semibold">{title}</h2>
         <Tag tone="note">Simulated</Tag>
       </div>
-      <p className="mb-5 text-[14px] leading-relaxed text-muted">{detail}</p>
+      <p className="mb-5 text-[14px] leading-relaxed text-muted-foreground">{detail}</p>
 
       {nothingToBuy ? (
-        <p className="rounded-xl bg-paper px-4 py-3 text-[14px] leading-relaxed text-muted">
+        <p className="rounded-xl bg-muted px-4 py-3 text-[14px] leading-relaxed text-muted-foreground">
           {emptyMessage ?? "Nothing to cushion yet."}
         </p>
       ) : !quote ? (
@@ -94,11 +96,11 @@ export function CushionTicket(props: TicketProps) {
             <Skeleton className="h-5 w-3/4" />
           </div>
         ) : (
-          <p className="rounded-xl bg-loss-soft px-4 py-3 text-[14px] text-loss">{error ?? "Gemini's order book is unavailable right now."}</p>
+          <p className="rounded-xl bg-destructive/10 px-4 py-3 text-[14px] text-destructive">{error ?? "Gemini's order book is unavailable right now."}</p>
         )
       ) : quote.maxPayout === 0 ? (
         // Nothing filled, so there is no cost or payout worth showing and nothing to buy.
-        <p className="arrive rounded-xl bg-loss-soft px-4 py-3 text-[14px] leading-relaxed text-loss">
+        <p className="arrive rounded-xl bg-destructive/10 px-4 py-3 text-[14px] leading-relaxed text-destructive">
           Nobody is selling this cover on Gemini right now. Thin markets fill and empty through the day, so it may be back soon.
         </p>
       ) : (
@@ -108,7 +110,7 @@ export function CushionTicket(props: TicketProps) {
               <span className="tabular text-[26px] font-semibold tracking-tight">{formatUsd(quote.cost)}</span>
             </Row>
             <Row label="Pays up to">
-              <span className="tabular text-[17px] font-medium text-cushion">{formatUsd(quote.maxPayout)}</span>
+              <span className="tabular text-[17px] font-medium text-positive">{formatUsd(quote.maxPayout)}</span>
             </Row>
             {chance ? (
               <Row label="Market's chance it pays">
@@ -123,14 +125,14 @@ export function CushionTicket(props: TicketProps) {
           </dl>
 
           {quote.partial ? (
-            <p className="mt-4 rounded-xl bg-note-soft px-4 py-3 text-[13px] leading-relaxed text-note">
+            <p className="mt-4 rounded-xl bg-warning/15 px-4 py-3 text-[13px] leading-relaxed text-warning">
               Only {formatUsd(quote.maxPayout)} of the {formatUsd(quote.requestedPayout)} you asked for is on offer. The market for this is thin.
             </p>
           ) : null}
 
           <div className="mt-5">
             {justBought ? (
-              <p className="arrive rounded-xl bg-cushion-soft px-4 py-3 text-[14px] font-medium text-cushion">
+              <p className="arrive rounded-xl bg-positive/15 px-4 py-3 text-[14px] font-medium text-positive">
                 {replay ? "Cushion added. It settles when the game ends." : "Cushion added. A receipt is being written on-chain."}
               </p>
             ) : (
@@ -140,8 +142,8 @@ export function CushionTicket(props: TicketProps) {
             )}
           </div>
 
-          <details className="mt-5 text-[13px] text-muted">
-            <summary className="press cursor-pointer select-none hover:text-ink">
+          <details className="mt-5 text-[13px] text-muted-foreground">
+            <summary className="press cursor-pointer select-none hover:text-foreground">
               {quote.legs.length === 1 ? "The contract behind it" : `The ${quote.legs.length} contracts behind it`}
             </summary>
             <ul className="mt-3 space-y-1.5">
@@ -156,7 +158,7 @@ export function CushionTicket(props: TicketProps) {
                 </li>
               ))}
             </ul>
-            <p className="mt-3 text-[12px] text-faint">
+            <p className="mt-3 text-[12px] text-muted-foreground/70">
               {replay
                 ? "This game was played earlier. Filled at the last price that really traded at this point in it, plus a 1 cent spread. Exchange fees are not included."
                 : "Filled against Gemini\u2019s live order book. Exchange fees are not included."}
@@ -171,7 +173,7 @@ export function CushionTicket(props: TicketProps) {
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="flex items-baseline justify-between gap-4">
-      <dt className="text-[13px] text-muted">{label}</dt>
+      <dt className="text-[13px] text-muted-foreground">{label}</dt>
       <dd>{children}</dd>
     </div>
   );

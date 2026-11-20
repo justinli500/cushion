@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import type { ReactNode } from "react";
 import { SettlementWatcher } from "@/components/settlement-watcher";
 import { Sidebar } from "@/components/sidebar";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -15,13 +16,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`} suppressHydrationWarning>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`} suppressHydrationWarning>
       <body className="min-h-full" suppressHydrationWarning>
         <div className="mx-auto flex min-h-screen max-w-[1320px]">
           <Sidebar />
           <main className="min-w-0 flex-1 px-10 py-8">{children}</main>
         </div>
         <SettlementWatcher />
+        <Toaster position="bottom-right" />
       </body>
     </html>
   );

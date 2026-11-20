@@ -86,7 +86,8 @@ export function gameCard(game: Game, team: Profile["team"]): FeedCard | null {
   const away = game.teams.find((t) => t.side === "away");
   const home = game.teams.find((t) => t.side === "home");
   if (!away || !home) return null;
-  const mine = team ? game.teams.find((t) => t.abbr === team.abbr) : null;
+  // Abbreviations repeat across leagues (HOU is the Texans and the Houston Cougars), so the league has to match too.
+  const mine = team && team.league === game.league ? game.teams.find((t) => t.abbr === team.abbr) : null;
   // Without a team to root for, the card speaks about the favorite.
   const favorite = (yesChance(home.contract.quote).p ?? 0) >= (yesChance(away.contract.quote).p ?? 0) ? home : away;
   const subject = mine ?? favorite;

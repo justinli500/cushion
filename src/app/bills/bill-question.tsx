@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Card, Field, inputClass } from "@/components/ui";
+import { Button, Card, Field, inputClass } from "@/components/kit";
 import { BILLS, parseAmount, type BillKind } from "@/domains/exposure/bills";
 import { formatUsdWhole } from "@/lib/format";
 
@@ -65,11 +65,11 @@ export function BillQuestion({ bill, initial, onSave, onCancel, onSwitch }: Prop
               aria-invalid={problem != null}
               aria-label={`${unit} a month`}
             />
-            <span className="text-[14px] text-muted">{unit} a month</span>
+            <span className="text-[14px] text-muted-foreground">{unit} a month</span>
           </div>
         </Field>
-        <p className="text-[13px] leading-relaxed text-muted">{hint}</p>
-        {problem ? <p className="text-[13px] text-loss">{problem}</p> : null}
+        <p className="text-[13px] leading-relaxed text-muted-foreground">{hint}</p>
+        {problem ? <p className="text-[13px] text-destructive">{problem}</p> : null}
         <div className="flex items-center gap-3">
           <Button type="submit">Continue</Button>
           {onCancel ? (
@@ -78,7 +78,7 @@ export function BillQuestion({ bill, initial, onSave, onCancel, onSwitch }: Prop
             </Button>
           ) : null}
           {onSwitch ? (
-            <button type="button" onClick={onSwitch} className="press text-[13px] text-muted underline-offset-2 hover:underline">
+            <button type="button" onClick={onSwitch} className="press text-[13px] text-muted-foreground underline-offset-2 hover:underline">
               {bill === "gas" ? "I only want heating cover" : "I only want gas cover"}
             </button>
           ) : null}

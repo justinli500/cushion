@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardTitle, Notice } from "@/components/ui";
+import { Card, CardTitle, Notice } from "@/components/kit";
 import type { GameFeed } from "./feed";
 
 /** What to say when there are no plays to list. */
@@ -43,9 +43,9 @@ export function PlayFeed({ feed }: { feed: GameFeed }) {
           {plays.map((play) => (
             <li
               key={play.id}
-              className={`arrive grid grid-cols-[84px_1fr] gap-3 rounded-xl px-3 py-2 text-[14px] leading-snug ${play.scoringPlay ? "bg-cushion-soft font-medium" : ""}`}
+              className={`arrive grid grid-cols-[84px_1fr] gap-3 rounded-xl px-3 py-2 text-[14px] leading-snug ${play.scoringPlay ? "bg-primary/10 font-medium" : ""}`}
             >
-              <span className="tabular text-[13px] text-muted">{[play.clock, play.period].filter(Boolean).join(" · ")}</span>
+              <span className="tabular text-[13px] text-muted-foreground">{[play.clock, play.period].filter(Boolean).join(" · ")}</span>
               <span>{play.text}</span>
             </li>
           ))}
@@ -61,7 +61,7 @@ function Filter({ active, onClick, children }: { active: boolean; onClick: () =>
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`press rounded-full px-3 py-1 text-[12px] font-medium ${active ? "bg-ink text-card" : "bg-paper text-muted hover:text-ink"}`}
+      className={`press rounded-full px-3 py-1 text-[12px] font-medium ${active ? "bg-foreground text-background" : "bg-muted text-muted-foreground hover:text-foreground"}`}
     >
       {children}
     </button>

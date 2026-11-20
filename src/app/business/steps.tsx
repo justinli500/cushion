@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import { Button, Field, Notice, Skeleton, inputClass } from "@/components/ui";
+import { Button, Field, Notice, Skeleton, inputClass } from "@/components/kit";
 import { BUSINESS_TYPES, type Needs } from "@/domains/exposure/business";
 
 export type StepId = "type" | "city" | "team" | "badDay" | "spend";
@@ -36,10 +36,10 @@ export function Step({ question, answer, open, onOpen, children }: { question: s
   }
   return (
     <div className="flex items-baseline justify-between gap-4 py-3.5 first:pt-0 last:pb-0">
-      <p className="text-[13px] text-muted">{question}</p>
+      <p className="text-[13px] text-muted-foreground">{question}</p>
       <p className="flex items-baseline gap-3 text-[14px] font-medium">
         {answer}
-        <button type="button" onClick={onOpen} className="press text-[13px] font-normal text-muted underline-offset-2 hover:underline">
+        <button type="button" onClick={onOpen} className="press text-[13px] font-normal text-muted-foreground underline-offset-2 hover:underline">
           Change
         </button>
       </p>
@@ -55,10 +55,10 @@ export function TypeGrid({ selected, onPick }: { selected: string | null; onPick
           key={b.id}
           type="button"
           onClick={() => onPick(b.id)}
-          className={`press rounded-xl border p-3.5 text-left ${b.id === selected ? "border-cushion bg-cushion-soft" : "border-line bg-card hover:border-faint"}`}
+          className={`press rounded-xl border p-3.5 text-left ${b.id === selected ? "border-primary bg-primary/10" : "border-border bg-card hover:border-foreground/30"}`}
         >
           <span className="block text-[14px] font-medium">{b.name}</span>
-          <span className="mt-0.5 block text-[13px] leading-snug text-muted">{b.blurb}</span>
+          <span className="mt-0.5 block text-[13px] leading-snug text-muted-foreground">{b.blurb}</span>
         </button>
       ))}
     </div>
@@ -101,16 +101,16 @@ export function Picker({ options, selected, noun, onPick }: { options: Option[];
               key={o.key}
               type="button"
               onClick={() => onPick(o.key)}
-              className={`press flex items-baseline justify-between gap-2 rounded-xl border px-3 py-2.5 text-left text-[14px] ${o.key === selected ? "border-cushion bg-cushion-soft" : "border-line bg-card hover:border-faint"}`}
+              className={`press flex items-baseline justify-between gap-2 rounded-xl border px-3 py-2.5 text-left text-[14px] ${o.key === selected ? "border-primary bg-primary/10" : "border-border bg-card hover:border-foreground/30"}`}
             >
               <span className="truncate">{o.label}</span>
-              {o.hint ? <span className="shrink-0 text-[12px] text-faint">{o.hint}</span> : null}
+              {o.hint ? <span className="shrink-0 text-[12px] text-muted-foreground/70">{o.hint}</span> : null}
             </button>
           ))}
         </div>
       )}
       {matches.length > shown.length ? (
-        <p className="mt-3 text-[13px] text-faint">
+        <p className="mt-3 text-[13px] text-muted-foreground/70">
           Showing {shown.length} of {matches.length}. Type to narrow it down.
         </p>
       ) : null}
@@ -154,7 +154,7 @@ export function AmountForm({ fields, initial, hint, onDone }: { fields: AmountFi
         {fields.map((f, i) => (
           <Field key={f.key} label={f.label}>
             <div className="relative">
-              <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[14px] text-faint">$</span>
+              <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[14px] text-muted-foreground/70">$</span>
               <input
                 className={`${inputClass} tabular pl-7`}
                 inputMode="decimal"
@@ -167,7 +167,7 @@ export function AmountForm({ fields, initial, hint, onDone }: { fields: AmountFi
           </Field>
         ))}
       </div>
-      <p className="mt-3 text-[13px] leading-relaxed text-muted">{hint}</p>
+      <p className="mt-3 text-[13px] leading-relaxed text-muted-foreground">{hint}</p>
       <div className="mt-4">
         <Button type="submit" disabled={!valid}>
           Continue

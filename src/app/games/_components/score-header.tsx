@@ -1,4 +1,4 @@
-import { Card, Tag } from "@/components/ui";
+import { Card, Tag } from "@/components/kit";
 import type { Game, TeamSide } from "@/domains/markets/types";
 import { winChance } from "@/domains/scores/chance";
 import { teamLabel } from "@/domains/scores/names";
@@ -37,7 +37,7 @@ export function ScoreHeader({ feed }: { feed: GameFeed }) {
         <Side game={game} team={away} score={score ? score.away.score : null} align="left" />
         <div className="text-center">
           <p className="tabular text-[22px] font-semibold tracking-tight">{big}</p>
-          {small ? <p className="text-[13px] text-muted">{small}</p> : null}
+          {small ? <p className="text-[13px] text-muted-foreground">{small}</p> : null}
         </div>
         <Side game={game} team={home} score={score ? score.home.score : null} align="right" />
       </div>
@@ -54,15 +54,15 @@ function Side({ game, team, score, align }: { game: Game; team: TeamSide; score:
       {score != null ? (
         <>
           <p className="tabular text-[64px] font-semibold leading-none tracking-tight">{score}</p>
-          <p className="tabular mt-2 text-[13px] text-muted">
+          <p className="tabular mt-2 text-[13px] text-muted-foreground">
             {text}
             {chance.uncertain && chance.p != null ? <span className="ml-2 align-middle"><Tag>Rough</Tag></span> : null}
           </p>
         </>
       ) : (
         <p className="tabular mt-1 text-[40px] font-semibold leading-none tracking-tight">
-          {chance.p == null ? <span className="text-[20px] text-muted">No price yet</span> : formatChance(chance.p)}
-          <span className="mt-2 block text-[13px] font-normal text-muted">
+          {chance.p == null ? <span className="text-[20px] text-muted-foreground">No price yet</span> : formatChance(chance.p)}
+          <span className="mt-2 block text-[13px] font-normal text-muted-foreground">
             {chance.p == null ? "Nobody is quoting this team" : "chance to win"}
             {chance.uncertain && chance.p != null ? <span className="ml-2 align-middle"><Tag>Rough</Tag></span> : null}
           </span>

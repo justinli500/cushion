@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { Card, CardTitle, Notice, Skeleton } from "@/components/ui";
+import { Card, CardTitle, Notice, Skeleton } from "@/components/kit";
 import { buyCushion } from "@/domains/account/buy";
 import { useAccount } from "@/domains/account/store";
 import {
@@ -37,7 +37,7 @@ function Switch({ on, onChange }: { on: boolean; onChange: () => void }) {
       aria-checked={on}
       aria-label="Autopilot"
       onClick={onChange}
-      className={`press relative h-7 w-12 shrink-0 rounded-full ${on ? "bg-cushion" : "bg-line"}`}
+      className={`press relative h-7 w-12 shrink-0 rounded-full ${on ? "bg-primary" : "bg-border"}`}
     >
       <span
         className={`absolute top-1 h-5 w-5 rounded-full bg-card shadow transition-[left] duration-200 ${on ? "left-6" : "left-1"}`}
@@ -98,7 +98,7 @@ function AutopilotCard({ bills, bill, amount }: { bills: Profile["bills"]; bill:
       <div className="flex items-start justify-between gap-6">
         <div>
           <CardTitle>Autopilot for {name.toLowerCase()}</CardTitle>
-          <p className="-mt-2 max-w-md text-[14px] leading-relaxed text-muted">
+          <p className="-mt-2 max-w-md text-[14px] leading-relaxed text-muted-foreground">
             Adds the day&rsquo;s cover for your {name.toLowerCase()} once a day, the first time this page is open. Daily cover has to be
             bought again every day and pays out on each day the price jumps.
           </p>
@@ -126,7 +126,7 @@ interface LineProps {
 function StatusLine({ status, addedCost, quote, balance }: LineProps) {
   if (status === "done") {
     return (
-      <p className="arrive rounded-xl bg-cushion-soft px-4 py-3 text-[14px] font-medium text-cushion">
+      <p className="arrive rounded-xl bg-primary/10 px-4 py-3 text-[14px] font-medium text-primary">
         {addedCost == null ? "Autopilot already added today’s cover." : `Autopilot added today’s cover for ${formatUsd(addedCost)}.`}
       </p>
     );

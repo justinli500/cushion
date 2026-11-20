@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Field, inputClass } from "@/components/ui";
+import { Button, Field, inputClass } from "@/components/kit";
 import { cleanSymbol, type Holding } from "@/domains/exposure/portfolio";
 import { updateProfile } from "@/domains/profile/profile";
 import { formatUsdWhole } from "@/lib/format";
@@ -34,14 +34,14 @@ export function HoldingsEditor({ holdings }: { holdings: Holding[] }) {
       {holdings.length > 0 ? (
         <ul className="mb-5 flex flex-wrap gap-2">
           {holdings.map((h) => (
-            <li key={h.symbol} className="arrive tabular flex items-center gap-2 rounded-full border border-line bg-paper py-1.5 pl-3.5 pr-1.5 text-[14px]">
+            <li key={h.symbol} className="arrive tabular flex items-center gap-2 rounded-full border border-border bg-muted py-1.5 pl-3.5 pr-1.5 text-[14px]">
               <span className="font-medium">{h.symbol}</span>
-              <span className="text-muted">{formatUsdWhole(h.value)}</span>
+              <span className="text-muted-foreground">{formatUsdWhole(h.value)}</span>
               <button
                 type="button"
                 aria-label={`Remove ${h.symbol}`}
                 onClick={() => save(holdings.filter((other) => other.symbol !== h.symbol))}
-                className="press grid h-6 w-6 place-items-center rounded-full text-faint hover:bg-line hover:text-ink"
+                className="press grid h-6 w-6 place-items-center rounded-full text-muted-foreground/70 hover:bg-border hover:text-foreground"
               >
                 ×
               </button>
@@ -65,12 +65,12 @@ export function HoldingsEditor({ holdings }: { holdings: Holding[] }) {
         </Field>
         <Button type="submit">Add</Button>
       </form>
-      {problem ? <p className="mt-2 text-[13px] text-loss">{problem}</p> : null}
+      {problem ? <p className="mt-2 text-[13px] text-destructive">{problem}</p> : null}
 
-      <div className="mt-4 flex flex-wrap items-center gap-2 text-[13px] text-faint">
+      <div className="mt-4 flex flex-wrap items-center gap-2 text-[13px] text-muted-foreground/70">
         <span>Try</span>
         {SUGGESTIONS.filter((s) => !holdings.some((h) => h.symbol === s)).map((s) => (
-          <button key={s} type="button" onClick={() => setSymbol(s)} className="press rounded-full border border-line px-2.5 py-1 text-muted hover:border-faint hover:text-ink">
+          <button key={s} type="button" onClick={() => setSymbol(s)} className="press rounded-full border border-border px-2.5 py-1 text-muted-foreground hover:border-foreground/30 hover:text-foreground">
             {s}
           </button>
         ))}

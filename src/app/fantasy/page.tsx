@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { CushionTicket } from "@/components/cushion-ticket";
-import { Card, CardTitle, inputClass, Notice, PageHeader, Skeleton, WithTicket } from "@/components/ui";
+import { Card, CardTitle, inputClass, Notice, PageHeader, Skeleton, WithTicket } from "@/components/kit";
 import { playerUnderLegs } from "@/domains/cushion/legs";
 import { chanceOf } from "@/domains/cushion/probability";
 import { bustWording, defaultBustLine, gameStatus, hasOpenLine, parsePayout, searchPlayers, type PlayerEntry } from "@/domains/exposure/fantasy";
@@ -91,7 +91,7 @@ export default function FantasyPage() {
           if (!matches?.length) {
             return (
               <Card key={name} className="arrive flex items-center justify-between gap-4">
-                <p className="text-[14px] text-muted">No markets for {name} today. They will show up here when their game is listed.</p>
+                <p className="text-[14px] text-muted-foreground">No markets for {name} today. They will show up here when their game is listed.</p>
                 <RemoveButton name={name} onClick={() => remove(name)} />
               </Card>
             );
@@ -167,18 +167,18 @@ function LineupSearch({
     searching ? <Notice>No player or team matches &ldquo;{query.trim()}&rdquo;. Check the spelling, or try a team name.</Notice> : null
   ) : (
     <>
-      {!searching ? <p className="mb-1 text-[12px] text-faint">Players with markets right now</p> : null}
-      <ul className="divide-y divide-line">
+      {!searching ? <p className="mb-1 text-[12px] text-muted-foreground/70">Players with markets right now</p> : null}
+      <ul className="divide-y divide-border">
         {shown.map((entry) => (
           <li key={entry.player}>
             <button type="button" onClick={() => add(entry.player)} className="press flex w-full items-center justify-between gap-4 py-2.5 text-left">
               <span className="min-w-0">
                 <span className="block text-[14px] font-medium">{entry.player}</span>
-                <span className="block truncate text-[12px] text-muted">
+                <span className="block truncate text-[12px] text-muted-foreground">
                   {entry.gameTitle} · {formatWhen(entry.startTime)}
                 </span>
               </span>
-              <span className="shrink-0 text-[13px] text-cushion">Add</span>
+              <span className="shrink-0 text-[13px] text-primary">Add</span>
             </button>
           </li>
         ))}
@@ -190,7 +190,7 @@ function LineupSearch({
     <Card>
       <CardTitle hint={names.length > 0 ? `${names.length} in your lineup` : undefined}>Build your lineup</CardTitle>
       {names.length === 0 && entries?.length ? (
-        <p className="mb-4 text-[14px] leading-relaxed text-muted">
+        <p className="mb-4 text-[14px] leading-relaxed text-muted-foreground">
           Start with anyone on your fantasy team. Search by name, or by a team that plays soon.
         </p>
       ) : null}

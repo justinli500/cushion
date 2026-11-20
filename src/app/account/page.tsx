@@ -3,7 +3,7 @@
 import { requestReceipt } from "@/domains/account/buy";
 import type { Position } from "@/domains/account/ledger";
 import { resetAccount, useAccount } from "@/domains/account/store";
-import { Button, Card, CardTitle, Notice, PageHeader, Tag } from "@/components/ui";
+import { Button, Card, CardTitle, Notice, PageHeader, Tag } from "@/components/kit";
 import { formatUsd, formatWhen } from "@/lib/format";
 
 const explorer = (signature: string) => `https://explorer.solana.com/tx/${signature}?cluster=devnet`;
@@ -48,7 +48,7 @@ export default function AccountPage() {
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <Card>
-      <p className="text-[13px] text-muted">{label}</p>
+      <p className="text-[13px] text-muted-foreground">{label}</p>
       <p className="tabular mt-1 text-[26px] font-semibold tracking-tight">{value}</p>
     </Card>
   );
@@ -56,13 +56,13 @@ function Stat({ label, value }: { label: string; value: string }) {
 
 function Positions({ positions }: { positions: Position[] }) {
   return (
-    <ul className="divide-y divide-line">
+    <ul className="divide-y divide-border">
       {positions.map((p) => (
         <li key={p.id} className="arrive flex items-start justify-between gap-6 py-4 first:pt-0 last:pb-0">
           <div className="min-w-0">
             <p className="text-[14px] font-medium">{p.title}</p>
-            <p className="mt-0.5 text-[13px] leading-relaxed text-muted">{p.detail}</p>
-            <p className="mt-1.5 flex flex-wrap items-center gap-2 text-[12px] text-faint">
+            <p className="mt-0.5 text-[13px] leading-relaxed text-muted-foreground">{p.detail}</p>
+            <p className="mt-1.5 flex flex-wrap items-center gap-2 text-[12px] text-muted-foreground/70">
               {p.replay ? <Tag>Simulated game</Tag> : null}
               <span>
                 {p.payout != null
@@ -72,11 +72,11 @@ function Positions({ positions }: { positions: Position[] }) {
                     : `Settles ${formatWhen(p.expiry)}`}
               </span>
               {p.receipt ? (
-                <a href={explorer(p.receipt)} target="_blank" rel="noreferrer" className="press text-cushion underline-offset-2 hover:underline">
+                <a href={explorer(p.receipt)} target="_blank" rel="noreferrer" className="press text-primary underline-offset-2 hover:underline">
                   View receipt
                 </a>
               ) : (
-                <button type="button" onClick={() => void requestReceipt({ ...p })} className="press text-muted underline-offset-2 hover:underline">
+                <button type="button" onClick={() => void requestReceipt({ ...p })} className="press text-muted-foreground underline-offset-2 hover:underline">
                   Receipt pending. Try again
                 </button>
               )}
@@ -85,7 +85,7 @@ function Positions({ positions }: { positions: Position[] }) {
           <div className="tabular shrink-0 text-right">
             <p className="text-[14px]">Cost {formatUsd(p.cost)}</p>
             {p.payout == null ? (
-              <p className="text-[13px] text-muted">Pays up to {formatUsd(p.maxPayout)}</p>
+              <p className="text-[13px] text-muted-foreground">Pays up to {formatUsd(p.maxPayout)}</p>
             ) : p.payout > 0 ? (
               <Tag tone="cushion">Paid {formatUsd(p.payout)}</Tag>
             ) : (

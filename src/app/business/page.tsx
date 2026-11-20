@@ -2,7 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import { CushionTicket } from "@/components/cushion-ticket";
-import { Card, Notice, PageHeader, WithTicket } from "@/components/ui";
+import { Card, Notice, PageHeader, WithTicket } from "@/components/kit";
 import { priceCushion } from "@/domains/cushion/price";
 import {
   businessType,
@@ -209,7 +209,7 @@ export default function BusinessPage() {
           />
         }
       >
-        <Card className="divide-y divide-line">
+        <Card className="divide-y divide-border">
           {steps.map((step) =>
             step === current || answered[step] ? (
               <Step
@@ -229,7 +229,7 @@ export default function BusinessPage() {
           <section className="space-y-3">
             <div>
               <h2 className="text-[17px] font-semibold tracking-tight">Cushions for your {business.name.toLowerCase()}</h2>
-              <p className="mt-0.5 text-[14px] text-muted">Each one pays you back when something here goes against you. Choose one to see its price.</p>
+              <p className="mt-0.5 text-[14px] text-muted-foreground">Each one pays you back when something here goes against you. Choose one to see its price.</p>
             </div>
             {nothingToBuy ? <Notice>None of these have cover on offer today. Check back tomorrow, or try another kind of business.</Notice> : null}
             {items.map((item) => (

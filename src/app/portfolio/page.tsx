@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { CushionTicket } from "@/components/cushion-ticket";
 import { PayoffChart, type PayoffPoint } from "@/components/payoff-chart";
-import { Card, CardTitle, Notice, PageHeader, Skeleton, Tag, WithTicket } from "@/components/ui";
+import { Card, CardTitle, Notice, PageHeader, Skeleton, Tag, WithTicket } from "@/components/kit";
 import { filledLegs } from "@/domains/cushion/price";
 import { stripLegs, stripPayoutAt } from "@/domains/cushion/legs";
 import { chanceAtOrAbove, impliedSpot } from "@/domains/cushion/probability";
@@ -106,9 +106,9 @@ export default function PortfolioPage() {
                 {reads.map((read) => (
                   <li key={read.symbol} className="flex items-baseline justify-between gap-6 text-[14px]">
                     <span className="tabular shrink-0 font-medium">
-                      {read.symbol} <span className="font-normal text-muted">{formatUsdWhole(read.value)}</span>
+                      {read.symbol} <span className="font-normal text-muted-foreground">{formatUsdWhole(read.value)}</span>
                     </span>
-                    <span className="text-right text-muted">{describe(read)}</span>
+                    <span className="text-right text-muted-foreground">{describe(read)}</span>
                   </li>
                 ))}
               </ul>
@@ -126,12 +126,12 @@ export default function PortfolioPage() {
                   type="button"
                   onClick={() => setChosen(e.underlying)}
                   className={`press tabular rounded-xl border px-4 py-3 text-left ${
-                    e.underlying === exposure?.underlying ? "border-cushion bg-cushion-soft" : "border-line hover:border-faint"
+                    e.underlying === exposure?.underlying ? "border-primary bg-primary/10" : "border-border hover:border-foreground/30"
                   }`}
                 >
-                  <span className="block text-[13px] text-muted">{UNDERLYINGS[e.underlying].name}</span>
+                  <span className="block text-[13px] text-muted-foreground">{UNDERLYINGS[e.underlying].name}</span>
                   <span className="block text-[17px] font-semibold tracking-tight">{formatUsdWhole(Math.abs(e.dollars))}</span>
-                  <span className="block text-[12px] text-faint">{e.dollars > 0 ? "hurt if it falls" : "hurt if it rises"}</span>
+                  <span className="block text-[12px] text-muted-foreground/70">{e.dollars > 0 ? "hurt if it falls" : "hurt if it rises"}</span>
                 </button>
               ))}
             </div>
@@ -158,7 +158,7 @@ export default function PortfolioPage() {
                   ) : null}
                 </div>
                 <PayoffChart points={points} spot={plan.spot} name={name} />
-                <p className="mt-3 text-[13px] leading-relaxed text-faint">
+                <p className="mt-3 text-[13px] leading-relaxed text-muted-foreground/70">
                   The market expects {name} to close near {formatPrice(plan.spot)}. Cover stops at the last price Gemini lists, so a
                   very large move is only partly cushioned.
                 </p>
@@ -226,8 +226,8 @@ function payoffPoints(exposure: Exposure, ladder: Ladder, spot: number, quote: C
 function Choice({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <p className="mb-1.5 text-[13px] font-medium text-muted">{label}</p>
-      <div className="inline-flex rounded-xl border border-line bg-paper p-1">{children}</div>
+      <p className="mb-1.5 text-[13px] font-medium text-muted-foreground">{label}</p>
+      <div className="inline-flex rounded-xl border border-border bg-muted p-1">{children}</div>
     </div>
   );
 }
@@ -238,7 +238,7 @@ function Segment({ active, onClick, children }: { active: boolean; onClick: () =
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`press tabular rounded-lg px-3 py-1.5 text-[13px] ${active ? "bg-card font-medium text-ink shadow-[0_0_0_1px_var(--line)]" : "text-muted hover:text-ink"}`}
+      className={`press tabular rounded-lg px-3 py-1.5 text-[13px] ${active ? "bg-card font-medium text-foreground shadow-[0_0_0_1px_var(--border)]" : "text-muted-foreground hover:text-foreground"}`}
     >
       {children}
     </button>

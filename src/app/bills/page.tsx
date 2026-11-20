@@ -2,7 +2,7 @@
 
 import { useState, useSyncExternalStore } from "react";
 import { CushionTicket } from "@/components/cushion-ticket";
-import { Card, CardTitle, Notice, PageHeader, Skeleton, Tag, WithTicket } from "@/components/ui";
+import { Card, CardTitle, Notice, PageHeader, Skeleton, Tag, WithTicket } from "@/components/kit";
 import { chanceAtOrAbove } from "@/domains/cushion/probability";
 import type { Cushion, CushionQuote } from "@/domains/cushion/types";
 import { BILLS, COVER_LEVELS, dayLabel, spotOf, startLevel, type BillKind, type CoverLevel } from "@/domains/exposure/bills";
@@ -34,15 +34,15 @@ function costView(listed: boolean, cover: Cushion | null, quote: CushionQuote | 
 function CostRow({ label, view }: { label: string; view: CostView }) {
   return (
     <div>
-      <p className="text-[12px] text-muted">{label}</p>
+      <p className="text-[12px] text-muted-foreground">{label}</p>
       {view.kind === "loading" ? (
         <Skeleton className="mt-1 h-6 w-28" />
       ) : view.kind === "message" ? (
-        <p className="mt-1 text-[13px] leading-snug text-muted">{view.text}</p>
+        <p className="mt-1 text-[13px] leading-snug text-muted-foreground">{view.text}</p>
       ) : (
         <p className="tabular mt-0.5">
           <span className="text-[20px] font-semibold tracking-tight">{formatUsd(view.quote.cost)}</span>
-          <span className="ml-2 text-[13px] text-muted">pays up to {formatUsd(view.quote.maxPayout)}</span>
+          <span className="ml-2 text-[13px] text-muted-foreground">pays up to {formatUsd(view.quote.maxPayout)}</span>
           {view.quote.partial ? (
             <span className="ml-2 align-middle">
               <Tag>Thin market</Tag>
@@ -81,10 +81,10 @@ function CoverCard({ mode, markets, onPick }: CoverCardProps) {
               type="button"
               aria-pressed={selected}
               onClick={() => onPick(level)}
-              className={`press rounded-2xl border p-4 text-left ${selected ? "border-cushion bg-cushion-soft" : "border-line bg-card hover:border-faint"}`}
+              className={`press rounded-2xl border p-4 text-left ${selected ? "border-primary bg-primary/10" : "border-border bg-card hover:border-foreground/30"}`}
             >
               <p className="text-[15px] font-semibold">{LEVEL_NAMES[level]}</p>
-              <p className="mt-1 mb-4 text-[13px] leading-relaxed text-muted">{LEVEL_TEXT[level]}</p>
+              <p className="mt-1 mb-4 text-[13px] leading-relaxed text-muted-foreground">{LEVEL_TEXT[level]}</p>
               <div className="space-y-3">
                 <CostRow
                   label={`One purchase through ${until}`}
@@ -99,7 +99,7 @@ function CoverCard({ mode, markets, onPick }: CoverCardProps) {
           );
         })}
       </div>
-      <p className="mt-4 text-[13px] leading-relaxed text-muted">
+      <p className="mt-4 text-[13px] leading-relaxed text-muted-foreground">
         A purchase through {until} is bought once and stays in place until then. Daily cover has to be bought again every day.
       </p>
     </Card>
@@ -121,12 +121,12 @@ function ExposureCard({ bill, amount, exposure, onChange }: { bill: BillKind; am
           ? "Cushion will size this once it has a live price."
           : `If ${commodity} rose ${jumpText}, your ${name.toLowerCase()} could cost about ${formatUsd(extra)} more this month.`}
       </p>
-      <p className="mt-2 text-[13px] leading-relaxed text-muted">
+      <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
         {bill === "gas"
           ? "Pump prices follow oil with a delay, so this is a guide and not a forecast."
           : "Utility rates barely follow daily gas prices, so this is a rough guess at the part of your bill that moves."}
       </p>
-      <button type="button" onClick={onChange} className="press mt-3 text-[13px] text-muted underline-offset-2 hover:underline">
+      <button type="button" onClick={onChange} className="press mt-3 text-[13px] text-muted-foreground underline-offset-2 hover:underline">
         Change amount
       </button>
     </Card>
@@ -194,7 +194,7 @@ function Dashboard({ bills, kinds, asking, setAsking, save }: DashboardProps) {
               type="button"
               aria-pressed={kind === bill}
               onClick={() => setPicked(kind)}
-              className={`press rounded-xl px-3 py-2 text-[14px] ${kind === bill ? "bg-card font-medium text-ink shadow-[0_0_0_1px_var(--line)]" : "text-muted hover:text-ink"}`}
+              className={`press rounded-xl px-3 py-2 text-[14px] ${kind === bill ? "bg-card font-medium text-foreground shadow-[0_0_0_1px_var(--border)]" : "text-muted-foreground hover:text-foreground"}`}
             >
               {COPY[kind].name}
             </button>
@@ -204,7 +204,7 @@ function Dashboard({ bills, kinds, asking, setAsking, save }: DashboardProps) {
               key={kind}
               type="button"
               onClick={() => setAsking(kind)}
-              className="press rounded-xl px-3 py-2 text-[14px] text-muted hover:text-ink"
+              className="press rounded-xl px-3 py-2 text-[14px] text-muted-foreground hover:text-foreground"
             >
               Add {COPY[kind].name.toLowerCase()}
             </button>

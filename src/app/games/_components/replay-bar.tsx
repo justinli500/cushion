@@ -1,6 +1,6 @@
 "use client";
 
-import { Card } from "@/components/ui";
+import { Card } from "@/components/kit";
 import type { ReplayState } from "./feed";
 import { REPLAY_SPEEDS } from "./use-replay-game";
 
@@ -12,7 +12,7 @@ export function ReplayBar({ replay }: { replay: ReplayState }) {
         <button
           type="button"
           onClick={() => replay.setPlaying(!replay.playing)}
-          className="press w-[88px] shrink-0 rounded-xl bg-ink px-4 py-2 text-[14px] font-medium text-card"
+          className="press w-[88px] shrink-0 rounded-xl bg-foreground px-4 py-2 text-[14px] font-medium text-background"
         >
           {replay.playing ? "Pause" : replay.progress >= 1 ? "Replay" : "Play"}
         </button>
@@ -23,9 +23,9 @@ export function ReplayBar({ replay }: { replay: ReplayState }) {
           value={Math.round(replay.progress * 1000)}
           onChange={(event) => replay.seek(Number(event.target.value) / 1000)}
           aria-label="Position in the game"
-          className="h-1.5 w-full cursor-pointer accent-[var(--cushion)]"
+          className="h-1.5 w-full cursor-pointer accent-[var(--primary)]"
         />
-        <div className="inline-flex shrink-0 rounded-xl border border-line bg-paper p-1" role="group" aria-label="Replay speed">
+        <div className="inline-flex shrink-0 rounded-xl border border-border bg-muted p-1" role="group" aria-label="Replay speed">
           {REPLAY_SPEEDS.map((speed) => (
             <button
               key={speed}
@@ -33,7 +33,7 @@ export function ReplayBar({ replay }: { replay: ReplayState }) {
               aria-pressed={speed === replay.speed}
               onClick={() => replay.setSpeed(speed)}
               className={`press tabular rounded-lg px-2.5 py-1 text-[13px] ${
-                speed === replay.speed ? "bg-card font-medium text-ink shadow-[0_0_0_1px_var(--line)]" : "text-muted hover:text-ink"
+                speed === replay.speed ? "bg-card font-medium text-foreground shadow-[0_0_0_1px_var(--border)]" : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {speed}×
@@ -49,14 +49,14 @@ export function ReplayBar({ replay }: { replay: ReplayState }) {
 export function Moments({ replay }: { replay: ReplayState }) {
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <span className="text-[13px] text-muted">Jump to</span>
+      <span className="text-[13px] text-muted-foreground">Jump to</span>
       {replay.moments.map((moment) => (
         <button
           key={`${moment.label}-${moment.progress}`}
           type="button"
           // A few seconds early, so the play itself is on screen.
           onClick={() => replay.seek(moment.progress - 0.002)}
-          className="press tabular rounded-full border border-line bg-card px-3 py-1 text-[12px] text-muted hover:border-faint hover:text-ink"
+          className="press tabular rounded-full border border-border bg-card px-3 py-1 text-[12px] text-muted-foreground hover:border-foreground/30 hover:text-foreground"
         >
           {moment.label}
         </button>

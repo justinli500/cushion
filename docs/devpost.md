@@ -35,7 +35,7 @@ Cushion only offers that side. Every position protects something you already hav
 - **Exposure**: for a stock, the app regresses its daily returns on each market Gemini lists and uses the best match only if it explains enough of the stock's moves. Otherwise it says the holding cannot be cushioned.
 - **Settlement**: when Gemini resolves a contract, the app reads the result and pays the play-money account.
 - **On-chain**: each purchase is written to Solana devnet through the Memo program (`MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr`), signed by an app-held key, so nobody needs a wallet.
-- **Stack**: Next.js 16, TypeScript, Tailwind, Recharts, zod, `@solana/kit`, Vitest.
+- **Stack**: Next.js 16, TypeScript, Tailwind, shadcn/ui, Recharts, zod, `@solana/kit`, Vitest.
 
 ## What makes it unique?
 

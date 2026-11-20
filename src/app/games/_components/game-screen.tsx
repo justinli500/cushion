@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { OddsChart } from "@/components/odds-chart";
-import { Card, CardTitle, Notice, Skeleton, Tag, WithTicket } from "@/components/ui";
+import { Card, CardTitle, Notice, Skeleton, Tag, WithTicket } from "@/components/kit";
 import { teamLabel } from "@/domains/scores/names";
 import type { GameFeed } from "./feed";
 import { PlayFeed } from "./play-feed";
@@ -12,7 +12,7 @@ import { ScoreHeader } from "./score-header";
 import { TicketPanel, TicketSkeleton } from "./ticket-panel";
 
 const BackLink = () => (
-  <Link href="/games" className="press mb-5 inline-block text-[14px] text-muted hover:text-ink">
+  <Link href="/games" className="press mb-5 inline-block text-[14px] text-muted-foreground hover:text-foreground">
     &larr; All games
   </Link>
 );
@@ -37,7 +37,7 @@ export function GameScreen({ feed }: { feed: GameFeed }) {
         <BackLink />
         <Card>
           <h1 className="text-[20px] font-semibold tracking-tight">We cannot find that game</h1>
-          <p className="mt-2 max-w-md text-[14px] leading-relaxed text-muted">
+          <p className="mt-2 max-w-md text-[14px] leading-relaxed text-muted-foreground">
             It may have finished and left the market, or the link may be old. Pick another from the list.
           </p>
         </Card>
@@ -71,7 +71,7 @@ export function GameScreen({ feed }: { feed: GameFeed }) {
               onUnavailable={feed.replay.video.onUnavailable}
               jump={feed.replay.video.jump}
             />
-            <p className="mt-3 text-[12px] leading-relaxed text-faint">
+            <p className="mt-3 text-[12px] leading-relaxed text-muted-foreground/70">
               Play-by-play broadcast by {feed.replay.video.by} on YouTube. The score, plays and prices below follow the video, so pause or
               scrub it and everything moves with it.
             </p>
@@ -87,7 +87,7 @@ export function GameScreen({ feed }: { feed: GameFeed }) {
             away={teamLabel(game, away)}
             tag={<Tag tone="plain">Traded prices</Tag>}
           />
-          <p className="mt-3 text-[12px] leading-relaxed text-faint">
+          <p className="mt-3 text-[12px] leading-relaxed text-muted-foreground/70">
             {feed.replay
               ? "Every step is a real trade on Gemini during this game. Each line holds the last traded price until the next trade."
               : "Each line holds the last price that traded until the next trade, so a flat stretch means no trades, not a steady quote. The dot is the market's price right now."}

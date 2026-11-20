@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { CushionTicket } from "@/components/cushion-ticket";
-import { Card, CardTitle, Skeleton, Tag, inputClass } from "@/components/ui";
+import { Card, CardTitle, Skeleton, Tag, inputClass } from "@/components/kit";
 import { useAccount } from "@/domains/account/store";
 import { teamLossLegs } from "@/domains/cushion/legs";
 import { chanceOf } from "@/domains/cushion/probability";
@@ -53,7 +53,7 @@ export function TicketPanel({ feed }: { feed: GameFeed }) {
     <div className="space-y-4">
       {over ? null : (
         <Card className="p-5">
-          <p className="mb-2 text-[13px] font-medium text-muted">Who are you rooting for?</p>
+          <p className="mb-2 text-[13px] font-medium text-muted-foreground">Who are you rooting for?</p>
           <div className="grid grid-cols-2 gap-2">
             {game.teams.map((t) => (
               <button
@@ -62,7 +62,7 @@ export function TicketPanel({ feed }: { feed: GameFeed }) {
                 aria-pressed={t.abbr === rooting}
                 onClick={() => setPicked(t.abbr)}
                 className={`press rounded-xl border px-3 py-2.5 text-left text-[14px] font-medium ${
-                  t.abbr === rooting ? "border-cushion bg-cushion-soft text-cushion" : "border-line bg-card hover:border-faint"
+                  t.abbr === rooting ? "border-primary bg-primary/10 text-primary" : "border-border bg-card hover:border-foreground/30"
                 }`}
               >
                 {teamLabel(game, t)}
@@ -71,19 +71,19 @@ export function TicketPanel({ feed }: { feed: GameFeed }) {
           </div>
           {!replay && team ? (
             savedHere === team.abbr ? (
-              <p className="mt-2 text-[12px] text-muted">Your team</p>
+              <p className="mt-2 text-[12px] text-muted-foreground">Your team</p>
             ) : (
               <button
                 type="button"
                 onClick={() => updateProfile("team", { league: game.league, abbr: team.abbr, name: team.name })}
-                className="press mt-2 text-[12px] text-muted underline-offset-2 hover:text-ink hover:underline"
+                className="press mt-2 text-[12px] text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
               >
                 Make this my team
               </button>
             )
           ) : null}
 
-          <p className="mb-2 mt-5 text-[13px] font-medium text-muted">Pays you if they lose</p>
+          <p className="mb-2 mt-5 text-[13px] font-medium text-muted-foreground">Pays you if they lose</p>
           <div className="flex flex-wrap gap-2">
             {PRESETS.map((amount) => (
               <button
@@ -95,7 +95,7 @@ export function TicketPanel({ feed }: { feed: GameFeed }) {
                   setTyped("");
                 }}
                 className={`press tabular rounded-full px-3.5 py-1.5 text-[13px] font-medium ${
-                  typed === "" && preset === amount ? "bg-ink text-card" : "bg-paper text-muted hover:text-ink"
+                  typed === "" && preset === amount ? "bg-foreground text-background" : "bg-muted text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {formatUsdWhole(amount)}
@@ -150,7 +150,7 @@ function MyCushions({ feed }: { feed: GameFeed }) {
           <li key={p.id} className="arrive tabular flex items-start justify-between gap-4 text-[13px]">
             <span className="min-w-0">
               <span className="block font-medium">{p.title}</span>
-              <span className="block text-muted">
+              <span className="block text-muted-foreground">
                 Cost {formatUsd(p.cost)}, pays {formatUsd(p.maxPayout)}
               </span>
             </span>
@@ -158,7 +158,7 @@ function MyCushions({ feed }: { feed: GameFeed }) {
               {p.payout == null ? (
                 <>
                   <span className="block font-medium">{formatUsd(valueNow(p.legs, game))}</span>
-                  <span className="block text-faint">worth now</span>
+                  <span className="block text-muted-foreground/70">worth now</span>
                 </>
               ) : p.payout > 0 ? (
                 <Tag tone="cushion">Paid {formatUsd(p.payout)}</Tag>
