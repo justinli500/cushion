@@ -15,24 +15,27 @@ import { usePoll } from "@/lib/use-poll";
 const LIST_MS = 15_000;
 const SCORES_MS = 10_000;
 
-const ReplayLink = () => (
+const LiveLink = () => (
   <>
     No game on?{" "}
-    <Link href="/games/replay" className="press text-cushion underline-offset-2 hover:underline">
-      Watch a replay.
+    <Link href="/games/live" className="press text-cushion underline-offset-2 hover:underline">
+      Watch Colts at Texans.
     </Link>
   </>
 );
 
-/** Always on the page, so the game screen can be tried whether or not anything is being played. */
-function ReplayCard() {
+/** Always on the page, so the game screen can be used whether or not anything is being played tonight. */
+function FeaturedGame() {
   return (
-    <Link href="/games/replay" className="press flex items-center justify-between gap-6 rounded-2xl border border-line bg-card p-5 hover:border-cushion">
+    <Link href="/games/live" className="press flex items-center justify-between gap-6 rounded-2xl border border-line bg-card p-5 hover:border-cushion">
       <span>
-        <span className="block text-[12px] font-medium uppercase tracking-[0.08em] text-faint">Replay</span>
-        <span className="mt-1 block text-[17px] font-semibold tracking-tight">Colts at Texans, Thursday night</span>
+        <span className="flex items-center gap-2">
+          <span className="rounded-full bg-cushion-soft px-2 py-0.5 text-[11px] font-medium text-cushion">Live</span>
+          <span className="rounded-full bg-note-soft px-2 py-0.5 text-[11px] font-medium text-note">Simulated · played Nov 19</span>
+        </span>
+        <span className="mt-2 block text-[17px] font-semibold tracking-tight">Colts at Texans, Thursday Night Football</span>
         <span className="mt-1 block text-[14px] text-muted">
-          Watch it back in a few minutes with the real plays and the real prices, and try a cushion with play money.
+          Watch the broadcast with the score, plays and Gemini&rsquo;s real prices moving beside it, and cushion a loss as it happens.
         </span>
       </span>
       <span className="shrink-0 rounded-xl bg-ink px-4 py-2 text-[14px] font-medium text-card">Watch</span>
@@ -78,7 +81,7 @@ export function GameList() {
       <Card>
         <h2 className="text-[17px] font-semibold tracking-tight">No games on the market right now</h2>
         <p className="mt-2 max-w-md text-[14px] leading-relaxed text-muted">
-          New games appear here a day or so before kickoff. <ReplayLink />
+          New games appear here a day or so before kickoff. <LiveLink />
         </p>
       </Card>
     );
@@ -86,7 +89,7 @@ export function GameList() {
 
   return (
     <div className="space-y-8">
-      <ReplayCard />
+      <FeaturedGame />
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap gap-2">
           <Chip active={league === "all"} onClick={() => setLeague("all")}>
@@ -99,7 +102,7 @@ export function GameList() {
           ))}
         </div>
         <p className="text-[14px] text-muted">
-          <ReplayLink />
+          <LiveLink />
         </p>
       </div>
 

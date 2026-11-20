@@ -9,6 +9,9 @@ const GAME = {
   espn: "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401873066",
   // Gemini's winner market for the same game. Contract symbols are <event>-<team>.
   geminiEvent: "NFL-2611200115-IND-HOU-M",
+  // A broadcast of the game that was streamed live and allows embedding. `startedAt` is when the
+  // stream began, so a moment in the video maps to the same moment in the plays and trades.
+  video: { youtubeId: "3fKOnCxQx9c", startedAt: "2026-11-20T00:46:12.000Z", by: "Rising Rhino" },
 };
 const OUT = new URL("../public/replays/", import.meta.url);
 const POLL_MS = 3 * 60 * 1000;
@@ -64,6 +67,7 @@ async function capture() {
     eventTicker: GAME.geminiEvent,
     capturedAt: new Date().toISOString(),
     final: game.state === "STATUS_FINAL",
+    video: GAME.video,
     home,
     away,
     plays: game.plays,

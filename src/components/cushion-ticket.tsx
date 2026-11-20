@@ -28,8 +28,8 @@ export interface TicketProps {
   /** Lets a page draw its own chart from the live quote. */
   onQuote?: (quote: CushionQuote | null) => void;
   /**
-   * A game replay passes its own books and id: the cushion is then priced from the replay's prices
-   * instead of Gemini's live book, tagged as a replay, and settled when the replay ends.
+   * A recorded game run as live passes its own books and id: the cushion is then priced from that
+   * game's prices at this moment instead of Gemini's live book, and settles when the game ends.
    */
   replay?: { id: string; books: Record<string, Book> };
 }
@@ -78,7 +78,7 @@ export function CushionTicket(props: TicketProps) {
     <div className="rounded-2xl border border-line bg-card p-6">
       <div className="mb-1 flex items-center justify-between">
         <h2 className="text-[15px] font-semibold">{title}</h2>
-        <Tag tone="note">{replay ? "Replay" : "Simulated"}</Tag>
+        <Tag tone="note">Simulated</Tag>
       </div>
       <p className="mb-5 text-[14px] leading-relaxed text-muted">{detail}</p>
 
@@ -131,7 +131,7 @@ export function CushionTicket(props: TicketProps) {
           <div className="mt-5">
             {justBought ? (
               <p className="arrive rounded-xl bg-cushion-soft px-4 py-3 text-[14px] font-medium text-cushion">
-                {replay ? "Cushion added. It settles when the replay ends." : "Cushion added. A receipt is being written on-chain."}
+                {replay ? "Cushion added. It settles when the game ends." : "Cushion added. A receipt is being written on-chain."}
               </p>
             ) : (
               <Button onClick={buy} disabled={!canBuy}>
@@ -158,7 +158,7 @@ export function CushionTicket(props: TicketProps) {
             </ul>
             <p className="mt-3 text-[12px] text-faint">
               {replay
-                ? "Filled at the last price that really traded at this point in the game, plus a 1 cent spread. Exchange fees are not included."
+                ? "This game was played earlier. Filled at the last price that really traded at this point in it, plus a 1 cent spread. Exchange fees are not included."
                 : "Filled against Gemini\u2019s live order book. Exchange fees are not included."}
             </p>
           </details>

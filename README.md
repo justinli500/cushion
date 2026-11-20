@@ -12,7 +12,7 @@ Fills are simulated with play money. Prices, order books, odds and settlements a
 |---|---|---|
 | Today | Nothing | A feed of cards: what the markets think about each thing you have at stake today, with a short dated line on what is going on this week. |
 | Portfolio | The coins and stocks you hold | Works out what each holding really moves with, then prices cover against a fall and draws your outcome with and without it. |
-| Games | Your team | A second screen for the game: live score, play by play, a win-chance chart, and a cushion that pays if your team loses. A replay of a real game runs any time, so the screen works when nothing is on. |
+| Games | Your team | A second screen for the game: live score, play by play, a win-chance chart, and a cushion that pays if your team loses. A real game can also be run as if it were live, in step with a broadcast of it, so the screen works when nothing is on. |
 | Bills | Gallons of gas or a heating bill | Cover against a jump in oil or natural gas, bought once through month end or re-bought daily on autopilot. |
 | Fantasy | Your lineup | Pays you back when a player finishes under a line you pick. |
 | Small business | Your business type and city | Suggests hedges that fit: cold days, home-team losses, rising costs. |
@@ -52,11 +52,13 @@ Legs are priced by walking Gemini's live order book level by level. Buying NO at
 
 When a contract's event resolves, the app reads `resolutionSide` and pays out the legs that resolved on their side.
 
-## The replay
+## The simulated live game
 
-`/games/replay` plays a saved game back on a clock. The plays, clock and score are ESPN's, each with the time it happened. The win chance is every real trade on Gemini's winner market for that game. Nothing in it is made up.
+`/games/live` runs last Thursday's Colts at Texans game as if it were on now. A fan broadcast of the game is embedded from YouTube, and because it was streamed live, a moment in the video is the same moment in the data. The video's position is the clock: press play, pause, or scrub, and the score, play by play and win chance move with it. Buttons jump straight to kickoff, each score, and the final whistle.
 
-A cushion bought during the replay uses play money and fills at the last price that really traded at that moment, plus a fixed 1 cent spread, since no order book was saved. It is marked as a replay in the account and settles on the game's real result when the replay reaches the end.
+Nothing in it is made up. The plays, clock and score are ESPN's, each stamped with the time it happened. The win chance is every real trade on Gemini's winner market for that game, less two trades entered on the wrong contract (a jump of more than 25 points that reverses within three trades is dropped).
+
+A cushion added during the game uses play money and fills at the last price that really traded at that moment, plus a fixed 1 cent spread, since no order book was saved. The ticket lists your cushions with what each would fetch right now, and they settle on the real result when the game ends. The screen is tagged "Simulated live" with the date the game was played.
 
 `node scripts/capture-replay.mjs` saves a game to `public/replays/`.
 
@@ -81,7 +83,7 @@ There is no login, and fills are simulated in the browser, so a receipt is a pub
 | Stock and commodity history (Yahoo Finance) | Which market a stock "moves with": a regression on daily returns, labelled as an estimate |
 | Receipts (Solana devnet transactions) | How gas and heating bills follow oil and natural gas: rough pass-through, labelled as an estimate |
 | | The "this week" line on each card: written by hand and dated, not live |
-| | Replay prices: the last real trade at that moment plus a fixed 1 cent spread, labelled as a replay |
+| | Prices in the simulated live game: the last real trade at that moment plus a fixed 1 cent spread |
 
 ## Architecture
 

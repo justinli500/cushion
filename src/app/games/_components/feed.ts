@@ -2,7 +2,7 @@ import type { Book, Game } from "@/domains/markets/types";
 import type { OddsPoint } from "@/domains/scores/series";
 import type { Play, Score } from "@/domains/scores/types";
 
-/** The controls and the play-money market of a game being replayed. */
+/** The clock and the play-money market of a recorded game being run as if it were live. */
 export interface ReplayState {
   id: string;
   /** When the real game was played, as an ISO timestamp. */
@@ -19,6 +19,17 @@ export interface ReplayState {
   setPlaying(playing: boolean): void;
   setSpeed(speed: number): void;
   seek(progress: number): void;
+  /** The broadcast that drives the clock, or null when the game runs on its own clock. */
+  video: {
+    youtubeId: string;
+    by: string;
+    startSeconds: number;
+    jump: { seconds: number; nonce: number } | null;
+    onTime(seconds: number): void;
+    onUnavailable(): void;
+  } | null;
+  /** Kickoff, each score and the final, with where each sits from 0 to 1. */
+  moments: { label: string; progress: number }[];
 }
 
 /**

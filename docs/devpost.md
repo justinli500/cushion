@@ -12,7 +12,7 @@ A web app with six sections that all work the same way: you say what you have at
 
 - **Today**: a feed of what the markets think about each thing you care about.
 - **Portfolio**: enter coins and stocks. Cushion works out what each one really moves with and prices cover against a fall.
-- **Games**: a second screen for a game, with live score, play by play and a win-chance chart, plus a cushion that pays if your team loses. A replay of a real game runs any time.
+- **Games**: a second screen for a game, with live score, play by play and a win-chance chart, plus a cushion that pays if your team loses. A recorded game runs as if live, in step with a broadcast of it, so it works any time.
 - **Bills**: cover against a jump in gas or heating costs, bought once or re-bought daily on autopilot.
 - **Fantasy**: get paid back when one of your players has a bad game.
 - **Small business**: pick your business type and city, and get hedges that fit, such as a cold day for a food truck or a home loss for a sports bar.
@@ -62,7 +62,7 @@ Gemini Prediction Markets API (market data), Solana devnet (Memo program), Next.
 
 1. **Today (15 s).** "Prediction markets are usually a place to bet. Cushion uses them to protect what you already have riding on tomorrow." Show the feed with live odds.
 2. **Portfolio (40 s).** Add BTC $2,000 and MSTR $800. Point out that MicroStrategy is read as Bitcoin exposure and that a stock with no match is reported as such. Pick a cushion, show cost, payout and chance, and the with-and-without chart. Add it.
-3. **Games replay (40 s).** Open the replay. Show the score, plays and the real traded odds moving. Root for a team, add a loss cushion, scrub to the end and show it settle.
+3. **Live game (40 s).** Open Colts at Texans and press play on the broadcast. Show the score, plays and Gemini's real traded odds moving with it. Root for a team, add a loss cushion, jump to a touchdown and show what the cushion is worth now, then jump to the final and show it settle.
 4. **Small business (25 s).** Pick a food truck in Austin, enter a bad-day cost, and show the cold-day cushion priced on the live book, including the thin-market note if it appears.
 5. **Bills and fantasy (20 s).** Show the gas cover with spikes-only against full, then a fantasy player cushion.
 6. **Account and receipt (20 s).** Open the account, show the cushions and play-money balance, and click "View receipt" to show the Solana transaction.

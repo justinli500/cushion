@@ -6,7 +6,8 @@ import { Card, CardTitle, Notice, Skeleton, Tag, WithTicket } from "@/components
 import { teamLabel } from "@/domains/scores/names";
 import type { GameFeed } from "./feed";
 import { PlayFeed } from "./play-feed";
-import { ReplayBar } from "./replay-bar";
+import { GameVideo } from "./game-video";
+import { Moments, ReplayBar } from "./replay-bar";
 import { ScoreHeader } from "./score-header";
 import { TicketPanel, TicketSkeleton } from "./ticket-panel";
 
@@ -50,13 +51,8 @@ export function GameScreen({ feed }: { feed: GameFeed }) {
   return (
     <>
       <BackLink />
-      {feed.replay ? (
-        <div className="mb-6 space-y-4">
-          <Notice>
-            A replay of the game played on {new Date(feed.replay.playedAt).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })},
-            sped up. The plays, the score and the prices are the real ones from that night. Cushions here use play money and settle when the
-            replay ends.{feed.replay.complete ? "" : " This game was saved before it finished, so the replay stops where the recording does."}
-          </Notice>
+      {feed.replay && !feed.replay.video ? (
+        <div className="mb-6">
           <ReplayBar replay={feed.replay} />
         </div>
       ) : null}
@@ -66,18 +62,34 @@ export function GameScreen({ feed }: { feed: GameFeed }) {
         </div>
       ) : null}
       <WithTicket ticket={<TicketPanel feed={feed} />}>
+        {feed.replay?.video ? (
+          <Card className="!p-4">
+            <GameVideo
+              youtubeId={feed.replay.video.youtubeId}
+              startSeconds={feed.replay.video.startSeconds}
+              onTime={feed.replay.video.onTime}
+              onUnavailable={feed.replay.video.onUnavailable}
+              jump={feed.replay.video.jump}
+            />
+            <p className="mt-3 text-[12px] leading-relaxed text-faint">
+              Play-by-play broadcast by {feed.replay.video.by} on YouTube. The score, plays and prices below follow the video, so pause or
+              scrub it and everything moves with it.
+            </p>
+          </Card>
+        ) : null}
         <ScoreHeader feed={feed} />
+        {feed.replay ? <Moments replay={feed.replay} /> : null}
         <Card>
           <CardTitle>Win chance</CardTitle>
           <OddsChart
             points={feed.points}
             home={teamLabel(game, home)}
             away={teamLabel(game, away)}
-            tag={feed.replay ? <Tag tone="note">Replay of traded prices</Tag> : <Tag tone="plain">Traded prices</Tag>}
+            tag={<Tag tone="plain">Traded prices</Tag>}
           />
           <p className="mt-3 text-[12px] leading-relaxed text-faint">
             {feed.replay
-              ? "Every step is a real trade on Gemini from that night. Each line holds the last traded price until the next trade."
+              ? "Every step is a real trade on Gemini during this game. Each line holds the last traded price until the next trade."
               : "Each line holds the last price that traded until the next trade, so a flat stretch means no trades, not a steady quote. The dot is the market's price right now."}
           </p>
         </Card>

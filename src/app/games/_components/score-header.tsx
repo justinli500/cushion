@@ -27,7 +27,8 @@ export function ScoreHeader({ feed }: { feed: GameFeed }) {
     <Card>
       <div className="mb-5 flex flex-wrap items-center gap-2">
         <Tag tone="plain">{game.league}</Tag>
-        {replay ? <Tag tone="note">Replay</Tag> : live ? <Tag tone="cushion">Live</Tag> : null}
+        {live ? <Tag tone="cushion">Live</Tag> : null}
+        {replay ? <Tag tone="note">Simulated live · played {new Date(replay.playedAt).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</Tag> : null}
         {feed.scoreStatus === "unavailable" ? <Tag tone="note">Score unavailable</Tag> : null}
         {feed.scoreStatus === "none" && game.isLive ? <Tag tone="plain">No score for this game</Tag> : null}
       </div>

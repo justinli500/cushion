@@ -63,12 +63,12 @@ function Positions({ positions }: { positions: Position[] }) {
             <p className="text-[14px] font-medium">{p.title}</p>
             <p className="mt-0.5 text-[13px] leading-relaxed text-muted">{p.detail}</p>
             <p className="mt-1.5 flex flex-wrap items-center gap-2 text-[12px] text-faint">
-              {p.replay ? <Tag>Replay</Tag> : null}
+              {p.replay ? <Tag>Simulated game</Tag> : null}
               <span>
                 {p.payout != null
                   ? `Settled ${formatWhen(p.settledAt ?? p.expiry)}`
                   : p.replay
-                    ? "Settles when the replay ends"
+                    ? "Settles when the game ends"
                     : `Settles ${formatWhen(p.expiry)}`}
               </span>
               {p.receipt ? (

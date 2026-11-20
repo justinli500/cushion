@@ -2,13 +2,15 @@
 
 import { useState } from "react";
 import { CushionTicket } from "@/components/cushion-ticket";
-import { Card, Skeleton, inputClass } from "@/components/ui";
+import { Card, CardTitle, Skeleton, Tag, inputClass } from "@/components/ui";
+import { useAccount } from "@/domains/account/store";
 import { teamLossLegs } from "@/domains/cushion/legs";
 import { chanceOf } from "@/domains/cushion/probability";
 import type { Cushion } from "@/domains/cushion/types";
 import { updateProfile, useProfile } from "@/domains/profile/profile";
 import { lossCopy, teamLabel } from "@/domains/scores/names";
-import { formatUsdWhole } from "@/lib/format";
+import { valueNow } from "@/domains/replay/replay";
+import { formatUsd, formatUsdWhole } from "@/lib/format";
 import type { GameFeed } from "./feed";
 
 const PRESETS = [10, 20, 50];
@@ -33,7 +35,7 @@ export function TicketPanel({ feed }: { feed: GameFeed }) {
 
   const emptyMessage = over
     ? replay
-      ? "The replay is over. Any cushion you added has settled in your account. Press Replay to watch it again."
+      ? "The game is over, and any cushion you added has settled in your account. Jump back to kickoff to play it again."
       : "This game is over. A cushion covers a game that is still going or still to come."
     : !team
       ? "Pick the team you are rooting for to see what a cushion costs."
@@ -117,7 +119,7 @@ export function TicketPanel({ feed }: { feed: GameFeed }) {
 
       <CushionTicket
         section="games"
-        title={over ? "Game over" : replay ? `Replay: ${copy.title}` : copy.title}
+        title={over ? "Game over" : copy.title}
         detail={over ? "" : copy.detail}
         cushion={cushion}
         // A replay cushion has no live event behind it: the replay itself settles it.
@@ -127,7 +129,47 @@ export function TicketPanel({ feed }: { feed: GameFeed }) {
         emptyMessage={emptyMessage}
         replay={replay ? { id: replay.id, books: replay.books } : undefined}
       />
+      {replay ? <MyCushions feed={feed} /> : null}
     </div>
+  );
+}
+
+/** The cushions added during this game, each with what it would fetch at this moment of the game. */
+function MyCushions({ feed }: { feed: GameFeed }) {
+  const { positions } = useAccount();
+  const { game, replay } = feed;
+  if (!game || !replay) return null;
+  const mine = positions.filter((p) => p.replay === replay.id);
+  if (mine.length === 0) return null;
+
+  return (
+    <Card className="p-5">
+      <CardTitle hint={`${mine.length} on this game`}>Your cushions</CardTitle>
+      <ul className="space-y-3">
+        {mine.map((p) => (
+          <li key={p.id} className="arrive tabular flex items-start justify-between gap-4 text-[13px]">
+            <span className="min-w-0">
+              <span className="block font-medium">{p.title}</span>
+              <span className="block text-muted">
+                Cost {formatUsd(p.cost)}, pays {formatUsd(p.maxPayout)}
+              </span>
+            </span>
+            <span className="shrink-0 text-right">
+              {p.payout == null ? (
+                <>
+                  <span className="block font-medium">{formatUsd(valueNow(p.legs, game))}</span>
+                  <span className="block text-faint">worth now</span>
+                </>
+              ) : p.payout > 0 ? (
+                <Tag tone="cushion">Paid {formatUsd(p.payout)}</Tag>
+              ) : (
+                <Tag tone="plain">Not needed</Tag>
+              )}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </Card>
   );
 }
 

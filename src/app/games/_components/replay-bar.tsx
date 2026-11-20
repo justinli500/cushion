@@ -4,7 +4,7 @@ import { Card } from "@/components/ui";
 import type { ReplayState } from "./feed";
 import { REPLAY_SPEEDS } from "./use-replay-game";
 
-/** Play, pause, speed and a scrubber for a game being replayed. */
+/** Play, pause, speed and a scrubber, for a recorded game with no broadcast to drive it. */
 export function ReplayBar({ replay }: { replay: ReplayState }) {
   return (
     <Card className="!p-4">
@@ -42,5 +42,25 @@ export function ReplayBar({ replay }: { replay: ReplayState }) {
         </div>
       </div>
     </Card>
+  );
+}
+
+/** Jumps to kickoff, any score, or the final whistle. */
+export function Moments({ replay }: { replay: ReplayState }) {
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      <span className="text-[13px] text-muted">Jump to</span>
+      {replay.moments.map((moment) => (
+        <button
+          key={`${moment.label}-${moment.progress}`}
+          type="button"
+          // A few seconds early, so the play itself is on screen.
+          onClick={() => replay.seek(moment.progress - 0.002)}
+          className="press tabular rounded-full border border-line bg-card px-3 py-1 text-[12px] text-muted hover:border-faint hover:text-ink"
+        >
+          {moment.label}
+        </button>
+      ))}
+    </div>
   );
 }

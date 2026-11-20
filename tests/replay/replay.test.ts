@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { teamLossLegs } from "@/domains/cushion/legs";
 import { priceCushion, settleLegs, filledLegs } from "@/domains/cushion/price";
-import { frameAt, replayBooks, replayResolutions, replaySchema, replaySpan, type Replay } from "@/domains/replay/replay";
+import { frameAt, moments, replayBooks, replayResolutions, replaySchema, replaySpan, valueNow, cleaned, type Replay } from "@/domains/replay/replay";
 
 const KICKOFF = Date.UTC(2026, 10, 20, 1, 15);
 const MIN = 60_000;
@@ -89,5 +89,52 @@ describe("a cushion bought during the replay", () => {
   it("has nothing to buy before a contract has ever traded", () => {
     const { game } = frameAt(replay, KICKOFF - 40 * MIN);
     expect(priceCushion(teamLossLegs(game, "IND", 20), replayBooks(game)).maxPayout).toBe(0);
+  });
+});
+
+describe("moments", () => {
+  it("lists kickoff, each score with the score line, and the final", () => {
+    expect(moments(replay).map((m) => m.label)).toEqual(["Kickoff", "1st 4:10 · IND 7, HOU 0", "Final"]);
+    expect(moments(replay)[1].t).toBe(KICKOFF + 15 * MIN);
+    expect(moments({ ...replay, final: false }).map((m) => m.label)).not.toContain("Final");
+  });
+});
+
+describe("valueNow", () => {
+  it("marks a cushion at what its side would sell for at this moment", () => {
+    const early = frameAt(replay, KICKOFF + 25 * MIN).game;
+    const late = frameAt(replay, KICKOFF + 55 * MIN).game;
+    // 20 contracts of "Texans win", bought when they were at 60%.
+    const legs = [{ symbol: "GEMI-NFL-TEST-M-HOU", side: "yes" as const, filled: 20 }];
+    expect(valueNow(legs, early)).toBe(11.8);
+    expect(valueNow(legs, late)).toBe(18.8);
+    // "Texans do not win" sells for one minus the ask.
+    expect(valueNow([{ ...legs[0], side: "no" }], late)).toBe(0.8);
+  });
+});
+
+describe("cleaned", () => {
+  const game = (home: [number, number][], away: [number, number][]): Replay => ({
+    ...replay,
+    home: { ...replay.home, trades: home.map(([t, price]) => ({ t, price, size: 1 })) },
+    away: { ...replay.away, trades: away.map(([t, price]) => ({ t, price, size: 1 })) },
+  });
+  const prices = (r: Replay) => [r.home.trades.map((t) => t.price), r.away.trades.map((t) => t.price)];
+
+  it("drops trades the other team's price says cannot be right", () => {
+    // The home team is near 75% on both contracts, then three trades print at 16 cents on its own contract.
+    const out = cleaned(game([[1, 0.77], [5, 0.16], [5, 0.16], [6, 0.16], [9, 0.88]], [[2, 0.25], [7, 0.2], [8, 0.11]]));
+    expect(prices(out)).toEqual([[0.77, 0.88], [0.25, 0.2, 0.11]]);
+  });
+
+  it("keeps a real swing once the other team's price confirms it", () => {
+    // A turnover: the home team goes from 80% to 40%, and the away contract follows.
+    const out = cleaned(game([[1, 0.8], [5, 0.4], [9, 0.42]], [[2, 0.2], [6, 0.6], [8, 0.58]]));
+    expect(prices(out)).toEqual([[0.8, 0.4, 0.42], [0.2, 0.6, 0.58]]);
+  });
+
+  it("leaves a normal game untouched", () => {
+    const normal = game([[1, 0.85], [3, 0.83], [5, 0.9]], [[2, 0.16], [4, 0.15], [6, 0.1]]);
+    expect(prices(cleaned(normal))).toEqual(prices(normal));
   });
 });

@@ -13,6 +13,8 @@ export const replaySchema = z.object({
   eventTicker: z.string(),
   capturedAt: z.string(),
   final: z.boolean(),
+  /** A broadcast of the game that was streamed live, so its timeline matches the plays and trades. */
+  video: z.object({ youtubeId: z.string().regex(/^[\w-]{6,20}$/), startedAt: z.string(), by: z.string() }).optional(),
   home: teamSchema,
   away: teamSchema,
   plays: z
@@ -45,6 +47,44 @@ const REPLAY_DEPTH = 1_000;
 
 const ORDINALS = ["1st", "2nd", "3rd", "4th"];
 const periodName = (period: number) => ORDINALS[period - 1] ?? "OT";
+
+type Trade = Replay["home"]["trades"][number];
+
+/** How far the two teams' prices may be from adding up to 1 before a trade looks wrong. */
+const MISPRINT_TOLERANCE = 0.25;
+
+/**
+ * Removes trades entered on the wrong contract. The two teams' prices should add up to about 1, so
+ * a trade far from one minus the other team's price is set aside. If the other team's next trade
+ * agrees with it, both sides have really moved and it is restored. If not, it was a misprint: in
+ * the saved game, three trades at 16 cents on a team the other contract priced near 75.
+ */
+export function cleaned(replay: Replay): Replay {
+  const merged = [
+    ...replay.home.trades.map((trade) => ({ side: "home" as const, trade })),
+    ...replay.away.trades.map((trade) => ({ side: "away" as const, trade })),
+  ].sort((x, y) => x.trade.t - y.trade.t);
+
+  const kept: Record<"home" | "away", Trade[]> = { home: [], away: [] };
+  const setAside: Record<"home" | "away", Trade | null> = { home: null, away: null };
+  const agrees = (price: number, other: number | undefined) => other == null || Math.abs(price + other - 1) <= MISPRINT_TOLERANCE;
+
+  for (const { side, trade } of merged) {
+    const other = side === "home" ? "away" : "home";
+    const doubted = setAside[other];
+    if (agrees(trade.price, kept[other][kept[other].length - 1]?.price)) {
+      kept[side].push(trade);
+      setAside[side] = null;
+    } else if (doubted && agrees(trade.price, doubted.price)) {
+      kept[other].push(doubted);
+      kept[side].push(trade);
+      setAside[other] = null;
+    } else {
+      setAside[side] = trade;
+    }
+  }
+  return { ...replay, home: { ...replay.home, trades: kept.home }, away: { ...replay.away, trades: kept.away } };
+}
 
 export function replaySpan(replay: Replay): { start: number; end: number } {
   return { start: replay.plays[0].t - LEAD_IN_MS, end: replay.plays[replay.plays.length - 1].t + RUN_OUT_MS };
@@ -143,4 +183,33 @@ export function replayResolutions(replay: Replay): Record<string, "yes" | "no"> 
   if (!replay.final || replay.home.score === replay.away.score) return null;
   const homeWon = replay.home.score > replay.away.score;
   return { [replay.home.symbol]: homeWon ? "yes" : "no", [replay.away.symbol]: homeWon ? "no" : "yes" };
+}
+
+export interface Moment {
+  label: string;
+  /** When it happened, in the same clock as the plays. */
+  t: number;
+}
+
+/** Kickoff, every score, and the final whistle: the points worth jumping to. */
+export function moments(replay: Replay): Moment[] {
+  const scores = replay.plays
+    .filter((play) => play.scoring)
+    .map((play) => ({ label: `${periodName(play.period)} ${play.clock} · ${replay.away.abbr} ${play.away}, ${replay.home.abbr} ${play.home}`, t: play.t }));
+  const list: Moment[] = [{ label: "Kickoff", t: replay.plays[0].t }, ...scores];
+  if (replay.final) list.push({ label: "Final", t: replaySpan(replay).end });
+  return list;
+}
+
+/**
+ * What a cushion bought earlier in the game would fetch now: each leg at the price its side could
+ * be sold for at this moment. A side with no price yet is worth nothing.
+ */
+export function valueNow(legs: { symbol: string; side: "yes" | "no"; filled: number }[], game: Game): number {
+  const total = legs.reduce((sum, leg) => {
+    const quote = game.teams.find((team) => team.contract.symbol === leg.symbol)?.contract.quote;
+    const price = !quote ? null : leg.side === "yes" ? quote.bid : quote.ask == null ? null : 1 - quote.ask;
+    return sum + leg.filled * (price ?? 0);
+  }, 0);
+  return Math.round(total * 100) / 100;
 }

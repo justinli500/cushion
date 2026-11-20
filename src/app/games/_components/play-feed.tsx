@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardTitle, Notice, Tag } from "@/components/ui";
+import { Card, CardTitle, Notice } from "@/components/ui";
 import type { GameFeed } from "./feed";
 
 /** What to say when there are no plays to list. */
@@ -25,7 +25,6 @@ export function PlayFeed({ feed }: { feed: GameFeed }) {
       <CardTitle
         hint={
           <span className="flex items-center gap-2">
-            {feed.replay ? <Tag tone="note">Replay</Tag> : null}
             <Filter active={!onlyScores} onClick={() => setOnlyScores(false)}>
               All plays
             </Filter>
