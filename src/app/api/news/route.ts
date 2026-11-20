@@ -9,7 +9,7 @@ export const maxDuration = 60;
 const MAX_BODY_CHARS = 20_000;
 
 // Each uncached request can spend model tokens and web searches, so one client cannot ask without limit.
-const throttled = throttle(12);
+const throttled = throttle(12, 60);
 
 function parse(raw: string) {
   try {

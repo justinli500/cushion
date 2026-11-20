@@ -24,8 +24,17 @@ export function newsClient(): NewsClient | null {
 const roundNumbers = (facts: string) =>
   facts.replace(/\d[\d,]*(?:\.\d+)?/g, (n) => Number(n.replace(/,/g, "")).toPrecision(3));
 
-const cacheKey = (day: string, card: NewsCard) =>
-  `news:${JSON.stringify([day, card.topic.toLowerCase(), roundNumbers(card.facts).toLowerCase()])}`;
+const cardKey = (card: NewsCard) => [card.topic.toLowerCase(), roundNumbers(card.facts).toLowerCase()];
+
+/**
+ * A line is cached for the exact set of cards it was written alongside, not for its own card alone.
+ * Every card in a request reaches the model in one prompt, and cards come from the browser. If a
+ * line were shared by card, one visitor could send an ordinary card next to a crafted one and have
+ * the model's answer for the ordinary card served to everyone else who asks about it.
+ */
+const batchKey = (cards: NewsCard[]) => JSON.stringify(cards.map(cardKey).sort());
+
+const cacheKey = (day: string, batch: string, card: NewsCard) => `news:${JSON.stringify([day, batch, cardKey(card)])}`;
 
 /** Names the failure without echoing an SDK error message, which can carry request details. */
 function reason(error: unknown): string {
@@ -61,8 +70,9 @@ async function modelLines(cards: NewsCard[], client: NewsClient, now: Date, time
   const open = new Map<string, Waiting>();
   // `cached` calls the loader synchronously for a miss, so `open` is complete before `fill` starts. A concurrent
   // request for the same card finds this request's pending entry and waits on it instead of asking again.
+  const batch = batchKey(cards);
   const pending = cards.map((card) => {
-    const key = cacheKey(day, card);
+    const key = cacheKey(day, batch, card);
     return cached<string>(key, TTL_MS, () => new Promise((resolve, reject) => open.set(key, { card, resolve, reject })));
   });
   if (open.size > 0) void fill(client, [...open.values()], now, timeoutMs);

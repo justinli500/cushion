@@ -9,7 +9,11 @@ export const maxDuration = 30;
 const MAX_BODY_BYTES = 16 * 1024;
 const MAX_TRACKED = 1000;
 
-const throttled = throttle(20);
+// There is no login, and purchases are simulated in the browser, so the server cannot check that a
+// receipt matches a purchase. A receipt therefore says only that this app wrote it. What is bounded:
+// the memo carries numbers and contract symbols and no free text, the key holds devnet SOL with no
+// value, and requests are limited per client and in total.
+const throttled = throttle(20, 120);
 
 // Lives in this process only. On serverless a retry that lands on a cold instance can write a second memo for the same id.
 const sent = new Map<string, Promise<string>>();
