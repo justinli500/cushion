@@ -12,7 +12,7 @@ Fills are simulated with play money. Prices, order books, odds and settlements a
 |---|---|---|
 | Today | Nothing | A feed of cards: what the markets think about each thing you have at stake today, with a short dated line on what is going on this week. |
 | Portfolio | The coins and stocks you hold | Works out what each holding really moves with, then prices cover against a fall and draws your outcome with and without it. |
-| Games | Your team | A second screen for the game: live score, a win-chance chart, and a cushion that pays if your team loses. |
+| Games | Your team | A second screen for the game: live score, play by play, a win-chance chart, and a cushion that pays if your team loses. A replay of a real game runs any time, so the screen works when nothing is on. |
 | Bills | Gallons of gas or a heating bill | Cover against a jump in oil or natural gas, bought once through month end or re-bought daily on autopilot. |
 | Fantasy | Your lineup | Pays you back when a player finishes under a line you pick. |
 | Small business | Your business type and city | Suggests hedges that fit: cold days, home-team losses, rising costs. |
@@ -52,6 +52,14 @@ Legs are priced by walking Gemini's live order book level by level. Buying NO at
 
 When a contract's event resolves, the app reads `resolutionSide` and pays out the legs that resolved on their side.
 
+## The replay
+
+`/games/replay` plays a saved game back on a clock. The plays, clock and score are ESPN's, each with the time it happened. The win chance is every real trade on Gemini's winner market for that game. Nothing in it is made up.
+
+A cushion bought during the replay uses play money and fills at the last price that really traded at that moment, plus a fixed 1 cent spread, since no order book was saved. It is marked as a replay in the account and settles on the game's real result when the replay reaches the end.
+
+`node scripts/capture-replay.mjs` saves a game to `public/replays/`.
+
 ## Where the blockchain comes in
 
 Every cushion you add is written to Solana devnet as a receipt. The server builds a compact memo (contract symbols, sides, quantities, cost and maximum payout), signs one transaction with an app-held key, and sends it to the Memo program:
@@ -90,6 +98,7 @@ src/
     exposure/             portfolio, bills, fantasy and small-business models
     feed/                 the Today cards and their dated "this week" lines
     scores/               ESPN client and game matching
+    replay/               a saved game's state, prices and settlement at any moment
     receipts/             Solana memo builder and sender
     profile/              what the person has told the app
   components/             cushion ticket, charts, layout
