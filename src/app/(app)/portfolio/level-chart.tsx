@@ -179,6 +179,10 @@ export function LevelChart({ history, chart, until, onStart }: Props) {
         <>
           <path d={line} fill="none" className="stroke-foreground" strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" />
           <circle cx={NOW} cy={y(from)} r="5" className="fill-foreground" />
+          {/* The price itself, so the distance to the nearest level reads as a real one. */}
+          <text x={NOW + 10} y={y(from) - 7} fontSize="12" fontWeight="600" className="tabular fill-foreground">
+            {format(from)} now
+          </text>
         </>
       ) : (
         <text x={LEFT + 8} y={TOP + 14} fontSize="13" className="fill-muted-foreground">

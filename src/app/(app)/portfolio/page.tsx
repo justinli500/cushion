@@ -54,7 +54,12 @@ export default function PortfolioPage() {
     return buildScenarios(input, starts).sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
   }, [riding, index, ladders.data, events.data, indexSpot, starts]);
   const [shownId, setShownId] = useState<string | null>(null);
-  const shown = scenarios.find((s) => s.id === shownId) ?? scenarios[0];
+  // The chart opens on the asset with the most levels to move the line between.
+  const richest = scenarios.reduce<(typeof scenarios)[number] | undefined>((best, s) => (!best || s.chart.levels.length > best.chart.levels.length ? s : best), undefined);
+  const shown = scenarios.find((s) => s.id === shownId) ?? richest ?? scenarios[0];
+  // How far the nearest level on the cushion's side is from the price. Some markets list nothing close.
+  const nearest = shown ? (shown.chart.falling ? Math.max(...shown.chart.fall) : Math.min(...shown.chart.rise)) : NaN;
+  const distance = shown && Number.isFinite(nearest) ? Math.abs(shown.chart.spot - nearest) / shown.chart.spot : 0;
   // Where the line goes when switching between a fall and a rise: the first level past the price on the other side. An index market lists one side only.
   const across = shown ? (shown.chart.falling ? shown.chart.rise : shown.chart.fall) : [];
   const past = across.filter((level) => (shown.chart.falling ? level >= shown.chart.spot : level < shown.chart.spot));
@@ -118,6 +123,13 @@ export default function PortfolioPage() {
                   cushion starts paying; further costs less. The beige band is the move before it pays. The band beyond the line is where it pays: red for a fall, green for a rise.
                   {flip != null ? ` It pays on a ${shown.chart.falling ? "fall" : "rise"} and stays that way as you drag. To switch, double-click the chart and move above or below the price, or use the button.` : ""}
                 </p>
+                {distance > 0.05 ? (
+                  <p className="rounded-[18px] bg-muted px-4 py-3 text-[14px] leading-relaxed text-body">
+                    The nearest level this market still lists is {(shown.chart.unit === "index" ? formatLevel : formatPrice)(nearest)}, about{" "}
+                    {Math.round(distance * 100)}% {shown.chart.falling ? "under" : "over"} the price. Nothing closer is on offer, so this cushion only starts
+                    paying after a move that large.
+                  </p>
+                ) : null}
                 {flip != null ? (
                   <div>
                     <Button variant="quiet" onClick={() => setStarts((previous) => ({ ...previous, [shown.id]: { level: flip, falling: !shown.chart.falling } }))}>
