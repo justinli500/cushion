@@ -60,7 +60,7 @@ describe("landing quotes", () => {
         { lo: 78, hi: null, contract: contract("HI78", 0.1, 0.14) },
       ],
     };
-    const quote = bizQuote([market])!;
+    const quote = bizQuote([market], "Austin")!;
     expect(quote).toMatchObject({ payout: 100, cost: 26, coveredOf: 400, fill: "100 × Yes across 2 ranges at 26¢" });
     expect(quote.trigger).toContain("under 76°F");
   });

@@ -161,8 +161,8 @@ export function fantasyQuote(props: PlayerProp[]): StakeQuote | null {
 }
 
 /** A cooler-than-expected day for a food truck: the buckets below the most likely one. Covers a quarter of the day's sales. */
-export function bizQuote(markets: BucketMarket[], city = "Austin"): StakeQuote | null {
-  const market = markets.filter((m) => m.city === city).sort((a, b) => Date.parse(a.expiry) - Date.parse(b.expiry)).find((m) => Date.parse(m.expiry) - Date.now() > 3 * 3_600_000);
+export function bizQuote(markets: BucketMarket[], city = "Amsterdam"): StakeQuote | null {
+  const market = markets.filter((m) => m.city === city).sort((a, b) => Date.parse(a.expiry) - Date.parse(b.expiry)).find((m) => Date.parse(m.expiry) - Date.now() > 6 * 3_600_000);
   if (!market) return null;
   const likeliest = [...market.buckets].sort((a, b) => (yesChance(b.contract.quote).p ?? 0) - (yesChance(a.contract.quote).p ?? 0))[0];
   const threshold = likeliest?.lo;

@@ -170,8 +170,8 @@ export interface Team {
 }
 
 const HOUR = 3_600_000;
-/** A weather market this close to expiry already has its answer: the day's high is in. */
-const LAST_CALL_MS = 3 * HOUR;
+/** A weather market this close to expiry already has its answer: it closes near local midnight, and by early evening the day's high is in. */
+const LAST_CALL_MS = 6 * HOUR;
 const LEAGUE_ORDER = ["NFL", "NBA", "NHL", "NCAAF", "NCAAM"];
 
 export const cityOptions = (markets: BucketMarket[]): string[] => [...new Set(markets.map((m) => m.city))].sort();
@@ -188,8 +188,8 @@ export function teamOptions(games: Game[]): Team[] {
   return [...byKey.values()].sort((a, b) => rank(a.league) - rank(b.league) || a.name.localeCompare(b.name));
 }
 
-// ponytail: a fixed list of large cities, Austin first because the hackathon is there. Use the person's location if this ever matters.
-const WELL_KNOWN = ["Austin", "NYC", "Los Angeles", "Chicago", "Miami", "Houston", "Dallas", "Seattle", "London", "Toronto"];
+// ponytail: a fixed list of large cities, Amsterdam first as the default. Use the person's location if this ever matters.
+const WELL_KNOWN = ["Amsterdam", "Austin", "NYC", "Los Angeles", "Chicago", "Miami", "Houston", "Dallas", "Seattle", "London", "Toronto"];
 
 /**
  * Cities to offer before the owner has chosen one. Only cities whose next temperature market has
