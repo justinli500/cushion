@@ -23,6 +23,20 @@ const ROLL_FRICTION = 1.4;
 /** How hard a resting drop keeps pressing into the sheet, so it sits in a dent of its own. */
 const PRESS = 1.8;
 const EDGE = SIZE / 2 - CELL * 2;
+/**
+ * While a falling drop touches the sheet the two push on each other: the drop presses down, the
+ * sheet gives way under it, then springs back and lifts it off. Stiffness keeps the drop from sinking
+ * through the mesh, damping takes a little energy out of each push, and give is how readily the
+ * sheet moves.
+ */
+const CONTACT_STIFFNESS = 3000;
+const CONTACT_DAMPING = 25;
+const SHEET_GIVE = 0.16;
+/**
+ * Like a trampoline, the sheet stores the energy of a landing as it stretches and gives part of it
+ * back at the bottom of the dip, launching the drop back up. A denser drop gets a little less back.
+ */
+const RESTITUTION = 0.48;
 
 const LOW = new THREE.Color("#7E6BFF");
 const HIGH = new THREE.Color("#FFB08F");
@@ -42,6 +56,8 @@ interface Drop {
   squash: number;
   /** 1 for an ordinary drop. A bigger drop is heavier and presses the sheet harder and wider. */
   size: number;
+  /** 1 for an ordinary drop. A denser drop of the same size sinks deeper and bounces a little lower. */
+  density: number;
   vx: number;
   vz: number;
   /** Stays on the sheet once it lands, instead of fading after a few bounces. */
@@ -51,9 +67,23 @@ interface Drop {
   /** On its way out, to make room for a newer drop. */
   fading: boolean;
   born: number;
+  /** In contact with the sheet right now. */
+  touching: boolean;
+  /** How long it has stayed in contact without leaving, in seconds. */
+  rest: number;
+  /** How long it has been off the sheet since it last touched, in seconds. */
+  air: number;
+  /** Has touched the sheet at least once. */
+  landed: boolean;
+  /** Its speed against the sheet when it last landed, still to be given back. 0 once given back. */
+  impact: number;
 }
 
+/** Bump whenever the shape of a drop or the sim changes, so a hot reload starts a fresh sim. */
+const SIM_VERSION = 2;
+
 interface Sim {
+  version: number;
   membrane: Membrane;
   drops: Drop[];
   untilBurst: number;
@@ -76,9 +106,16 @@ const FRESH: Drop = {
   grounded: false,
   fading: false,
   born: 0,
+  density: 1,
+  touching: false,
+  rest: 0,
+  air: 0,
+  landed: false,
+  impact: 0,
 };
 
 const newSim = (): Sim => ({
+  version: SIM_VERSION,
   membrane: new Membrane(N),
   drops: Array.from({ length: MAX_DROPS }, (): Drop => ({ ...FRESH, active: false, life: 0 })),
   untilBurst: 0.8,
@@ -225,14 +262,24 @@ function Copula({ pours, cue, auto, lead }: { pours: number; cue: number; auto: 
       vx: right.x * drift,
       vz: right.z * drift,
       size: lead.size,
+      density: lead.density ?? 1,
       keep,
       born: sim.current.clock,
     });
-  }, [cue, lead.y, lead.vy, lead.size, lead.keep, lead.slant, camera]);
+  }, [cue, lead.y, lead.vy, lead.size, lead.density, lead.keep, lead.slant, camera]);
 
   useFrame((_, rawDelta) => {
     const dt = Math.min(rawDelta, 1 / 30);
-    sim.current ??= newSim();
+    // Start over if the sim was made by older code (a hot reload keeps it), or if anything in it has
+    // gone non-finite: one NaN spreads through the whole sheet and the mesh stops drawing.
+    if (
+      !sim.current ||
+      sim.current.version !== SIM_VERSION ||
+      !Number.isFinite(sim.current.membrane.height[(N * N) >> 1]) ||
+      sim.current.drops.some((d) => d.active && !Number.isFinite(d.y))
+    ) {
+      sim.current = newSim();
+    }
     const { membrane, drops } = sim.current;
 
     if (auto) sim.current.untilBurst -= dt;
@@ -241,9 +288,6 @@ function Copula({ pours, cue, auto, lead }: { pours: number; cue: number; auto: 
       sim.current.untilBurst = 1.8 + Math.random() * 1.2;
     }
 
-    const substeps = 4;
-    for (let s = 0; s < substeps; s++) membrane.step(dt / substeps, CELL);
-
     sim.current.clock += dt;
     const heightAt = (x: number, z: number) => {
       const gx = toGrid(x);
@@ -251,32 +295,68 @@ function Copula({ pours, cue, auto, lead }: { pours: number; cue: number; auto: 
       return sampleGrid(surface.base, N, gx, gz) + membrane.sample(gx, gz);
     };
 
+    // The sheet and the falling drops move together in small steps, so a drop can ride the sheet
+    // down as it gives way and be carried back up as it springs back.
+    const substeps = 4;
+    const h = dt / substeps;
+    for (let step = 0; step < substeps; step++) {
+      membrane.step(h, CELL);
+      for (const drop of drops) {
+        if (!drop.active || drop.grounded) continue;
+        const gx = toGrid(drop.x);
+        const gz = toGrid(drop.z);
+        const radius = DROP_RADIUS * drop.size;
+        const press = heightAt(drop.x, drop.z) - (drop.y - radius);
+        if (press > 0) {
+          const sheetSpeed = sampleGrid(membrane.velocity, N, gx, gz);
+          if (!drop.touching && (!drop.landed || drop.air > 0.15)) {
+            // A real landing, not a skip within one contact. Remember how fast it came in against the sheet.
+            if (drop.landed) drop.bounces++;
+            drop.impact = Math.max(0, sheetSpeed - drop.vy);
+          }
+          drop.landed = true;
+          drop.air = 0;
+          // Weight is volume times density: a heavier drop sinks the sheet further and stays down longer.
+          const mass = drop.size ** 3 * drop.density;
+          const push = Math.max(0, CONTACT_STIFFNESS * press - CONTACT_DAMPING * (drop.vy - sheetSpeed));
+          drop.vy += (push / mass) * h;
+          // At the bottom of the dip the sheet starts lifting it. It leaves at whichever is faster: the
+          // sheet's own rise, or the share of its landing speed the sheet gives back. Never both added
+          // together, which would give it more energy than the sheet ever stored.
+          if (drop.impact > 1 && drop.vy > 0) {
+            const giveBack = (drop.impact * RESTITUTION) / Math.pow(drop.density, 0.25);
+            drop.vy = Math.max(drop.vy, sheetSpeed, giveBack);
+            drop.impact = 0;
+          }
+          membrane.strike(gx, gz, push * h * SHEET_GIVE, 2.4 * drop.size);
+          drop.squash = Math.max(drop.squash, Math.min(0.45, push / (mass * 140)));
+          drop.touching = true;
+          drop.rest += h;
+        } else {
+          if (drop.touching) drop.rest = 0;
+          drop.touching = false;
+          drop.air += h;
+        }
+        drop.vy -= GRAVITY * h;
+        drop.y += drop.vy * h;
+        drop.x += drop.vx * h;
+        drop.z += drop.vz * h;
+        // A drop that stays settles onto the sheet once its bouncing is spent, and rolls from there.
+        if (drop.keep && (drop.bounces >= 3 || drop.rest > 0.5)) {
+          drop.grounded = true;
+          drop.vy = 0;
+        }
+      }
+    }
+
     for (const drop of drops) {
       if (!drop.active) continue;
       const radius = DROP_RADIUS * drop.size;
       drop.squash *= Math.exp(-dt * 10);
       if (drop.fading) drop.life -= dt * 1.2;
+      if (!drop.keep && (drop.bounces >= 3 || drop.rest > 1.5)) drop.life -= dt * 1.2;
 
-      if (!drop.grounded) {
-        drop.vy -= GRAVITY * dt;
-        drop.y += drop.vy * dt;
-        drop.x += drop.vx * dt;
-        drop.z += drop.vz * dt;
-        const floor = heightAt(drop.x, drop.z);
-        if (drop.y - radius < floor && drop.vy < 0) {
-          // Weight grows with volume, so a bigger drop dents the sheet much more, over a wider patch.
-          membrane.strike(toGrid(drop.x), toGrid(drop.z), Math.abs(drop.vy) * 0.22 * drop.size ** 3, 1.6 * drop.size);
-          drop.y = floor + radius;
-          drop.vy = -drop.vy * 0.45;
-          drop.squash = Math.min(0.6, Math.abs(drop.vy) * 0.25);
-          drop.bounces++;
-          if (drop.keep && (drop.bounces >= 3 || drop.vy < 0.4)) {
-            drop.grounded = true;
-            drop.vy = 0;
-          }
-        }
-        if (!drop.keep && drop.bounces >= 3) drop.life -= dt * 1.6;
-      } else {
+      if (drop.grounded) {
         // Roll downhill along the sheet, slowed by friction, riding whatever ripples pass under it.
         const e = 0.04;
         const slopeX = (heightAt(drop.x + e, drop.z) - heightAt(drop.x - e, drop.z)) / (2 * e);
@@ -287,7 +367,7 @@ function Copula({ pours, cue, auto, lead }: { pours: number; cue: number; auto: 
         drop.x += drop.vx * dt;
         drop.z += drop.vz * dt;
         drop.y = heightAt(drop.x, drop.z) + radius;
-        membrane.strike(toGrid(drop.x), toGrid(drop.z), PRESS * drop.size ** 3 * dt, 1.2 * drop.size);
+        membrane.strike(toGrid(drop.x), toGrid(drop.z), PRESS * drop.size ** 3 * drop.density * dt, 1.2 * drop.size);
       }
 
       if (Math.abs(drop.x) > EDGE) {
@@ -380,6 +460,8 @@ interface Lead {
   vy: number;
   /** Its size against an ordinary drop. */
   size: number;
+  /** Its density against an ordinary drop: how much heavier it is for its size. Defaults to 1. */
+  density?: number;
   /** How many of these drops stay on the sheet at once. 0 lets each fade after it bounces. */
   keep: number;
   /** Sideways drift toward the right of the screen, as a share of its falling speed. */
