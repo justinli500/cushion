@@ -26,12 +26,14 @@ function Row({ row }: { row: UpcomingRow }) {
         <span className="display text-[17px] font-bold">{big}</span>
       </span>
       <span className="flex min-w-0 flex-col">
-        <span className="text-[15px] font-semibold">{row.title}</span>
-        {row.detail ? <span className="text-[13px] text-muted-foreground">{row.detail}</span> : null}
+        <span className="line-clamp-2 text-[15px] font-semibold">{row.title}</span>
+        {row.detail ? <span className="line-clamp-2 text-[13px] text-muted-foreground">{row.detail}</span> : null}
       </span>
     </>
   );
-  const shape = "flex items-center gap-3.5 rounded-[18px] bg-background p-3 text-foreground";
+  // One height for every row, with room for two lines of each: the two themes use different fonts, so the same words wrap
+  // differently, and the big card beside this list stretches to match it.
+  const shape = "flex min-h-[112px] items-center gap-3.5 rounded-[18px] bg-background p-3 text-foreground";
   return row.href ? (
     <Link href={row.href} className={cn(shape, "press hover:bg-secondary")}>
       {body}
