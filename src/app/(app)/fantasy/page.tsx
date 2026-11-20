@@ -71,11 +71,20 @@ export default function FantasyPage() {
   const books = usePoll<{ books: Record<string, Book> }>(symbols.length > 0 ? `/api/book?symbols=${symbols.join(",")}` : null, 5_000);
 
   const coverable = cards.filter((c) => c.selection).map((c) => c.slot.key);
-  // Before the person chooses, a player nobody is selling a cushion for right now starts uncovered, so every tick is a
-  // player the cushion would pay for and the ticks match the count in the panel.
+  // A player whose chosen stat nobody is selling a cushion on right now can't be covered: he has no tick to press, and
+  // he never counts toward the cushion, so every tick is a player it would pay for and the ticks match the panel. Only
+  // a book that has loaded can say so; until then nobody is marked unsold. Picking a stat that is on sale brings the
+  // tick back.
   const offer = books.data?.books;
-  const starting = cards.flatMap((c) => (c.selection && (!offer || priceCushion(playerUnderLegs(c.selection.line, share), offer).legs.some((l) => l.filled > 0)) ? [c.slot.key] : []));
-  const on = (chosen ?? starting).filter((key) => coverable.includes(key));
+  const unsold = new Set(
+    cards.flatMap((c) =>
+      c.selection && offer && offer[c.selection.line.contract.symbol] && !priceCushion(playerUnderLegs(c.selection.line, share), offer).legs.some((l) => l.filled > 0)
+        ? [c.slot.key]
+        : [],
+    ),
+  );
+  const starting = coverable.filter((key) => !unsold.has(key));
+  const on = (chosen ?? starting).filter((key) => coverable.includes(key) && !unsold.has(key));
   const covered = cards.flatMap((c) => (c.slot.entry && c.selection && on.includes(c.slot.key) ? [{ entry: c.slot.entry, pick: c.selection }] : []));
 
   const options: Option[] = offered.map((pick) => ({
@@ -113,7 +122,7 @@ export default function FantasyPage() {
         sub: slot.entry ? [slot.entry.team, formatWhen(slot.entry.startTime)].filter(Boolean).join(" · ") : "No markets listed",
         headshot: slot.entry?.headshot,
         covered: on.includes(slot.key),
-        blocked: selection ? null : !slot.entry ? "No market" : slot.status === "over" ? "Finished" : "Closed",
+        blocked: selection ? (unsold.has(slot.key) ? "None for sale" : null) : !slot.entry ? "No market" : slot.status === "over" ? "Finished" : "Closed",
       }))
     : undefined;
 
