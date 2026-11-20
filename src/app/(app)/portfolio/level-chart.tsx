@@ -24,7 +24,8 @@ interface Props {
   chart: ScenarioChart;
   /** "Nov 30": when the market behind the levels closes. */
   until: string;
-  onStart: (level: number) => void;
+  /** The level cover should start at, and whether it then pays on a fall. */
+  onStart: (level: number, falling: boolean) => void;
 }
 
 // Where the cushion pays: green for a rise, red for a fall. Drawn as a light wash at the same strength as the
@@ -75,19 +76,21 @@ export function LevelChart({ history, chart, until, onStart }: Props) {
   const every = Math.max(1, Math.ceil(LABEL_GAP / Math.max(spacing, 1)));
   const covered = (level: number) => (falling ? level <= start && level >= end : level >= start && level <= end);
 
-  // The levels on the side the cushion is on now. Past the last of them a drag simply stops there.
-  const sameSide = levels.filter((level) => level < spot === falling);
+  // The levels a cover paying each way can start at, among those drawn. Past the last of them a drag simply stops there.
+  const side = (fall: boolean) => (fall ? chart.fall : chart.rise).filter((level) => levels.includes(level));
+  const sameSide = side(falling);
 
-  /** The nearest level to where the pointer is, among the ones it may move to. */
-  const levelAt = (clientY: number, among: number[]) => {
-    const box = svg.current?.getBoundingClientRect();
-    if (!box || among.length === 0) return null;
-    const py = ((clientY - box.top) / box.height) * H;
-    return among.reduce((best, level) => (Math.abs(y(level) - py) < Math.abs(y(best) - py) ? level : best));
-  };
   const move = (event: PointerEvent, free: boolean) => {
-    const level = levelAt(event.clientY, free ? levels : sameSide);
-    if (level != null && level !== start) onStart(level);
+    const box = svg.current?.getBoundingClientRect();
+    if (!box) return;
+    const py = ((event.clientY - box.top) / box.height) * H;
+    // Unlocked, the pointer picks the side by being above or below the price. Locked, the side stays as it is.
+    const fall = free ? py > y(from) : falling;
+    const among = side(fall).length > 0 ? side(fall) : sameSide;
+    if (among.length === 0) return;
+    const level = among.reduce((best, candidate) => (Math.abs(y(candidate) - py) < Math.abs(y(best) - py) ? candidate : best));
+    const way = side(fall).length > 0 ? fall : falling;
+    if (level !== start || way !== falling) onStart(level, way);
   };
   const keys = (event: KeyboardEvent) => {
     // Levels run from the highest down, so up the screen is one earlier in the list.
@@ -95,7 +98,7 @@ export function LevelChart({ history, chart, until, onStart }: Props) {
     const next = sameSide[sameSide.indexOf(start) + step];
     if (step === 0 || next == null) return;
     event.preventDefault();
-    onStart(next);
+    onStart(next, falling);
   };
   const down = (event: PointerEvent<SVGSVGElement>) => {
     const double = event.timeStamp - lastDown.current < DOUBLE_MS;

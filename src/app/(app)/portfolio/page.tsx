@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { Button, Card, Chip, PageHeader, Skeleton } from "@/components/kit";
 import { exposures, indexExposure, INDEX, readHolding, type History, type Holding } from "@/domains/exposure/portfolio";
-import { buildScenarios, MAX_LEGS, type Starts } from "@/domains/exposure/portfolio-scenarios";
+import { buildScenarios, type Starts } from "@/domains/exposure/portfolio-scenarios";
 import { isUnderlyingId, UNDERLYINGS, type EventMarket, type Ladder, type UnderlyingId } from "@/domains/markets/types";
 import { useProfile } from "@/domains/profile/profile";
 import { formatLevel, formatPrice } from "@/lib/format";
@@ -55,16 +55,11 @@ export default function PortfolioPage() {
   }, [riding, index, ladders.data, events.data, indexSpot, starts]);
   const [shownId, setShownId] = useState<string | null>(null);
   const shown = scenarios.find((s) => s.id === shownId) ?? scenarios[0];
-  // The nearest level on the other side of the price, for switching between a fall and a rise. An index market lists one side only.
-  const across = shown?.chart.levels.filter((level) => level < shown.chart.spot !== shown.chart.falling) ?? [];
-  const flip = across.length === 0 ? null : shown.chart.falling ? Math.min(...across) : Math.max(...across);
+  // Where the line goes when switching between a fall and a rise: the first level past the price on the other side. An index market lists one side only.
+  const across = shown ? (shown.chart.falling ? shown.chart.rise : shown.chart.fall) : [];
+  const past = across.filter((level) => (shown.chart.falling ? level >= shown.chart.spot : level < shown.chart.spot));
+  const flip = across.length === 0 ? null : shown.chart.falling ? Math.min(...(past.length ? past : across)) : Math.max(...(past.length ? past : across));
 
-  // Until the person chooses, the biggest scenario is on, so the panel has a price to show.
-  const [picked, setPicked] = useState<string[] | null>(null);
-  const active = picked ?? scenarios.slice(0, 1).map((s) => s.id);
-  const chosen = scenarios.filter((s) => active.includes(s.id));
-  const legsUsed = chosen.reduce((sum, s) => sum + s.cushion.legs.length, 0);
-  const toggle = (id: string) => setPicked(active.includes(id) ? active.filter((other) => other !== id) : [...active, id]);
 
   const marketsPending = (riding.length > 0 && !ladders.data && !ladders.error) || (index != null && !events.data && !events.error);
   const marketsDown = !marketsPending && ((riding.length > 0 && !ladders.data) || (index != null && !events.data));
@@ -98,7 +93,6 @@ export default function PortfolioPage() {
                 {scenarios.map((scenario) => (
                   <Chip key={scenario.id} pressed={scenario.id === shown.id} onClick={() => setShownId(scenario.id)}>
                     {sentence(scenario.chart.name)}
-                    {active.includes(scenario.id) ? <span className="ml-2 text-[12px] font-semibold opacity-80">Cushioned</span> : null}
                   </Chip>
                 ))}
               </div>
@@ -117,7 +111,7 @@ export default function PortfolioPage() {
                   history={history ? (history[shown.chart.symbol] ?? []) : undefined}
                   chart={shown.chart}
                   until={day.format(new Date(shown.expiry))}
-                  onStart={(level) => setStarts((previous) => ({ ...previous, [shown.id]: level }))}
+                  onStart={(level, falling) => setStarts((previous) => ({ ...previous, [shown.id]: { level, falling } }))}
                 />
                 <p className="text-[13px] leading-relaxed text-muted-foreground">
                   Each dashed line is a level Gemini lists a market at. Drag the blue line nearer to or further from the price to choose where your
@@ -126,25 +120,24 @@ export default function PortfolioPage() {
                 </p>
                 {flip != null ? (
                   <div>
-                    <Button variant="quiet" onClick={() => setStarts((previous) => ({ ...previous, [shown.id]: flip }))}>
+                    <Button variant="quiet" onClick={() => setStarts((previous) => ({ ...previous, [shown.id]: { level: flip, falling: !shown.chart.falling } }))}>
                       Pay on a {shown.chart.falling ? "rise" : "fall"} instead
                     </Button>
                   </div>
                 ) : null}
               </Card>
 
-              <ScenarioCard
-                key={shown.id}
-                scenario={shown}
-                pressed={active.includes(shown.id)}
-                blocked={legsUsed + shown.cushion.legs.length > MAX_LEGS}
-                onToggle={() => toggle(shown.id)}
-              />
+              <ScenarioCard key={shown.id} scenario={shown} />
             </div>
           )}
         </section>
 
-        <CushionAside chosen={chosen} message={loading ? "Reading prices from Gemini…" : (empty?.aside ?? null)} />
+        {/* The panel follows the asset on the chart: its loss, and the cushion the line is set to. */}
+        <CushionAside
+          chosen={shown ? [shown] : []}
+          label={!shown ? "If it goes wrong" : shown.protective ? `If ${shown.chart.name} goes wrong` : `If ${shown.chart.name} ${shown.chart.falling ? "falls" : "climbs"}`}
+          message={loading ? "Reading prices from Gemini…" : (empty?.aside ?? null)}
+        />
       </div>
     </>
   );

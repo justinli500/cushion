@@ -12,10 +12,11 @@ const lost = (dollars: number) => (dollars >= 0.5 ? `−${formatUsdWhole(dollars
 const tile = "rounded-[18px] bg-panel-tile px-4 py-3 text-[14px] leading-relaxed text-white";
 
 /**
- * "If it all goes wrong": every chosen scenario bought as one cushion, with what it saves in two bars.
- * `message` stands in for everything else while there is nothing to choose from.
+ * The dark panel for the scenario on the chart: what it would cost without a cushion and with one,
+ * in two bars, and the button that buys it. `message` stands in for everything else while there is
+ * nothing to choose from.
  */
-export function CushionAside({ chosen, message }: { chosen: Scenario[]; message: string | null }) {
+export function CushionAside({ chosen, label, message }: { chosen: Scenario[]; label: string; message: string | null }) {
   const cushion: Cushion | null = chosen.length > 0 ? { legs: chosen.flatMap((s) => s.cushion.legs), payoutMode: "sum" } : null;
   const { quote, loading, error, nothingToBuy, canBuy, justBought, tooDear, buy } = useCushionPurchase({
     section: "portfolio",
@@ -33,7 +34,7 @@ export function CushionAside({ chosen, message }: { chosen: Scenario[]; message:
 
   return (
     <aside className="min-w-0 flex-[1_1_320px]">
-      <Panel label="If it all goes wrong">
+      <Panel label={label}>
         {message ? (
           <p className={tile}>{message}</p>
         ) : (

@@ -66,7 +66,7 @@ describe("buildScenarios: coins and commodities", () => {
   });
 
   it("starts cover at the level the person moved it to, and lists every level for the chart", () => {
-    const [scenario] = buildScenarios(input({ exposures: [btcExposure(1000)], ladders }), { "ladder:BTC": 57500 });
+    const [scenario] = buildScenarios(input({ exposures: [btcExposure(1000)], ladders }), { "ladder:BTC": { level: 57500, falling: true } });
     expect(scenario.cushion.legs.map((l) => [l.side, l.strike])).toEqual([
       ["no", 57500],
       ["no", 55000],
@@ -76,11 +76,11 @@ describe("buildScenarios: coins and commodities", () => {
     expect(scenario.chart.levels).toEqual([67500, 65000, 62500, 60000, 57500]);
     expect(scenario.protective).toBe(true);
     // A level the market does not list is ignored.
-    expect(buildScenarios(input({ exposures: [btcExposure(1000)], ladders }), { "ladder:BTC": 58000 })[0].chart.start).toBe(60000);
+    expect(buildScenarios(input({ exposures: [btcExposure(1000)], ladders }), { "ladder:BTC": { level: 58000, falling: true } })[0].chart.start).toBe(60000);
   });
 
   it("keeps the same market when the furthest level is asked for, instead of jumping to another one", () => {
-    const [scenario] = buildScenarios(input({ exposures: [btcExposure(1000)], ladders }), { "ladder:BTC": 55000 });
+    const [scenario] = buildScenarios(input({ exposures: [btcExposure(1000)], ladders }), { "ladder:BTC": { level: 55000, falling: true } });
     // 55,000 is the last level, so it is not on offer: the cover stays on the month-end market at its usual start.
     expect(scenario.eventTicker).toBe("BTC-2026-11-30T22:00:00.000Z");
     expect(scenario.chart.start).toBe(60000);
@@ -88,7 +88,7 @@ describe("buildScenarios: coins and commodities", () => {
   });
 
   it("pays on a rise when the level is moved above the price, and says that is a bet for someone who holds it", () => {
-    const [scenario] = buildScenarios(input({ exposures: [btcExposure(1000)], ladders }), { "ladder:BTC": 67500 });
+    const [scenario] = buildScenarios(input({ exposures: [btcExposure(1000)], ladders }), { "ladder:BTC": { level: 67500, falling: false } });
     expect(scenario.cushion.legs.map((l) => [l.side, l.strike])).toEqual([
       ["yes", 67500],
       ["yes", 70000],
@@ -96,6 +96,17 @@ describe("buildScenarios: coins and commodities", () => {
     expect(scenario).toMatchObject({ protective: false, loss: 0, title: "Bitcoin climbs 12% by Nov 30" });
     expect(scenario.hurts).toBe("A rise helps your BTC, so this is a bet on top, not a cushion");
     expect(scenario.chart).toMatchObject({ falling: false, start: 67500, end: 70000 });
+  });
+
+  it("lets either side start at the level the price is sitting on", () => {
+    // The even-money point is 62,500, a level of its own, and the price can sit a hair either side of one.
+    const [fall] = buildScenarios(input({ exposures: [btcExposure(1000)], ladders }));
+    expect(fall.chart.fall).toEqual([62500, 60000, 57500]);
+    expect(fall.chart.rise).toEqual([67500, 65000, 62500, 60000]);
+    // A rise cover moved down to 60,000, just under the price, stays a rise cover.
+    const [rise] = buildScenarios(input({ exposures: [btcExposure(1000)], ladders }), { "ladder:BTC": { level: 60000, falling: false } });
+    expect(rise.chart).toMatchObject({ falling: false, start: 60000 });
+    expect(rise.cushion.legs[0]).toMatchObject({ side: "yes", strike: 60000 });
   });
 
   it("covers a rise with YES for a holding that moves against the market, and says it is an estimate", () => {
