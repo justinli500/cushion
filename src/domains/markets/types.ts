@@ -64,6 +64,8 @@ export interface BucketMarket {
   eventTicker: string;
   title: string;
   city: string;
+  /** Gemini quotes cities in the United States in Fahrenheit and the rest in Celsius. */
+  unit: "F" | "C";
   expiry: string;
   /** Ascending by temperature. */
   buckets: Bucket[];

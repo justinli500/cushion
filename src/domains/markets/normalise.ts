@@ -86,7 +86,9 @@ export function toBucketMarket(event: RawEvent): BucketMarket | null {
     .filter((b): b is Bucket => b !== null)
     .sort((a, b) => (a.hi ?? Infinity) - (b.hi ?? Infinity));
   if (buckets.length === 0) return null;
-  return { kind: "buckets", eventTicker: event.ticker, title: event.title, city, expiry: event.expiryDate, buckets };
+  // The unit is only written in the contract labels: "74°F to 75°F" or "14°C".
+  const unit = event.contracts.some((c) => c.label.includes("°C")) ? "C" : "F";
+  return { kind: "buckets", eventTicker: event.ticker, title: event.title, city, unit, expiry: event.expiryDate, buckets };
 }
 
 /** A full-game moneyline event becomes a Game. Period moneylines (1st half, etc.) are skipped. */

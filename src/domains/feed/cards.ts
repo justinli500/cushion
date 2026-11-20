@@ -150,7 +150,9 @@ export function weatherCard(city: string, markets: BucketMarket[]): FeedCard | n
   const top = market ? likeliestBucket(market) : null;
   if (!market || !top) return null;
   const { lo, hi } = top.bucket;
-  const range = lo == null ? `${hi}°F or cooler` : hi == null ? `${lo}°F or warmer` : `${lo} to ${hi}°F`;
+  const deg = `°${market.unit}`;
+  // Celsius markets come in single degrees, so a range of "14 to 14" is just 14.
+  const range = lo == null ? `${hi}${deg} or cooler` : hi == null ? `${lo}${deg} or warmer` : lo === hi ? `${lo}${deg}` : `${lo} to ${hi}${deg}`;
   const colder = market.buckets
     .filter((b) => b.hi != null && lo != null && b.hi < lo)
     .reduce((sum, b) => sum + (yesChance(b.contract.quote).p ?? 0), 0);
@@ -159,11 +161,11 @@ export function weatherCard(city: string, markets: BucketMarket[]): FeedCard | n
     topic: `${city} weather`,
     eyebrow: "Your business",
     headline: `${city}'s high is most likely ${range}`,
-    stat: lo == null ? null : { value: formatChance(Math.min(colder, 1)), label: `chance it stays under ${lo}°F` },
+    stat: lo == null ? null : { value: formatChance(Math.min(colder, 1)), label: `chance it stays under ${lo}${deg}` },
     facts:
       lo == null
         ? `The market's most likely high for ${city} is ${range}.`
-        : `The market's most likely high for ${city} is ${range}, with a ${formatChance(Math.min(colder, 1))} chance it stays under ${lo}°F.`,
+        : `The market's most likely high for ${city} is ${range}, with a ${formatChance(Math.min(colder, 1))} chance it stays under ${lo}${deg}.`,
     news: null,
     href: "/business",
     action: "See my hedges",

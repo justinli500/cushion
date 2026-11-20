@@ -10,6 +10,8 @@ import {
   pickGame,
   pickWeather,
   suggest,
+  suggestedCities,
+  suggestedTeams,
   teamOptions,
   titleOf,
   type AmountKey,
@@ -20,14 +22,15 @@ import {
 } from "@/domains/exposure/business";
 import type { BucketMarket, EventMarket, Game, Ladder } from "@/domains/markets/types";
 import { updateProfile, useProfile } from "@/domains/profile/profile";
+import { formatWhen } from "@/lib/format";
 import { usePoll } from "@/lib/use-poll";
-import { SuggestionCard, type CardState } from "./cards";
+import { SuggestionCard, type CardState, type Picks } from "./cards";
 import { useNow } from "./hooks";
 import { YouCard } from "./you-card";
 
 const riskKey = (risk: Risk) => (risk.kind === "cost-rise" ? `cost:${risk.underlying}` : risk.kind === "event" ? `event:${risk.event}` : risk.kind);
 
-const stateOf = (s: Suggestion): CardState => (s.status === "ready" ? { kind: "ready", suggestion: s } : { kind: "unavailable", reason: s.reason });
+const stateOf = (s: Suggestion, picks?: Picks): CardState => (s.status === "ready" ? { kind: "ready", suggestion: s } : { kind: "unavailable", reason: s.reason, picks });
 
 export default function BusinessPage() {
   const profile = useProfile();
@@ -58,10 +61,29 @@ export default function BusinessPage() {
   };
   const feedOf = (risk: Risk) => (risk.kind === "home-loss" ? games : risk.kind === "cost-rise" ? ladders : risk.kind === "event" ? events : weather);
 
+  const setCity = (name: string) => updateProfile("business", { type: business?.id ?? null, city: name });
+  // A card waiting on a city or a team offers a few that have a market right now, so one press fills it in.
+  const picksFor = (risk: Risk): Picks | undefined => {
+    if ((risk.kind === "cold-day" || risk.kind === "hot-day") && !city && weather.data) {
+      return { label: "Cities with a market right now", options: suggestedCities(weather.data.markets, now).map((name) => ({ key: name, text: name, onPick: () => setCity(name) })) };
+    }
+    if (risk.kind === "home-loss" && !team && games.data) {
+      return {
+        label: "Home teams playing soon",
+        options: suggestedTeams(games.data.games, now).map((pick) => ({
+          key: `${pick.team.league}/${pick.team.abbr}`,
+          text: `${pick.team.name} · ${formatWhen(pick.startTime)}`,
+          onPick: () => setTeam(pick.team),
+        })),
+      };
+    }
+    return undefined;
+  };
+
   const cards = (business?.risks ?? []).map((risk) => {
     const feed = feedOf(risk);
     const state: CardState = feed.data
-      ? stateOf(suggest(risk, input))
+      ? stateOf(suggest(risk, input), picksFor(risk))
       : feed.loading
         ? { kind: "loading" }
         : { kind: "unavailable", reason: "Gemini's markets did not load. Refresh the page to try again." };
@@ -79,7 +101,7 @@ export default function BusinessPage() {
             needs={needs}
             city={city}
             cities={weather.data ? cityOptions(weather.data.markets) : null}
-            onCity={(name) => updateProfile("business", { type: business?.id ?? null, city: name })}
+            onCity={setCity}
             team={team}
             teams={games.data ? teamOptions(games.data.games) : null}
             onTeam={setTeam}

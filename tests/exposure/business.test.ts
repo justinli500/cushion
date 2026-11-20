@@ -37,7 +37,7 @@ const bucket = (lo: number | null, hi: number | null, bid: number | null, ask: n
 });
 
 const market = (city: string, expiry: string, date: string, buckets: Bucket[]): BucketMarket => ({
-  kind: "buckets",
+  kind: "buckets", unit: "F",
   eventTicker: `WX-${city}-${expiry}`,
   title: `Highest temperature in ${city} on ${date}, 2026?`,
   city,

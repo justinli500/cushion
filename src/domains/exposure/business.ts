@@ -188,6 +188,49 @@ export function teamOptions(games: Game[]): Team[] {
   return [...byKey.values()].sort((a, b) => rank(a.league) - rank(b.league) || a.name.localeCompare(b.name));
 }
 
+// ponytail: a fixed list of large cities, Austin first because the hackathon is there. Use the person's location if this ever matters.
+const WELL_KNOWN = ["Austin", "NYC", "Los Angeles", "Chicago", "Miami", "Houston", "Dallas", "Seattle", "London", "Toronto"];
+
+/**
+ * Cities to offer before the owner has chosen one. Only cities whose next temperature market has
+ * a range on sale, so the cushion that follows can be priced: well-known ones first, then the rest
+ * in alphabetical order.
+ */
+export function suggestedCities(markets: BucketMarket[], now: number, limit = 6): string[] {
+  const onSale = (city: string) => pickWeather(markets, city, now)?.buckets.some((b) => b.contract.open && b.contract.quote.ask != null) ?? false;
+  const rank = (city: string) => {
+    const at = WELL_KNOWN.indexOf(city);
+    return at === -1 ? WELL_KNOWN.length : at;
+  };
+  return cityOptions(markets)
+    .filter(onSale)
+    .sort((a, b) => rank(a) - rank(b))
+    .slice(0, limit);
+}
+
+export interface TeamPick {
+  team: Team;
+  /** When the game that makes this team worth suggesting starts. */
+  startTime: string;
+}
+
+/**
+ * Teams to offer before the owner has chosen one: the home teams of the most-traded games still to
+ * start, since a bar's crowd follows the home side. Only games quoted on both sides, so the
+ * cushion that follows can be priced.
+ */
+export function suggestedTeams(games: Game[], now: number, limit = 5): TeamPick[] {
+  const quoted = (g: Game) => g.teams.every((t) => t.contract.open && (t.contract.quote.bid != null || t.contract.quote.ask != null));
+  const picks = new Map<string, TeamPick>();
+  for (const game of [...games].sort((a, b) => b.volume - a.volume)) {
+    const home = game.teams.find((t) => t.side === "home");
+    if (!home || Date.parse(game.startTime) <= now || !quoted(game)) continue;
+    const key = `${game.league}/${home.abbr}`;
+    if (!picks.has(key)) picks.set(key, { team: { league: game.league, abbr: home.abbr, name: home.name }, startTime: game.startTime });
+  }
+  return [...picks.values()].slice(0, limit);
+}
+
 /** The nearest unexpired high-temperature market for the city, preferring one with the day still ahead. */
 export function pickWeather(markets: BucketMarket[], city: string, now: number): BucketMarket | null {
   const open = markets
@@ -299,7 +342,7 @@ function weatherBody(kind: WeatherKind, input: SuggestInput): Cover | string {
   const picked = market.buckets.filter((b) => symbols.has(b.contract.symbol));
   const verb = isCold ? `stays under ${threshold}` : `climbs above ${threshold}`;
   return {
-    trigger: `Pays ${formatUsdWhole(payout)} if ${market.city}'s high ${verb}°F ${coverDay(market, input.now)}.`,
+    trigger: `Pays ${formatUsdWhole(payout)} if ${market.city}'s high ${verb}°${market.unit} ${coverDay(market, input.now)}.`,
     when: capitalise(coverDay(market, input.now)),
     cushion,
     chance: sumChances(picked.map((b) => yesChance(b.contract.quote))),

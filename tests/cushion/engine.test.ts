@@ -145,7 +145,7 @@ describe("probability", () => {
 
 describe("temperatureLegs", () => {
   const market: BucketMarket = {
-    kind: "buckets",
+    kind: "buckets", unit: "F",
     eventTicker: "WX",
     title: "Highest temperature in Austin on a day",
     city: "Austin",

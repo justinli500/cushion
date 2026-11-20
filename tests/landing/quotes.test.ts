@@ -48,7 +48,7 @@ describe("landing quotes", () => {
 
   it("covers a cool day with every range under the likeliest one", () => {
     const market: BucketMarket = {
-      kind: "buckets",
+      kind: "buckets", unit: "F",
       eventTicker: "WX",
       title: "Highest temperature in Austin",
       city: "Austin",

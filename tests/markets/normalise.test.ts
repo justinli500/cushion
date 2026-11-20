@@ -98,4 +98,23 @@ describe("normalising Gemini events", () => {
     expect(market.outcomes.map((o) => [o.label, o.contract.quote.bid, o.contract.quote.ask])).toEqual([["Hike 25bps", 0.89, 0.93]]);
     expect(toEventMarket({ ...event, contracts: [] })).toBeNull();
   });
+
+  it("reads a temperature market's unit from its contract labels", () => {
+    const market = (label: string, ticker: string) => {
+      const [event] = eventsResponseSchema.parse({
+        data: [
+          {
+            ticker: "WXHIGH-TEST-261120",
+            title: "Highest temperature in Toronto on November 20, 2026?",
+            category: "Weather",
+            expiryDate: "2026-11-21T06:00:00.000Z",
+            contracts: [{ label, ticker, instrumentSymbol: `GEMI-WXHIGH-TEST-261120-${ticker}`, status: "active", prices: { bestBid: "0.2", bestAsk: "0.3" } }],
+          },
+        ],
+      }).data;
+      return toBucketMarket(event)!;
+    };
+    expect(market("10°C", "10TO10")).toMatchObject({ unit: "C", buckets: [{ lo: 10, hi: 10 }] });
+    expect(market("62°F to 63°F", "62TO63").unit).toBe("F");
+  });
 });

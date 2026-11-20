@@ -1,7 +1,7 @@
 "use client";
 
 import { useCushionPurchase } from "@/components/cushion-ticket";
-import { Button, Card, Notice, Skeleton, Tag } from "@/components/kit";
+import { Button, Card, Chip, Notice, Skeleton, Tag } from "@/components/kit";
 import type { Chance } from "@/domains/cushion/types";
 import type { Suggestion } from "@/domains/exposure/business";
 import { formatChance, formatUsd } from "@/lib/format";
@@ -12,8 +12,14 @@ type Ready = Extract<Suggestion, { status: "ready" }>;
 export type CardState =
   | { kind: "loading" }
   /** No market to build this from today, or something still to choose on the left. */
-  | { kind: "unavailable"; reason: string }
+  | { kind: "unavailable"; reason: string; picks?: Picks }
   | { kind: "ready"; suggestion: Ready };
+
+/** Shortcuts for a card that is waiting on a choice: a few cities or teams that have a market right now. */
+export interface Picks {
+  label: string;
+  options: { key: string; text: string; onPick: () => void }[];
+}
 
 const chanceText = (c: Chance) =>
   c.uncertain && c.low != null && c.high != null ? `${formatChance(c.low)} to ${formatChance(c.high)}` : formatChance(c.p);
@@ -56,7 +62,21 @@ export function SuggestionCard({ title, why, state }: { title: string; why: stri
       </div>
 
       {state.kind === "unavailable" ? (
-        <Notice>{state.reason}</Notice>
+        <>
+          <Notice>{state.reason}</Notice>
+          {state.picks && state.picks.options.length > 0 ? (
+            <div className="arrive flex flex-col gap-2">
+              <span className="text-[13px] font-semibold text-muted-foreground">{state.picks.label}</span>
+              <div className="flex flex-wrap gap-2">
+                {state.picks.options.map((option) => (
+                  <Chip key={option.key} small pressed={false} onClick={option.onPick}>
+                    {option.text}
+                  </Chip>
+                ))}
+              </div>
+            </div>
+          ) : null}
+        </>
       ) : state.kind === "loading" || (!quote && loading) ? (
         <Skeleton className="h-[85px] w-full rounded-[18px]" />
       ) : !quote ? (
