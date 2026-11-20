@@ -240,10 +240,10 @@ export function ToggleCard({
 }
 
 /** The tag in the corner of a toggle card. */
-export function ToggleTag({ pressed, off = "Add" }: { pressed: boolean; off?: string }) {
+export function ToggleTag({ pressed, off = "Add", on = "Cushioned" }: { pressed: boolean; off?: string; on?: string }) {
   return (
     <span className={cn("shrink-0 rounded-full px-3.5 py-1.5 text-[13px] font-semibold", pressed ? "bg-primary text-primary-foreground" : "bg-secondary text-foreground")}>
-      {pressed ? "Cushioned" : off}
+      {pressed ? on : off}
     </span>
   );
 }

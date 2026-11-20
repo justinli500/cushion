@@ -69,8 +69,8 @@ export function BillQuestion({ bill, initial, onSave, onCancel, onSwitch }: Prop
           </div>
         </Field>
         <p className="text-[13px] leading-relaxed text-muted-foreground">{hint}</p>
-        {problem ? <p className="text-[13px] text-destructive">{problem}</p> : null}
-        <div className="flex items-center gap-3">
+        {problem ? <p className="text-[13px] font-semibold text-risk">{problem}</p> : null}
+        <div className="flex flex-wrap items-center gap-3">
           <Button type="submit">Continue</Button>
           {onCancel ? (
             <Button variant="quiet" onClick={onCancel}>
@@ -78,7 +78,7 @@ export function BillQuestion({ bill, initial, onSave, onCancel, onSwitch }: Prop
             </Button>
           ) : null}
           {onSwitch ? (
-            <button type="button" onClick={onSwitch} className="press text-[13px] text-muted-foreground underline-offset-2 hover:underline">
+            <button type="button" onClick={onSwitch} className="press min-h-11 text-[14px] font-semibold text-foreground underline underline-offset-4">
               {bill === "gas" ? "I only want heating cover" : "I only want gas cover"}
             </button>
           ) : null}

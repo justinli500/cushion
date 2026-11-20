@@ -2,7 +2,7 @@
 
 import { useState, useSyncExternalStore } from "react";
 import { CushionTicket } from "@/components/cushion-ticket";
-import { Card, CardTitle, Notice, PageHeader, Skeleton, Tag, WithTicket } from "@/components/kit";
+import { Card, CardTitle, Chip, Notice, PageHeader, Skeleton, Tag, ToggleCard, ToggleTag, WithTicket } from "@/components/kit";
 import { chanceAtOrAbove } from "@/domains/cushion/probability";
 import type { Cushion, CushionQuote } from "@/domains/cushion/types";
 import { BILLS, COVER_LEVELS, dayLabel, spotOf, startLevel, type BillKind, type CoverLevel } from "@/domains/exposure/bills";
@@ -34,20 +34,16 @@ function costView(listed: boolean, cover: Cushion | null, quote: CushionQuote | 
 function CostRow({ label, view }: { label: string; view: CostView }) {
   return (
     <div>
-      <p className="text-[12px] text-muted-foreground">{label}</p>
+      <p className="text-[13px] text-muted-foreground">{label}</p>
       {view.kind === "loading" ? (
-        <Skeleton className="mt-1 h-6 w-28" />
+        <Skeleton className="mt-1 h-7 w-28" />
       ) : view.kind === "message" ? (
-        <p className="mt-1 text-[13px] leading-snug text-muted-foreground">{view.text}</p>
+        <p className="mt-1 text-[14px] leading-snug text-body">{view.text}</p>
       ) : (
-        <p className="tabular mt-0.5">
-          <span className="text-[20px] font-semibold tracking-tight">{formatUsd(view.quote.cost)}</span>
-          <span className="ml-2 text-[13px] text-muted-foreground">pays up to {formatUsd(view.quote.maxPayout)}</span>
-          {view.quote.partial ? (
-            <span className="ml-2 align-middle">
-              <Tag>Thin market</Tag>
-            </span>
-          ) : null}
+        <p className="tabular mt-0.5 flex flex-col items-start gap-0.5">
+          <span className="display text-[24px] font-bold tracking-[-0.02em]">{formatUsd(view.quote.cost)}</span>
+          <span className="text-[14px] font-semibold text-covered">Pays up to {formatUsd(view.quote.maxPayout)}</span>
+          {view.quote.partial ? <Tag>Thin market</Tag> : null}
         </p>
       )}
     </div>
@@ -70,22 +66,24 @@ function CoverCard({ mode, markets, onPick }: CoverCardProps) {
   const { daily, monthEnd } = markets.ladders;
   const until = monthEnd ? dayLabel(monthEnd.expiry) : "month end";
   return (
-    <Card>
-      <CardTitle hint="Live prices from Gemini">How much cover?</CardTitle>
-      <div className="grid grid-cols-2 gap-4">
+    <section>
+      <div className="mb-3.5 flex flex-wrap items-baseline justify-between gap-3">
+        <h2 className="display text-[22px] font-semibold tracking-[-0.01em]">How much cover?</h2>
+        <span className="text-[13px] text-muted-foreground">Live prices from Gemini</span>
+      </div>
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(300px,100%),1fr))] gap-4">
         {COVER_LEVELS.map((level) => {
           const selected = level === mode;
           return (
-            <button
-              key={level}
-              type="button"
-              aria-pressed={selected}
-              onClick={() => onPick(level)}
-              className={`press rounded-2xl border p-4 text-left ${selected ? "border-primary bg-primary/10" : "border-border bg-card hover:border-foreground/30"}`}
-            >
-              <p className="text-[15px] font-semibold">{LEVEL_NAMES[level]}</p>
-              <p className="mt-1 mb-4 text-[13px] leading-relaxed text-muted-foreground">{LEVEL_TEXT[level]}</p>
-              <div className="space-y-3">
+            <ToggleCard key={level} pressed={selected} onToggle={() => onPick(level)}>
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex flex-col gap-1">
+                  <span className="display text-[18px] font-semibold">{LEVEL_NAMES[level]}</span>
+                  <span className="text-[14px] text-body">{LEVEL_TEXT[level]}</span>
+                </div>
+                <ToggleTag pressed={selected} off="Choose" on="Chosen" />
+              </div>
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(min(180px,100%),1fr))] gap-3 rounded-[18px] bg-muted p-4">
                 <CostRow
                   label={`One purchase through ${until}`}
                   view={costView(monthEnd != null, markets.covers.monthEnd[level], markets.quotes.monthEnd[level], markets)}
@@ -95,14 +93,14 @@ function CoverCard({ mode, markets, onPick }: CoverCardProps) {
                   view={costView(daily != null, markets.covers.daily[level], markets.quotes.daily[level], markets)}
                 />
               </div>
-            </button>
+            </ToggleCard>
           );
         })}
       </div>
-      <p className="mt-4 text-[13px] leading-relaxed text-muted-foreground">
+      <p className="mt-3.5 text-[13px] leading-relaxed text-muted-foreground">
         A purchase through {until} is bought once and stays in place until then. Daily cover has to be bought again every day.
       </p>
-    </Card>
+    </section>
   );
 }
 
@@ -115,18 +113,24 @@ function ExposureCard({ bill, amount, exposure, onChange }: { bill: BillKind; am
         <CardTitle>What a price jump costs you</CardTitle>
         <Tag>{BILLS[bill].tag}</Tag>
       </div>
-      <p className="-mt-2 text-[14px] leading-relaxed">
-        {bill === "gas" ? `You buy about ${amount.toLocaleString("en-US")} gallons a month.` : `Your heating bill is about ${Number.isInteger(amount) ? formatUsdWhole(amount) : formatUsd(amount)} a month.`}{" "}
-        {extra == null
-          ? "Cushion will size this once it has a live price."
-          : `If ${commodity} rose ${jumpText}, your ${name.toLowerCase()} could cost about ${formatUsd(extra)} more this month.`}
-      </p>
-      <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
+      <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 rounded-[18px] bg-muted p-4">
+        <p className="min-w-0 flex-[1_1_320px] text-[15px] leading-relaxed text-body">
+          {bill === "gas" ? `You buy about ${amount.toLocaleString("en-US")} gallons a month.` : `Your heating bill is about ${Number.isInteger(amount) ? formatUsdWhole(amount) : formatUsd(amount)} a month.`}{" "}
+          {extra == null ? "Cushion will size this once it has a live price." : `If ${commodity} rose ${jumpText}, your ${name.toLowerCase()} could cost about this much more this month.`}
+        </p>
+        {extra == null ? null : (
+          <p className="flex flex-col">
+            <span className="text-[13px] font-semibold text-risk">You&rsquo;d pay about</span>
+            <span className="display tabular text-[30px] font-bold leading-tight tracking-[-0.02em]">{formatUsd(extra)} more</span>
+          </p>
+        )}
+      </div>
+      <p className="mt-3 text-[13px] leading-relaxed text-muted-foreground">
         {bill === "gas"
           ? "Pump prices follow oil with a delay, so this is a guide and not a forecast."
           : "Utility rates barely follow daily gas prices, so this is a rough guess at the part of your bill that moves."}
       </p>
-      <button type="button" onClick={onChange} className="press mt-3 text-[13px] text-muted-foreground underline-offset-2 hover:underline">
+      <button type="button" onClick={onChange} className="press mt-3 min-h-11 text-[14px] font-semibold text-foreground underline underline-offset-4">
         Change amount
       </button>
     </Card>
@@ -159,7 +163,7 @@ function Dashboard({ bills, kinds, asking, setAsking, save }: DashboardProps) {
   return (
     <>
       {asking ? (
-        <div className="mb-6">
+        <div className="mb-5">
           <BillQuestion
             key={asking}
             bill={asking}
@@ -179,6 +183,7 @@ function Dashboard({ bills, kinds, asking, setAsking, save }: DashboardProps) {
             eventTickers={monthEnd ? [monthEnd.eventTicker] : []}
             expiry={monthEnd?.expiry ?? ""}
             chance={chance == null ? undefined : { p: chance, low: null, high: null, uncertain: true }}
+            covers={markets.exposure == null ? undefined : { of: markets.exposure * COPY[bill].jump, label: `a ${formatUsdWhole(markets.exposure * COPY[bill].jump)} jump` }}
             emptyMessage={
               ticketView.kind === "message"
                 ? `${ticketView.text} Daily cover on autopilot may still be available.`
@@ -189,22 +194,16 @@ function Dashboard({ bills, kinds, asking, setAsking, save }: DashboardProps) {
       >
         <div className="flex flex-wrap items-center gap-2">
           {kinds.map((kind) => (
-            <button
-              key={kind}
-              type="button"
-              aria-pressed={kind === bill}
-              onClick={() => setPicked(kind)}
-              className={`press rounded-xl px-3 py-2 text-[14px] ${kind === bill ? "bg-card font-medium text-foreground shadow-[0_0_0_1px_var(--border)]" : "text-muted-foreground hover:text-foreground"}`}
-            >
+            <Chip key={kind} pressed={kind === bill} onClick={() => setPicked(kind)}>
               {COPY[kind].name}
-            </button>
+            </Chip>
           ))}
           {missing.map((kind) => (
             <button
               key={kind}
               type="button"
               onClick={() => setAsking(kind)}
-              className="press rounded-xl px-3 py-2 text-[14px] text-muted-foreground hover:text-foreground"
+              className="press min-h-11 px-3 text-[15px] font-semibold text-foreground underline underline-offset-4"
             >
               Add {COPY[kind].name.toLowerCase()}
             </button>
@@ -234,7 +233,7 @@ export default function BillsPage() {
 
   return (
     <>
-      <PageHeader title="Bills" lead="Tell us what you pay each month. If the price behind it jumps, a cushion pays you back part of the difference." />
+      <PageHeader title="Cushion your bills" lead="Tell us what you pay each month. If the price behind it jumps, a cushion pays you back part of the difference." />
       {!mounted ? (
         <Skeleton className="h-40 w-full max-w-xl" />
       ) : kinds.length === 0 ? (

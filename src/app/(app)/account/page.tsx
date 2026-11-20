@@ -18,13 +18,13 @@ export default function AccountPage() {
   return (
     <>
       <PageHeader title="Account" lead="Your play money and every cushion you have added. Nothing here is real money." />
-      <div className="mb-6 grid grid-cols-3 gap-6">
-        <Stat label="Play money" value={formatUsd(balance)} />
+      <div className="mb-5 grid grid-cols-[repeat(auto-fit,minmax(min(240px,100%),1fr))] gap-5">
+        <Stat label="Play money" value={formatUsd(balance)} dark />
         <Stat label="Spent on cushions" value={formatUsd(spent)} />
         <Stat label="Paid back to you" value={formatUsd(paid)} />
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-5">
         <Card>
           <CardTitle hint={`${open.length} open`}>Open cushions</CardTitle>
           {open.length === 0 ? <Notice>No open cushions. Add one from any section.</Notice> : <Positions positions={open} />}
@@ -45,24 +45,24 @@ export default function AccountPage() {
   );
 }
 
-function Stat({ label, value }: { label: string; value: string }) {
+function Stat({ label, value, dark = false }: { label: string; value: string; dark?: boolean }) {
   return (
-    <Card>
-      <p className="text-[13px] text-muted-foreground">{label}</p>
-      <p className="tabular mt-1 text-[26px] font-semibold tracking-tight">{value}</p>
-    </Card>
+    <div className={`flex flex-col gap-1 rounded-[28px] p-6 ${dark ? "bg-panel text-white" : "bg-card"}`}>
+      <span className={`text-[13px] ${dark ? "text-panel-foreground" : "text-muted-foreground"}`}>{label}</span>
+      <span className="display tabular text-[38px] font-bold leading-none tracking-[-0.03em]">{value}</span>
+    </div>
   );
 }
 
 function Positions({ positions }: { positions: Position[] }) {
   return (
-    <ul className="divide-y divide-border">
+    <ul className="flex flex-col gap-2.5">
       {positions.map((p) => (
-        <li key={p.id} className="arrive flex items-start justify-between gap-6 py-4 first:pt-0 last:pb-0">
-          <div className="min-w-0">
-            <p className="text-[14px] font-medium">{p.title}</p>
-            <p className="mt-0.5 text-[13px] leading-relaxed text-muted-foreground">{p.detail}</p>
-            <p className="mt-1.5 flex flex-wrap items-center gap-2 text-[12px] text-muted-foreground/70">
+        <li key={p.id} className="arrive flex flex-wrap items-start justify-between gap-x-6 gap-y-3 rounded-[18px] bg-muted p-4">
+          <div className="min-w-0 flex-[1_1_320px]">
+            <p className="text-[16px] font-semibold">{p.title}</p>
+            <p className="mt-0.5 text-[14px] leading-relaxed text-body">{p.detail}</p>
+            <p className="mt-2 flex flex-wrap items-center gap-2 text-[13px] text-muted-foreground">
               {p.replay ? <Tag>Simulated game</Tag> : null}
               <span>
                 {p.payout != null
@@ -72,20 +72,20 @@ function Positions({ positions }: { positions: Position[] }) {
                     : `Settles ${formatWhen(p.expiry)}`}
               </span>
               {p.receipt ? (
-                <a href={explorer(p.receipt)} target="_blank" rel="noreferrer" className="press text-primary underline-offset-2 hover:underline">
+                <a href={explorer(p.receipt)} target="_blank" rel="noreferrer" className="press font-semibold text-covered underline underline-offset-2">
                   View receipt
                 </a>
               ) : (
-                <button type="button" onClick={() => void requestReceipt({ ...p })} className="press text-muted-foreground underline-offset-2 hover:underline">
+                <button type="button" onClick={() => void requestReceipt({ ...p })} className="press text-muted-foreground underline underline-offset-2">
                   Receipt pending. Try again
                 </button>
               )}
             </p>
           </div>
           <div className="tabular shrink-0 text-right">
-            <p className="text-[14px]">Cost {formatUsd(p.cost)}</p>
+            <p className="text-[15px] font-semibold">Cost {formatUsd(p.cost)}</p>
             {p.payout == null ? (
-              <p className="text-[13px] text-muted-foreground">Pays up to {formatUsd(p.maxPayout)}</p>
+              <p className="text-[14px] font-semibold text-covered">Pays up to {formatUsd(p.maxPayout)}</p>
             ) : p.payout > 0 ? (
               <Tag tone="cushion">Paid {formatUsd(p.payout)}</Tag>
             ) : (

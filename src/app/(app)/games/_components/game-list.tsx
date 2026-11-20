@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { Button, Card, Notice, Skeleton } from "@/components/kit";
+import { Button, Card, Chip, Notice, Skeleton } from "@/components/kit";
 import type { Game, TeamSide } from "@/domains/markets/types";
 import { updateProfile, useProfile } from "@/domains/profile/profile";
 import { winChance } from "@/domains/scores/chance";
@@ -20,7 +20,7 @@ const SCORES_MS = 10_000;
 const LiveLink = () => (
   <>
     No game on?{" "}
-    <Link href="/games/live" className="press text-primary underline-offset-2 hover:underline">
+    <Link href="/games/live" className="press font-semibold text-covered underline underline-offset-2">
       Watch Colts at Texans.
     </Link>
   </>
@@ -29,18 +29,18 @@ const LiveLink = () => (
 /** Always on the page, so the game screen can be used whether or not anything is being played tonight. */
 function FeaturedGame() {
   return (
-    <Link href="/games/live" className="press flex items-center justify-between gap-6 rounded-[18px] bg-card p-5 hover:border-primary">
-      <span>
-        <span className="flex items-center gap-2">
-          <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primary">Live</span>
-          <span className="rounded-full bg-warning/15 px-2 py-0.5 text-[11px] font-medium text-warning">Simulated · played Nov 19</span>
+    <Link href="/games/live" className="press flex flex-wrap items-center justify-between gap-6 rounded-[28px] bg-panel p-7 text-white">
+      <span className="flex min-w-0 flex-[1_1_420px] flex-col gap-2.5">
+        <span className="flex flex-wrap items-center gap-2">
+          <span className="rounded-[10px] bg-primary px-2.5 py-1 text-[12px] font-semibold text-white">Live</span>
+          <span className="rounded-[10px] bg-panel-tile px-2.5 py-1 text-[12px] font-semibold text-panel-foreground">Simulated · played Nov 19</span>
         </span>
-        <span className="mt-2 block text-[17px] font-semibold tracking-tight">Colts at Texans, Thursday Night Football</span>
-        <span className="mt-1 block text-[14px] text-muted-foreground">
+        <span className="display text-[28px] font-bold leading-[1.1] tracking-[-0.02em]">Colts at Texans, Thursday Night Football</span>
+        <span className="max-w-[560px] text-[15px] text-panel-foreground">
           Watch the broadcast with the score, plays and Gemini&rsquo;s real prices moving beside it, and cushion a loss as it happens.
         </span>
       </span>
-      <span className="shrink-0 rounded-xl bg-foreground px-4 py-2 text-[14px] font-medium text-background">Watch</span>
+      <span className="inline-flex min-h-[52px] shrink-0 items-center rounded-full bg-card px-7 text-[16px] font-semibold text-foreground">Watch the game</span>
     </Link>
   );
 }
@@ -71,7 +71,7 @@ export function GameList() {
     ) : (
       <div className="space-y-3">
         {[0, 1, 2, 3].map((i) => (
-          <Skeleton key={i} className="h-[88px] w-full" />
+          <Skeleton key={i} className="h-[160px] w-full rounded-[24px]" />
         ))}
       </div>
     );
@@ -81,8 +81,8 @@ export function GameList() {
   if (lobby.leagues.length === 0) {
     return (
       <Card>
-        <h2 className="text-[17px] font-semibold tracking-tight">No games on the market right now</h2>
-        <p className="mt-2 max-w-md text-[14px] leading-relaxed text-muted-foreground">
+        <h2 className="display text-[22px] font-semibold">No games on the market right now</h2>
+        <p className="mt-2 max-w-md text-[15px] leading-relaxed text-body">
           New games appear here a day or so before kickoff. <LiveLink />
         </p>
       </Card>
@@ -90,15 +90,15 @@ export function GameList() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-7">
       <FeaturedGame />
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap gap-2">
-          <Chip active={league === "all"} onClick={() => setLeague("all")}>
+          <Chip small pressed={league === "all"} onClick={() => setLeague("all")}>
             All
           </Chip>
           {lobby.leagues.map((l) => (
-            <Chip key={l.league} active={league === l.league} onClick={() => setLeague(l.league)}>
+            <Chip small key={l.league} pressed={league === l.league} onClick={() => setLeague(l.league)}>
               {l.league} <span className="tabular ml-1 opacity-60">{l.count}</span>
             </Chip>
           ))}
@@ -126,25 +126,12 @@ export function GameList() {
   );
 }
 
-function Chip({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-pressed={active}
-      className={`press rounded-full px-3.5 py-1.5 text-[13px] font-medium ${active ? "bg-foreground text-background" : "bg-card text-muted-foreground shadow-[0_0_0_1px_var(--border)] hover:text-foreground"}`}
-    >
-      {children}
-    </button>
-  );
-}
-
 function Group({ title, rows }: { title: string; rows: LobbyRow[] }) {
   if (rows.length === 0) return null;
   return (
     <section>
-      <h2 className="mb-3 text-[15px] font-semibold">{title}</h2>
-      <ul className="grid grid-cols-2 gap-3 xl:grid-cols-3">
+      <h2 className="display mb-3.5 text-[22px] font-semibold tracking-[-0.01em]">{title}</h2>
+      <ul className="grid grid-cols-[repeat(auto-fill,minmax(min(340px,100%),1fr))] gap-4">
         {rows.map((row) => (
           <GameCard key={row.game.gameId} row={row} />
         ))}
@@ -171,12 +158,12 @@ function GameCard({ row }: { row: LobbyRow }) {
   const isMine = (t: TeamSide) => mine?.league === game.league && mine.abbr === t.abbr;
 
   return (
-    <li className="arrive press relative rounded-[18px] bg-card p-4 hover:bg-accent/50">
-      <Link href={`/games/${game.gameId}`} aria-label={`Open ${game.title}`} className="absolute inset-0 rounded-[18px]" />
+    <li className="arrive press relative rounded-[24px] bg-card p-5 hover:shadow-[0_0_0_2px_var(--primary)]">
+      <Link href={`/games/${game.gameId}`} aria-label={`Open ${game.title}`} className="absolute inset-0 rounded-[24px]" />
       <div className="pointer-events-none mb-3 flex items-center justify-between gap-3">
         <span className="flex min-w-0 items-center gap-2.5">
           <TeamLogo src={game.image} fallback={game.league} className="size-8 rounded-lg" />
-          <span className="truncate text-[15px] font-semibold">
+          <span className="display truncate text-[18px] font-semibold">
             {teamNickname(game, sides[0])} at {teamNickname(game, sides[1])}
           </span>
         </span>

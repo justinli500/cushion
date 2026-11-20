@@ -89,7 +89,7 @@ There is no login, and fills are simulated in the browser, so a receipt is a pub
 
 ## Architecture
 
-One Next.js 16 app in TypeScript, with a shadcn/ui component layer on Tailwind and a dark theme: charcoal surfaces, borderless cards, a lavender accent, and a top bar with a tab per section. Server routes fetch and cache upstream data. The browser holds the person's profile and their play-money account.
+One Next.js 16 app in TypeScript, with a shadcn/ui component layer on Tailwind and a light theme: a pale ground, white borderless cards, one blue for what is covered and one orange for what is at risk, and a dark panel that carries each cushion's summary. A landing page at `/` prices five example stakes from live quotes; the app's sections sit under a pill nav. Server routes fetch and cache upstream data. The browser holds the person's profile and their play-money account.
 
 ```
 src/

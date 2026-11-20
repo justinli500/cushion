@@ -37,7 +37,7 @@ function Switch({ on, onChange }: { on: boolean; onChange: () => void }) {
       aria-checked={on}
       aria-label="Autopilot"
       onClick={onChange}
-      className={`press relative h-7 w-12 shrink-0 rounded-full ${on ? "bg-primary" : "bg-border"}`}
+      className={`press relative h-7 w-12 shrink-0 rounded-full ${on ? "bg-primary" : "bg-track"}`}
     >
       <span
         className={`absolute top-1 h-5 w-5 rounded-full bg-card shadow transition-[left] duration-200 ${on ? "left-6" : "left-1"}`}
@@ -126,7 +126,7 @@ interface LineProps {
 function StatusLine({ status, addedCost, quote, balance }: LineProps) {
   if (status === "done") {
     return (
-      <p className="arrive rounded-xl bg-primary/10 px-4 py-3 text-[14px] font-medium text-primary">
+      <p className="arrive rounded-[18px] bg-yes px-4 py-3 text-[14px] font-semibold text-yes-foreground">
         {addedCost == null ? "Autopilot already added today’s cover." : `Autopilot added today’s cover for ${formatUsd(addedCost)}.`}
       </p>
     );
