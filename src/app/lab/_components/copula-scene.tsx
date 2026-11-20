@@ -7,7 +7,7 @@ import { OrbitControls } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
-import { frankDensity, Membrane } from "./copula";
+import { frankDensity, Membrane, sampleGrid } from "./copula";
 
 const N = 72;
 const SIZE = 4;
@@ -17,6 +17,12 @@ const HEIGHT_SCALE = 0.22;
 const MAX_DROPS = 90;
 const DROP_RADIUS = 0.055;
 const GRAVITY = 7;
+/** How hard a resting drop is pulled downhill along the sheet, and how quickly rolling dies away. */
+const ROLL_PULL = 5;
+const ROLL_FRICTION = 1.4;
+/** How hard a resting drop keeps pressing into the sheet, so it sits in a dent of its own. */
+const PRESS = 1.8;
+const EDGE = SIZE / 2 - CELL * 2;
 
 const LOW = new THREE.Color("#7E6BFF");
 const HIGH = new THREE.Color("#FFB08F");
@@ -36,18 +42,47 @@ interface Drop {
   squash: number;
   /** 1 for an ordinary drop. A bigger drop is heavier and presses the sheet harder and wider. */
   size: number;
+  vx: number;
+  vz: number;
+  /** Stays on the sheet once it lands, instead of fading after a few bounces. */
+  keep: boolean;
+  /** Done bouncing: it now rolls along the sheet and rides its ripples. */
+  grounded: boolean;
+  /** On its way out, to make room for a newer drop. */
+  fading: boolean;
+  born: number;
 }
 
 interface Sim {
   membrane: Membrane;
   drops: Drop[];
   untilBurst: number;
+  clock: number;
 }
+
+const FRESH: Drop = {
+  active: true,
+  x: 0,
+  z: 0,
+  y: 0,
+  vy: 0,
+  bounces: 0,
+  life: 1,
+  squash: 0,
+  size: 1,
+  vx: 0,
+  vz: 0,
+  keep: false,
+  grounded: false,
+  fading: false,
+  born: 0,
+};
 
 const newSim = (): Sim => ({
   membrane: new Membrane(N),
-  drops: Array.from({ length: MAX_DROPS }, () => ({ active: false, x: 0, z: 0, y: 0, vy: 0, bounces: 0, life: 0, squash: 0, size: 1 })),
+  drops: Array.from({ length: MAX_DROPS }, (): Drop => ({ ...FRESH, active: false, life: 0 })),
   untilBurst: 0.8,
+  clock: 0,
 });
 
 /** Wakes up to `count` idle drops above the sheet. Most land near the ridge, where the two outcomes agree. */
@@ -60,24 +95,59 @@ function spawn(drops: Drop[], count: number) {
     const u = Math.min(0.95, Math.max(0.05, t + (Math.random() - 0.5) * 0.45));
     const v = Math.min(0.95, Math.max(0.05, t + (Math.random() - 0.5) * 0.45));
     Object.assign(drop, {
-      active: true,
+      ...FRESH,
       x: u * SIZE - SIZE / 2,
       z: v * SIZE - SIZE / 2,
       y: 3 + Math.random() * 1.6,
       vy: -Math.random() * 0.5,
-      bounces: 0,
-      life: 1,
-      squash: 0,
-      size: 1,
     });
     spawned++;
   }
 }
 
 /** Wakes one idle drop at a chosen point, already moving. */
-function spawnAt(drops: Drop[], x: number, z: number, y: number, vy: number, size = 1) {
+function spawnAt(drops: Drop[], at: Partial<Drop>) {
   const drop = drops.find((d) => !d.active);
-  if (drop) Object.assign(drop, { active: true, x, z, y, vy, bounces: 0, life: 1, squash: 0, size });
+  if (drop) Object.assign(drop, { ...FRESH, ...at });
+}
+
+/**
+ * Pushes overlapping drops that stay on the sheet apart and trades their speed along the line
+ * between them, so a new drop knocks the pile about instead of sinking into it.
+ */
+function collide(drops: Drop[]) {
+  const kept = drops.filter((d) => d.active && d.keep);
+  for (let a = 0; a < kept.length; a++) {
+    for (let b = a + 1; b < kept.length; b++) {
+      const p = kept[a];
+      const q = kept[b];
+      const dx = p.x - q.x;
+      const dy = p.grounded && q.grounded ? 0 : p.y - q.y;
+      const dz = p.z - q.z;
+      const distance = Math.hypot(dx, dy, dz);
+      const reach = DROP_RADIUS * (p.size + q.size);
+      if (distance >= reach || distance < 1e-6) continue;
+      const nx = dx / distance;
+      const ny = dy / distance;
+      const nz = dz / distance;
+      const push = (reach - distance) / 2;
+      p.x += nx * push;
+      p.z += nz * push;
+      q.x -= nx * push;
+      q.z -= nz * push;
+      if (!p.grounded) p.y += ny * push;
+      if (!q.grounded) q.y -= ny * push;
+      const closing = (p.vx - q.vx) * nx + (p.vy - q.vy) * ny + (p.vz - q.vz) * nz;
+      if (closing >= 0) continue;
+      const impulse = (-(1 + 0.35) * closing) / 2;
+      p.vx += impulse * nx;
+      p.vz += impulse * nz;
+      q.vx -= impulse * nx;
+      q.vz -= impulse * nz;
+      if (!p.grounded) p.vy += impulse * ny;
+      if (!q.grounded) q.vy -= impulse * ny;
+    }
+  }
 }
 
 function buildSurface() {
@@ -132,10 +202,26 @@ function Copula({ pours, cue, auto, lead }: { pours: number; cue: number; auto: 
   }, [pours]);
 
   // A cue drops one heavy drop straight down the middle of the view, where the page's line ends.
+  // Drops that stay are capped: past the cap, the oldest one fades to make room.
   useEffect(() => {
     if (cue === 0 || !sim.current) return;
-    spawnAt(sim.current.drops, 0, 0, lead.y, lead.vy, lead.size);
-  }, [cue, lead.y, lead.vy, lead.size]);
+    const { drops } = sim.current;
+    const keep = lead.keep > 0;
+    if (keep) {
+      const kept = drops.filter((d) => d.active && d.keep && !d.fading).sort((a, b) => a.born - b.born);
+      if (kept.length >= lead.keep) kept[0].fading = true;
+    }
+    spawnAt(drops, {
+      // A hair off the very middle, which is a saddle: a drop there would balance instead of rolling off.
+      x: (Math.random() - 0.5) * 0.12,
+      z: (Math.random() - 0.5) * 0.12,
+      y: lead.y,
+      vy: lead.vy,
+      size: lead.size,
+      keep,
+      born: sim.current.clock,
+    });
+  }, [cue, lead.y, lead.vy, lead.size, lead.keep]);
 
   useFrame((_, rawDelta) => {
     const dt = Math.min(rawDelta, 1 / 30);
@@ -151,28 +237,63 @@ function Copula({ pours, cue, auto, lead }: { pours: number; cue: number; auto: 
     const substeps = 4;
     for (let s = 0; s < substeps; s++) membrane.step(dt / substeps, CELL);
 
+    sim.current.clock += dt;
+    const heightAt = (x: number, z: number) => {
+      const gx = toGrid(x);
+      const gz = toGrid(z);
+      return sampleGrid(surface.base, N, gx, gz) + membrane.sample(gx, gz);
+    };
+
     for (const drop of drops) {
       if (!drop.active) continue;
-      drop.vy -= GRAVITY * dt;
-      drop.y += drop.vy * dt;
-      drop.squash *= Math.exp(-dt * 10);
-      const gx = toGrid(drop.x);
-      const gz = toGrid(drop.z);
-      const i = Math.min(N - 1, Math.max(0, Math.round(gx)));
-      const j = Math.min(N - 1, Math.max(0, Math.round(gz)));
-      const floor = surface.base[j * N + i] + membrane.sample(gx, gz);
       const radius = DROP_RADIUS * drop.size;
-      if (drop.y - radius < floor && drop.vy < 0) {
-        // Weight grows with volume, so a bigger drop dents the sheet much more, over a wider patch.
-        membrane.strike(gx, gz, Math.abs(drop.vy) * 0.22 * drop.size ** 3, 1.6 * drop.size);
-        drop.y = floor + radius;
-        drop.vy = -drop.vy * 0.45;
-        drop.squash = Math.min(0.6, Math.abs(drop.vy) * 0.25);
-        drop.bounces++;
+      drop.squash *= Math.exp(-dt * 10);
+      if (drop.fading) drop.life -= dt * 1.2;
+
+      if (!drop.grounded) {
+        drop.vy -= GRAVITY * dt;
+        drop.y += drop.vy * dt;
+        drop.x += drop.vx * dt;
+        drop.z += drop.vz * dt;
+        const floor = heightAt(drop.x, drop.z);
+        if (drop.y - radius < floor && drop.vy < 0) {
+          // Weight grows with volume, so a bigger drop dents the sheet much more, over a wider patch.
+          membrane.strike(toGrid(drop.x), toGrid(drop.z), Math.abs(drop.vy) * 0.22 * drop.size ** 3, 1.6 * drop.size);
+          drop.y = floor + radius;
+          drop.vy = -drop.vy * 0.45;
+          drop.squash = Math.min(0.6, Math.abs(drop.vy) * 0.25);
+          drop.bounces++;
+          if (drop.keep && (drop.bounces >= 3 || drop.vy < 0.4)) {
+            drop.grounded = true;
+            drop.vy = 0;
+          }
+        }
+        if (!drop.keep && drop.bounces >= 3) drop.life -= dt * 1.6;
+      } else {
+        // Roll downhill along the sheet, slowed by friction, riding whatever ripples pass under it.
+        const e = 0.04;
+        const slopeX = (heightAt(drop.x + e, drop.z) - heightAt(drop.x - e, drop.z)) / (2 * e);
+        const slopeZ = (heightAt(drop.x, drop.z + e) - heightAt(drop.x, drop.z - e)) / (2 * e);
+        const friction = Math.exp(-ROLL_FRICTION * dt);
+        drop.vx = (drop.vx - ROLL_PULL * slopeX * dt) * friction;
+        drop.vz = (drop.vz - ROLL_PULL * slopeZ * dt) * friction;
+        drop.x += drop.vx * dt;
+        drop.z += drop.vz * dt;
+        drop.y = heightAt(drop.x, drop.z) + radius;
+        membrane.strike(toGrid(drop.x), toGrid(drop.z), PRESS * drop.size ** 3 * dt, 1.2 * drop.size);
       }
-      if (drop.bounces >= 3) drop.life -= dt * 1.6;
+
+      if (Math.abs(drop.x) > EDGE) {
+        drop.x = Math.sign(drop.x) * EDGE;
+        drop.vx = 0;
+      }
+      if (Math.abs(drop.z) > EDGE) {
+        drop.z = Math.sign(drop.z) * EDGE;
+        drop.vz = 0;
+      }
       if (drop.life <= 0) drop.active = false;
     }
+    collide(drops);
 
     // Write the sheet into the shared vertex buffer and color it by height and motion.
     const positions = surface.position.array as Float32Array;
@@ -252,6 +373,8 @@ interface Lead {
   vy: number;
   /** Its size against an ordinary drop. */
   size: number;
+  /** How many of these drops stay on the sheet at once. 0 lets each fade after it bounces. */
+  keep: number;
 }
 
 export interface CopulaView {
@@ -283,7 +406,7 @@ function Recenter({ center }: { center: number }) {
   return null;
 }
 
-const DEFAULT_LEAD: Lead = { y: 3.2, vy: -2, size: 1 };
+const DEFAULT_LEAD: Lead = { y: 3.2, vy: -2, size: 1, keep: 0 };
 
 export function CopulaScene({ pours, cue = 0, view = {} }: { pours: number; cue?: number; view?: CopulaView }) {
   const { camera = [4.6, 3.4, 4.8], zoom = true, transparent = false, center = 0.5, auto = true, lead = DEFAULT_LEAD } = view;

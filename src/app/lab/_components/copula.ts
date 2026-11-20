@@ -10,6 +10,20 @@ export function frankDensity(u: number, v: number, theta: number): number {
   return top / (bottom * bottom);
 }
 
+/** Reads a square grid of values at a fractional position, blending the four nearest cells. */
+export function sampleGrid(values: Float32Array, n: number, gx: number, gy: number): number {
+  const x = Math.min(n - 1.001, Math.max(0, gx));
+  const y = Math.min(n - 1.001, Math.max(0, gy));
+  const x0 = Math.floor(x);
+  const y0 = Math.floor(y);
+  const fx = x - x0;
+  const fy = y - y0;
+  const k = y0 * n + x0;
+  const top = values[k] * (1 - fx) + values[k + 1] * fx;
+  const bottom = values[k + n] * (1 - fx) + values[k + n + 1] * fx;
+  return top * (1 - fy) + bottom * fy;
+}
+
 /**
  * A stretched sheet pinned at its edges, stored as a square grid of heights and velocities. Drops
  * push it down where they land and the push travels out as ripples that slowly die away.
@@ -62,16 +76,6 @@ export class Membrane {
 
   /** The sheet's height at a fractional grid position. */
   sample(gx: number, gy: number): number {
-    const { n, height } = this;
-    const x = Math.min(n - 2, Math.max(0, gx));
-    const y = Math.min(n - 2, Math.max(0, gy));
-    const x0 = Math.floor(x);
-    const y0 = Math.floor(y);
-    const fx = x - x0;
-    const fy = y - y0;
-    const k = y0 * n + x0;
-    const top = height[k] * (1 - fx) + height[k + 1] * fx;
-    const bottom = height[k + n] * (1 - fx) + height[k + n + 1] * fx;
-    return top * (1 - fy) + bottom * fy;
+    return sampleGrid(this.height, this.n, gx, gy);
   }
 }
