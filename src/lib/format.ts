@@ -18,5 +18,8 @@ export function formatLevel(value: number): string {
   return value.toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits });
 }
 
+/** A dollar price level: $62,500 / $89.50 / $0.967 */
+export const formatPrice = (value: number) => `$${formatLevel(value)}`;
+
 const time = new Intl.DateTimeFormat("en-US", { weekday: "short", hour: "numeric", minute: "2-digit" });
 export const formatWhen = (iso: string) => time.format(new Date(iso));
