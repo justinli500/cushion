@@ -26,6 +26,7 @@ describe("portfolioCard", () => {
     expect(card.stat?.value).toBe("20%");
     expect(card.facts).toContain("about $100");
     expect(card.href).toBe("/portfolio");
+    expect(card.news).toMatch(/Bitcoin fell/);
   });
 
   it("looks at a jump for something that is hurt when the price rises", () => {
@@ -48,6 +49,7 @@ describe("marketCard and billsCard", () => {
     expect(card.stat?.value).toBe("10%");
     // 60 gallons x $0.024 per $1 a barrel x a $3 move is about $4.
     expect(card.facts).toContain("roughly $4 more");
+    expect(card.news).toMatch(/Oil has slid/);
   });
 });
 
@@ -112,6 +114,8 @@ describe("weatherCard", () => {
     const card = weatherCard("Austin", [market])!;
     expect(card.headline).toBe("Austin's high is most likely 76 to 77°F");
     expect(card.stat).toEqual({ value: "39%", label: "chance it stays under 76°F" });
+    // Nothing solid to say about a city's weather this week, so the card shows the numbers alone.
+    expect(card.news).toBeNull();
   });
 
   it("has nothing for a city without a market", () => {

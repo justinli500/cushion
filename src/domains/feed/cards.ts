@@ -3,17 +3,20 @@ import type { Exposure } from "@/domains/exposure/portfolio";
 import { UNDERLYINGS, type BucketMarket, type Game, type Ladder, type PropLine, type UnderlyingId } from "@/domains/markets/types";
 import type { Profile } from "@/domains/profile/profile";
 import { formatChance, formatPrice, formatUsdWhole, formatWhen } from "@/lib/format";
+import { HEADLINE_OIL, headlineForLeague, headlineForUnderlying } from "./headlines";
 
 /** One card on the Today feed: a thing in the person's life, the market's read on it, and a way in. */
 export interface FeedCard {
   id: string;
-  /** Plain subject, sent to the news writer, e.g. "Bitcoin". */
+  /** Plain subject, e.g. "Bitcoin". Two cards on one subject say the same thing, so the feed keeps one. */
   topic: string;
   eyebrow: string;
   headline: string;
   stat: { value: string; label: string } | null;
-  /** The numbers on the card as one sentence. Also what the news writer is given. */
+  /** The numbers on the card as one sentence. */
   facts: string;
+  /** What is going on this week for this subject, or null when there is nothing solid to say. */
+  news: string | null;
   href: string;
   action: string;
 }
@@ -45,6 +48,7 @@ export function portfolioCard(exposure: Exposure, ladders: Ladder[]): FeedCard |
     headline: `${formatUsdWhole(Math.abs(exposure.dollars))} riding on ${name}`,
     stat: { value: formatChance(chance), label: `chance of a 2% ${direction} by ${formatWhen(ladder.expiry)}` },
     facts: `The market gives a ${formatChance(chance)} chance ${name} closes 2% ${falling ? "lower" : "higher"} than expected, which would cost you about ${hit}.`,
+    news: headlineForUnderlying(exposure.underlying),
     href: "/portfolio",
     action: "Cushion it",
   };
@@ -64,6 +68,7 @@ export function marketCard(ladders: Ladder[], underlying: UnderlyingId): FeedCar
     headline: `${name} is expected to close near ${formatPrice(spot)}`,
     stat: { value: formatChance(1 - above), label: `chance of a 2% drop by ${formatWhen(ladder.expiry)}` },
     facts: `The market expects ${name} to close near ${formatPrice(spot)} and gives a ${formatChance(1 - above)} chance it ends 2% lower.`,
+    news: headlineForUnderlying(underlying),
     href: "/portfolio",
     action: "Add what you hold",
   };
@@ -98,6 +103,7 @@ export function gameCard(game: Game, team: Profile["team"]): FeedCard | null {
       chance.p == null
         ? `No one is quoting ${away.name} at ${home.name} right now. ${when}`
         : `The market gives the ${shortName(subject.name)} a ${formatChance(chance.p)} chance to beat the ${shortName(other.name)}. ${when}`,
+    news: headlineForLeague(game.league),
     href: `/games/${game.gameId}`,
     action: mine ? "Cushion a loss" : "Open game",
   };
@@ -120,6 +126,7 @@ export function billsCard(gallons: number, ladders: Ladder[]): FeedCard | null {
     headline: `Oil is expected to close near ${formatPrice(spot)} a barrel`,
     stat: { value: formatChance(chance), label: "chance oil jumps 3% today" },
     facts: `The market gives a ${formatChance(chance)} chance oil jumps 3% today. On ${gallons} gallons a month, that is roughly ${monthly} more at the pump.`,
+    news: HEADLINE_OIL,
     href: "/bills",
     action: "Cover my gas",
   };
@@ -150,6 +157,7 @@ export function weatherCard(city: string, markets: BucketMarket[]): FeedCard | n
       lo == null
         ? `The market's most likely high for ${city} is ${range}.`
         : `The market's most likely high for ${city} is ${range}, with a ${formatChance(Math.min(colder, 1))} chance it stays under ${lo}°F.`,
+    news: null,
     href: "/business",
     action: "See my hedges",
   };
@@ -157,6 +165,7 @@ export function weatherCard(city: string, markets: BucketMarket[]): FeedCard | n
 
 export interface FantasyPlayer {
   player: string;
+  league?: string;
   gameTitle: string;
   startTime: string;
   stats: { label: string; lines: PropLine[] }[];
@@ -178,6 +187,7 @@ export function fantasyCard(entry: FantasyPlayer): FeedCard | null {
     headline: `${entry.player} plays in ${entry.gameTitle}`,
     stat: { value: formatChance(pick.p), label: `chance of ${what}` },
     facts: `The market gives a ${formatChance(pick.p)} chance ${entry.player} finishes ${what}. Starts ${formatWhen(entry.startTime)}.`,
+    news: entry.league ? headlineForLeague(entry.league) : null,
     href: "/fantasy",
     action: "Cushion a bust",
   };

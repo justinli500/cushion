@@ -10,7 +10,7 @@ Fills are simulated with play money. Prices, order books, odds and settlements a
 
 | Section | What you tell it | What it does |
 |---|---|---|
-| Today | Nothing | A feed of cards: what the markets think about each thing you have at stake today, with one plain line on why today matters. |
+| Today | Nothing | A feed of cards: what the markets think about each thing you have at stake today, with a short dated line on what is going on this week. |
 | Portfolio | The coins and stocks you hold | Works out what each holding really moves with, then prices cover against a fall and draws your outcome with and without it. |
 | Games | Your team | A second screen for the game: live score, a win-chance chart, and a cushion that pays if your team loses. |
 | Bills | Gallons of gas or a heating bill | Cover against a jump in oil or natural gas, bought once through month end or re-bought daily on autopilot. |
@@ -72,7 +72,8 @@ There is no login, and fills are simulated in the browser, so a receipt is a pub
 | Live scores and play-by-play (ESPN's public feed) | Exchange fees are not modelled |
 | Stock and commodity history (Yahoo Finance) | Which market a stock "moves with": a regression on daily returns, labelled as an estimate |
 | Receipts (Solana devnet transactions) | How gas and heating bills follow oil and natural gas: rough pass-through, labelled as an estimate |
-| | The demo game, and any replayed price where no trade happened: labelled where they appear |
+| | The "this week" line on each card: written by hand and dated, not live |
+| | Replay prices: the last real trade at that moment plus a fixed 1 cent spread, labelled as a replay |
 
 ## Architecture
 
@@ -81,15 +82,14 @@ One Next.js 16 app in TypeScript. Server routes fetch and cache upstream data. T
 ```
 src/
   app/                    pages and API routes
-    api/markets, book, candles, resolutions, prices, scores, news, receipts
+    api/markets, book, candles, resolutions, prices, scores, bills, receipts
   domains/
     markets/              Gemini client, zod schemas, one internal market model
     cushion/              pure engine: legs, book pricing, implied chance, settlement
     account/              play-money ledger
     exposure/             portfolio, bills, fantasy and small-business models
-    feed/                 the Today cards
+    feed/                 the Today cards and their dated "this week" lines
     scores/               ESPN client and game matching
-    news/                 Claude-written lines with a numeric fallback
     receipts/             Solana memo builder and sender
     profile/              what the person has told the app
   components/             cushion ticket, charts, layout
@@ -102,7 +102,7 @@ A few decisions worth knowing:
 - **Third-party JSON is parsed at the boundary.** Gemini, ESPN and Yahoo responses go through zod schemas, and the rest of the code trusts its own types.
 - **The engine is pure.** Building legs, pricing against a book, and settling take data in and return data out, so they are tested with worked numbers and real saved ladders.
 - **One ticket.** Every section buys through the same component, which fetches the live book, prices the cushion, and books the fill.
-- **The news line is optional.** With an Anthropic API key, Claude writes one line per card using web search. Without one, the line is built from the card's own numbers and the rest of the app is unaffected.
+- **The "this week" lines are static.** Each is written by hand from the news and carries its date. A line written fresh on every page load would mean a paid model call each time.
 
 ## Run it
 
@@ -113,11 +113,10 @@ pnpm install
 pnpm dev
 ```
 
-Open http://localhost:3000. The app works with no configuration. Two optional settings go in `.env.local`:
+Open http://localhost:3000. The app works with no configuration. One optional setting goes in `.env.local`:
 
 | Variable | What it enables |
 |---|---|
-| `ANTHROPIC_API_KEY` | News lines written by Claude instead of built from the numbers |
 | `SOLANA_RECEIPT_KEY` | On-chain receipts. Create one with `node scripts/make-receipt-key.mjs`, then fund it on devnet with `node scripts/make-receipt-key.mjs --fund` |
 
 ```bash

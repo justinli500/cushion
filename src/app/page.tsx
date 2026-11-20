@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useMemo } from "react";
 import { FeedCardView } from "@/components/feed/feed-card";
-import { useNews } from "@/components/feed/use-news";
 import { PageHeader, Skeleton } from "@/components/ui";
 import { exposures, readHolding, type History } from "@/domains/exposure/portfolio";
 import {
@@ -65,7 +64,6 @@ export default function TodayPage() {
     return all.filter((card): card is FeedCard => card !== null && !seen.has(card.topic) && Boolean(seen.add(card.topic)));
   }, [profile, ladders.data, games.data, weather.data, props.data, prices.data]);
 
-  const news = useNews(cards);
   const loading = ladders.loading || games.loading;
   const today = new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" });
   const missing = STARTERS.filter(({ href }) => !isSet(href, profile));
@@ -85,7 +83,7 @@ export default function TodayPage() {
       ) : (
         <div className="grid grid-cols-2 gap-6 xl:grid-cols-3">
           {cards.map((card) => (
-            <FeedCardView key={card.id} card={card} news={news[card.id]} />
+            <FeedCardView key={card.id} card={card} />
           ))}
         </div>
       )}

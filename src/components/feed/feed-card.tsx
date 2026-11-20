@@ -1,9 +1,10 @@
 import Link from "next/link";
 import type { FeedCard } from "@/domains/feed/cards";
-import type { NewsLine } from "./use-news";
+import { HEADLINES_AS_OF } from "@/domains/feed/headlines";
 
-export function FeedCardView({ card, news }: { card: FeedCard; news?: NewsLine }) {
-  const written = news?.source === "ai" ? news.text : null;
+const writtenOn = new Date(`${HEADLINES_AS_OF}T12:00:00Z`).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+
+export function FeedCardView({ card }: { card: FeedCard }) {
   return (
     <article className="arrive flex flex-col rounded-2xl border border-line bg-card p-6">
       <p className="text-[12px] font-medium uppercase tracking-[0.08em] text-faint">{card.eyebrow}</p>
@@ -16,9 +17,14 @@ export function FeedCardView({ card, news }: { card: FeedCard; news?: NewsLine }
         </p>
       ) : null}
 
-      {/* The written line leads when there is one; the numbers always stay on the card. */}
-      {written ? <p className="mt-4 text-[15px] leading-relaxed">{written}</p> : null}
-      <p className={`leading-relaxed text-muted ${written ? "mt-2 text-[13px]" : "mt-4 text-[14px]"}`}>{card.facts}</p>
+      <p className="mt-4 text-[14px] leading-relaxed text-muted">{card.facts}</p>
+
+      {card.news ? (
+        <p className="mt-4 border-l-2 border-line pl-3 text-[13px] leading-relaxed">
+          <span className="font-medium">This week.</span> {card.news}{" "}
+          <span className="whitespace-nowrap text-faint">Written {writtenOn}.</span>
+        </p>
+      ) : null}
 
       <div className="mt-auto pt-5">
         <Link
