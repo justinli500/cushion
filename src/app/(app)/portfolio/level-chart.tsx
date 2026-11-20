@@ -27,6 +27,12 @@ interface Props {
   onStart: (level: number) => void;
 }
 
+// Where the cushion pays: green for a rise, red for a fall. Drawn as a light wash at the same strength as the
+// beige band, not as solid blocks, so the price line and the levels stay readable through it.
+const RISE = "#16A34A";
+const FALL = "#DC2626";
+const WASH = 0.15;
+
 /** Two presses this close together count as a double-click. */
 const DOUBLE_MS = 350;
 
@@ -137,7 +143,7 @@ export function LevelChart({ history, chart, until, onStart }: Props) {
     >
       {/* The move before it starts paying, then the stretch it pays for. */}
       {gapHeight > 0 ? <rect x={LEFT} y={gapTop} width={RIGHT - LEFT} height={gapHeight} className="fill-risk-fill/15" /> : null}
-      <rect x={LEFT} y={bandTop} width={RIGHT - LEFT} height={Math.max(bandHeight, 2)} className="fill-primary/12" />
+      <rect x={LEFT} y={bandTop} width={RIGHT - LEFT} height={Math.max(bandHeight, 2)} fill={falling ? FALL : RISE} fillOpacity={WASH} />
 
       <line x1={NOW} y1={TOP} x2={NOW} y2={BOTTOM} className="stroke-border" strokeDasharray="2 5" />
       <text x={NOW - 6} y={H - 9} textAnchor="end" fontSize="12" className="fill-muted-foreground">
@@ -156,7 +162,7 @@ export function LevelChart({ history, chart, until, onStart }: Props) {
       {levels.map((level, i) =>
         level === start ? null : (
           <g key={level}>
-            <line x1={LEFT} y1={y(level)} x2={RIGHT} y2={y(level)} className={covered(level) ? "stroke-primary/45" : "stroke-border"} strokeWidth="1.5" strokeDasharray="5 5" />
+            <line x1={LEFT} y1={y(level)} x2={RIGHT} y2={y(level)} className={covered(level) ? undefined : "stroke-border"} stroke={covered(level) ? (falling ? FALL : RISE) : undefined} strokeOpacity={covered(level) ? 0.45 : undefined} strokeWidth="1.5" strokeDasharray="5 5" />
             {i % every === 0 && Math.abs(y(level) - y(start)) >= LABEL_GAP ? (
               <text x={RIGHT + 8} y={y(level) + 4} fontSize="12" className="tabular fill-muted-foreground">
                 {format(level)}

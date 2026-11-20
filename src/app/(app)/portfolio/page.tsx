@@ -121,7 +121,7 @@ export default function PortfolioPage() {
                 />
                 <p className="text-[13px] leading-relaxed text-muted-foreground">
                   Each dashed line is a level Gemini lists a market at. Drag the blue line nearer to or further from the price to choose where your
-                  cushion starts paying; further costs less. The orange band is the move before it pays, and the blue band is where it pays.
+                  cushion starts paying; further costs less. The beige band is the move before it pays. The band beyond the line is where it pays: red for a fall, green for a rise.
                   {flip != null ? ` It pays on a ${shown.chart.falling ? "fall" : "rise"} and stays that way as you drag. To switch, double-click the chart and move above or below the price, or use the button.` : ""}
                 </p>
                 {flip != null ? (
