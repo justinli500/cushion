@@ -20,11 +20,9 @@ export function newsClient(): NewsClient | null {
   return apiKey ? new Anthropic({ apiKey, maxRetries: 0 }) : null;
 }
 
-/** Three significant figures keep a strike or a chance exact but ignore a price drifting by cents. */
-const roundNumbers = (facts: string) =>
-  facts.replace(/\d[\d,]*(?:\.\d+)?/g, (n) => Number(n.replace(/,/g, "")).toPrecision(3));
-
-const cardKey = (card: NewsCard) => [card.topic.toLowerCase(), roundNumbers(card.facts).toLowerCase()];
+// The key is the exact text the model is sent. A looser key (rounded numbers, folded case) would let
+// a request whose text differs from an honest card's, but normalises the same, fill that card's entry.
+const cardKey = (card: NewsCard) => [card.topic, card.facts];
 
 /**
  * A line is cached for the exact set of cards it was written alongside, not for its own card alone.

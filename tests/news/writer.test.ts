@@ -183,16 +183,17 @@ describe("cache", () => {
     expect(again["another-id"]).toEqual({ text: GOOD, source: "ai" });
   });
 
-  it("treats a price drifting by a few dollars as the same card, but a different strike as a new one", async () => {
+  it("only reuses a line for text identical to what the model was sent", async () => {
+    // A key looser than the prompt would serve a line written for $61,549 to a card that says $61,500.
     const topic = `Bitcoin ${++seq}`;
     const at = (level: string) => card({ topic, facts: `Market gives an 18% chance BTC closes under ${level} today` });
-    const { create, client } = answering(reply([{ n: 1, text: GOOD }]), reply([{ n: 1, text: "Other strike." }]));
-    await writeLines([at("$61,512")], client, { now });
-    await writeLines([at("$61,498")], client, { now });
+    const { create, client } = answering(reply([{ n: 1, text: GOOD }]), reply([{ n: 1, text: "Other level." }]));
+    await writeLines([at("$61,500")], client, { now });
+    await writeLines([at("$61,500")], client, { now });
     expect(create).toHaveBeenCalledTimes(1);
-    const other = await writeLines([at("$62,500")], client, { now });
+    const other = await writeLines([at("$61,549")], client, { now });
     expect(create).toHaveBeenCalledTimes(2);
-    expect(Object.values(other)[0].text).toBe("Other strike.");
+    expect(Object.values(other)[0].text).toBe("Other level.");
   });
 
   it("asks again the next UTC day", async () => {

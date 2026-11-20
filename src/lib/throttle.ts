@@ -1,36 +1,49 @@
 const MAX_TRACKED = 1000;
+const WINDOW_MS = 60_000;
 
 /**
- * The address the hosting platform saw, not one the caller can type. `x-real-ip` is set by the
- * platform. Failing that, the last `x-forwarded-for` hop is the one our own proxy appended; the
- * first is whatever the client claimed, so it is never used.
+ * Who is calling, for rate limiting. Proxy headers are only believed on Vercel, which overwrites
+ * them with the address it saw. Anywhere else a caller can set them to anything, so every request
+ * is counted as one client: a local or self-hosted run gets a single shared limit instead of one
+ * that can be reset by inventing an address.
  */
 export function clientAddress(request: Request): string {
+  if (!process.env.VERCEL) return "local";
   const real = request.headers.get("x-real-ip")?.trim();
   if (real) return real;
   const hops = request.headers.get("x-forwarded-for")?.split(",") ?? [];
   return hops[hops.length - 1]?.trim() || "unknown";
 }
 
+interface Counter {
+  count: number;
+  resetAt: number;
+}
+
 /**
- * A request limit per minute, per client and for everyone together. The total is what protects a
- * route that spends something (model tokens, network fees) from a caller with many addresses.
+ * A request limit per minute, per client and for everyone together. The total is what bounds a
+ * route that spends something (model tokens, network fees) against a caller with many addresses.
  * The counts live in this process only, so on serverless each running instance has its own.
  */
 export function throttle(perClient: number, total = perClient * 10) {
-  const hits = new Map<string, { count: number; resetAt: number }>();
-  const over = (key: string, limit: number): boolean => {
-    const now = Date.now();
-    const entry = hits.get(key);
-    if (entry && entry.resetAt > now) return ++entry.count > limit;
-    if (!entry && hits.size >= MAX_TRACKED) hits.delete(hits.keys().next().value!);
-    hits.set(key, { count: 1, resetAt: now + 60_000 });
-    return false;
-  };
-  // Both are counted on every request, so a client that is turned away still uses up the total.
+  const clients = new Map<string, Counter>();
+  // Kept apart from the per-client map so a flood of new clients can never evict it.
+  let everyone: Counter = { count: 0, resetAt: 0 };
+
   return (request: Request): boolean => {
-    const tooManyOverall = over("*", total);
-    return over(`client:${clientAddress(request)}`, perClient) || tooManyOverall;
+    const now = Date.now();
+    const key = clientAddress(request);
+    const mine = clients.get(key);
+    if (mine && mine.resetAt > now) {
+      if (++mine.count > perClient) return true;
+    } else {
+      if (!mine && clients.size >= MAX_TRACKED) clients.delete(clients.keys().next().value!);
+      clients.set(key, { count: 1, resetAt: now + WINDOW_MS });
+    }
+    // Only requests within their own limit count toward the total, so one client hammering the
+    // route is turned away on its own and cannot use up everyone else's share.
+    if (everyone.resetAt <= now) everyone = { count: 0, resetAt: now + WINDOW_MS };
+    return ++everyone.count > total;
   };
 }
 
